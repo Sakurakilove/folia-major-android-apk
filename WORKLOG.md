@@ -28,13 +28,11 @@
 - `npx tsc --noEmit`：通过，日志 `scratch/mobile7-tsc.log`（相对工作区）。
 - `npm run build:android:web`：通过。
 - `npx cap copy android`：已执行。
-- APK 发布构建：初次构建通过；审查补充修改后须重新构建，日志 `scratch/mobile7-release.log`（相对工作区）。
+- APK 最终发布构建：通过，日志 `scratch/mobile7-review-release.log`（相对工作区），构建用时 50 秒。
 - 未运行模拟器、完整 UI 测试或手机功耗测试。
 
 ### 待完成
 
-- 完成 mobile.7 发布构建、签名与版本检查。
-- 上传 APK，提供下载链接，同步对应源码和本记录。
 - 等待用户确认：启动后空闲、滑动、捏合是否仍闪烁；不能提前写为实机修复通过。
 - Kyant 原生折射恢复需要稳定的合成方案，仍未完成；目前使用网页实时背景模糊。
 
@@ -54,6 +52,14 @@
 ### 验证与限制
 
 - 执行小范围现有单测：`mobilePerformance.test.ts`、`wallPanMotion.test.ts`，11 项全部通过（两文件，单测执行 39 ms）。
-- 补充改动后的 `npx tsc --noEmit`、Web 发布构建、`git diff --check`：通过；APK 最终构建和签名检查待完成。
+- 补充改动后的 `npx tsc --noEmit`、Web 发布构建、`git diff --check`：通过；APK 最终发布构建、签名及版本检查均通过（`0.7.20-mobile.7` / `702007`，目标 SDK 37）。
 - 不新增浏览器截图测试，不运行完整测试套件或模拟器。
 - 当前使用网页实时背景模糊；Kyant 原生折射仍是未完成项。手机上的闪烁、手势观感和功耗均等待用户验证。
+
+### mobile.7 交付状态
+
+- APK 已完成发布构建与签名验证，沿用此前安装包的同一签名证书，可覆盖安装。
+- GitHub Release 上传已确认：APK 资源状态 `uploaded`，大小 343,950,304 字节。
+- APK：https://github.com/Sakurakilove/folia-major-android-apk/releases/download/v0.7.20-mobile.7/Folia-v0.7.20-mobile.7-arm64.apk
+- 源码仓库：https://github.com/Sakurakilove/folia-major-android-apk
+- 上述检查不证明手机闪烁已彻底消失；尚无新版实机反馈。
