@@ -37,6 +37,21 @@ export const useWallPointerPan = ({
     applyCamera, animationRef, stopPan, containerRef, reducedMotion, overscan,
     bounds, cameraRef, getWorldBounds, viewportRef, onScaleCommit,
 }: WallPointerPanOptions) => {
+    const movingTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+    const retainCompositor = useCallback(() => {
+        const field = containerRef.current;
+        if (!field) return;
+        field.dataset.foliaWallMoving = 'true';
+        clearTimeout(movingTimer.current);
+        movingTimer.current = setTimeout(() => { delete field.dataset.foliaWallMoving; }, 240);
+    }, [containerRef]);
+    useEffect(() => () => {
+        clearTimeout(movingTimer.current);
+        if (containerRef.current) {
+            delete containerRef.current.dataset.foliaWallMoving;
+            delete containerRef.current.dataset.foliaWallPinching;
+        }
+    }, [containerRef]);
     const pinchFrame = useRef<number | null>(null);
     const pendingPinch = useRef<LatticeCamera | null>(null);
     const touches = useRef(new Map<number, WallTouch>());
@@ -57,6 +72,7 @@ export const useWallPointerPan = ({
 
     // Republishing bounds is what triggers a re-cull, so only do it near the edge of what is culled.
     const updateCamera = useCallback((x: number, y: number, scale = cameraRef.current.scale) => {
+        retainCompositor();
         const next = { scale, x, y };
         const visible = getWorldBounds(next, viewportRef.current);
         const culled = boundsRef.current;
@@ -66,7 +82,7 @@ export const useWallPointerPan = ({
             || visible.top < culled.top - padding
             || visible.bottom > culled.bottom + padding;
         applyCamera(next, nearCullEdge);
-    }, [applyCamera, cameraRef, getWorldBounds, overscan, viewportRef]);
+    }, [applyCamera, cameraRef, getWorldBounds, overscan, retainCompositor, viewportRef]);
 
     // Android sends both fingers separately, often several times per display frame. Paint only the latest pair.
     const flushPinch = useCallback(() => {
@@ -90,6 +106,7 @@ export const useWallPointerPan = ({
                 interrupt();
                 pointerRef.current = null;
                 didDragRef.current = true;
+                event.currentTarget.dataset.foliaWallPinching = 'true';
                 pinch.current = { camera: { ...cameraRef.current }, pair: wallTouchPair([...touches.current.values()]) };
                 for (const id of touches.current.keys()) event.currentTarget.setPointerCapture(id);
                 return;
@@ -148,6 +165,7 @@ export const useWallPointerPan = ({
             if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
             if (touches.current.size < 2) {
                 pinch.current = null;
+                delete event.currentTarget.dataset.foliaWallPinching;
                 touches.current.clear();
                 applyCamera(cameraRef.current, true);
                 onScaleCommit?.(cameraRef.current.scale);
@@ -175,6 +193,7 @@ export const useWallPointerPan = ({
         touches.current.delete(event.pointerId);
         if (pinch.current) {
             pinch.current = null;
+            delete event.currentTarget.dataset.foliaWallPinching;
             touches.current.clear();
             onScaleCommit?.(cameraRef.current.scale);
         }
@@ -304,6 +323,7 @@ export const useWallPointerPan = ({
             if (pinchFrame.current !== null) cancelUncappedAnimationFrame(pinchFrame.current);
             pinchFrame.current = null;
             pendingPinch.current = null;
+            delete container.dataset.foliaWallPinching;
             pointerRef.current = null; pinch.current = null; touches.current.clear(); interrupt(); };
         // 只按修饰键（按住 Shift 横向滚动时 Shift 会自动重复 keydown）不算键盘输入，不打断平滑滚动。
         const onKeyDown = (event: KeyboardEvent) => {

@@ -3,6 +3,7 @@ package top.izuna.foliamajor
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.View
+import android.view.Choreographer
 import android.view.ViewGroup
 import android.webkit.WebView
 import android.widget.FrameLayout
@@ -24,7 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.nativeCanvas
+import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.ComposeView
@@ -55,12 +57,26 @@ class FoliaLiquidPlayer(private val plugin: FoliaRuntimePlugin, private val web:
     private val parent = plugin.activity.findViewById<ViewGroup>(android.R.id.content)
     private val view = ComposeView(plugin.activity)
     private var payload by mutableStateOf(JSONObject())
-    private var backdropImage by mutableStateOf<ImageBitmap?>(null)
-    private var captureSequence = 0L
+    // Read only by the draw phase: refreshing the backdrop never recomposes the controls.
+    private var drawFrame by mutableIntStateOf(0)
+    private var cropX = 0f
+    private var cropY = 0f
+    private var ready = false
+    private var ticking = false
+    private var lastFrameTime = 0L
+    private val frameClock = Choreographer.getInstance()
+    private val frameCallback = object : Choreographer.FrameCallback {
+        override fun doFrame(time: Long) {
+            ticking = false
+            if (closed || view.visibility != View.VISIBLE || !web.isShown || !ready) return
+            // Do not let a 120/144 Hz phone double the glass effect's GPU cost.
+            if (time - lastFrameTime >= 16_000_000L) { drawFrame++; lastFrameTime = time }
+            ticking = true
+            frameClock.postFrameCallback(this)
+        }
+    }
     private var closed = false
     private var geometry = ""
-    private var capturedTitle = ""
-    private var capturedDaylight = false
     init {
         view.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         view.setContent { Player() }
@@ -68,7 +84,11 @@ class FoliaLiquidPlayer(private val plugin: FoliaRuntimePlugin, private val web:
         parent.addView(view, FrameLayout.LayoutParams(1, 1))
     }
     fun update(next: JSONObject): Boolean {
-        if (!next.optBoolean("visible")) { view.visibility = View.GONE; return false }
+        if (!next.optBoolean("visible")) {
+            view.visibility = View.GONE
+            frameClock.removeFrameCallback(frameCallback); ticking = false; ready = false
+            return false
+        }
         val cssWidth = next.optDouble("viewportWidth", 0.0)
         if (cssWidth <= 0 || web.width <= 0) return false
         val scale = web.width / cssWidth
@@ -85,38 +105,27 @@ class FoliaLiquidPlayer(private val plugin: FoliaRuntimePlugin, private val web:
                 topMargin = (webAt[1] - parentAt[1] + y).roundToInt() - parent.paddingTop
             }
         }
-        val changed = view.visibility != View.VISIBLE || key != geometry || capturedTitle != next.optString("title") || capturedDaylight != next.optBoolean("daylight")
-        geometry = key; capturedTitle = next.optString("title"); capturedDaylight = next.optBoolean("daylight")
+        geometry = key
         payload = next
         view.visibility = View.VISIBLE
-        if (changed || next.optBoolean("sample")) {
-            val sequence = ++captureSequence
-            // Wait until Chromium has painted the transparent web placeholder, avoiding a ghost copy of its controls.
-            web.postVisualStateCallback(sequence, object : WebView.VisualStateCallback() {
+        cropX = x.toFloat(); cropY = y.toFloat()
+        if (!ready) {
+            // The web controls must have reached Chromium's compositor before recording its hardware tree.
+            web.postVisualStateCallback(0, object : WebView.VisualStateCallback() {
                 override fun onComplete(requestId: Long) {
-                    if (!closed && requestId == captureSequence && view.visibility == View.VISIBLE && web.isAttachedToWindow)
-                        capture(x.toFloat(), y.toFloat(), width, height)
+                    if (!closed && view.visibility == View.VISIBLE) { ready = true; startFrames() }
                 }
             })
-        }
+        } else startFrames()
         return true
     }
-    private fun capture(x: Float, y: Float, width: Int, height: Int) {
-        // Only a bar-sized, downsampled crop is rasterized, and only on interaction/geometry changes.
-        val ratio = minOf(1f, 540f / width)
-        val bitmap = Bitmap.createBitmap((width * ratio).roundToInt().coerceAtLeast(1), (height * ratio).roundToInt().coerceAtLeast(1), Bitmap.Config.ARGB_8888)
-        try {
-            val canvas = Canvas(bitmap)
-            canvas.scale(ratio, ratio)
-            canvas.translate(-x, -y)
-            web.draw(canvas)
-            backdropImage = bitmap.asImageBitmap()
-        } catch (error: Exception) {
-            bitmap.recycle()
-            android.util.Log.w("FoliaGlass", "Backdrop capture unavailable", error)
-        }
+    private fun startFrames() {
+        if (!ticking && !closed && ready) { ticking = true; frameClock.postFrameCallback(frameCallback) }
     }
-    fun close() { closed = true; captureSequence++; view.disposeComposition(); parent.removeView(view); backdropImage = null }
+    fun close() {
+        closed = true; frameClock.removeFrameCallback(frameCallback)
+        view.disposeComposition(); parent.removeView(view)
+    }
     private fun action(name: String, position: Double = 0.0) { plugin.onLiquidPlayerAction(name, position) }
 
     @Composable private fun Player() {
@@ -124,15 +133,26 @@ class FoliaLiquidPlayer(private val plugin: FoliaRuntimePlugin, private val web:
         val ink = Color(data.optInt("ink", android.graphics.Color.WHITE))
         val daylight = data.optBoolean("daylight")
         val surface = if (daylight) Color.White else Color(0xFF101216)
-        val image = backdropImage
         val backdrop = rememberCanvasBackdrop {
             drawRect(surface)
-            if (image != null) drawImage(image, dstSize = IntSize(size.width.roundToInt(), size.height.roundToInt()))
+            // Record Chromium's hardware display tree directly into Kyant's GPU effect layer.
+            // No software WebView.draw(bitmap), screenshots, readback or stale image cache.
+            drawFrame
+            if (ready) drawIntoCanvas { canvas ->
+                val target = canvas.nativeCanvas
+                if (target.isHardwareAccelerated) {
+                    val saved = target.save()
+                    target.clipRect(0f, 0f, size.width, size.height)
+                    target.translate(-cropX, -cropY)
+                    web.draw(target)
+                    target.restoreToCount(saved)
+                }
+            }
         }
         Column(Modifier.fillMaxSize().drawBackdrop(
             backdrop = backdrop, shape = { RoundedCornerShape(24.dp) },
-            effects = { vibrancy(); blur(2.dp.toPx()); lens(12.dp.toPx(), 18.dp.toPx(), chromaticAberration = false) },
-            onDrawSurface = { drawRect(surface.copy(alpha = if (daylight) 0.42f else 0.50f)) }
+            effects = { vibrancy(); blur(5.dp.toPx()); lens(12.dp.toPx(), 18.dp.toPx(), chromaticAberration = false) },
+            onDrawSurface = { drawRect(surface.copy(alpha = if (daylight) 0.16f else 0.22f)) }
         ).padding(horizontal = 12.dp, vertical = 8.dp), verticalArrangement = Arrangement.SpaceBetween) {
             Row(Modifier.fillMaxWidth().height(44.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f).padding(start = 4.dp).clickable { action("open") }) {

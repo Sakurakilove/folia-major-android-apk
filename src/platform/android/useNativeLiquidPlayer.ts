@@ -26,8 +26,6 @@ export const useNativeLiquidPlayer = (ref: RefObject<HTMLDivElement | null>, pro
         let pending = false;
         let dirty = false;
         let scheduled: ReturnType<typeof setTimeout> | undefined;
-        let sample = true;
-        let lastSample = 0;
         let lastClock = 0;
         let listener: Promise<PluginListenerHandle> | undefined;
         const sync = async () => {
@@ -67,12 +65,10 @@ export const useNativeLiquidPlayer = (ref: RefObject<HTMLDivElement | null>, pro
             if (root.querySelectorAll('button').length > Object.keys(buttons).length || root.querySelectorAll('input').length > 1) show = false;
             const color = getComputedStyle(root).color.match(/[\d.]+/g)?.map(Number) ?? [255, 255, 255];
             if (show) panel.dataset.foliaNativeGlass = 'pending';
-            const shouldSample = sample;
-            sample = false;
             pending = true;
             try {
                 const result = await native.liquidPlayer({ visible: show, viewportWidth: window.innerWidth,
-                    x: rect.left, y: rect.top, width: rect.width, height: rect.height, sample: shouldSample,
+                    x: rect.left, y: rect.top, width: rect.width, height: rect.height,
                     title: data.currentSong?.name || data.noTrackText,
                     artist: data.currentSong?.artists?.map(artist => artist.name).join(' / ') || '',
                     ink: (255 << 24) | (color[0] << 16) | (color[1] << 8) | color[2],
@@ -93,16 +89,16 @@ export const useNativeLiquidPlayer = (ref: RefObject<HTMLDivElement | null>, pro
         };
         const schedule = () => { if (!disposed && scheduled === undefined) scheduled = setTimeout(() => { void sync(); }, 50); };
         refresh.current = schedule;
-        const sampleInteraction = (event: PointerEvent) => {
-            if (event.type === 'pointermove' && !event.buttons) return;
-            if (performance.now() - lastSample < 200) return;
-            lastSample = performance.now(); sample = true; schedule();
-        };
-        const resize = new ResizeObserver(() => { sample = true; schedule(); });
+        const resize = new ResizeObserver(schedule);
         resize.observe(panel);
         const outerChanges = new MutationObserver(schedule);
         outerChanges.observe(outer, { attributes: true, attributeFilter: ['data-folia-player-state', 'style'] });
-        const portals = new MutationObserver(schedule);
+        // Lyrics and progress nodes mutate continuously. Only portal changes can occlude the native bar.
+        const portalSelector = '[role="dialog"], [role="menu"], [data-folia-settings-overlay]';
+        const portals = new MutationObserver(records => {
+            if (records.some(record => [...record.addedNodes, ...record.removedNodes].some(node =>
+                node instanceof Element && (node.matches(portalSelector) || node.querySelector(portalSelector))))) schedule();
+        });
         portals.observe(document.body, { childList: true, subtree: true });
         const stopClock = props.currentTime.on('change', () => {
             if (performance.now() - lastClock < 1000) return;
@@ -113,14 +109,12 @@ export const useNativeLiquidPlayer = (ref: RefObject<HTMLDivElement | null>, pro
             else if (event.action === 'open') root.click();
             else if (['prev', 'play', 'next', 'primary', 'secondary'].includes(event.action)) root.querySelector<HTMLButtonElement>(actionSelector(event.action))?.click();
         });
-        for (const name of ['pointerdown', 'pointermove', 'pointerup'] as const) document.addEventListener(name, sampleInteraction, { passive: true });
         document.addEventListener('visibilitychange', schedule);
         window.addEventListener('resize', schedule);
         schedule();
         return () => {
             disposed = true; refresh.current = null;
             clearTimeout(scheduled); resize.disconnect(); outerChanges.disconnect(); portals.disconnect(); stopClock();
-            for (const name of ['pointerdown', 'pointermove', 'pointerup'] as const) document.removeEventListener(name, sampleInteraction);
             document.removeEventListener('visibilitychange', schedule); window.removeEventListener('resize', schedule);
             delete panel.dataset.foliaNativeGlass;
             publishAndroidPlayerClearance(0);
