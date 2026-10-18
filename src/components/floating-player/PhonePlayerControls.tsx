@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { useNativeLiquidPlayer } from '../../platform/android/useNativeLiquidPlayer';
+import { usePhonePlayerGeometry } from '../../platform/android/usePhonePlayerGeometry';
 import { useTranslation } from 'react-i18next';
 import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
 import { PlayerState } from '../../types';
@@ -15,7 +15,7 @@ const PhonePlayerControls: React.FC<ExpandedViewProps> = (props) => {
         trackNavigation, slotPrimary, slotSecondary, slotContext,
     } = props;
     const root = useRef<HTMLDivElement>(null);
-    useNativeLiquidPlayer(root, props);
+    usePhonePlayerGeometry(root);
     const { t } = useTranslation();
     const artist = currentSong?.artists?.map(artist => artist.name).join(' / ');
     const buttonClass = 'flex h-11 w-11 shrink-0 items-center justify-center rounded-full disabled:opacity-25';

@@ -37,21 +37,6 @@ export const useWallPointerPan = ({
     applyCamera, animationRef, stopPan, containerRef, reducedMotion, overscan,
     bounds, cameraRef, getWorldBounds, viewportRef, onScaleCommit,
 }: WallPointerPanOptions) => {
-    const movingTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-    const retainCompositor = useCallback(() => {
-        const field = containerRef.current;
-        if (!field) return;
-        field.dataset.foliaWallMoving = 'true';
-        clearTimeout(movingTimer.current);
-        movingTimer.current = setTimeout(() => { delete field.dataset.foliaWallMoving; }, 240);
-    }, [containerRef]);
-    useEffect(() => () => {
-        clearTimeout(movingTimer.current);
-        if (containerRef.current) {
-            delete containerRef.current.dataset.foliaWallMoving;
-            delete containerRef.current.dataset.foliaWallPinching;
-        }
-    }, [containerRef]);
     const pinchFrame = useRef<number | null>(null);
     const pendingPinch = useRef<LatticeCamera | null>(null);
     const touches = useRef(new Map<number, WallTouch>());
@@ -72,7 +57,6 @@ export const useWallPointerPan = ({
 
     // Republishing bounds is what triggers a re-cull, so only do it near the edge of what is culled.
     const updateCamera = useCallback((x: number, y: number, scale = cameraRef.current.scale) => {
-        retainCompositor();
         const next = { scale, x, y };
         const visible = getWorldBounds(next, viewportRef.current);
         const culled = boundsRef.current;
@@ -82,7 +66,7 @@ export const useWallPointerPan = ({
             || visible.top < culled.top - padding
             || visible.bottom > culled.bottom + padding;
         applyCamera(next, nearCullEdge);
-    }, [applyCamera, cameraRef, getWorldBounds, overscan, retainCompositor, viewportRef]);
+    }, [applyCamera, cameraRef, getWorldBounds, overscan, viewportRef]);
 
     // Android sends both fingers separately, often several times per display frame. Paint only the latest pair.
     const flushPinch = useCallback(() => {

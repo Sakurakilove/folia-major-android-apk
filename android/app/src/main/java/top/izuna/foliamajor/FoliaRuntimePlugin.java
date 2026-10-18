@@ -59,7 +59,6 @@ public class FoliaRuntimePlugin extends Plugin {
         notifyListeners("appVisibility", new JSObject().put("visible", true));
     }
     @Override protected void handleOnDestroy() {
-        if (liquidPlayer != null) { liquidPlayer.close(); liquidPlayer = null; }
         if (voiceInput != null) voiceInput.close();
         for (String token : binaryStreams.keySet()) {
             FileOutputStream output = binaryStreams.remove(token);
@@ -179,22 +178,9 @@ public class FoliaRuntimePlugin extends Plugin {
             call.resolve();
         });
     }
-    private FoliaLiquidPlayer liquidPlayer;
-    void onLiquidPlayerAction(String action, double position) {
-        notifyListeners("liquidPlayerAction", new JSObject().put("action", action).put("position", position));
-    }
+    // Compatibility response for older renderer bundles; WebView owns phone glass composition.
     @PluginMethod public void liquidPlayer(PluginCall call) {
-        getActivity().runOnUiThread(() -> {
-            try {
-                if (FoliaWindowHost.windowId(getBridge().getWebView()) != 1 || FoliaWindowHost.mainIsFloating()) {
-                    if (liquidPlayer != null) { liquidPlayer.close(); liquidPlayer = null; }
-                    call.resolve(new JSObject().put("active", false)); return;
-                }
-                if (liquidPlayer == null && Boolean.TRUE.equals(call.getBoolean("visible", false))) liquidPlayer = new FoliaLiquidPlayer(this, getBridge().getWebView());
-                boolean active = liquidPlayer != null && liquidPlayer.update(call.getData());
-                call.resolve(new JSObject().put("active", active));
-            } catch (Exception error) { call.reject("Liquid Glass: " + error.getMessage()); }
-        });
+        call.resolve(new JSObject().put("active", false));
     }
     @PluginMethod public void start(PluginCall call) {
         executor.execute(() -> {

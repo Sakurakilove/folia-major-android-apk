@@ -2,7 +2,6 @@
 html[data-folia-android='true'] { overscroll-behavior: none; -webkit-tap-highlight-color: transparent; }
 html[data-folia-render-paused='true'] *, html[data-folia-render-paused='true'] *::before, html[data-folia-render-paused='true'] *::after { animation-play-state: paused !important; }
 @media (max-width: 767px) {
-    html[data-folia-android='true'] [data-folia-native-glass] { opacity: 0 !important; }
     html[data-folia-android='true'] [data-folia-ponder-touch] { top: calc(20px + var(--folia-safe-top, 0px)); }
     html[data-folia-android='true'] .lattice-back { top: calc(20px + var(--folia-safe-top, 0px)); }
     html[data-folia-android='true'] [data-folia-player-back] { top: calc(24px + var(--folia-safe-top, 0px)); }
@@ -22,8 +21,6 @@ html[data-folia-render-paused='true'] *, html[data-folia-render-paused='true'] *
     html[data-folia-android='true'] .bravais-root.has-seam-blur .bravais-seam, html[data-folia-android='true'] .bravais-root.has-seam-blur .bravais-seam-tab { backdrop-filter: none; -webkit-backdrop-filter: none; }
     html[data-folia-android='true'] .lattice-root::after { display: none; }
     html[data-folia-android='true'] .lattice-field { contain: layout paint; }
-    /* Keep Chromium's tile rasters on the compositor while scale changes every frame. */
-    html[data-folia-android='true'] [data-folia-wall-moving] .lattice-world { will-change: transform; }
     html[data-folia-android='true'] [data-folia-wall-pinching] .bravais-tile-face { transition: none !important; }
     html[data-folia-android='true'] .bravais-seam-home { backdrop-filter: none; -webkit-backdrop-filter: none; }
     html[data-folia-android='true'] .bravais-seam-home-nav { overflow-y: auto; touch-action: pan-y; }
