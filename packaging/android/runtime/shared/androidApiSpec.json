@@ -1,0 +1,531 @@
+{
+  "runBeatThis": {
+    "channel": "automix-beat-this"
+  },
+  "separateStems": {
+    "channel": "automix-htdemucs"
+  },
+  "getAutomixModelsPresent": {
+    "channel": "automix-models-present"
+  },
+  "diagMark": {
+    "send": "automix-diag"
+  },
+  "debugGetState": {
+    "channel": "debug-get-state"
+  },
+  "debugSetState": {
+    "channel": "debug-set-state"
+  },
+  "debugOpenLogs": {
+    "channel": "debug-open-logs"
+  },
+  "debugWriteRuntimeLines": {
+    "send": "debug-runtime-lines"
+  },
+  "onDebugMainLines": {
+    "event": "debug-main-lines",
+    "send": "debug-main-lines-ready"
+  },
+  "debugReportRendererMemory": {
+    "send": "debug-renderer-memory"
+  },
+  "onDebugMemorySample": {
+    "event": "debug-memory-sample"
+  },
+  "chooseModelsDirectory": {
+    "channel": "choose-models-directory"
+  },
+  "resetModelsDirectory": {
+    "channel": "reset-models-directory"
+  },
+  "getAutomixModelStatus": {
+    "channel": "automix-model-status"
+  },
+  "downloadAutomixModel": {
+    "channel": "automix-model-download"
+  },
+  "cancelAutomixModelDownload": {
+    "channel": "automix-model-cancel"
+  },
+  "scanForAutomixModels": {
+    "channel": "automix-model-scan"
+  },
+  "installAutomixModel": {
+    "channel": "automix-model-install"
+  },
+  "removeAllAutomixModels": {
+    "channel": "automix-model-remove-all"
+  },
+  "onAutomixModelProgress": {
+    "event": "automix-model-progress"
+  },
+  "getSettings": {
+    "channel": "get-settings"
+  },
+  "saveSettings": {
+    "channel": "save-settings"
+  },
+  "onWallpaperModeChanged": {
+    "event": "wallpaper-mode-changed"
+  },
+  "onWallpaperTransparentRefused": {
+    "event": "wallpaper-transparent-refused"
+  },
+  "onWallpaperEntryRequested": {
+    "event": "wallpaper-entry-requested"
+  },
+  "onWallpaperInputMonitorRequested": {
+    "event": "wallpaper-input-monitor-requested"
+  },
+  "getWallpaperDisplays": {
+    "channel": "wallpaper-displays-get"
+  },
+  "setWallpaperDisplay": {
+    "channel": "wallpaper-display-set"
+  },
+  "onWallpaperDisplaysChanged": {
+    "event": "wallpaper-displays-changed"
+  },
+  "setPlaybackDisplaySleepBlockingActive": {
+    "channel": "playback-display-sleep-set-active"
+  },
+  "setAppLocale": {
+    "channel": "set-app-locale"
+  },
+  "getCacheDirectory": {
+    "channel": "get-cache-directory"
+  },
+  "chooseCacheDirectory": {
+    "channel": "choose-cache-directory"
+  },
+  "resetCacheDirectory": {
+    "channel": "reset-cache-directory"
+  },
+  "getUpdateStatus": {
+    "channel": "updates-get-status"
+  },
+  "checkForUpdates": {
+    "channel": "updates-check"
+  },
+  "markUpdateSeen": {
+    "channel": "updates-mark-seen"
+  },
+  "openUpdateReleasePage": {
+    "channel": "updates-open-release-page"
+  },
+  "openExternalUrl": {
+    "channel": "open-external-url"
+  },
+  "downloadUpdate": {
+    "channel": "updates-download"
+  },
+  "quitAndInstallUpdate": {
+    "channel": "updates-quit-and-install"
+  },
+  "onUpdateStatusChanged": {
+    "event": "update-status-changed"
+  },
+  "getAudioCache": {
+    "channel": "get-audio-cache"
+  },
+  "hasAudioCache": {
+    "channel": "has-audio-cache"
+  },
+  "saveAudioCache": {
+    "channel": "save-audio-cache"
+  },
+  "removeAudioCache": {
+    "channel": "remove-audio-cache"
+  },
+  "getAudioCacheUsage": {
+    "channel": "get-audio-cache-usage"
+  },
+  "getAudioCacheStats": {
+    "channel": "get-audio-cache-stats"
+  },
+  "clearAudioCache": {
+    "channel": "clear-audio-cache"
+  },
+  "requestTranscodeFallback": {
+    "channel": "transcode-fallback-request"
+  },
+  "cancelTranscodeFallback": {
+    "channel": "transcode-fallback-cancel"
+  },
+  "getCoverCache": {
+    "channel": "get-cover-cache"
+  },
+  "saveCoverCache": {
+    "channel": "save-cover-cache"
+  },
+  "removeCoverCache": {
+    "channel": "remove-cover-cache"
+  },
+  "getCoverCacheUsage": {
+    "channel": "get-cover-cache-usage"
+  },
+  "clearCoverCache": {
+    "channel": "clear-cover-cache"
+  },
+  "hasLocalCoverAsset": {
+    "channel": "has-local-cover-asset"
+  },
+  "saveLocalCoverAsset": {
+    "channel": "save-local-cover-asset"
+  },
+  "removeLocalCoverAsset": {
+    "channel": "remove-local-cover-asset"
+  },
+  "clearLocalCoverAssets": {
+    "channel": "clear-local-cover-assets"
+  },
+  "generateTheme": {
+    "channel": "generate-theme"
+  },
+  "segmentLyrics": {
+    "channel": "segment-lyrics"
+  },
+  "testAiConnection": {
+    "channel": "ai-test-connection"
+  },
+  "fetchLyricProxy": {
+    "channel": "lyric-proxy-fetch"
+  },
+  "getNeteasePort": {
+    "channel": "get-netease-port"
+  },
+  "getNeteaseApiStatus": {
+    "channel": "get-netease-api-status"
+  },
+  "getLoginDiagnostics": {
+    "channel": "get-login-diagnostics"
+  },
+  "runLoginSelfCheck": {
+    "channel": "run-login-self-check"
+  },
+  "restartNeteaseApi": {
+    "channel": "restart-netease-api"
+  },
+  "onNeteaseApiStatusChanged": {
+    "event": "netease-api-status-changed"
+  },
+  "getKugouApiStatus": {
+    "channel": "kugou-api-status"
+  },
+  "kugouRequest": {
+    "channel": "kugou-api-request"
+  },
+  "bodianRequest": {
+    "channel": "bodian-api-request"
+  },
+  "ytmRequest": {
+    "channel": "ytm-api-request"
+  },
+  "spotifyRequest": {
+    "channel": "spotify-api-request"
+  },
+  "getQqPort": {
+    "channel": "get-qq-port"
+  },
+  "getQqApiStatus": {
+    "channel": "get-qq-api-status"
+  },
+  "onQqApiStatusChanged": {
+    "event": "qq-api-status-changed"
+  },
+  "minimizeWindow": {
+    "channel": "window-minimize"
+  },
+  "toggleMaximizeWindow": {
+    "channel": "window-toggle-maximize"
+  },
+  "toggleFullscreenWindow": {
+    "channel": "window-toggle-fullscreen"
+  },
+  "closeWindow": {
+    "channel": "window-close"
+  },
+  "quitApp": {
+    "channel": "app-quit"
+  },
+  "isWindowMaximized": {
+    "channel": "window-is-maximized"
+  },
+  "isWindowFullscreen": {
+    "channel": "window-is-fullscreen"
+  },
+  "onWindowFullscreenChanged": {
+    "event": "window-fullscreen-changed"
+  },
+  "getWindowTransparentMode": {
+    "channel": "window-get-transparent-mode"
+  },
+  "setWindowTransparentMode": {
+    "channel": "window-set-transparent-mode"
+  },
+  "consumeWindowPlaybackHandoff": {
+    "channel": "window-playback-handoff-consume"
+  },
+  "submitWindowPlaybackHandoff": {
+    "channel": "window-playback-handoff-submit"
+  },
+  "onWindowPlaybackHandoffRequested": {
+    "event": "window-playback-handoff-requested"
+  },
+  "setNativeTheme": {
+    "channel": "window-set-native-theme"
+  },
+  "getMainWindowClickThroughEnabled": {
+    "channel": "window-get-click-through"
+  },
+  "setMainWindowClickThroughEnabled": {
+    "channel": "window-set-click-through"
+  },
+  "setMainWindowClickThroughUnlockHover": {
+    "channel": "window-set-click-through-unlock-hover"
+  },
+  "getMainWindowAlwaysOnTop": {
+    "channel": "window-get-always-on-top"
+  },
+  "setMainWindowAlwaysOnTop": {
+    "channel": "window-set-always-on-top"
+  },
+  "onMainWindowClickThroughChanged": {
+    "event": "main-window-click-through-changed"
+  },
+  "getObsBrowserSourceStatus": {
+    "channel": "obs-browser-source-get-status"
+  },
+  "setObsBrowserSourceEnabled": {
+    "channel": "obs-browser-source-set-enabled"
+  },
+  "regenerateObsBrowserSourceToken": {
+    "channel": "obs-browser-source-regenerate-token"
+  },
+  "publishObsBrowserSourceConfig": {
+    "channel": "obs-browser-source-publish-config"
+  },
+  "publishObsBrowserSourceClock": {
+    "channel": "obs-browser-source-publish-clock"
+  },
+  "publishObsBrowserSourceAudio": {
+    "channel": "obs-browser-source-publish-audio"
+  },
+  "getLyricApiStatus": {
+    "channel": "lyric-api-get-status"
+  },
+  "setLyricApiEnabled": {
+    "channel": "lyric-api-set-enabled"
+  },
+  "publishLyricApiData": {
+    "channel": "lyric-api-publish"
+  },
+  "onLyricApiStatusChanged": {
+    "event": "lyric-api-status-changed"
+  },
+  "getDiscordPresenceStatus": {
+    "channel": "discord-presence-get-status"
+  },
+  "publishDiscordPresenceSnapshot": {
+    "channel": "discord-presence-publish-snapshot"
+  },
+  "getPlaybackSyncBridgeStatus": {
+    "channel": "playback-sync-bridge-get-status"
+  },
+  "getVoiceInputPauseStatus": {
+    "channel": "voice-input-pause-get-status"
+  },
+  "onVoiceInputStateChanged": {
+    "event": "voice-input-state-changed"
+  },
+  "onPlaybackSyncBridgeStatusChanged": {
+    "event": "playback-sync-bridge-status-changed"
+  },
+  "onDiscordPresenceStatusChanged": {
+    "event": "discord-presence-status-changed"
+  },
+  "onObsBrowserSourceStatusChanged": {
+    "event": "obs-browser-source-status-changed"
+  },
+  "updateTaskbarControls": {
+    "channel": "thumbar-update-buttons"
+  },
+  "onTaskbarControl": {
+    "event": "thumbar-action"
+  },
+  "openRemoteControl": {
+    "channel": "remote-control-open"
+  },
+  "toggleRemoteControl": {
+    "channel": "remote-control-toggle"
+  },
+  "closeRemoteControl": {
+    "channel": "remote-control-close"
+  },
+  "getRemoteControlAlwaysOnTop": {
+    "channel": "remote-control-get-always-on-top"
+  },
+  "setRemoteControlAlwaysOnTop": {
+    "channel": "remote-control-set-always-on-top"
+  },
+  "getRemoteControlWindowSettings": {
+    "channel": "remote-control-get-window-settings"
+  },
+  "onRemoteControlWindowSettingsChanged": {
+    "event": "remote-control-window-settings-changed"
+  },
+  "getRemoteControlPointerInside": {
+    "channel": "remote-control-get-pointer-inside"
+  },
+  "onRemoteControlPointerInside": {
+    "event": "remote-control-pointer-inside"
+  },
+  "publishRemoteControlSnapshot": {
+    "channel": "remote-control-publish-snapshot"
+  },
+  "getRemoteControlSnapshot": {
+    "channel": "remote-control-get-snapshot"
+  },
+  "sendRemoteControlCommand": {
+    "channel": "remote-control-send-command"
+  },
+  "onRemoteControlCommand": {
+    "event": "remote-control-command"
+  },
+  "onRemoteControlSnapshot": {
+    "event": "remote-control-snapshot"
+  },
+  "chooseVideoExportPath": {
+    "channel": "video-export-choose-path"
+  },
+  "reportDevicePixelRatio": {
+    "channel": "report-device-pixel-ratio"
+  },
+  "prepareVideoExportWindow": {
+    "channel": "video-export-prepare-window"
+  },
+  "restoreVideoExportWindow": {
+    "channel": "video-export-restore-window"
+  },
+  "openVideoExportFile": {
+    "channel": "video-export-open-file"
+  },
+  "appendVideoExportChunk": {
+    "channel": "video-export-append-chunk"
+  },
+  "finishVideoExportFile": {
+    "channel": "video-export-finish-file"
+  },
+  "abortVideoExportFile": {
+    "channel": "video-export-abort-file"
+  },
+  "getStageStatus": {
+    "channel": "stage-get-status"
+  },
+  "setStageEnabled": {
+    "channel": "stage-set-enabled"
+  },
+  "regenerateStageToken": {
+    "channel": "stage-regenerate-token"
+  },
+  "clearStageState": {
+    "channel": "stage-clear-state"
+  },
+  "completeStageExternalPlayRequest": {
+    "channel": "stage-complete-external-play"
+  },
+  "publishStagePlayerSnapshot": {
+    "channel": "stage-publish-player-snapshot"
+  },
+  "completeStagePlayerControlRequest": {
+    "channel": "stage-complete-player-control"
+  },
+  "completeStagePlayerQueueRequest": {
+    "channel": "stage-complete-player-queue"
+  },
+  "onStageSessionUpdated": {
+    "event": "stage-session-updated"
+  },
+  "onStageSessionCleared": {
+    "event": "stage-session-cleared"
+  },
+  "onStageExternalPlayRequest": {
+    "event": "stage-external-play-request"
+  },
+  "onStagePlayerControlRequest": {
+    "event": "stage-player-control-request"
+  },
+  "onStagePlayerQueueRequest": {
+    "event": "stage-player-queue-request"
+  },
+  "debugGetRenderedFonts": {
+    "channel": "debug-get-rendered-fonts"
+  },
+  "mods.listMods": {
+    "channel": "folia-mods:list"
+  },
+  "mods.setModEnabled": {
+    "channel": "folia-mods:set-enabled"
+  },
+  "mods.reloadMods": {
+    "channel": "folia-mods:reload"
+  },
+  "mods.invokeModRpc": {
+    "channel": "folia-mods:rpc"
+  },
+  "mods.invokeModStorage": {
+    "channel": "folia-mods:storage"
+  },
+  "mods.invokeModNetFetch": {
+    "channel": "folia-mods:net-fetch"
+  },
+  "mods.invokeModPickFile": {
+    "channel": "folia-mods:pick-file"
+  },
+  "mods.invokeModRestoreFile": {
+    "channel": "folia-mods:restore-file"
+  },
+  "mods.invokeModReleaseFile": {
+    "channel": "folia-mods:release-file"
+  },
+  "mods.cancelExport": {
+    "channel": "folia-mods:export-cancel"
+  },
+  "mods.pushRuntimeSnapshot": {
+    "channel": "folia-mods:push-runtime-snapshot"
+  },
+  "mods.getFfmpegStatus": {
+    "channel": "folia-mods:ffmpeg-status"
+  },
+  "mods.openModsDirectory": {
+    "channel": "folia-mods:open-directory"
+  },
+  "mods.installModFromZip": {
+    "channel": "folia-mods:install-zip"
+  },
+  "mods.getModStorageUsage": {
+    "channel": "folia-mods:storage-usage"
+  },
+  "mods.clearModCache": {
+    "channel": "folia-mods:clear-cache"
+  },
+  "mods.getModCallStats": {
+    "channel": "folia-mods:call-stats"
+  },
+  "mods.reportModsStartSettled": {
+    "channel": "folia-mods:start-settled"
+  },
+  "mods.reportModsStartAlive": {
+    "channel": "folia-mods:start-alive"
+  },
+  "mods.onModsStateChanged": {
+    "event": "folia-mods:state-changed"
+  },
+  "mods.onExportProgress": {
+    "event": "folia-mods:export-progress"
+  },
+  "mods.onModLog": {
+    "event": "folia-mods:log"
+  }
+}

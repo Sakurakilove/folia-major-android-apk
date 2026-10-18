@@ -1,0 +1,1979 @@
+{
+  "sourceCommit": "e1fcc9a8b9b891618d87c513c4da6519a5c22d23",
+  "targetSdk": 37,
+  "desktopContracts": {
+    "webUtils": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "runBeatThis": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "separateStems": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "getAutomixModelsPresent": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "diagMark": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "debugGetState": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "debugSetState": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "debugOpenLogs": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "debugWriteRuntimeLines": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "onDebugMainLines": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "debugRendererMemory": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "debugReportRendererMemory": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "onDebugMemorySample": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "chooseModelsDirectory": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "resetModelsDirectory": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "getAutomixModelStatus": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "downloadAutomixModel": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "cancelAutomixModelDownload": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "scanForAutomixModels": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "installAutomixModel": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "removeAllAutomixModels": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "onAutomixModelProgress": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "platform": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "isLinuxX11": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "getSettings": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "saveSettings": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "onWallpaperModeChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onWallpaperTransparentRefused": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onWallpaperEntryRequested": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onWallpaperInputMonitorRequested": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "getWallpaperDisplays": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setWallpaperDisplay": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "onWallpaperDisplaysChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "setPlaybackDisplaySleepBlockingActive": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "setAppLocale": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "getCacheDirectory": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "chooseCacheDirectory": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "resetCacheDirectory": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "getUpdateStatus": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "checkForUpdates": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "markUpdateSeen": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "openUpdateReleasePage": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "openExternalUrl": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "downloadUpdate": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "quitAndInstallUpdate": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "onUpdateStatusChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "getAudioCache": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "hasAudioCache": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "saveAudioCache": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "removeAudioCache": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "getAudioCacheUsage": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "getAudioCacheStats": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "clearAudioCache": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "requestTranscodeFallback": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "cancelTranscodeFallback": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "getCoverCache": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "saveCoverCache": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "removeCoverCache": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "getCoverCacheUsage": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "clearCoverCache": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "hasLocalCoverAsset": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "saveLocalCoverAsset": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "removeLocalCoverAsset": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "clearLocalCoverAssets": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "generateTheme": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/ai.cjs",
+        "electron/aiTextClient.cjs",
+        "electron/aiCredentialStore.cjs"
+      ]
+    },
+    "segmentLyrics": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/ai.cjs",
+        "electron/aiTextClient.cjs",
+        "electron/aiCredentialStore.cjs"
+      ]
+    },
+    "testAiConnection": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/ai.cjs",
+        "electron/aiTextClient.cjs",
+        "electron/aiCredentialStore.cjs"
+      ]
+    },
+    "fetchLyricProxy": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "getNeteasePort": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "getNeteaseApiStatus": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "getLoginDiagnostics": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "runLoginSelfCheck": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "restartNeteaseApi": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "onNeteaseApiStatusChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "getKugouApiStatus": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "kugouRequest": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "bodianRequest": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "ytmRequest": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "spotifyRequest": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "getQqPort": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "getQqApiStatus": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "onQqApiStatusChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "minimizeWindow": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "toggleMaximizeWindow": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "toggleFullscreenWindow": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "closeWindow": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "quitApp": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "isWindowMaximized": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "isWindowFullscreen": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "onWindowFullscreenChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "getWindowTransparentMode": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setWindowTransparentMode": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "consumeWindowPlaybackHandoff": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "submitWindowPlaybackHandoff": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "onWindowPlaybackHandoffRequested": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "setNativeTheme": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getMainWindowClickThroughEnabled": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setMainWindowClickThroughEnabled": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setMainWindowClickThroughUnlockHover": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getMainWindowAlwaysOnTop": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setMainWindowAlwaysOnTop": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "onMainWindowClickThroughChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "getObsBrowserSourceStatus": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "setObsBrowserSourceEnabled": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "regenerateObsBrowserSourceToken": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "publishObsBrowserSourceConfig": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "publishObsBrowserSourceClock": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "publishObsBrowserSourceAudio": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "getLyricApiStatus": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/lyricApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "setLyricApiEnabled": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/lyricApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "publishLyricApiData": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/lyricApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "onLyricApiStatusChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "getDiscordPresenceStatus": {
+      "state": "excludedByUser",
+      "androidDeviceValidated": false,
+      "note": "Explicit user instruction on 2026-10-17: 不管discord了. Not implemented as Android presence."
+    },
+    "publishDiscordPresenceSnapshot": {
+      "state": "excludedByUser",
+      "androidDeviceValidated": false,
+      "note": "Explicit user instruction on 2026-10-17: 不管discord了. Not implemented as Android presence."
+    },
+    "getPlaybackSyncBridgeStatus": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getVoiceInputPauseStatus": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "onVoiceInputStateChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onPlaybackSyncBridgeStatusChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onDiscordPresenceStatusChanged": {
+      "state": "excludedByUser",
+      "androidDeviceValidated": false,
+      "note": "Explicit user instruction on 2026-10-17: 不管discord了. Not implemented as Android presence."
+    },
+    "onObsBrowserSourceStatusChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "updateTaskbarControls": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "onTaskbarControl": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "openRemoteControl": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "toggleRemoteControl": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "closeRemoteControl": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getRemoteControlAlwaysOnTop": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setRemoteControlAlwaysOnTop": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getRemoteControlWindowSettings": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "onRemoteControlWindowSettingsChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "getRemoteControlPointerInside": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "onRemoteControlPointerInside": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "publishRemoteControlSnapshot": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getRemoteControlSnapshot": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "sendRemoteControlCommand": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "onRemoteControlCommand": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onRemoteControlSnapshot": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "chooseVideoExportPath": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "reportDevicePixelRatio": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "prepareVideoExportWindow": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "restoreVideoExportWindow": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "openVideoExportFile": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "appendVideoExportChunk": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "finishVideoExportFile": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "abortVideoExportFile": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "getStageStatus": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "setStageEnabled": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "regenerateStageToken": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "clearStageState": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "completeStageExternalPlayRequest": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "publishStagePlayerSnapshot": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "completeStagePlayerControlRequest": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "completeStagePlayerQueueRequest": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "onStageSessionUpdated": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onStageSessionCleared": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onStageExternalPlayRequest": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onStagePlayerControlRequest": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onStagePlayerQueueRequest": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "debugGetRenderedFonts": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "mods": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "mods.listMods": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.setModEnabled": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.reloadMods": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModRpc": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModStorage": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModNetFetch": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModPickFile": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModRestoreFile": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModReleaseFile": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.cancelExport": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.pushRuntimeSnapshot": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.getFfmpegStatus": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.openModsDirectory": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.installModFromZip": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.getModStorageUsage": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.clearModCache": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.getModCallStats": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.reportModsStartSettled": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.reportModsStartAlive": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.onModsStateChanged": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "mods.onExportProgress": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "mods.onModLog": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "webUtils.getPathForFile": {
+      "state": "implemented",
+      "androidDeviceValidated": false,
+      "sourceReview": "validation/source-contract-review.json",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    }
+  },
+  "platformRequirements": {
+    "nodeRuntime16KiBPageSupport": {
+      "state": "implemented",
+      "androidDeviceValidated": true,
+      "note": "Both ABI runtime manifests audit every ELF LOAD alignment >= 16384. Android 17 x86_64 16 KiB emulator executed Node 24.18, Python/NumPy/ORT, FFmpeg and Spotify addon; see validation/android17-native-components.json. ARM64 execution is not validated."
+    },
+    "desktopAnimationVisualParity": {
+      "state": "implemented",
+      "note": "444 of 445 tracked visualizer source/assets equal the pinned desktop commit; FontPicker adds Android font upload beside system fonts, with no rendering engine changes; 14 lyric modes and all original backgrounds retained. Android high-refresh/hardware acceleration and export renderers connected. This is source parity, not measured device visual parity; see validation/animation-source-parity.json.",
+      "androidDeviceValidated": false
+    },
+    "android17PredictiveBack": {
+      "state": "implemented",
+      "androidDeviceValidated": false
+    },
+    "androidBackgroundPlayback": {
+      "state": "implemented",
+      "androidDeviceValidated": false
+    },
+    "nodeRuntimeCompatibility": {
+      "state": "implemented",
+      "androidDeviceValidated": true,
+      "note": "Replaced Node 18 mobile JNI with Android/bionic Node 24.18 native executable. Android 17 component execution verified; full application validation remains outstanding."
+    }
+  },
+  "scopeExclusions": {
+    "discordRichPresence": {
+      "userInstruction": "不管discord了",
+      "date": "2026-10-17",
+      "contracts": [
+        "getDiscordPresenceStatus",
+        "publishDiscordPresenceSnapshot",
+        "onDiscordPresenceStatusChanged"
+      ]
+    }
+  },
+  "sourceReviewAtUTC": "2026-10-18T03:32:13.830196+00:00",
+  "scopeNote": "Implementation states describe reviewed source connections. Device validation flags remain independent; registration alone is not functional validation. Discord explicitly excluded by user."
+}

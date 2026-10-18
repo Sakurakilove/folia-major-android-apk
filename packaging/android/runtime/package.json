@@ -1,0 +1,23 @@
+{
+  "name": "folia-android-runtime",
+  "version": "0.7.20",
+  "private": true,
+  "dependencies": {
+    "@lox-audioserver/node-librespot": "0.5.1",
+    "@neteasecloudmusicapienhanced/api": "4.41.1",
+    "@xhayper/discord-rpc": "1.5.1",
+    "@yakult-green-tea/qq-music-api": "3.3.1",
+    "bgutils-js": "4.0.3",
+    "bodian-music-api": "0.1.2",
+    "busboy": "^1.6.0",
+    "express": "5.2.1",
+    "fflate": "^0.8.3",
+    "googlevideo": "4.1.1",
+    "kugoumusicapi": "https://github.com/MakcRe/KuGouMusicApi/archive/refs/tags/v1.6.0.tar.gz",
+    "music-metadata": "^12.2.2",
+    "socks": "^2.8.7",
+    "undici": "6.27.0",
+    "ws": "^8.22.0",
+    "youtubei.js": "18.1.0"
+  }
+}
