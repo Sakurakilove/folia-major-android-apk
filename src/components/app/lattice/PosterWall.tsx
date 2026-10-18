@@ -1,3 +1,4 @@
+import { runsOnAndroid } from '../../../utils/platform';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import type { SongResult } from '../../../types';
 import {
@@ -99,7 +100,6 @@ export default function PosterWall({
     const worldRef = useRef<HTMLDivElement>(null);
     const cameraRef = useRef<LatticeCamera>({ ...CAMERA_HOME, scale: 0.76 });
     const viewportRef = useRef({ width: 1280, height: 720 });
-    const frameRef = useRef<number | null>(null);
     const trackedCurrentPosterRef = useRef<{
         enabled: boolean;
         rect: Omit<ReflowTile, 'instanceId'> | null;
@@ -128,7 +128,7 @@ export default function PosterWall({
     const entranceSuppressed = useWallHandoffStore(state => resolveWallHandoffRole(state.session, 'lattice') === 'in');
     const autoFocusOnSongChange = useLatticeSettingsStore(state => state.autoFocusOnSongChange);
     const devicePixelRatio = useDevicePixelRatio();
-    const pixelScale = cameraScale * devicePixelRatio;
+    const pixelScale = cameraScale * (runsOnAndroid() ? Math.min(devicePixelRatio, 1.5) : devicePixelRatio);
 
     const wallLayout = useMemo(
         () => (sections ? createExploreLayout(sections, METRICS) : createQueueLayout(tiles.length, METRICS)),
@@ -156,11 +156,7 @@ export default function PosterWall({
         }
         publishCurrentPosterVisibility(next);
         cameraWatchRef.current(next);
-        if (!updateBounds || frameRef.current !== null) return;
-        frameRef.current = requestAnimationFrame(() => {
-            setBounds(getWorldBounds(cameraRef.current, viewportRef.current));
-            frameRef.current = null;
-        });
+        if (updateBounds) setBounds(getWorldBounds(next, viewportRef.current));
     }, [publishCurrentPosterVisibility]);
 
     useEffect(() => {
@@ -177,8 +173,6 @@ export default function PosterWall({
         observer.observe(container);
         return () => {
             observer.disconnect();
-            if (frameRef.current !== null) cancelAnimationFrame(frameRef.current);
-            frameRef.current = null;
         };
     }, [applyCamera]);
 

@@ -81,7 +81,6 @@ export const useBravaisCamera = ({
     const [bounds, setBounds] = useState<Bounds | null>(null);
     const boundsRef = useRef<Bounds | null>(null);
     boundsRef.current = bounds;
-    const cullFrameRef = useRef<number | null>(null);
     const animationRef = useRef<{ stop: () => void } | null>(null);
     // useWallPointerPan 读写的是 Lattice 形状的平移相机：每次移动都同步它。
     const cameraRef = useRef<LatticeCamera>({ x: 0, y: 0, scale: 1 });
@@ -94,14 +93,15 @@ export const useBravaisCamera = ({
         viewportRef.current = { width: view.width, height: view.height };
     }, [frameRef]);
 
-    /** 把裁剪范围换成此刻的可见范围（合并到下一帧，一帧最多一次 setState）。 */
-    const scheduleRecull = useCallback(() => {
-        if (cullFrameRef.current !== null) return;
-        cullFrameRef.current = requestAnimationFrame(() => {
-            cullFrameRef.current = null;
-            const visible = getVisibleWorldBounds(frameRef.current);
-            if (visible) setBounds(visible);
-        });
+    /** Publish cull bounds with the camera update instead of waiting for a second RAF. */
+    const publishCullBounds = useCallback(() => {
+        const visible = getVisibleWorldBounds(frameRef.current);
+        if (!visible) return;
+        const previous = boundsRef.current;
+        if (previous && previous.left === visible.left && previous.right === visible.right
+            && previous.top === visible.top && previous.bottom === visible.bottom) return;
+        boundsRef.current = visible;
+        setBounds(visible);
     }, [frameRef]);
 
     /** 移到一个视图中心：写 DOM；快到裁剪边缘时（或调用方要求时）重新裁剪。 */
@@ -110,8 +110,8 @@ export const useBravaisCamera = ({
         syncPointerCamera();
         renderFrame();
         const visible = getVisibleWorldBounds(frameRef.current);
-        if (visible && (forceRecull || needsRecull(visible, boundsRef.current))) scheduleRecull();
-    }, [frameRef, renderFrame, scheduleRecull, syncPointerCamera]);
+        if (visible && (forceRecull || needsRecull(visible, boundsRef.current))) publishCullBounds();
+    }, [frameRef, renderFrame, publishCullBounds, syncPointerCamera]);
 
     /**
      * 相机没动、可见范围变了（缝开口补间：两半各让出半个开口，可见的世界范围随之变宽）时按此刻的可见范围重新裁剪
@@ -120,8 +120,8 @@ export const useBravaisCamera = ({
      */
     const checkCull = useCallback((force = false) => {
         const visible = getVisibleWorldBounds(frameRef.current);
-        if (visible && (force || needsRecull(visible, boundsRef.current))) scheduleRecull();
-    }, [frameRef, scheduleRecull]);
+        if (visible && (force || needsRecull(visible, boundsRef.current))) publishCullBounds();
+    }, [frameRef, publishCullBounds]);
 
     const stopCamera = useCallback(() => {
         animationRef.current?.stop();
@@ -227,7 +227,6 @@ export const useBravaisCamera = ({
     });
 
     useEffect(() => () => {
-        if (cullFrameRef.current !== null) cancelAnimationFrame(cullFrameRef.current);
         animationRef.current?.stop();
     }, []);
 

@@ -262,15 +262,24 @@ export const resolveShiftStart = (
 };
 
 /** 与世界矩形相交的 slot（有上限，缩得很小时也不会卡住一帧）：与 wall 的 collectWallSlots 同一个做法，块按形状取。 */
-export const collectShapeSlots = (shape: BravaisWallShape, bounds: Bounds, limit = Number.POSITIVE_INFINITY): WallSlot[] => {
+export const collectShapeSlots = (
+    shape: BravaisWallShape, bounds: Bounds, limit = Number.POSITIVE_INFINITY, visible?: Bounds,
+): WallSlot[] => {
     const { width, height } = shape.blockSize;
     const result: WallSlot[] = [];
-    for (let row = Math.floor(bounds.top / height); row <= Math.floor(bounds.bottom / height); row += 1) {
-        for (let column = Math.floor(bounds.left / width); column <= Math.floor(bounds.right / width); column += 1) {
-            for (const slot of shape.blockSlots(column, row)) {
-                if (!overlaps({ left: slot.x, right: slot.x + slot.width, top: slot.y, bottom: slot.y + slot.height }, bounds)) continue;
-                result.push(slot);
-                if (result.length >= limit) return result;
+    if (limit <= 0) return result;
+    // Fill the viewport before spending any of the budget on overscan. Two bounded passes avoid sorting.
+    const regions = visible ? [visible, bounds] : [bounds];
+    for (const [pass, region] of regions.entries()) {
+        for (let row = Math.floor(region.top / height); row <= Math.floor(region.bottom / height); row += 1) {
+            for (let column = Math.floor(region.left / width); column <= Math.floor(region.right / width); column += 1) {
+                for (const slot of shape.blockSlots(column, row)) {
+                    const box = { left: slot.x, right: slot.x + slot.width, top: slot.y, bottom: slot.y + slot.height };
+                    if (!overlaps(box, region) || !overlaps(box, bounds)) continue;
+                    if (pass === 1 && visible && overlaps(box, visible)) continue;
+                    result.push(slot);
+                    if (result.length >= limit) return result;
+                }
             }
         }
     }

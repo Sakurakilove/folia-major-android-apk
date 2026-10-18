@@ -1,7 +1,6 @@
 // src/components/wall/useWallPointerPan.ts
 
 import { animate } from 'framer-motion';
-import { requestUncappedAnimationFrame, cancelUncappedAnimationFrame } from '../../utils/frameRateLimiter';
 import { pinchWallCamera, wallTouchPair, type WallTouch } from './wallPinch';
 import { useCallback, useEffect, useRef, type MutableRefObject, type PointerEvent, type MouseEvent, type RefObject } from 'react';
 import type { Bounds } from './layout';
@@ -40,6 +39,8 @@ export const useWallPointerPan = ({
     const cameraFrame = useRef<number | null>(null);
     const pendingCamera = useRef<LatticeCamera | null>(null);
     const touches = useRef(new Map<number, WallTouch>());
+    const touchOrigin = useRef({ left: 0, top: 0 });
+    const pinchPending = useRef(false);
     const pinch = useRef<{ camera: LatticeCamera; pair: ReturnType<typeof wallTouchPair> } | null>(null);
     const boundsRef = useRef(bounds);
     boundsRef.current = bounds;
@@ -70,16 +71,19 @@ export const useWallPointerPan = ({
 
     // Touch input can arrive several times per display frame. Paint only the latest camera for both pan and pinch.
     const flushCamera = useCallback(() => {
-        if (cameraFrame.current !== null) cancelUncappedAnimationFrame(cameraFrame.current);
+        if (cameraFrame.current !== null) cancelAnimationFrame(cameraFrame.current);
         cameraFrame.current = null;
-        const next = pendingCamera.current;
+        const next = pinchPending.current && pinch.current && touches.current.size === 2
+            ? pinchWallCamera(pinch.current.camera, pinch.current.pair, wallTouchPair([...touches.current.values()]))
+            : pendingCamera.current;
+        pinchPending.current = false;
         pendingCamera.current = null;
         if (next) updateCamera(next.x, next.y, next.scale);
     }, [updateCamera]);
 
     const queueCamera = useCallback((next: LatticeCamera) => {
         pendingCamera.current = next;
-        if (cameraFrame.current === null) cameraFrame.current = requestUncappedAnimationFrame(flushCamera);
+        if (cameraFrame.current === null) cameraFrame.current = requestAnimationFrame(flushCamera);
     }, [flushCamera]);
 
     const interrupt = useCallback(() => {
@@ -90,8 +94,11 @@ export const useWallPointerPan = ({
     const onPointerDown = useCallback((event: PointerEvent<HTMLDivElement>) => {
         if (event.button !== 0 || (event.pointerType === 'touch' && pinch.current)) return;
         if (event.pointerType === 'touch' && !(event.target instanceof Element && event.target.closest('button, input, select, textarea, a, [role="slider"]'))) {
-            const rect = event.currentTarget.getBoundingClientRect();
-            touches.current.set(event.pointerId, { x: event.clientX - rect.left, y: event.clientY - rect.top });
+            if (touches.current.size === 0) {
+                const rect = event.currentTarget.getBoundingClientRect();
+                touchOrigin.current = { left: rect.left, top: rect.top };
+            }
+            touches.current.set(event.pointerId, { x: event.clientX - touchOrigin.current.left, y: event.clientY - touchOrigin.current.top });
             if (touches.current.size === 2) {
                 interrupt();
                 pointerRef.current = null;
@@ -120,12 +127,11 @@ export const useWallPointerPan = ({
 
     const onPointerMove = useCallback((event: PointerEvent<HTMLDivElement>) => {
         if (touches.current.has(event.pointerId)) {
-            const rect = event.currentTarget.getBoundingClientRect();
-            touches.current.set(event.pointerId, { x: event.clientX - rect.left, y: event.clientY - rect.top });
+            touches.current.set(event.pointerId, { x: event.clientX - touchOrigin.current.left, y: event.clientY - touchOrigin.current.top });
         }
         if (pinch.current && touches.current.size >= 2) {
-            const next = pinchWallCamera(pinch.current.camera, pinch.current.pair, wallTouchPair([...touches.current.values()]));
-            queueCamera(next);
+            pinchPending.current = true;
+            if (cameraFrame.current === null) cameraFrame.current = requestAnimationFrame(flushCamera);
             return;
         }
         const pointer = pointerRef.current;
@@ -144,10 +150,11 @@ export const useWallPointerPan = ({
         }
         pointer.last = { x: event.clientX, y: event.clientY, time: event.timeStamp };
         if (pointer.dragged) queueCamera({ x: pointer.camera.x + dx, y: pointer.camera.y + dy, scale: cameraRef.current.scale });
-    }, [cameraRef, queueCamera]);
+    }, [cameraRef, flushCamera, queueCamera]);
 
     // Continue along the release velocity; stale samples and cancelled gestures never coast.
     const onPointerUp = useCallback((event: PointerEvent<HTMLDivElement>) => {
+        if (!touches.current.has(event.pointerId) && pointerRef.current?.id !== event.pointerId) return;
         flushCamera();
         touches.current.delete(event.pointerId);
         if (pinch.current) {
@@ -178,6 +185,7 @@ export const useWallPointerPan = ({
     }, [animationRef, applyCamera, cameraRef, flushCamera, onScaleCommit, reducedMotion, updateCamera]);
 
     const onPointerCancel = useCallback((event: PointerEvent<HTMLDivElement>) => {
+        if (!touches.current.has(event.pointerId) && pointerRef.current?.id !== event.pointerId) return;
         flushCamera();
         touches.current.delete(event.pointerId);
         if (pinch.current) {
@@ -311,9 +319,10 @@ export const useWallPointerPan = ({
         };
         const cancel = (commitScale = false) => {
             const wasPinching = pinch.current !== null;
-            if (cameraFrame.current !== null) cancelUncappedAnimationFrame(cameraFrame.current);
+            if (cameraFrame.current !== null) cancelAnimationFrame(cameraFrame.current);
             cameraFrame.current = null;
             pendingCamera.current = null;
+            pinchPending.current = false;
             delete container.dataset.foliaWallPinching;
             for (const id of touches.current.keys()) {
                 if (container.hasPointerCapture(id)) container.releasePointerCapture(id);
@@ -338,11 +347,13 @@ export const useWallPointerPan = ({
         container.addEventListener('wheel', onWheel, { passive: false });
         container.addEventListener('keydown', onKeyDown, true);
         window.addEventListener('blur', onBlur);
+        window.addEventListener('resize', onBlur);
         return () => {
             container.removeEventListener('wheel', onWheel);
             releaseLatch();
             container.removeEventListener('keydown', onKeyDown, true);
             window.removeEventListener('blur', onBlur);
+            window.removeEventListener('resize', onBlur);
             window.removeEventListener('pointerup', endOutside);
             window.removeEventListener('pointercancel', endOutside);
             cancel();

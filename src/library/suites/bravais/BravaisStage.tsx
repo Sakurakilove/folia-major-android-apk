@@ -264,7 +264,7 @@ const BravaisStage: React.FC<LibrarySuiteStageProps> = ({
     });
     const shape = display?.shape ?? BRAVAIS_BLOCK_SHAPE;
     const slots = useMemo<readonly WallSlot[]>(() => (
-        camera.bounds ? collectShapeSlots(shape, expandBounds(camera.bounds, BRAVAIS_OVERSCAN), FLIP_MAX_TILES) : []
+        camera.bounds ? collectShapeSlots(shape, expandBounds(camera.bounds, BRAVAIS_OVERSCAN), FLIP_MAX_TILES, camera.bounds) : []
     ), [camera.bounds, shape]);
     slotsRef.current = slots;
     // B11 transitions.beforePush：宿主压栈之前，没经过墙上磁贴的打开用键盘焦点所在的 slot 当起点磁贴。

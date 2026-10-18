@@ -245,7 +245,7 @@ function BravaisTile({
     const mountEntranceTokenRef = useRef(entranceToken);
     useLayoutEffect(() => {
         const face = faceRef.current;
-        if (!entrance || !face) return;
+        if (!entrance || !face || face.closest('[data-folia-wall-pinching="true"]')) return;
         // 只给这一刻挂载的磁贴（探索页原地重排：留在原地的不动，正在放的入场也不打断）。
         if (entrance.mountsOnly && entrance.token !== mountEntranceTokenRef.current) return;
         const now = performance.now();

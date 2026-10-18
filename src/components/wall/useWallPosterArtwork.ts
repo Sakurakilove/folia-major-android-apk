@@ -1,3 +1,5 @@
+import { runsOnAndroid } from '../../utils/platform';
+import { createWallArtworkQueue } from './wallArtworkQueue';
 import { useEffect, useMemo, useState } from 'react';
 import { COVER_SIZE_STEPS, getOriginalCoverUrl, getSizedCoverUrl, resolveCoverSizeStep } from '../../utils/coverUrl';
 
@@ -14,6 +16,9 @@ import { COVER_SIZE_STEPS, getOriginalCoverUrl, getSizedCoverUrl, resolveCoverSi
  * recorded, so this stays far smaller than the number of posters on screen.
  */
 const MAX_TRACKED_VARIANTS = 600;
+const androidDecode = createWallArtworkQueue(2);
+const desktopDecode = <T,>(task: () => Promise<T>): Promise<T> => task();
+const artworkStep = (size: number) => resolveCoverSizeStep(runsOnAndroid() ? Math.min(size, 1024) : size);
 const decodedVariants = new Map<string, true>();
 /** In-flight decodes, so one URL is fetched once however many posters want it at the same moment. */
 const decodingVariants = new Map<string, Promise<boolean>>();
@@ -53,15 +58,17 @@ const decodeVariant = (url: string): Promise<boolean> => {
     const pending = decodingVariants.get(url);
     if (pending) return pending;
 
-    const image = new Image();
-    image.decoding = 'async';
-    image.src = url;
-    const request = (typeof image.decode === 'function'
-        ? image.decode()
-        : new Promise<void>((resolve, reject) => {
-            image.onload = () => resolve();
-            image.onerror = () => reject(new Error(`Cover variant failed: ${url}`));
-        }))
+    const request = (runsOnAndroid() ? androidDecode : desktopDecode)(() => {
+        const image = new Image();
+        image.decoding = 'async';
+        image.src = url;
+        return (typeof image.decode === 'function'
+            ? image.decode()
+            : new Promise<void>((resolve, reject) => {
+                image.onload = () => resolve();
+                image.onerror = () => reject(new Error(`Cover variant failed: ${url}`));
+            }));
+    })
         .then(() => {
             remember(decodedVariants, url);
             return true;
@@ -99,7 +106,7 @@ const pickDisplay = (cover: string, targetStep: number): PosterArtwork => {
 /** Fetches the variant a box of `sizePx` will need, off the path of the interaction that opens it. */
 export const prewarmWallPosterArtwork = (cover: string | undefined, sizePx: number): void => {
     if (!cover) return;
-    const url = variantUrl(cover, resolveCoverSizeStep(sizePx));
+    const url = variantUrl(cover, artworkStep(sizePx));
     if (!url || decodedVariants.has(url) || failedVariants.has(url)) return;
     void decodeVariant(url);
 };
@@ -109,12 +116,12 @@ export const prewarmWallPosterArtwork = (cover: string | undefined, sizePx: numb
  *
  * The returned URL moves up to the step the box deserves only once that step has finished decoding,
  * so a card that changes gear keeps painting what it already had for the length of the reflow
- * instead of blanking. It never trades back down either: a collapsed card holding a sharper copy
- * costs nothing to keep, while dropping to a smaller variant would buy a refetch and a second swap.
+ * instead of blanking. Desktop retains sharper variants. Android waits for the zoom to settle
+ * before decoding and swapping back to a smaller variant, reducing retained large-image references.
  */
 export const useWallPosterArtwork = (cover: string | undefined, sizePx: number): string => {
     const source = cover ?? '';
-    const targetStep = resolveCoverSizeStep(sizePx);
+    const targetStep = artworkStep(sizePx);
     const [ready, setReady] = useState<PosterArtwork>(() => pickDisplay(source, targetStep));
     // Recomputed only when this slot changes song; the artwork of the previous one must not linger.
     const current = useMemo(
@@ -123,18 +130,19 @@ export const useWallPosterArtwork = (cover: string | undefined, sizePx: number):
     );
 
     useEffect(() => {
-        if (!source || (current.cover === source && current.step >= targetStep)) return;
+        const android = runsOnAndroid();
+        if (!source || current.step === targetStep || (!android && current.step > targetStep)) return;
         const url = variantUrl(source, targetStep);
-        const upgrade = () => setReady({ cover: source, step: targetStep, url });
-        if (decodedVariants.has(url)) {
-            upgrade();
-            return;
-        }
         let cancelled = false;
-        void decodeVariant(url).then(decoded => {
-            if (decoded && !cancelled) upgrade();
-        });
-        return () => { cancelled = true; };
+        const load = () => {
+            const upgrade = () => { if (!cancelled) setReady({ cover: source, step: targetStep, url }); };
+            if (!android && decodedVariants.has(url)) { upgrade(); return; }
+            void decodeVariant(url).then(decoded => { if (decoded) upgrade(); });
+        };
+        // Keep the current image throughout the gesture and decode the replacement before swapping.
+        const timer = current.step > targetStep ? setTimeout(load, 1000) : undefined;
+        if (timer === undefined) load();
+        return () => { cancelled = true; clearTimeout(timer); };
     }, [current, source, targetStep]);
 
     return current.url;
