@@ -167,8 +167,9 @@ export default function PosterWall({
         const container = containerRef.current;
         if (!container) return;
         const observer = new ResizeObserver(([entry]) => {
+            const sameWidth = viewportRef.current.width === entry.contentRect.width;
             viewportRef.current = { width: entry.contentRect.width, height: entry.contentRect.height };
-            const scale = getScale(entry.contentRect.width);
+            const scale = sameWidth ? cameraRef.current.scale : getScale(entry.contentRect.width);
             applyCamera({ ...cameraRef.current, scale }, true);
             setCameraScale(previous => previous === scale ? previous : scale);
             setMeasured(true);

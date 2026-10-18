@@ -17,7 +17,7 @@ export const useBravaisViewport = (rootRef: RefObject<HTMLElement | null>) => {
             setView(current => (
                 current && current.width === width && current.height === height
                     ? current
-                    : { width, height, scale: getBravaisScale(width) }
+                    : { width, height, scale: current?.width === width ? current.scale : getBravaisScale(width) }
             ));
         };
         update(root.clientWidth, root.clientHeight);

@@ -37,8 +37,8 @@ export const useWallPointerPan = ({
     applyCamera, animationRef, stopPan, containerRef, reducedMotion, overscan,
     bounds, cameraRef, getWorldBounds, viewportRef, onScaleCommit,
 }: WallPointerPanOptions) => {
-    const pinchFrame = useRef<number | null>(null);
-    const pendingPinch = useRef<LatticeCamera | null>(null);
+    const cameraFrame = useRef<number | null>(null);
+    const pendingCamera = useRef<LatticeCamera | null>(null);
     const touches = useRef(new Map<number, WallTouch>());
     const pinch = useRef<{ camera: LatticeCamera; pair: ReturnType<typeof wallTouchPair> } | null>(null);
     const boundsRef = useRef(bounds);
@@ -68,21 +68,27 @@ export const useWallPointerPan = ({
         applyCamera(next, nearCullEdge);
     }, [applyCamera, cameraRef, getWorldBounds, overscan, viewportRef]);
 
-    // Android sends both fingers separately, often several times per display frame. Paint only the latest pair.
-    const flushPinch = useCallback(() => {
-        if (pinchFrame.current !== null) cancelUncappedAnimationFrame(pinchFrame.current);
-        pinchFrame.current = null;
-        const next = pendingPinch.current;
-        pendingPinch.current = null;
+    // Touch input can arrive several times per display frame. Paint only the latest camera for both pan and pinch.
+    const flushCamera = useCallback(() => {
+        if (cameraFrame.current !== null) cancelUncappedAnimationFrame(cameraFrame.current);
+        cameraFrame.current = null;
+        const next = pendingCamera.current;
+        pendingCamera.current = null;
         if (next) updateCamera(next.x, next.y, next.scale);
     }, [updateCamera]);
 
+    const queueCamera = useCallback((next: LatticeCamera) => {
+        pendingCamera.current = next;
+        if (cameraFrame.current === null) cameraFrame.current = requestUncappedAnimationFrame(flushCamera);
+    }, [flushCamera]);
+
     const interrupt = useCallback(() => {
         stopPan();
-    }, [stopPan]);
+        flushCamera();
+    }, [flushCamera, stopPan]);
 
     const onPointerDown = useCallback((event: PointerEvent<HTMLDivElement>) => {
-        if (event.button !== 0) return;
+        if (event.button !== 0 || (event.pointerType === 'touch' && pinch.current)) return;
         if (event.pointerType === 'touch' && !(event.target instanceof Element && event.target.closest('button, input, select, textarea, a, [role="slider"]'))) {
             const rect = event.currentTarget.getBoundingClientRect();
             touches.current.set(event.pointerId, { x: event.clientX - rect.left, y: event.clientY - rect.top });
@@ -119,8 +125,7 @@ export const useWallPointerPan = ({
         }
         if (pinch.current && touches.current.size >= 2) {
             const next = pinchWallCamera(pinch.current.camera, pinch.current.pair, wallTouchPair([...touches.current.values()]));
-            pendingPinch.current = next;
-            if (pinchFrame.current === null) pinchFrame.current = requestUncappedAnimationFrame(flushPinch);
+            queueCamera(next);
             return;
         }
         const pointer = pointerRef.current;
@@ -138,12 +143,12 @@ export const useWallPointerPan = ({
             pointer.vy = (event.clientY - pointer.last.y) / elapsed * 1000;
         }
         pointer.last = { x: event.clientX, y: event.clientY, time: event.timeStamp };
-        if (pointer.dragged) updateCamera(pointer.camera.x + dx, pointer.camera.y + dy);
-    }, [flushPinch, updateCamera]);
+        if (pointer.dragged) queueCamera({ x: pointer.camera.x + dx, y: pointer.camera.y + dy, scale: cameraRef.current.scale });
+    }, [cameraRef, queueCamera]);
 
     // Continue along the release velocity; stale samples and cancelled gestures never coast.
     const onPointerUp = useCallback((event: PointerEvent<HTMLDivElement>) => {
-        flushPinch();
+        flushCamera();
         touches.current.delete(event.pointerId);
         if (pinch.current) {
             if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
@@ -170,21 +175,22 @@ export const useWallPointerPan = ({
             restDelta: WALL_PAN_INERTIA.restDelta,
             onUpdate: distance => updateCamera(from.x + distance * pointer.vx / speed, from.y + distance * pointer.vy / speed),
         });
-    }, [animationRef, applyCamera, cameraRef, flushPinch, onScaleCommit, reducedMotion, updateCamera]);
+    }, [animationRef, applyCamera, cameraRef, flushCamera, onScaleCommit, reducedMotion, updateCamera]);
 
     const onPointerCancel = useCallback((event: PointerEvent<HTMLDivElement>) => {
-        flushPinch();
+        flushCamera();
         touches.current.delete(event.pointerId);
         if (pinch.current) {
             pinch.current = null;
             delete event.currentTarget.dataset.foliaWallPinching;
             touches.current.clear();
+            applyCamera(cameraRef.current, true);
             onScaleCommit?.(cameraRef.current.scale);
         }
         if (pointerRef.current?.id !== event.pointerId) return;
         pointerRef.current = null;
         interrupt();
-    }, [cameraRef, flushPinch, interrupt, onScaleCommit]);
+    }, [applyCamera, cameraRef, flushCamera, interrupt, onScaleCommit]);
 
     const onClickCapture = useCallback((event: MouseEvent<HTMLDivElement>) => {
         if (!didDragRef.current || event.detail === 0) return;
@@ -303,36 +309,46 @@ export const useWallPointerPan = ({
             wheel.pending = { x: wheel.pending.x - dx, y: wheel.pending.y - dy };
             if (wheel.frame === null) wheel.frame = requestAnimationFrame(tick);
         };
-        const cancel = () => {
-            if (pinchFrame.current !== null) cancelUncappedAnimationFrame(pinchFrame.current);
-            pinchFrame.current = null;
-            pendingPinch.current = null;
+        const cancel = (commitScale = false) => {
+            const wasPinching = pinch.current !== null;
+            if (cameraFrame.current !== null) cancelUncappedAnimationFrame(cameraFrame.current);
+            cameraFrame.current = null;
+            pendingCamera.current = null;
             delete container.dataset.foliaWallPinching;
-            pointerRef.current = null; pinch.current = null; touches.current.clear(); interrupt(); };
+            for (const id of touches.current.keys()) {
+                if (container.hasPointerCapture(id)) container.releasePointerCapture(id);
+            }
+            pointerRef.current = null; pinch.current = null; touches.current.clear(); interrupt();
+            if (wasPinching && commitScale) {
+                applyCamera(cameraRef.current, true);
+                onScaleCommit?.(cameraRef.current.scale);
+            }
+        };
         // 只按修饰键（按住 Shift 横向滚动时 Shift 会自动重复 keydown）不算键盘输入，不打断平滑滚动。
         const onKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'Shift' || event.key === 'Control' || event.key === 'Alt' || event.key === 'Meta') return;
-            cancel();
+            cancel(true);
         };
         const endOutside = (event: globalThis.PointerEvent) => {
-            if (pointerRef.current?.id === event.pointerId) cancel();
+            if (pointerRef.current?.id === event.pointerId || touches.current.has(event.pointerId)) cancel(true);
         };
+        const onBlur = () => cancel(true);
         window.addEventListener('pointerup', endOutside);
         window.addEventListener('pointercancel', endOutside);
         container.addEventListener('wheel', onWheel, { passive: false });
         container.addEventListener('keydown', onKeyDown, true);
-        window.addEventListener('blur', cancel);
+        window.addEventListener('blur', onBlur);
         return () => {
             container.removeEventListener('wheel', onWheel);
             releaseLatch();
             container.removeEventListener('keydown', onKeyDown, true);
-            window.removeEventListener('blur', cancel);
+            window.removeEventListener('blur', onBlur);
             window.removeEventListener('pointerup', endOutside);
             window.removeEventListener('pointercancel', endOutside);
             cancel();
             stopWheel();
         };
-    }, [animationRef, cameraRef, containerRef, interrupt, reducedMotion, stopPan, updateCamera, viewportRef]);
+    }, [animationRef, applyCamera, cameraRef, containerRef, interrupt, onScaleCommit, reducedMotion, stopPan, updateCamera, viewportRef]);
 
     return { didDragRef, onPointerDown, onPointerMove, onPointerUp, onPointerCancel, onClickCapture };
 };
