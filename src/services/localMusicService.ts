@@ -67,7 +67,7 @@ interface SnapshotTraversalResult {
 
 interface SnapshotTraversalFile {
     handle: FileSystemFileHandle;
-    file: File;
+    file?: File;
 }
 
 interface ImportDiffPlan {
@@ -533,16 +533,21 @@ async function buildSnapshotTree(
         const fileHandle = entry as FileSystemFileHandle;
 
         try {
-            const file = await fileHandle.getFile();
-            const relativePath = `${currentPath}/${file.name}`;
-            const signature = buildFileSignature(relativePath, file.size, file.lastModified);
+            // SAF handles expose cheap metadata; defer content reads until the diff needs them.
+            const metadataHandle = fileHandle as FileSystemFileHandle & {
+                getFileMetadata?: () => Promise<{ name: string; size: number; lastModified: number }>;
+            };
+            const file = metadataHandle.getFileMetadata ? undefined : await fileHandle.getFile();
+            const metadata = file ?? await metadataHandle.getFileMetadata!();
+            const relativePath = `${currentPath}/${metadata.name}`;
+            const signature = buildFileSignature(relativePath, metadata.size, metadata.lastModified);
 
             files.push({
-                name: file.name,
+                name: metadata.name,
                 relativePath,
                 kind,
-                size: file.size,
-                lastModified: file.lastModified,
+                size: metadata.size,
+                lastModified: metadata.lastModified,
                 signature
             });
             filesByPath.set(relativePath, { handle: fileHandle, file });
@@ -718,12 +723,12 @@ async function collectImportDiffPlan(
             if (snapshotFile.kind === 'translationLyric') {
                 const existingTranslationLyric = translationLyricCandidates.get(baseName);
                 if (!existingTranslationLyric || priority < existingTranslationLyric.priority) {
-                    translationLyricCandidates.set(baseName, { file: traversedFile.file, priority });
+                    translationLyricCandidates.set(baseName, { file: traversedFile.file ?? await traversedFile.handle.getFile(), priority });
                 }
             } else {
                 const existingLyric = lyricCandidates.get(baseName);
                 if (!existingLyric || priority < existingLyric.priority) {
-                    lyricCandidates.set(baseName, { file: traversedFile.file, priority, format });
+                    lyricCandidates.set(baseName, { file: traversedFile.file ?? await traversedFile.handle.getFile(), priority, format });
                 }
             }
             continue;
@@ -735,7 +740,7 @@ async function collectImportDiffPlan(
             const existingCover = coverCandidates.get(folderKey);
 
             if (!existingCover || priority < existingCover.priority) {
-                coverCandidates.set(folderKey, { file: traversedFile.file, priority });
+                coverCandidates.set(folderKey, { file: traversedFile.file ?? await traversedFile.handle.getFile(), priority });
             }
             continue;
         }
@@ -754,7 +759,7 @@ async function collectImportDiffPlan(
         ) {
             changedEntries.push({
                 handle: traversedFile.handle,
-                file: traversedFile.file,
+                file: traversedFile.file ?? await traversedFile.handle.getFile(),
                 folderName,
                 relativePath: snapshotFile.relativePath,
                 sidecarLyricFilesChanged: lyricFileChangedBasePaths.has(getAudioBasePath(snapshotFile.relativePath)),

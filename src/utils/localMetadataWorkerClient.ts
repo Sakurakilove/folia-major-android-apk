@@ -23,51 +23,79 @@ export interface HashedLocalCoverResult {
     coverAssetId: string;
 }
 
+// Own requests with their worker generation so failures release every retained File/Blob.
+const REQUEST_TIMEOUT_MS = 120000;
 let metadataWorker: Worker | null = null;
 let workerRequestId = 0;
-const workerCallbacks = new Map<string, (result: unknown | null) => void>();
+const workerCallbacks = new Map<string, { finish: (result: unknown | null) => void; timer: ReturnType<typeof setTimeout> }>();
+
+const finishRequest = (requestId: string, result: unknown | null) => {
+    const pending = workerCallbacks.get(requestId);
+    if (!pending) return;
+    workerCallbacks.delete(requestId);
+    clearTimeout(pending.timer);
+    pending.finish(result);
+};
+
+const discardWorker = (worker: Worker) => {
+    if (metadataWorker !== worker) return;
+    metadataWorker = null;
+    worker.onmessage = null;
+    worker.onerror = null;
+    worker.onmessageerror = null;
+    worker.terminate();
+    for (const requestId of [...workerCallbacks.keys()]) finishRequest(requestId, null);
+};
 
 export const initMetadataWorker = (): Worker => {
     if (!metadataWorker) {
-        metadataWorker = new Worker(
+        const worker = new Worker(
             new URL('../workers/metadataParser.worker.ts', import.meta.url),
             { type: 'module' }
         );
-        metadataWorker.onmessage = (e) => {
-            const { type, data, requestId, message } = e.data;
-            const callback = workerCallbacks.get(requestId);
-            if (callback) {
-                workerCallbacks.delete(requestId);
-                if (type === 'result') {
-                    callback(data);
-                } else {
-                    console.warn('[MetadataWorker] parsing error:', message);
-                    callback(null);
-                }
-            }
+        metadataWorker = worker;
+        worker.onmessage = (event) => {
+            if (metadataWorker !== worker) return;
+            const message = event.data;
+            if (!message || typeof message.requestId !== 'string') return;
+            if (message.type !== 'result') console.warn('[MetadataWorker] parsing error:', message.message);
+            finishRequest(message.requestId, message.type === 'result' ? message.data : null);
         };
+        worker.onerror = (event) => {
+            event.preventDefault();
+            console.warn('[MetadataWorker] Worker failed:', event.message);
+            discardWorker(worker);
+        };
+        worker.onmessageerror = () => discardWorker(worker);
     }
-
     return metadataWorker;
 };
+
+const requestMetadata = <T,>(prefix: string, payload: Record<string, unknown>): Promise<T | null> => (
+    new Promise(resolve => {
+        let worker: Worker;
+        try { worker = initMetadataWorker(); }
+        catch (error) {
+            console.warn('[MetadataWorker] Cannot create worker:', error);
+            resolve(null);
+            return;
+        }
+        const requestId = `${prefix}_${++workerRequestId}`;
+        const timer = setTimeout(() => discardWorker(worker), REQUEST_TIMEOUT_MS);
+        workerCallbacks.set(requestId, { finish: result => resolve(result as T | null), timer });
+        try { worker.postMessage({ ...payload, requestId }); }
+        catch (error) {
+            console.warn('[MetadataWorker] Cannot post request:', error);
+            finishRequest(requestId, null);
+        }
+    })
+);
 
 export const parseEmbeddedMetadataAsync = (
     file: File,
     includeCover = false
-): Promise<EmbeddedMetadataResult | null> => {
-    return new Promise((resolve) => {
-        const worker = initMetadataWorker();
-        const requestId = `meta_req_${++workerRequestId}`;
-        workerCallbacks.set(requestId, result => resolve(result as EmbeddedMetadataResult | null));
-        worker.postMessage({ type: 'parse-metadata', file, includeCover, requestId });
-    });
-};
+): Promise<EmbeddedMetadataResult | null> => requestMetadata('meta_req', { type: 'parse-metadata', file, includeCover });
 
-export const hashLocalCoverBlobAsync = (cover: Blob): Promise<HashedLocalCoverResult | null> => {
-    return new Promise((resolve) => {
-        const worker = initMetadataWorker();
-        const requestId = `cover_hash_req_${++workerRequestId}`;
-        workerCallbacks.set(requestId, result => resolve(result as HashedLocalCoverResult | null));
-        worker.postMessage({ type: 'hash-cover', cover, requestId });
-    });
-};
+export const hashLocalCoverBlobAsync = (cover: Blob): Promise<HashedLocalCoverResult | null> => (
+    requestMetadata('cover_hash_req', { type: 'hash-cover', cover })
+);

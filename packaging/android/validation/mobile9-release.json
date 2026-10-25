@@ -1,0 +1,10 @@
+{
+  "versionName": "0.7.20-mobile.9",
+  "versionCode": 702009,
+  "bytes": 343952672,
+  "sha256": "ed7b0411d6b4afd3b483dbf9eb4cb9e3dc44969d61154c3f8171650f8fba1611",
+  "sameSigningCertificateAsMobile8": true,
+  "frontendEntriesIdentical": true,
+  "deviceTested": false,
+  "all42FindingsImplemented": false
+}

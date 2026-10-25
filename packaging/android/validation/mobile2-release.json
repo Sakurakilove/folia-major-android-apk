@@ -1,0 +1,28 @@
+{
+  "versionName": "0.7.20-mobile.2",
+  "versionCode": 702002,
+  "bytes": 340667386,
+  "sha256": "472cda3d20746a03ad4f6de8877230a346b6353b221426bf115500169c3d1bfb",
+  "signedWithSameCertificate": true,
+  "builtAtUTC": "2026-10-18T05:12:43.175908+00:00",
+  "checks": {
+    "phoneFirstRenderChromium": true,
+    "startupPermissionVisibilityRegression": true,
+    "releaseJavaCompilation": true,
+    "apkSignature": true,
+    "deviceTesting": false
+  },
+  "changes": [
+    "Never park the app-wide RAF queue on Activity pause notifications",
+    "Defer idle throttling and CSS animation suspension until first screen mounts",
+    "Require native and document hidden states together before pausing CSS animations",
+    "Show a readable startup error and retry action on renderer failures",
+    "Paint behind Android 15+ transparent system bars using the app theme",
+    "Set status/navigation icon contrast with the theme and own insets once"
+  ],
+  "delivery": {
+    "url": "https://litter.catbox.moe/vukiwu.apk",
+    "expiryHours": 72,
+    "service": "Catbox Litterbox"
+  }
+}

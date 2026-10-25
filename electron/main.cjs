@@ -4192,8 +4192,34 @@ async function hasAudioCacheEntry(cacheKey) {
   }
 }
 
+function withMediaCacheLock(key, operation) {
+  const queues = withMediaCacheLock.queues || (withMediaCacheLock.queues = new Map());
+  const previous = queues.get(key) || Promise.resolve();
+  const result = previous.catch(() => {}).then(operation);
+  const queued = result.finally(() => { if (queues.get(key) === queued) queues.delete(key); });
+  queues.set(key, queued);
+  return queued;
+}
+
+async function publishMediaCacheFiles(dataPath, metaPath, buffer, metadata) {
+  const nonce = crypto.randomUUID();
+  const temporaryData = dataPath + '.tmp-' + nonce;
+  const temporaryMeta = metaPath + '.tmp-' + nonce;
+  try {
+    await Promise.all([
+      fsp.writeFile(temporaryData, buffer),
+      fsp.writeFile(temporaryMeta, JSON.stringify(metadata), 'utf-8'),
+    ]);
+    await fsp.rename(temporaryData, dataPath);
+    await fsp.rename(temporaryMeta, metaPath);
+  } finally {
+    await Promise.allSettled([fsp.rm(temporaryData, { force: true }), fsp.rm(temporaryMeta, { force: true })]);
+  }
+}
+
 async function readAudioCacheEntry(cacheKey) {
   const { dataPath, metaPath } = getAudioCachePaths(cacheKey);
+  return withMediaCacheLock(dataPath, async () => {
 
   try {
     const [dataBuffer, rawMeta] = await Promise.all([
@@ -4208,14 +4234,18 @@ async function readAudioCacheEntry(cacheKey) {
     fsp.utimes(dataPath, now, now).catch(() => {});
 
     let mimeType = 'audio/mpeg';
+    if (!rawMeta) return { found: false, data: null, mimeType: null };
     if (rawMeta) {
       try {
         const parsedMeta = JSON.parse(rawMeta);
+        if (parsedMeta.cacheKey !== cacheKey || parsedMeta.size !== dataBuffer.byteLength || !dataBuffer.byteLength) {
+          return { found: false, data: null, mimeType: null };
+        }
         if (typeof parsedMeta.mimeType === 'string' && parsedMeta.mimeType.trim()) {
           mimeType = parsedMeta.mimeType;
         }
       } catch {
-        // Ignore malformed metadata and keep the default content type.
+        return { found: false, data: null, mimeType: null };
       }
     }
 
@@ -4231,6 +4261,7 @@ async function readAudioCacheEntry(cacheKey) {
       mimeType: null,
     };
   }
+  });
 }
 
 /**
@@ -4309,15 +4340,9 @@ async function writeAudioCacheEntry(cacheKey, data, mimeType, limitBytes) {
     ? data
     : Buffer.from(data instanceof ArrayBuffer ? new Uint8Array(data) : data);
 
-  await Promise.all([
-    fsp.writeFile(dataPath, buffer),
-    fsp.writeFile(metaPath, JSON.stringify({
-      cacheKey,
-      mimeType: mimeType || 'audio/mpeg',
-      size: buffer.byteLength,
-      updatedAt: Date.now(),
-    }), 'utf-8'),
-  ]);
+  await withMediaCacheLock(dataPath, () => publishMediaCacheFiles(dataPath, metaPath, buffer, {
+    cacheKey, mimeType: mimeType || 'audio/mpeg', size: buffer.byteLength, updatedAt: Date.now(),
+  }));
 
   await pruneMediaCache(limitBytes);
 }
@@ -4364,6 +4389,7 @@ async function ensureCoverCacheDirectory() {
 
 async function readCoverCacheEntry(cacheKey) {
   const { dataPath, metaPath } = getCoverCachePaths(cacheKey);
+  return withMediaCacheLock(dataPath, async () => {
   try {
     const [dataBuffer, rawMeta] = await Promise.all([
       fsp.readFile(dataPath),
@@ -4389,6 +4415,7 @@ async function readCoverCacheEntry(cacheKey) {
   } catch {
     return { found: false, data: null, mimeType: null };
   }
+  });
 }
 
 async function writeCoverCacheEntry(cacheKey, data, mimeType) {
@@ -4401,15 +4428,9 @@ async function writeCoverCacheEntry(cacheKey, data, mimeType) {
   if (typeof mimeType !== 'string' || !mimeType.startsWith('image/')) {
     throw new Error('Cover cache only accepts image payloads');
   }
-  await Promise.all([
-    fsp.writeFile(dataPath, buffer),
-    fsp.writeFile(metaPath, JSON.stringify({
-      cacheKey,
-      mimeType: mimeType || 'application/octet-stream',
-      size: buffer.byteLength,
-      updatedAt: Date.now(),
-    }), 'utf-8'),
-  ]);
+  await withMediaCacheLock(dataPath, () => publishMediaCacheFiles(dataPath, metaPath, buffer, {
+    cacheKey, mimeType: mimeType, size: buffer.byteLength, updatedAt: Date.now(),
+  }));
 }
 
 async function removeCoverCacheEntry(cacheKey) {
@@ -4546,13 +4567,27 @@ function matchesObsBrowserSourceToken(requestUrl) {
 }
 
 function sendObsEvent(res, eventName, payload) {
-  res.write(`event: ${eventName}\n`);
-  res.write(`data: ${JSON.stringify(payload)}\n\n`);
+  sendSerializedObsEvent(res, eventName, JSON.stringify(payload));
 }
 
 function sendSerializedObsEvent(res, eventName, serializedPayload) {
-  res.write(`event: ${eventName}\n`);
-  res.write(`data: ${serializedPayload}\n\n`);
+  if (res.destroyed || res.writableEnded) return;
+  if (res.foliaObsWaitingForDrain) {
+    // These are state snapshots, not commands: preserve the latest config/clock/audio only.
+    res.foliaObsPending.set(eventName, serializedPayload);
+    return;
+  }
+  if (res.write(`event: ${eventName}\ndata: ${serializedPayload}\n\n`)) return;
+  res.foliaObsWaitingForDrain = true;
+  res.foliaObsPending = new Map();
+  res.once('drain', () => {
+    res.foliaObsWaitingForDrain = false;
+    const pending = res.foliaObsPending;
+    res.foliaObsPending = new Map();
+    for (const name of ['config', 'clock', 'audio']) {
+      if (pending.has(name)) sendSerializedObsEvent(res, name, pending.get(name));
+    }
+  });
 }
 
 function broadcastObsBrowserSourceEvent(eventName, payload) {

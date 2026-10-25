@@ -16,6 +16,7 @@ import { useAudioSettingsStore } from '../../../../stores/useAudioSettingsStore'
 import { setPlayerState } from '../../../../stores/usePlaybackStore';
 import { useTranslation } from 'react-i18next';
 import { usePlaybackStore } from '../../../../stores/usePlaybackStore';
+import { runsOnAndroid } from '../../../../utils/platform';
 
 // src/components/app/playback/bridges/usePlaybackAudioBridge.ts
 
@@ -69,7 +70,45 @@ export function usePlaybackAudioBridge({
     const replayGainLogSignatureRef = useRef<string | null>(null);
     const equalizerNodesRef = useRef<BiquadFilterNode[]>([]);
     const effectChainRef = useRef<AudioEffectChain | null>(null);
+    const mixNodeRef = useRef<GainNode | null>(null);
     const audioEqualizerSettings = useAudioSettingsStore(state => state.audioEqualizerSettings);
+
+    const idleContextTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const syncEffectPlayback = useCallback(() => {
+        const playing = [...document.querySelectorAll<HTMLAudioElement>('audio[data-folia-playback-deck]')]
+            .some(element => !element.paused && !element.ended);
+        effectChainRef.current?.setPlaying(playing);
+        if (idleContextTimerRef.current !== null) clearTimeout(idleContextTimerRef.current);
+        idleContextTimerRef.current = null;
+        const context = audioContextRef.current;
+        if (!runsOnAndroid() || !context || context.state === 'closed') return;
+        if (playing) {
+            if (context.state === 'suspended') void context.resume().catch(error => console.warn('[AudioContext] Cannot resume playback:', error));
+            return;
+        }
+        // Let all reverb/echo tails finish, then freeze the whole graph (including LFO phase).
+        // A new play event cancels this lease before touching the same context.
+        idleContextTimerRef.current = setTimeout(() => {
+            idleContextTimerRef.current = null;
+            if (audioContextRef.current !== context || context.state !== 'running') return;
+            const active = [...document.querySelectorAll<HTMLAudioElement>('audio[data-folia-playback-deck]')]
+                .some(element => !element.paused && !element.ended);
+            if (!active) void context.suspend().then(() => {
+                // play can arrive while suspend() is still pending, before state changes.
+                const resumed = [...document.querySelectorAll<HTMLAudioElement>('audio[data-folia-playback-deck]')]
+                    .some(element => !element.paused && !element.ended);
+                if (resumed && context.state === 'suspended') return context.resume();
+            }).catch(error => console.warn('[AudioContext] Cannot settle idle graph:', error));
+        }, 12000);
+    }, [audioContextRef]);
+    useEffect(() => {
+        const events = ['play', 'pause', 'ended', 'emptied'];
+        for (const event of events) document.addEventListener(event, syncEffectPlayback, true);
+        return () => {
+            for (const event of events) document.removeEventListener(event, syncEffectPlayback, true);
+            if (idleContextTimerRef.current !== null) clearTimeout(idleContextTimerRef.current);
+        };
+    }, [syncEffectPlayback]);
 
     // Recalculates source-specific gain after the audio graph or playback settings become ready.
     const applyReplayGain = useCallback(() => {
@@ -127,20 +166,22 @@ export function usePlaybackAudioBridge({
     }, [audioContextRef, currentSong, gainNodeRef, getActiveChain, localSongs, replayGainMode]);
 
     const setupAudioAnalyzer = useCallback(() => {
-        // The context is the sentinel, not the source node: a deck that failed to connect must
-        // not let this run twice, because createMediaElementSource throws on a second call.
-        if (!audioRef.current || audioContextRef.current) return;
+        // A complete chain is the readiness sentinel. Failed attempts reuse the same context
+        // and mix node, so a media source is never recreated or attached to a different graph.
+        if (!audioRef.current || effectChainRef.current) return;
         try {
             const AudioContextClass = window.AudioContext || (window as Window & typeof globalThis & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
-            const ctx = new AudioContextClass();
+            const ctx = audioContextRef.current ?? new AudioContextClass(runsOnAndroid() ? { latencyHint: 'playback' } : undefined);
             audioContextRef.current = ctx;
 
-            const analyser = ctx.createAnalyser();
+            const analyser = analyserRef.current ?? ctx.createAnalyser();
             analyser.fftSize = 2048;
             analyser.smoothingTimeConstant = 0.6;
             analyserRef.current = analyser;
 
+            mixNodeRef.current ??= ctx.createGain();
             const { gainNode, fadeNode, effectChain, decksConnected } = buildPlaybackGraph({
+                mixNode: mixNodeRef.current,
                 context: ctx,
                 analyser,
                 connectDecks,
@@ -152,6 +193,7 @@ export function usePlaybackAudioBridge({
             // resume see no graph and fall back to plain element pause/play.
             registerPlaybackFadeGraph({ context: ctx, gain: fadeNode });
             effectChainRef.current = effectChain;
+            syncEffectPlayback();
             if (!decksConnected) {
                 console.warn('[AudioContext] Deck setup incomplete, automix will stay idle');
             }
@@ -160,7 +202,7 @@ export function usePlaybackAudioBridge({
         } catch (error) {
             console.error('Audio Context Setup Failed:', error);
         }
-    }, [analyserRef, applyReplayGain, audioContextRef, audioEqualizerSettings, audioRef, connectDecks, gainNodeRef, getTargetPlaybackVolume, syncOutputGain]);
+    }, [analyserRef, applyReplayGain, audioContextRef, audioEqualizerSettings, audioRef, connectDecks, gainNodeRef, getTargetPlaybackVolume, syncEffectPlayback, syncOutputGain]);
 
     /**
      * Writes a fully-played track's audio and cover into the media cache.
@@ -256,7 +298,9 @@ export function usePlaybackAudioBridge({
             // source runs this effect again, and that run is the one meant to start it.
             if (audioRef.current.error) return;
 
-            if (shouldAutoPlayRef.current && !isLyricsLoading) {
+            // Audio readiness and the automix hold own transport. Lyric fetching keeps its UI
+            // loading state but cannot extend a silent gap once this source can play.
+            if (shouldAutoPlayRef.current) {
                 // The deck has its source and is buffering, but its blend is not due yet. Bail
                 // WITHOUT spending the intent - this effect runs again when the hold lifts, and
                 // that run is the one meant to start it.
@@ -284,13 +328,19 @@ export function usePlaybackAudioBridge({
                     return;
                 }
 
+                // Route the first samples through the finished graph. Rewiring a playing
+                // element in play().then() switches output paths in the middle of its waveform.
+                setupAudioAnalyzer();
+                const context = audioContextRef.current;
+                if (context?.state === 'suspended') {
+                    void context.resume().catch(error => console.warn('[AudioContext] Cannot resume autoplay graph:', error));
+                }
                 syncOutputGain(getTargetPlaybackVolume(), 0);
                 const playPromise = audioRef.current.play();
                 if (playPromise !== undefined) {
                     playPromise
                         .then(() => {
                             setPlayerState(PlayerState.PLAYING);
-                            setupAudioAnalyzer();
                         })
                         .catch(error => {
                             if (audioRef.current && !audioRef.current.paused && !audioRef.current.ended) {

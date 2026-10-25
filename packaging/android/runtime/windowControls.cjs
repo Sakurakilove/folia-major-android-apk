@@ -27,7 +27,8 @@ module.exports = ({ platform, store, events }) => {
         fullscreen = Boolean(await native('windowFullscreen', !fullscreen)); events.emit('window-fullscreen-changed', fullscreen); return fullscreen;
     };
     return {
-        _androidRendererExited: id => {
+        _androidRendererExited: (id, details) => {
+            console.warn('[AndroidRenderer] Renderer exited', { windowId: Number(id), didCrash: details?.didCrash, priorityAtExit: details?.priorityAtExit });
             const window=BrowserWindow.fromId(Number(id));if(!window)return false;
             window.webContents.crashed=true;if(Number(id)===1)platform.recordRendererMetrics?.(null);return true;
         },

@@ -61,7 +61,7 @@ public class FoliaPlaybackService extends Service {
         PendingIntent open = PendingIntent.getActivity(this, 0, new Intent(this, MainActivity.class),
             PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         builder.setSmallIcon(R.drawable.folia_notification).setContentTitle(title).setContentText(artist)
-            .setContentIntent(open).setVisibility(Notification.VISIBILITY_PUBLIC).setOngoing(playing);
+            .setContentIntent(open).setVisibility(Notification.VISIBILITY_PUBLIC).setOngoing(playing).setOnlyAlertOnce(true);
         int count = 0; java.util.ArrayList<Integer> compact = new java.util.ArrayList<>();
         if (hasTrack && canPrevious) { builder.addAction(new Notification.Action.Builder(android.R.drawable.ic_media_previous, "Previous", actionIntent("previoustrack", 1)).build()); compact.add(count++); }
         if (hasTrack) {
@@ -99,7 +99,7 @@ public class FoliaPlaybackService extends Service {
         session.setPlaybackState(new PlaybackState.Builder().setActions(PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PAUSE
             | PlaybackState.ACTION_SKIP_TO_NEXT | PlaybackState.ACTION_SKIP_TO_PREVIOUS | PlaybackState.ACTION_SEEK_TO)
             .setState(playing ? PlaybackState.STATE_PLAYING : PlaybackState.STATE_PAUSED, position, playing ? 1 : 0).build());
-        startForeground(32, notification());
+        getSystemService(NotificationManager.class).notify(32, notification());
         if (!playing) stopForeground(false);
         return START_NOT_STICKY;
     }

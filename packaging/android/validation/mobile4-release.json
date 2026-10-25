@@ -1,0 +1,34 @@
+{
+  "versionName": "0.7.20-mobile.4",
+  "versionCode": 702004,
+  "checks": {
+    "targetedUnitTests": 5,
+    "typecheck": true,
+    "phoneMetadataAndCompactLayoutChromium": true,
+    "phonePanelHeightLessThanCssPx": 120,
+    "deviceTesting": false,
+    "powerMeasurement": false,
+    "webBuild": true,
+    "releaseJavaCompilation": true,
+    "apkSignature": true
+  },
+  "changes": [
+    "Compact two-row phone player with song title, artists and persistent transport controls",
+    "Coalesce pinch updates once per display frame and disable competing native page zoom",
+    "Cap phone wall artwork decoding DPR at 1.5",
+    "Stationary library uses 20 FPS even while playing audio; interaction and player retain the configured cap",
+    "Remove mobile transport/seam backdrop blur and full-screen grain overlay"
+  ],
+  "limitations": [
+    "Pinch raster flicker and device power improvements require user device verification"
+  ],
+  "bytes": 340676250,
+  "sha256": "d3f84e0a1fd82f2414441052ffad05a60196882a1f52a579a60d57495346a4f0",
+  "signedWithSameCertificate": true,
+  "builtAtUTC": "2026-10-18T05:41:44.556417+00:00",
+  "delivery": {
+    "url": "https://litter.catbox.moe/ey4u8h.apk",
+    "expiryHours": 72,
+    "service": "Catbox Litterbox"
+  }
+}

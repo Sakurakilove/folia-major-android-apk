@@ -1,8 +1,12 @@
-import { Capacitor, registerPlugin } from '@capacitor/core';
+import { Capacitor, registerPlugin, type PluginListenerHandle } from '@capacitor/core';
+import type { FileSystemObserverLike, LocalLibraryChangeRecordLike } from '../../types/localLibraryWatch';
 
 // Serializable directory handles retain Android SAF grants across library reloads.
 interface Descriptor { __foliaAndroidHandle: true; uri: string; name: string; kind: 'file' | 'directory'; }
 interface FilePlugin {
+    addListener(event: 'directoryChanged', callback: (event: { token: string; type: string }) => void): Promise<PluginListenerHandle>;
+    watchDirectory(options: { token: string; uri: string; recursive: boolean }): Promise<void>;
+    unwatchDirectory(options: { token: string }): Promise<void>;
     beginWrite(options: { uri: string; keepExistingData: boolean }): Promise<{ token: string }>;
     writeChunk(options: { token: string; position: number; data: string }): Promise<void>;
     truncateWrite(options: { token: string; size: number }): Promise<void>;
@@ -37,6 +41,11 @@ class AndroidHandle {
 }
 
 class AndroidFileHandle extends AndroidHandle {
+    async getFileMetadata(): Promise<{ name: string; size: number; lastModified: number }> {
+        const info = await native.stat({ uri: this.uri });
+        return { name: this.name, size: info.size, lastModified: info.lastModified };
+    }
+
     async createWritable(options?: { keepExistingData?: boolean }): Promise<WritableStream<FileSystemWriteChunkType> & { write: (data: FileSystemWriteChunkType) => Promise<void>; seek: (position: number) => Promise<void>; truncate: (size: number) => Promise<void>; close: () => Promise<void> }> {
         const { token } = await native.beginWrite({ uri: this.uri, keepExistingData: Boolean(options?.keepExistingData) });
         let position = 0;
@@ -56,9 +65,9 @@ class AndroidFileHandle extends AndroidHandle {
                     if (command.position !== undefined) position = validOffset(command.position);
                     data = command.data;
                 } else data = command;
-                const bytes = new Uint8Array(await new Blob([data as BlobPart]).arrayBuffer());
-                for (let offset = 0; offset < bytes.length; offset += 65536) {
-                    const chunk = bytes.subarray(offset, offset + 65536);
+                const payload = data instanceof Blob ? data : new Blob([data as BlobPart]);
+                for (let offset = 0; offset < payload.size; offset += 65536) {
+                    const chunk = new Uint8Array(await payload.slice(offset, offset + 65536).arrayBuffer());
                     let binary = ''; for (const byte of chunk) binary += String.fromCharCode(byte);
                     await native.writeChunk({ token, position, data: btoa(binary) }); position += chunk.length;
                 }
@@ -143,6 +152,40 @@ export const reviveAndroidDirectoryHandles = <T>(handles: T): T => {
         value?.__foliaAndroidHandle === true ? revive(value as Descriptor) : value])) as T;
 };
 
+class AndroidDirectoryObserver implements FileSystemObserverLike {
+    private closed = false;
+    private subscriptions = new Map<string, PluginListenerHandle>();
+    constructor(private callback: (records: LocalLibraryChangeRecordLike[], observer: FileSystemObserverLike) => void) {}
+    async observe(handle: FileSystemHandle, options?: { recursive?: boolean }): Promise<void> {
+        const descriptor = handle as unknown as Descriptor;
+        if (!descriptor.__foliaAndroidHandle || descriptor.kind !== 'directory') throw new TypeError('Android directory handle required');
+        if (this.closed) throw new DOMException('Observer was disconnected', 'AbortError');
+        const token = globalThis.crypto?.randomUUID?.() ?? `watch-${Date.now()}-${Math.random()}`;
+        const listener = await native.addListener('directoryChanged', event => {
+            if (event.token !== token || this.closed) return;
+            // Let the root's await observe() continuation finish installing its watch first.
+            setTimeout(() => { if (!this.closed) this.callback([{ type: event.type, relativePathComponents: [] }], this); }, 0);
+        });
+        if (this.closed) { await listener.remove(); throw new DOMException('Observer was disconnected', 'AbortError'); }
+        this.subscriptions.set(token, listener);
+        try { await native.watchDirectory({ token, uri: descriptor.uri, recursive: options?.recursive ?? false }); }
+        catch (error) {
+            this.subscriptions.delete(token);
+            await listener.remove();
+            await native.unwatchDirectory({ token }).catch(() => {});
+            throw error;
+        }
+    }
+    disconnect(): void {
+        this.closed = true;
+        for (const [token, listener] of this.subscriptions) {
+            void listener.remove().catch(() => {});
+            void native.unwatchDirectory({ token }).catch(() => {});
+        }
+        this.subscriptions.clear();
+    }
+}
+
 export const installAndroidFileSystem = (): void => {
     const picker = async <T>(operation: Promise<T>): Promise<T> => {
         try { return await operation; } catch(error) {
@@ -151,6 +194,7 @@ export const installAndroidFileSystem = (): void => {
         }
     };
     Object.assign(window, {
+        FileSystemObserver: AndroidDirectoryObserver,
         showDirectoryPicker: async () => revive(await picker(native.pickDirectory())),
         showOpenFilePicker: async (options?: {multiple?: boolean; types?: Array<{accept: Record<string,string[]>}>}) => {
             const mimeTypes=[...new Set((options?.types || []).flatMap(type=>Object.keys(type.accept)))];

@@ -21,6 +21,20 @@ import java.util.function.Consumer;
 
 // Virtual displays keep hidden export renderers composited: WebGL and requestAnimationFrame remain active.
 final class FoliaWindowHost {
+    private static final Semaphore capturePermits = new Semaphore(2);
+    private static final ExecutorService captureIO = new ThreadPoolExecutor(1, 1, 0, TimeUnit.SECONDS,
+        new ArrayBlockingQueue<>(1), new ThreadPoolExecutor.AbortPolicy());
+    private static void encodeCapture(Context context, Bitmap bitmap, Consumer<Object> done, Consumer<String> failed) {
+        try {
+            captureIO.execute(() -> {
+                try { done.accept(saveCapture(context, bitmap)); }
+                catch (Exception error) { failed.accept(error.toString()); }
+                finally { bitmap.recycle(); capturePermits.release(); }
+            });
+        } catch (RejectedExecutionException busy) {
+            bitmap.recycle(); capturePermits.release(); failed.accept("A capture is already being encoded; retry after it finishes");
+        }
+    }
     private static ViewGroup mainParent;
     private static ViewGroup.LayoutParams mainLayout;
     private static WindowManager mainOverlayManager;
@@ -65,13 +79,14 @@ final class FoliaWindowHost {
         if (phase.equals("end")) drags.remove(id);
         return true;
     }
-    static boolean rendererGone(MainActivity activity,WebView view){
+    static boolean rendererGone(MainActivity activity,WebView view,RenderProcessGoneDetail detail){
         int id=windowId(view);Host host=windows.get(id);
-        new Thread(()->{try{FoliaRuntimeHost.rpc("_androidRendererExited",new JSONArray().put(id),1);}
+        new Thread(()->{try{FoliaRuntimeHost.rpc("_androidRendererExited",new JSONArray().put(id).put(new JSObject().put("didCrash",detail.didCrash()).put("priorityAtExit",detail.rendererPriorityAtExit())),1);}
             catch(Exception error){android.util.Log.w("FoliaWindow","Cannot report renderer exit",error);}},"Folia renderer exit").start();
         android.util.Log.e("FoliaWindow","WebView renderer exited for window "+id);
         if(host!=null){host.renderGone=true;host.close();notifyClosed(id);return true;}
         if(id!=1)return false;
+        activity.stopService(new Intent(activity, FoliaPlaybackService.class));
         if(mainOverlayManager!=null){mainOverlayManager.removeView(view);mainOverlayManager=null;mainParent=null;mainLayout=null;}
         else if(view.getParent() instanceof ViewGroup)((ViewGroup)view.getParent()).removeView(view);
         view.destroy();
@@ -207,23 +222,32 @@ final class FoliaWindowHost {
         if (Build.VERSION.SDK_INT >= 31) return Math.max(0,context.getSystemService(android.hardware.input.InputManager.class).getMaximumObscuringOpacityForTouch()-.01f);
         return 1;
     }
-    private static JSObject saveCapture(AppCompatActivity activity, Bitmap bitmap) throws Exception {
+    private static JSObject saveCapture(Context activity, Bitmap bitmap) throws Exception {
         File directory = new File(activity.getFilesDir(), "runtime-data/bridge-binary"); directory.mkdirs();
         File png = File.createTempFile("capture-", ".png", directory), raw = File.createTempFile("capture-", ".bgra", directory);
+        try {
         try (OutputStream output = new FileOutputStream(png)) { bitmap.compress(Bitmap.CompressFormat.PNG, 100, output); }
-        int[] pixels = new int[bitmap.getWidth()*bitmap.getHeight()];
-        bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+        int[] pixels = new int[bitmap.getWidth()];
         byte[] bytes = new byte[pixels.length*4];
-        for (int i=0; i<pixels.length; i++) { int color=pixels[i]; bytes[4*i]=(byte)color; bytes[4*i+1]=(byte)(color>>8); bytes[4*i+2]=(byte)(color>>16); bytes[4*i+3]=(byte)(color>>24); }
-        try (OutputStream output = new FileOutputStream(raw)) { output.write(bytes); }
+        try (OutputStream output = new BufferedOutputStream(new FileOutputStream(raw), 65536)) {
+            for (int y = 0; y < bitmap.getHeight(); y++) {
+                bitmap.getPixels(pixels, 0, bitmap.getWidth(), 0, y, bitmap.getWidth(), 1);
+                for (int i=0; i<pixels.length; i++) { int color=pixels[i]; bytes[4*i]=(byte)color; bytes[4*i+1]=(byte)(color>>8); bytes[4*i+2]=(byte)(color>>16); bytes[4*i+3]=(byte)(color>>24); }
+                output.write(bytes);
+            }
+        }
         return new JSObject().put("png",png.getPath()).put("raw",raw.getPath()).put("width",bitmap.getWidth()).put("height",bitmap.getHeight());
+        } catch (Exception error) {
+            png.delete(); raw.delete(); throw error;
+        }
     }
     static void execute(AppCompatActivity activity, String method, JSONArray args, Consumer<Object> done, Consumer<String> failed) {
+        Host creatingHost = null;
         try {
             MainActivity main = (MainActivity)activity;
             if (method.equals("windowCreate")) {
                 JSONObject options = args.getJSONObject(1);
-                Host host = new Host(); host.owner=main; host.skipTaskbar=options.optBoolean("skipTaskbar",false); host.id = args.getInt(0); host.width = options.optInt("width", 1280); host.height = options.optInt("height", 720);
+                Host host = new Host(); creatingHost = host; host.owner=main; host.skipTaskbar=options.optBoolean("skipTaskbar",false); host.id = args.getInt(0); host.width = options.optInt("width", 1280); host.height = options.optInt("height", 720);
                 host.width = Math.max(1, Math.min(host.width, 8192)); host.height = Math.max(1, Math.min(host.height, 8192));
                 windows.put(host.id, host);
                 if (!options.optBoolean("show", true)) {
@@ -264,6 +288,7 @@ final class FoliaWindowHost {
                         .addFlags(Intent.FLAG_ACTIVITY_NEW_DOCUMENT|Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                     activity.startActivity(task);
                 }
+                creatingHost = null;
                 done.accept(host.id); return;
             }
             int id = args.optInt(0, 1); Host host = windows.get(id);
@@ -284,7 +309,7 @@ final class FoliaWindowHost {
                         @Override public void onPageFinished(WebView webView, String url) { super.onPageFinished(webView, url); done.accept(true); }
                     });
                     else view.setWebViewClient(new WebViewClient() {
-                        @Override public boolean onRenderProcessGone(WebView renderer,RenderProcessGoneDetail detail){return rendererGone(main,renderer);}
+                        @Override public boolean onRenderProcessGone(WebView renderer,RenderProcessGoneDetail detail){return rendererGone(main,renderer,detail);}
                         @Override public WebResourceResponse shouldInterceptRequest(WebView webView, WebResourceRequest request) {
                             String path = request.getUrl().getPath();
                             if (path != null && path.startsWith("/_capacitor_")) return new WebResourceResponse("text/plain", "UTF-8", 403, "Private application route", java.util.Collections.emptyMap(), new ByteArrayInputStream(new byte[0]));
@@ -302,18 +327,21 @@ final class FoliaWindowHost {
                 case "windowEvaluate": evaluate(view, args.getString(1), done); return;
                 case "windowCapture": {
                     if (host == null || host.images == null) throw new IOException("Capture requires a virtual export display");
-                    Bitmap bitmap = Bitmap.createBitmap(host.width, host.height, Bitmap.Config.ARGB_8888);
+                    if (!capturePermits.tryAcquire()) throw new IOException("Frame capture is busy; wait for the previous frame");
+                    Bitmap bitmap;
+                    try { bitmap = Bitmap.createBitmap(host.width, host.height, Bitmap.Config.ARGB_8888); }
+                    catch (OutOfMemoryError allocation) { capturePermits.release(); failed.accept("Not enough memory for the requested capture"); return; }
                     if (Build.VERSION.SDK_INT >= 26) {
                         // Copy the window buffer before display composition so transparent lyric frames retain alpha.
+                        try {
                         PixelCopy.request(host.presentation.getWindow(), bitmap, result -> {
-                            if (result != PixelCopy.SUCCESS) { bitmap.recycle(); failed.accept("Android frame capture failed: " + result); return; }
-                            try { done.accept(saveCapture(activity, bitmap)); }
-                            catch (Exception error) { failed.accept(error.toString()); }
-                            finally { bitmap.recycle(); }
+                            if (result != PixelCopy.SUCCESS) { bitmap.recycle(); capturePermits.release(); failed.accept("Android frame capture failed: " + result); return; }
+                            encodeCapture(activity.getApplicationContext(), bitmap, done, failed);
                         }, new Handler(Looper.getMainLooper()));
+                        } catch (Exception captureError) { bitmap.recycle(); capturePermits.release(); throw captureError; }
                     } else {
                         Image image = host.latestImage; host.latestImage = null;
-                        if (image == null) { bitmap.recycle(); throw new IOException("The export renderer has not produced a frame"); }
+                        if (image == null) { bitmap.recycle(); capturePermits.release(); throw new IOException("The export renderer has not produced a frame"); }
                         try {
                             Image.Plane plane = image.getPlanes()[0]; ByteBuffer source = plane.getBuffer();
                             int[] colors = new int[host.width * host.height];
@@ -325,7 +353,7 @@ final class FoliaWindowHost {
                             }
                             bitmap.setPixels(colors, 0, host.width, 0, 0, host.width, host.height);
                             done.accept(saveCapture(activity, bitmap));
-                        } finally { image.close(); bitmap.recycle(); }
+                        } finally { image.close(); bitmap.recycle(); capturePermits.release(); }
                     }
                     return;
                 }
@@ -473,6 +501,9 @@ final class FoliaWindowHost {
                 default: throw new IOException("Unknown native window operation: " + method);
             }
             done.accept(true);
-        } catch (Exception error) { failed.accept(error.toString()); }
+        } catch (Exception error) {
+            if (creatingHost != null) creatingHost.close();
+            failed.accept(error.toString());
+        }
     }
 }

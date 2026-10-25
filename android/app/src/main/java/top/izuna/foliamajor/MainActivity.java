@@ -9,6 +9,11 @@ import com.getcapacitor.BridgeActivity;
 
 // Apply system bar and keyboard insets to the native container.
 public class MainActivity extends BridgeActivity {
+    private int latestSafeTop;
+    void publishWindowInsets(android.webkit.WebView view) {
+        view.evaluateJavascript("document.documentElement.style.setProperty('--folia-safe-top',(" + latestSafeTop + "/(window.devicePixelRatio||1))+'px')", null);
+    }
+
     private final android.os.Handler displayHandler=new android.os.Handler(android.os.Looper.getMainLooper());
     private final Runnable displayNotification=()->{
         if(!FoliaRuntimeHost.isReady())return;
@@ -55,15 +60,14 @@ public class MainActivity extends BridgeActivity {
         FoliaSystemBars.apply(this, "#09090b", false);
         getSystemService(android.hardware.display.DisplayManager.class).registerDisplayListener(displayListener,displayHandler);
         if (getBridge() != null) { FoliaWindowHost.attachMain(getBridge().getWebView()); getBridge().getWebView().getSettings().setSupportZoom(false); getBridge().getWebView().getSettings().setBuiltInZoomControls(false); getBridge().getWebView().getSettings().setDisplayZoomControls(false); getBridge().setWebViewClient(new FoliaWebViewClient(getBridge())); }
-        if (android.os.Build.VERSION.SDK_INT >= 35 && getBridge() != null) getBridge().getWebView().setRequestedFrameRate(60f);
         View content = findViewById(android.R.id.content);
         ViewCompat.setOnApplyWindowInsetsListener(content, (view, windowInsets) -> {
             Insets insets = windowInsets.getInsets(
                 WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout()
                     | WindowInsetsCompat.Type.ime());
             view.setPadding(insets.left, 0, insets.right, insets.bottom);
-            if (getBridge() != null) getBridge().getWebView().evaluateJavascript(
-                "document.documentElement.style.setProperty('--folia-safe-top',(" + insets.top + "/(window.devicePixelRatio||1))+'px')", null);
+            latestSafeTop = insets.top;
+            if (getBridge() != null) publishWindowInsets(getBridge().getWebView());
             return WindowInsetsCompat.CONSUMED;
         });
         ViewCompat.requestApplyInsets(content);

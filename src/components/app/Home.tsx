@@ -65,6 +65,7 @@ const Home: React.FC<AppHomeProps> = ({ model, isHomeFullyHidden, isInteractive 
                                 directoryActions={directoryActions}
                                 homeResources={homeResources}
                             />
+                            <span hidden data-folia-home-content-ready />
                         </React.Suspense>
                     )}
                 </GridViewOverlayHost>

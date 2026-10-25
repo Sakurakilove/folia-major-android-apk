@@ -1,5 +1,7 @@
 import React from 'react';
 import { hideAppSplash } from '../utils/appSplash';
+import { runsOnAndroid } from '../utils/platform';
+import { isMainAppSurface } from '../utils/appSurface';
 
 // src/components/AppSplashGate.tsx
 // 包在根组件树外层：首帧挂载完成后（useEffect 在浏览器绘制之后触发）移除首屏加载遮罩，
@@ -8,7 +10,12 @@ import { hideAppSplash } from '../utils/appSplash';
 const AppSplashGate: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     React.useEffect(() => {
         window.dispatchEvent(new Event('folia-first-screen-mounted'));
-        hideAppSplash();
+        if (!runsOnAndroid() || !isMainAppSurface || document.documentElement.dataset.foliaFirstSurfaceReady === 'true') {
+            hideAppSplash();
+            return;
+        }
+        window.addEventListener('folia-first-surface-ready', hideAppSplash, { once: true });
+        return () => window.removeEventListener('folia-first-surface-ready', hideAppSplash);
     }, []);
 
     return <>{children}</>;

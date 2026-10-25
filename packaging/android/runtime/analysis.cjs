@@ -16,12 +16,29 @@ module.exports = ({ dataDir, store, events }) => {
     const enqueue = job => { const result = queue.then(job); queue = result.catch(() => {}); return result; };
     const runPython = args => new Promise((resolve, reject) => {
         const child = spawn(python, args, { stdio: ['ignore', 'pipe', 'pipe'] });
+        if (child.pid) {
+            try { require('node:os').setPriority(child.pid, require('node:os').constants.priority.PRIORITY_BELOW_NORMAL); }
+            catch (error) { console.warn('[AndroidAnalysis] Cannot lower inference scheduling priority:', error); }
+        }
         let errors = '';
         child.stderr.on('data', data => { errors = (errors + data.toString()).slice(-4000); });
         child.stdout.on('data', data => console.log('[AndroidAnalysis]', data.toString().trim()));
-        const timer = setTimeout(() => { child.kill(); reject(new Error('Android model inference timed out')); }, 180000);
-        child.on('error', error => { clearTimeout(timer); reject(error); });
-        child.on('close', code => { clearTimeout(timer); if (code) reject(new Error(errors || 'Model process failed')); else resolve(); });
+        let timedOut = false;
+        let killTimer;
+        const timer = setTimeout(() => {
+            timedOut = true;
+            child.kill('SIGTERM');
+            // Keep the serial queue occupied until close confirms the old worker has exited.
+            killTimer = setTimeout(() => child.kill('SIGKILL'), 3000);
+        }, 180000);
+        const clearTimers = () => { clearTimeout(timer); clearTimeout(killTimer); };
+        child.on('error', error => { clearTimers(); reject(error); });
+        child.on('close', code => {
+            clearTimers();
+            if (timedOut) reject(new Error('Android model inference timed out'));
+            else if (code) reject(new Error(errors || 'Model process failed'));
+            else resolve();
+        });
     });
     const models = createModelStore({ getModelsDirs: dirs, getDownloadDir: directory, builtinRuntime: python,
         onProgress: progress => events.emit('automix-model-progress', progress), onChanged: () => {} });

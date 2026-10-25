@@ -10,6 +10,8 @@ import { audioBands, audioPower, currentTime, lyricCurrentTime } from '../../../
 
 // src/components/app/playback/bridges/usePlaybackVisualizerBridge.ts
 
+const EMPTY_SPECTRUM = new Uint8Array(0);
+
 type UsePlaybackVisualizerBridgeParams = {
 
     audioRef: MutableRefObject<HTMLAudioElement | null>;
@@ -91,8 +93,9 @@ export function usePlaybackVisualizerBridge({
             audioBands.spectrum?.set(dataArray);
 
             const getEnergy = (minHz: number, maxHz: number): number => {
-                const start = Math.floor(minHz / 21.5);
-                const end = Math.floor(maxHz / 21.5);
+                const hzPerBin = analyserRef.current!.context.sampleRate / analyserRef.current!.fftSize;
+                const start = Math.max(0, Math.min(bufferLength - 1, Math.floor(minHz / hzPerBin)));
+                const end = Math.max(start, Math.min(bufferLength - 1, Math.floor(maxHz / hzPerBin)));
                 let sum = 0;
                 for (let index = start; index <= end; index += 1) {
                     sum += dataArray[index];
@@ -127,7 +130,7 @@ export function usePlaybackVisualizerBridge({
             audioBands.mid.set(breath);
             audioBands.vocal.set(breath);
             audioBands.treble.set(breath);
-            audioBands.spectrum?.set(new Uint8Array(0));
+            if (audioBands.spectrum?.get().length) audioBands.spectrum.set(EMPTY_SPECTRUM);
         }
 
         if (isActuallyPlaying && audioElement) {

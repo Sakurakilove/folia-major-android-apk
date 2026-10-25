@@ -66,7 +66,7 @@ export const installAndroidBack = (runtime: AndroidBackPlugin): void => {
         } else if (event.phase === 'cancel') {
             restore(true);
         } else {
-            restore(false);
+            restore(true);
             const dialog = visibleDialogs().at(-1);
             if (dialog) {
                 const active = document.activeElement instanceof HTMLElement ? document.activeElement : null;

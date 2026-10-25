@@ -90,12 +90,26 @@ function matchesObsBrowserSourceToken(requestUrl) {
   return requestUrl.searchParams.get('token') === expectedToken;
 }
 function sendObsEvent(res, eventName, payload) {
-  res.write(`event: ${eventName}\n`);
-  res.write(`data: ${JSON.stringify(payload)}\n\n`);
+  sendSerializedObsEvent(res, eventName, JSON.stringify(payload));
 }
 function sendSerializedObsEvent(res, eventName, serializedPayload) {
-  res.write(`event: ${eventName}\n`);
-  res.write(`data: ${serializedPayload}\n\n`);
+  if (res.destroyed || res.writableEnded) return;
+  if (res.foliaObsWaitingForDrain) {
+    // These are state snapshots, not commands: preserve the latest config/clock/audio only.
+    res.foliaObsPending.set(eventName, serializedPayload);
+    return;
+  }
+  if (res.write(`event: ${eventName}\ndata: ${serializedPayload}\n\n`)) return;
+  res.foliaObsWaitingForDrain = true;
+  res.foliaObsPending = new Map();
+  res.once('drain', () => {
+    res.foliaObsWaitingForDrain = false;
+    const pending = res.foliaObsPending;
+    res.foliaObsPending = new Map();
+    for (const name of ['config', 'clock', 'audio']) {
+      if (pending.has(name)) sendSerializedObsEvent(res, name, pending.get(name));
+    }
+  });
 }
 function broadcastObsBrowserSourceEvent(eventName, payload) {
   const serializedPayload = JSON.stringify(payload);

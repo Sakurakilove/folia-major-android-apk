@@ -1,8 +1,9 @@
-import React, { useCallback, useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
+import React, { useCallback, useContext, useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef } from 'react';
 import type { VisualizerBackgroundMode } from '../../../types';
 import type { VisualizerBackgroundConfig, VisualizerBackgroundRenderProps } from '../backgrounds/definition';
 import { DEFAULT_VISUALIZER_BACKGROUND_MODE, getVisualizerBackgroundRegistryEntry } from '../backgrounds/registry';
 import { FirstFrameContext, LayerUnseenContext, type FirstFrameReport } from './firstFrame';
+import { RendererFrameContext } from './RendererFrameBoundary';
 import { useLayerAnimation, useShownLayers, type LayerTransition, type ShownLayer } from './layerTransition';
 
 // src/components/visualizer/styleTransition/VisualizerBackgroundTransition.tsx
@@ -85,6 +86,11 @@ const BackgroundLayer: React.FC<BackgroundLayerProps> = ({ background, inputs, n
     const ref = useRef<HTMLDivElement | null>(null);
     useLayerAnimation(ref, background, transition, onLeft);
     const { key, value, leaving } = background;
+    const rendererFrame = useContext(RendererFrameContext);
+    const frameToken = useRef({}).current;
+    const frameStateRef = useRef({ leaving, rendererFrame, present: value !== null });
+    frameStateRef.current = { leaving, rendererFrame, present: value !== null };
+    useLayoutEffect(() => leaving || value === null ? undefined : rendererFrame?.claim(frameToken, 'background'), [frameToken, leaving, rendererFrame, value]);
     // Followed while they are this background's own and it is on screen; kept once it leaves (the
     // inputs given then are the next background's: another type, the next song). Kept too while a
     // style switch waits: what the new style changes in place (Fume hiding the shapes) comes with its
@@ -113,14 +119,19 @@ const BackgroundLayer: React.FC<BackgroundLayerProps> = ({ background, inputs, n
             claimed.current = true;
         },
         drawn: () => {
+            const state = frameStateRef.current;
+            if (!state.leaving && state.present) state.rendererFrame?.drawn(frameToken);
             readyRef.current = true;
             start();
         },
-    }), [start]);
+    }), [frameToken, start]);
     // After the background's own layout effects: one that does not say when it is ready is ready now.
     useLayoutEffect(() => {
-        if (!claimed.current) readyRef.current = true;
-    }, []);
+        if (!claimed.current) {
+            readyRef.current = true;
+            if (!leaving && value !== null) rendererFrame?.drawn(frameToken);
+        }
+    }, [frameToken, leaving, rendererFrame, value]);
     useLayoutEffect(() => {
         startsRef.current = startsChange;
         styleWaitsRef.current = styleWaits;

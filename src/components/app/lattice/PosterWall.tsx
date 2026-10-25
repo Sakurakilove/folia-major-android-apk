@@ -1,3 +1,4 @@
+import { flushSync } from 'react-dom';
 import { runsOnAndroid } from '../../../utils/platform';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import type { SongResult } from '../../../types';
@@ -98,6 +99,7 @@ export default function PosterWall({
     countRender('PosterWall');
     const containerRef = useRef<HTMLDivElement>(null);
     const worldRef = useRef<HTMLDivElement>(null);
+    const entranceHistory = useRef(new Set<string>());
     const cameraRef = useRef<LatticeCamera>({ ...CAMERA_HOME, scale: 0.76 });
     const viewportRef = useRef({ width: 1280, height: 720 });
     const trackedCurrentPosterRef = useRef<{
@@ -106,6 +108,8 @@ export default function PosterWall({
     }>({ enabled: false, rect: null });
     const currentPosterVisibleRef = useRef(true);
     const [bounds, setBounds] = useState<Bounds>(() => getWorldBounds(cameraRef.current, viewportRef.current));
+    const boundsRef = useRef(bounds);
+    boundsRef.current = bounds;
     // Nothing is drawn until the field reports its size: the seeded camera and the default
     // viewport would otherwise place the entering wave, and the playing song, off centre.
     const [measured, setMeasured] = useState(false);
@@ -156,7 +160,15 @@ export default function PosterWall({
         }
         publishCurrentPosterVisibility(next);
         cameraWatchRef.current(next);
-        if (updateBounds) setBounds(getWorldBounds(next, viewportRef.current));
+        const visible = getWorldBounds(next, viewportRef.current);
+        const current = boundsRef.current;
+        // Long flights retain the current region and replenish only near its edge.
+        const padding = 180;
+        if (updateBounds || visible.left < current.left - padding || visible.right > current.right + padding
+            || visible.top < current.top - padding || visible.bottom > current.bottom + padding) {
+            boundsRef.current = visible;
+            setBounds(visible);
+        }
     }, [publishCurrentPosterVisibility]);
 
     useEffect(() => {
@@ -174,6 +186,17 @@ export default function PosterWall({
         return () => {
             observer.disconnect();
         };
+    }, [applyCamera]);
+
+    const applyGestureCamera = useCallback((next: LatticeCamera, updateBounds = false) => {
+        const visible = getWorldBounds(next, viewportRef.current);
+        const current = boundsRef.current;
+        if (updateBounds || visible.left < current.left - 180 || visible.right > current.right + 180
+            || visible.top < current.top - 180 || visible.bottom > current.bottom + 180) {
+            boundsRef.current = visible;
+            flushSync(() => setBounds(visible));
+        }
+        applyCamera(next);
     }, [applyCamera]);
 
     // Widens the culled region to cover a pan's destination the moment it starts. Held arrow
@@ -196,7 +219,7 @@ export default function PosterWall({
             const mergedArea = (merged.right - merged.left) * (merged.bottom - merged.top);
             const destinationArea = (destination.right - destination.left)
                 * (destination.bottom - destination.top);
-            return mergedArea > destinationArea * MAX_RESERVED_VIEWPORTS ? destination : merged;
+            return mergedArea > destinationArea * MAX_RESERVED_VIEWPORTS ? current : merged;
         });
     }, []);
 
@@ -265,7 +288,7 @@ export default function PosterWall({
     }, []);
 
     const { didDragRef, onPointerDown, onPointerMove, onPointerUp, onPointerCancel, onClickCapture } = useWallPointerPan({
-        applyCamera,
+        applyCamera: applyGestureCamera,
         onScaleCommit: setCameraScale,
         animationRef,
         stopPan,
@@ -459,6 +482,7 @@ export default function PosterWall({
                         <LatticePoster
                             key={instance.instanceId}
                             instanceId={instance.instanceId}
+                            entranceHistory={entranceHistory}
                             isFocused={focused?.instanceId === instance.instanceId}
                             tile={tile}
                             rect={rect}

@@ -2,6 +2,7 @@ from pathlib import Path
 import shutil
 import subprocess
 import zipfile
+import hashlib
 
 # Assemble only the Android server dependencies and the unchanged desktop implementations.
 root = Path(__file__).resolve().parents[2]
@@ -10,7 +11,10 @@ subprocess.run(['python3', str(root / 'packaging/android/generateApiSpec.py')], 
 if not (runtime / 'node_modules').exists():
     raise SystemExit('Run npm ci --prefix packaging/android/runtime --ignore-scripts first')
 for name in ['electron', 'shared']:
-    shutil.copytree(root / name, runtime / name, dirs_exist_ok=True)
+    destination_tree = runtime / name
+    if destination_tree.exists():
+        shutil.rmtree(destination_tree)
+    shutil.copytree(root / name, destination_tree)
 subprocess.run(['node', str(root / 'packaging/android/extractDesktop.cjs')], check=True)
 if (root / 'dist').exists():
     shutil.rmtree(runtime / 'dist', ignore_errors=True)
@@ -29,11 +33,12 @@ with zipfile.ZipFile(destination, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as
         if not file.is_file() or file.is_symlink():
             continue
         relative = file.relative_to(runtime)
-        if ('.bin' in relative.parts or '.cache' in relative.parts
+        if (relative.parts[0] == 'dist' or '.bin' in relative.parts or '.cache' in relative.parts
             or file.name.endswith(('.map', '.d.ts'))
             or any(part in ['.github', '__tests__', '__pycache__'] for part in relative.parts)
             or ('@lox-audioserver' in relative.parts and 'prebuilds' in relative.parts)
             or relative.as_posix().startswith('node_modules/@neteasecloudmusicapienhanced/api/public/docs/')):
             continue
         archive.write(file, relative.as_posix())
+    archive.writestr('.folia-shared-frontend', hashlib.sha256((root / 'dist/index.html').read_bytes()).hexdigest())
 print(f'Prepared Android Node runtime: {destination.stat().st_size // 1024 // 1024} MiB')

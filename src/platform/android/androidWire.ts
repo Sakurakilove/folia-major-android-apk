@@ -58,9 +58,14 @@ export const createAndroidWire = (native: BinaryPlugin) => {
             if (!constructors[descriptor.type]) throw new Error('Unknown Android binary response type');
             return new constructors[descriptor.type](buffer);
         }
-        if (Array.isArray(value)) return Promise.all(value.map(decode));
-        const entries = await Promise.all(Object.entries(value).map(async ([key, item]) => [key, await decode(item)]));
-        return Object.fromEntries(entries);
+        if (Array.isArray(value)) {
+            const result = [];
+            for (const item of value) result.push(await decode(item));
+            return result;
+        }
+        const result: Record<string, unknown> = {};
+        for (const [key, item] of Object.entries(value)) result[key] = await decode(item);
+        return result;
     };
     return { encode, decode };
 };

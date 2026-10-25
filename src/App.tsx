@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback, useMemo, lazy, Suspense } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect, useCallback, useMemo, lazy, Suspense } from 'react';
 import { AnimatePresence, motion, useMotionValueEvent } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { ChevronLeft } from 'lucide-react';
@@ -42,6 +42,9 @@ import { createOnlineGridViewCollection, type GridViewCollectionDescriptor } fro
 import { buildAppStyle } from './components/app/presentation/buildAppStyle';
 import { buildDebugSnapshot } from './components/app/presentation/buildDebugSnapshot';
 import { buildHomeSurfacePresentation } from './components/app/presentation/buildHomeSurfacePresentation';
+import { useAndroidSurfaceReady, waitForAndroidVisualState } from './platform/android/useAndroidSurfaceReady';
+import { useAndroidStartupReady } from './platform/android/useAndroidStartupReady';
+import { RendererFrameBoundary } from './components/visualizer/styleTransition/RendererFrameBoundary';
 import { shouldMountPlayerVisualizer } from './components/app/presentation/playerVisualizerMount';
 import { resolveWallHandoffPresentation } from './components/app/presentation/wallHandoffPresentation';
 import { useWallHandoffDirector } from './components/app/presentation/wallHandoffDirector';
@@ -1399,7 +1402,9 @@ export default function App() {
         taskbarPlayerStateRef,
     } = useTransportCommandRefs({ resumePlayback, pausePlayback, handlePrevTrack, handleNextTrack });
 
+    const mediaSessionSeekRef = useRef<((time: number) => void) | null>(null);
     useMediaSessionBridge({
+        mediaSessionSeekRef,
         audioRef,
         // All three describe the DISPLAYED track, and that is the whole of the fix: the metadata,
         // the clock the position is read off, and the source the readiness guard compares against.
@@ -2013,6 +2018,8 @@ export default function App() {
         }
     }, [publishStagePlayerPlaybackUpdate]);
 
+    mediaSessionSeekRef.current = seekMainAudio;
+
     const handleMonetLyricLineSeek = useCallback((lyricTimeSec: number) => {
         if (isNowPlayingControlDisabled) {
             return;
@@ -2360,20 +2367,38 @@ export default function App() {
     // page and the flight's overlay, then stays under the wall until the flight is over: shown as
     // it was, for the wall fades in over it.
     const holdsHomeForFlight = useMorphKeepsHost(currentView === 'lattice');
-    const isHomeSurfaceRevealed = shouldRevealHomeSurface || holdsHomeForFlight;
+    const [playerFrameReady, setPlayerFrameReady] = useState(false);
+    const markPlayerFrameReady = useCallback(() => setPlayerFrameReady(true), []);
+    const hasPresentedHome = useRef(false);
+    const hasPresentedLattice = useRef(currentView === 'lattice');
+    const homeSurfaceRef = useRef<HTMLDivElement>(null);
+    const warmHome = shouldRevealHomeSurface && hasPresentedHome.current && !isHomeFullyHidden;
+    const homeFrameReady = useAndroidSurfaceReady(homeSurfaceRef, shouldRevealHomeSurface, !isHomeFullyHidden, wallHandoff.active || holdsHomeForFlight || warmHome);
+    useAndroidStartupReady(currentView, (currentView === 'home' && homeFrameReady) || (currentView === 'player' && playerFrameReady));
+    const holdsHomeForPlayer = runsOnAndroid() && currentView === 'player' && !playerFrameReady && hasPresentedHome.current && !wallHandoff.active;
+    const holdsLatticeForFrame = runsOnAndroid() && hasPresentedLattice.current && !wallHandoff.active
+        && ((currentView === 'player' && !playerFrameReady) || (currentView === 'home' && !homeFrameReady));
+    const isHomeSurfacePreparing = shouldRevealHomeSurface && !homeFrameReady;
+    const isHomeSurfaceRevealed = homeFrameReady || holdsHomeForFlight || holdsHomeForPlayer;
+    useLayoutEffect(() => {
+        if (currentView === 'home' && homeFrameReady) hasPresentedHome.current = true;
+        else if (isHomeFullyHidden || currentView === 'lattice') hasPresentedHome.current = false;
+        if (currentView === 'lattice') hasPresentedLattice.current = true;
+        else if ((currentView === 'player' && playerFrameReady) || (currentView === 'home' && homeFrameReady)) hasPresentedLattice.current = false;
+    }, [currentView, homeFrameReady, isHomeFullyHidden, playerFrameReady]);
     useEffect(() => {
-        if (shouldKeepHomeMounted || holdsHomeForFlight) {
+        if (shouldKeepHomeMounted || holdsHomeForFlight || holdsHomeForPlayer) {
             setIsHomeFullyHidden(false);
         } else {
             // Wait for the 300ms opacity transition to finish before applying display: none
             const timer = setTimeout(() => setIsHomeFullyHidden(true), 350);
             return () => clearTimeout(timer);
         }
-    }, [shouldKeepHomeMounted, holdsHomeForFlight]);
+    }, [shouldKeepHomeMounted, holdsHomeForFlight, holdsHomeForPlayer]);
     // 资料库 stage 完全遮挡播放页时（bravais 实色档，stage 自己报告）也卸载 visualizer：首页淡入结束后才卸载，
     // 首页一被面板盖住 / 离开就立即重挂；设置弹窗盖着时首页仍显示在遮罩下面，不重挂。App 只认报告，不认识 suite。
     const libraryOccludesPlayer = useLibraryPlayerOcclusionStore(selectLibraryOccludesPlayer);
-    const hasLibraryOcclusionSettled = useLibraryOcclusionSettled(shouldRevealHomeSurface && libraryOccludesPlayer);
+    const hasLibraryOcclusionSettled = useLibraryOcclusionSettled(homeFrameReady && libraryOccludesPlayer);
     const shouldMountVisualizer = shouldMountPlayerVisualizer({
         currentView,
         // Around a wall, the visualizer is taken down and put back by wallLayer.ts's rule.
@@ -2383,6 +2408,7 @@ export default function App() {
         hasLibraryOcclusionSettled,
         handoffKeepsVisualizer: wallHandoff.keepsVisualizer,
     });
+    useEffect(() => { if (!shouldMountVisualizer) setPlayerFrameReady(false); }, [shouldMountVisualizer]);
     // 首页墙透出来的 visualizer 加模糊（bravais「墙后的画面」，stage 报告；只在首页墙露着时）。
     const libraryBackdropBlur = useLibraryPlayerOcclusionStore(state => selectLibraryPlayerBackdrop(state).blur);
     const blursVisualizerBackdrop = resolveVisualizerBackdropBlur({ shouldRevealHomeSurface, backdropBlur: libraryBackdropBlur });
@@ -2392,6 +2418,7 @@ export default function App() {
     // the progress bar, the duration, the queue, or the player state.
     const renderAudioDeck = (deck: AutomixDeckId, register: (element: HTMLAudioElement | null) => void) => (
         <audio
+            data-folia-playback-deck={deck}
             key={deck}
             ref={register}
             src={automix.deckSrc(deck)}
@@ -2674,11 +2701,12 @@ export default function App() {
             <WallToolsDockHost host={wallToolsHost}>
             {/* Home Mount Point */}
             <div
+                ref={homeSurfaceRef}
                 className="absolute inset-0 z-10"
                 data-wall-handoff-layer="home"
                 style={{
-                    pointerEvents: shouldShowHomeSurface && !wallHandoff.active ? 'auto' : 'none',
-                    visibility: isHomeSurfaceRevealed ? 'visible' : 'hidden',
+                    pointerEvents: shouldShowHomeSurface && homeFrameReady && !wallHandoff.active ? 'auto' : 'none',
+                    visibility: isHomeSurfaceRevealed || isHomeSurfacePreparing ? 'visible' : 'hidden',
                     transition: isHomeSurfaceRevealed
                         ? 'visibility 0s linear 0s'
                         : 'visibility 0s linear 0.25s',
@@ -2688,12 +2716,12 @@ export default function App() {
                 <motion.div
                     className="absolute inset-0"
                     initial={false}
-                    animate={{ opacity: isHomeSurfaceRevealed ? 1 : 0 }}
+                    animate={{ opacity: isHomeSurfacePreparing ? 0.01 : isHomeSurfaceRevealed ? 1 : 0 }}
                     // 交接期间不跑整层淡入淡出：进 Lattice 时首页墙保持完全显示，回来时下面的墙要立刻是实的。
                     // Come up from the wall (it has not left the screen yet), Home is shown at
                     // once too: the wall is over it, and is what fades. A fade of both at a time
                     // lets what is under them through.
-                    transition={{ duration: wallHandoff.active || !visualizerAroundWall.hasWallLeft ? 0 : 0.25, ease: 'easeInOut' }}
+                    transition={{ duration: isHomeSurfacePreparing || wallHandoff.active || !visualizerAroundWall.hasWallLeft ? 0 : 0.25, ease: 'easeInOut' }}
                 >
                     {currentView === 'home' || currentView === 'player' || wallHandoff.keepsHome || holdsHomeForFlight ? (
                         <Home
@@ -2709,10 +2737,10 @@ export default function App() {
                 initial={false}
                 onExitComplete={wallExitCompleted}
             >
-                {(currentView === 'lattice' || wallHandoff.keepsLattice) && (
+                {(currentView === 'lattice' || wallHandoff.keepsLattice || holdsLatticeForFrame) && (
                     <motion.div
                         key="lattice"
-                        className={`absolute inset-0 z-10 ${wallHandoff.active ? 'pointer-events-none' : 'pointer-events-auto'}`}
+                        className={`absolute inset-0 z-10 ${wallHandoff.active || holdsLatticeForFrame ? 'pointer-events-none' : 'pointer-events-auto'}`}
                         data-wall-handoff-layer="lattice"
                         initial={wallHandoff.latticeOpacity && wallHandoff.latticeOpacity.initial !== false
                             ? { opacity: wallHandoff.latticeOpacity.initial }
@@ -2782,7 +2810,9 @@ export default function App() {
                 onClick={handleContainerClick}
             >
                 <PlayerBottomBarLayoutContext.Provider value={currentView === 'player'}>
-                    {shouldMountVisualizer && <VisualizerRenderer {...visualizerRendererModel} animateStyleSwitch />}
+                    {shouldMountVisualizer && <RendererFrameBoundary onReady={markPlayerFrameReady} present={waitForAndroidVisualState}>
+                        <VisualizerRenderer {...visualizerRendererModel} animateStyleSwitch />
+                    </RendererFrameBoundary>}
                 </PlayerBottomBarLayoutContext.Provider>
             </div>
 

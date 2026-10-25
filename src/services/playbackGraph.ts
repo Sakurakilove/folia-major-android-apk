@@ -12,6 +12,7 @@ import type { AudioEqualizerSettings } from '../utils/audioEqualizer';
 
 type BuildPlaybackGraphParams = {
     context: AudioContext;
+    mixNode?: GainNode;
     /** Where the mix lands. Everything downstream of here is per-listener, not per-track. */
     analyser: AnalyserNode;
     /** Wires both automix decks into the shared mix point. Returns false if a deck is missing. */
@@ -40,15 +41,19 @@ export const buildPlaybackGraph = ({
     connectDecks,
     equalizerNodesRef,
     settings,
+    mixNode: existingMix,
 }: BuildPlaybackGraphParams): PlaybackGraph => {
     // The shared mix point. Both decks land here, so the equaliser and the analyser each exist
     // once and see the sum: the tone never steps mid-blend and the visualiser draws what is
     // actually being heard.
-    const mixNode = context.createGain();
-    const decksConnected = connectDecks(context, mixNode);
+    const mixNode = existingMix ?? context.createGain();
+    const owned: AudioNode[] = [mixNode];
+    let createdEffects: AudioEffectChain | null = null;
+    try {
 
     // Keeps a stable seam between the equalizer bands and the effect chain.
     const equalizerOutput = context.createGain();
+    owned.push(equalizerOutput);
     connectAudioEqualizerGraph({
         context,
         input: mixNode,
@@ -78,6 +83,7 @@ export const buildPlaybackGraph = ({
      * this is inaudible to anyone who leaves the effects off.
      */
     const gainNode = context.createGain();
+    owned.push(gainNode);
     const effectChain = createAudioEffectChain({
         context,
         input: equalizerOutput,
@@ -86,15 +92,20 @@ export const buildPlaybackGraph = ({
         enabled: settings.enabled,
     });
 
+    createdEffects = effectChain;
+
     // After the volume so the fade multiplies whatever level the listener chose, and before the
     // analyser so the visualiser fades with the sound.
     const fadeNode = context.createGain();
+    owned.push(fadeNode);
     gainNode.connect(fadeNode);
 
     // The analyser stays last, so the visualiser draws what is actually being heard - including
     // the volume the listener set.
     fadeNode.connect(analyser);
     analyser.connect(context.destination);
+    // Commit media sources only after the complete downstream graph exists.
+    const decksConnected = connectDecks(context, mixNode);
 
     // Once per audio context. Printed rather than assumed because the ORDER is the fix: if this
     // ever reads "volume" before "effects" again, the vinyl noise has stopped answering the
@@ -106,4 +117,13 @@ export const buildPlaybackGraph = ({
     );
 
     return { gainNode, fadeNode, effectChain, decksConnected };
+    } catch (error) {
+        createdEffects?.dispose();
+        for (const node of [...owned, ...equalizerNodesRef.current]) {
+            try { node.disconnect(); } catch { /* A node may not have connected yet. */ }
+        }
+        equalizerNodesRef.current = [];
+        analyser.disconnect();
+        throw error;
+    }
 };

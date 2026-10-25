@@ -23,6 +23,7 @@ type CreateAudioEffectChainParams = {
 };
 
 export type AudioEffectChain = {
+    setPlaying: (playing: boolean) => void;
     apply: (effects: AudioEffectSettings, enabled: boolean) => void;
     dispose: () => void;
 };
@@ -43,6 +44,8 @@ export const createAudioEffectChain = ({
     const wow = createWowBranch(context, nodes);
     let lastDrive = -1;
     let lastCrush = -1;
+    let playing = true;
+    let noiseAmount = 0;
 
     // Maps normalized settings onto every stage; a disabled chain falls back to the neutral set.
     const apply = (nextEffects: AudioEffectSettings, nextEnabled: boolean) => {
@@ -61,7 +64,8 @@ export const createAudioEffectChain = ({
         }
 
         wow.set(active.wow);
-        noise.set(active.noise);
+        noiseAmount = active.noise;
+        noise.set(playing ? noiseAmount : 0);
         reverb.set(active.space);
 
         const direct = (1 + active.width) / 2;
@@ -79,10 +83,22 @@ export const createAudioEffectChain = ({
         rampParam(context, nodes.makeup.gain, dbToLinear(active.punch * 3));
     };
 
-    apply(effects, enabled);
+    try { apply(effects, enabled); }
+    catch (error) {
+        wow.dispose();
+        noise.dispose();
+        reverb.dispose();
+        disconnectAudioEffectNodes(nodes, input);
+        throw error;
+    }
 
     return {
         apply,
+        setPlaying: next => {
+            if (playing === next) return;
+            playing = next;
+            noise.set(playing ? noiseAmount : 0);
+        },
         dispose: () => {
             wow.dispose();
             noise.dispose();

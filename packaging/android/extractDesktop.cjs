@@ -33,7 +33,7 @@ const lyricNames = ['isAllowedLyricProxyHost', 'isAmllDbHost', 'proxyLyricReques
 for (const name of lyricNames) if (!functions.has(name)) throw new Error('Upstream lyric proxy changed: ' + name);
 fs.writeFileSync(path.join(__dirname, 'runtime/generated/lyrics.cjs'), '// Generated from electron/main.cjs.\nconst AMLL_API_TIMEOUT_MS=5000;\n' + lyricNames.map(name => functions.get(name)).join('\n') + '\nmodule.exports={fetchLyricProxy:proxyLyricRequest};\n');
 const cacheNames = ['getAudioCacheDirectory', 'getCoverCacheDirectory', 'getAudioCacheBaseName', 'getAudioCachePaths', 'getCoverCachePaths',
-    'ensureAudioCacheDirectory', 'hasAudioCacheEntry', 'readAudioCacheEntry', 'listAudioCacheEntries', 'removeAudioCacheEntry',
+    'withMediaCacheLock', 'publishMediaCacheFiles', 'ensureAudioCacheDirectory', 'hasAudioCacheEntry', 'readAudioCacheEntry', 'listAudioCacheEntries', 'removeAudioCacheEntry',
     'listMediaCacheEntries', 'pruneMediaCache', 'writeAudioCacheEntry', 'getAudioCacheUsageBytes', 'getAudioCacheStats', 'clearAudioCacheDirectory',
     'ensureCoverCacheDirectory', 'readCoverCacheEntry', 'writeCoverCacheEntry', 'removeCoverCacheEntry', 'getCoverCacheUsageBytes', 'clearCoverCacheDirectory'];
 for (const name of cacheNames) if (!functions.has(name)) throw new Error('Upstream media cache changed: ' + name);

@@ -13,7 +13,6 @@ type FrameRateLimitedRaf = {
     setFrameRate: (frameRate: VisualizerFrameRate) => void;
     getFrameRate: () => VisualizerFrameRate;
     setSuspended: (suspended: boolean) => void;
-    setIdle: (idle: boolean) => void;
 };
 
 type WindowWithVisualizerFrameRateLimiter = Window & {
@@ -70,7 +69,6 @@ export const createFrameRateLimitedRaf = (
 ): FrameRateLimitedRaf => {
     let frameRate = initialFrameRate;
     let suspended = false;
-    let idle = false;
     let nextHandle = 1;
     let nativeFrameHandle: number | null = null;
     let lastProcessedTimestamp = 0;
@@ -87,7 +85,7 @@ export const createFrameRateLimitedRaf = (
     const processNativeFrame = (timestamp: number) => {
         nativeFrameHandle = null;
 
-        if (!shouldProcessFrameAtRate(timestamp, lastProcessedTimestamp, idle ? 20 : frameRate)) {
+        if (!shouldProcessFrameAtRate(timestamp, lastProcessedTimestamp, frameRate)) {
             scheduleNativeFrame();
             return;
         }
@@ -144,19 +142,15 @@ export const createFrameRateLimitedRaf = (
             }
             if (!suspended) { lastProcessedTimestamp = 0; scheduleNativeFrame(); }
         },
-        setIdle: (next) => { idle = next; },
     };
 };
 
 let installedLimiter: FrameRateLimitedRaf | null = null;
 let androidSuspended = false;
-let androidIdle = false;
 const androidDocument = () => typeof document !== 'undefined' && document.documentElement.dataset.foliaAndroid === 'true';
-export const setAndroidFrameActivity = (suspended: boolean, idle: boolean) => {
+export const setAndroidFrameActivity = (suspended: boolean) => {
     androidSuspended = suspended;
-    androidIdle = idle;
     installedLimiter?.setSuspended(suspended);
-    installedLimiter?.setIdle(idle);
 };
 
 export const setGlobalVisualizerFrameRate = (frameRate: VisualizerFrameRate) => {
@@ -235,7 +229,6 @@ export const installGlobalVisualizerFrameRateLimiter = (overrideFrameRate?: Visu
     installedLimiter = createFrameRateLimitedRaf(nativeRequestAnimationFrame, nativeCancelAnimationFrame, initialFrameRate);
 
     installedLimiter.setSuspended(androidSuspended);
-    installedLimiter.setIdle(androidIdle);
     window.requestAnimationFrame = installedLimiter.requestAnimationFrame;
     window.cancelAnimationFrame = installedLimiter.cancelAnimationFrame;
 };

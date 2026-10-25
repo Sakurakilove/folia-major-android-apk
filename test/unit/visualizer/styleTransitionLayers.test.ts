@@ -32,15 +32,14 @@ describe('style transition layers', () => {
         expect(modes(left(switched))).toEqual(['diorama']);
     });
 
-    it('ends on the last style when switched again mid-way, never more than two mounted', () => {
+    it('retains the covered handover, then applies the latest request with at most two layers', () => {
         const toB = nextShownLayers(first, mode('diorama'), true, false);
-        const toC = nextShownLayers(toB, mode('lumiere'), true, false);
+        expect(nextShownLayers(toB, mode('lumiere'), true, false)).toBe(toB);
+        expect(nextShownLayers(toB, mode('classic'), true, false)).toBe(toB);
+        const toC = nextShownLayers(left(toB), mode('lumiere'), true, false);
         expect(modes(toC)).toEqual(['diorama (leaving)', 'lumiere']);
-        expect(toC[0].key).toBe(toB[1].key);
-        const backToA = nextShownLayers(toC, mode('classic'), true, false);
-        expect(modes(backToA)).toEqual(['lumiere (leaving)', 'classic']);
-        expect(new Set(backToA.map(style => style.key)).size).toBe(2);
-        expect(modes(left(backToA))).toEqual(['classic']);
+        expect(new Set(toC.map(style => style.key)).size).toBe(2);
+        expect(modes(left(toC))).toEqual(['lumiere']);
     });
 
     it('cuts to the new style without a transition, and ends one still playing when they are turned off', () => {
@@ -90,9 +89,10 @@ describe('a change that waits to start', () => {
         expect(nextShownLayers(toB, mode('classic'), true, true)).toEqual(first);
     });
 
-    it('lets one called away while coming in leave once the next change starts', () => {
+    it('keeps the active handover covered before queuing a change that waits', () => {
         const playing = startedLayers(nextShownLayers(first, mode('sonnet'), true, true), 1);
-        const toC = nextShownLayers(playing, mode('fume'), true, true);
+        expect(nextShownLayers(playing, mode('fume'), true, true)).toBe(playing);
+        const toC = nextShownLayers(left(playing), mode('fume'), true, true);
         expect(modes(toC)).toEqual(['sonnet (leaving)', 'fume']);
         expect(waiting(toC)).toEqual([true, true]);
     });

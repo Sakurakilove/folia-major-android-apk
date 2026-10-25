@@ -1,0 +1,27 @@
+{
+  "versionName": "0.7.20-mobile.3",
+  "versionCode": 702003,
+  "bytes": 340675106,
+  "sha256": "48997ff97f11f699a81c51d7ec87941ac302e8238ca2bc472b500ecef455f09a",
+  "signedWithSameCertificate": true,
+  "builtAtUTC": "2026-10-18T05:24:11.477389+00:00",
+  "checks": {
+    "atomicReadyPublication": true,
+    "webBuild": true,
+    "releaseJavaCompilation": true,
+    "apkSignature": true,
+    "deviceTesting": false
+  },
+  "changes": [
+    "Atomically publish readiness JSON and wait for a complete valid native record",
+    "Use direct loopback connections for native runtime RPC and media",
+    "Include method and HTTP status in empty/invalid RPC response errors",
+    "Show readable pre-bootstrap error text and localized retry action",
+    "Restore saved system bar theme after native resume"
+  ],
+  "delivery": {
+    "url": "https://litter.catbox.moe/2bela2.apk",
+    "expiryHours": 72,
+    "service": "Catbox Litterbox"
+  }
+}

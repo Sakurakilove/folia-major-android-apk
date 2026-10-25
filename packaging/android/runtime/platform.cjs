@@ -75,6 +75,7 @@ module.exports = ({ dataDir, events, network }) => {
             this.path = path.join(dataDir, (options.name || 'config') + '.json');
             this.defaults = options.defaults || {};
             this.listeners = new EventEmitter();
+            this.persistence = require('./jsonPersistence.cjs').createJsonPersistence(this.path, () => JSON.stringify(this.values));
             this.values = { ...this.defaults, ...(fs.existsSync(this.path) ? JSON.parse(fs.readFileSync(this.path, 'utf8')) : {}) };
         }
         get store() { return structuredClone(this.values); }
@@ -82,7 +83,14 @@ module.exports = ({ dataDir, events, network }) => {
         get(key, fallback) { return this.values[key] ?? fallback; }
         has(key) { return Object.hasOwn(this.values, key); }
         set(key, value) {
-            if (typeof key === 'object') { for (const [name, item] of Object.entries(key)) this.set(name, item); return; }
+            if (key && typeof key === 'object') {
+                const changes = Object.entries(key).map(([name, item]) => [name, item, this.values[name]]);
+                for (const [name, item] of changes) this.values[name] = item;
+                this.persist();
+                for (const [name, item, previous] of changes) this.listeners.emit(name, item, previous);
+                this.listeners.emit('*', this.store);
+                return;
+            }
             const previous = this.values[key];
             this.values[key] = value;
             this.persist();
@@ -91,7 +99,7 @@ module.exports = ({ dataDir, events, network }) => {
         }
         delete(key) { delete this.values[key]; this.persist(); }
         clear() { this.values = { ...this.defaults }; this.persist(); }
-        persist() { fs.writeFileSync(this.path + '.tmp', JSON.stringify(this.values), { mode: 0o600 }); fs.renameSync(this.path + '.tmp', this.path); }
+        persist() { this.persistence.schedule(); }
         onDidChange(key, listener) { this.listeners.on(key, listener); return () => this.listeners.off(key, listener); }
         onDidAnyChange(listener) { return this.onDidChange('*', listener); }
     }

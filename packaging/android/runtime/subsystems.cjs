@@ -34,6 +34,7 @@ module.exports = async ({ platform, store, events, safeStorage, netease, dataDir
             if (answer.error) throw new Error(answer.error);
             return answer.value;
         },
+        createTrack: require('./fileTrackStorage.cjs')(path.join(dataDir, 'ytm-track-buffers')),
         signInFolder: () => path.join(dataDir, 'ytm-sign-in'), browserSignIn: ytmBrowser, browserName: ytmBrowser.userAgent,
     });
     protocol.handle('folia-ytm', request => ytm.handleAudioRequest(request));

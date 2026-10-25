@@ -18,11 +18,7 @@ html[data-folia-render-paused='true'] *, html[data-folia-render-paused='true'] *
     html[data-folia-android='true'] .st-row > .ml-auto { max-width: 100%; }
     html[data-folia-android='true'] .bravais-seam-home .bravais-seam-tabs { gap: 4px; }
     html[data-folia-android='true'] .bravais-seam-home .bravais-seam-home-tab { min-width: 40px; padding: 10px 7px; font-size: 14px; letter-spacing: .1em; }
-    html[data-folia-android='true'] .bravais-root.has-seam-blur .bravais-seam, html[data-folia-android='true'] .bravais-root.has-seam-blur .bravais-seam-tab { backdrop-filter: none; -webkit-backdrop-filter: none; }
-    html[data-folia-android='true'] .lattice-root::after { display: none; }
     html[data-folia-android='true'] .lattice-field { contain: layout paint; }
-    html[data-folia-android='true'] [data-folia-wall-pinching] .bravais-tile-face { transition: none !important; }
-    html[data-folia-android='true'] .bravais-seam-home { backdrop-filter: none; -webkit-backdrop-filter: none; }
     html[data-folia-android='true'] .bravais-seam-home-nav { overflow-y: auto; touch-action: pan-y; }
     html[data-folia-android='true'] .bravais-seam-icon { min-width: 40px; min-height: 40px; }
     html[data-folia-android='true'] [data-folia-mobile-player] { width: calc(100% - 24px); max-width: 440px !important; padding-inline: 0; }

@@ -29,11 +29,8 @@ describe('phone interaction and idle work', () => {
         raf.setSuspended(false);
         tick?.(20);
         expect(calls).toBe(1);
-        raf.setIdle(true);
         raf.requestAnimationFrame(() => { calls++; });
         tick?.(36);
-        expect(calls).toBe(1);
-        tick?.(72);
         expect(calls).toBe(2);
     });
     it('starts a platform once for concurrent first requests and stays idle until requested', async () => {

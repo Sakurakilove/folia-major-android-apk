@@ -1,0 +1,36 @@
+{
+  "builtAtUTC": "2026-10-18T05:00:39.221255+00:00",
+  "versionName": "0.7.20-mobile.1",
+  "versionCode": 702001,
+  "bytes": 340665478,
+  "previousBytes": 919896162,
+  "reductionPercent": 63.0,
+  "abis": [
+    "arm64-v8a"
+  ],
+  "signatureVerified": true,
+  "zipAlignmentVerified": true,
+  "runtimeLinkTargetsVerified": 132,
+  "sha256": "0d7e4ba93845f887a8ab99f941fdc3773ea3d09421edb9d50646be53a30ce06b",
+  "deviceTesting": "Not performed, as requested by user",
+  "artifact": "/workspace/artifacts/Folia-v0.7.20-mobile.1-arm64.apk",
+  "delivery": {
+    "url": "https://litter.catbox.moe/yl1iwv.apk",
+    "service": "Catbox Litterbox",
+    "expiryHours": 72
+  },
+  "changes": [
+    "Persistent phone playback controls and track switching without hover",
+    "Full vertical navigation labels retained",
+    "Two-finger anchored wall zoom plus native page pinch support",
+    "Phone settings bounds and touch target sizing",
+    "Bundled logos for all six built-in providers",
+    "Informational toast decoration removed",
+    "Default 60 FPS foreground cap, 30 FPS while idle, background rendering suspension",
+    "Netease and QQ local services start on first port request",
+    "Media notification timer only during playback, at ten-second intervals",
+    "Android analysis CPU budget: two threads, ONNX spinning disabled",
+    "ARM64 package only, duplicate runtime libraries represented by 132 validated links",
+    "Unused desktop native prebuilds and maps omitted, old dist files cleared before packing"
+  ]
+}

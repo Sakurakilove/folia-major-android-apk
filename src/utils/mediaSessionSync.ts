@@ -1,5 +1,13 @@
 // src/utils/mediaSessionSync.ts
 
+// The native adapter and browser publisher resolve the same displayed automix deck.
+let displayAudioResolver: (() => HTMLAudioElement | null) | null = null;
+export const bindMediaSessionAudio = (resolve: () => HTMLAudioElement | null): (() => void) => {
+    displayAudioResolver = resolve;
+    return () => { if (displayAudioResolver === resolve) displayAudioResolver = null; };
+};
+export const getMediaSessionAudio = (): HTMLAudioElement | null => displayAudioResolver?.() ?? null;
+
 export type MediaSessionTrackMetadata = {
     title: string;
     artist: string;

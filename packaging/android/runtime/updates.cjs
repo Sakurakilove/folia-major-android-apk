@@ -4,7 +4,10 @@ const crypto = require('node:crypto');
 const { Readable } = require('node:stream');
 const { pipeline } = require('node:stream/promises');
 module.exports = ({ store, events, dataDir, platform }) => {
-    const releasesUrl = 'https://github.com/chthollyphile/folia-major/releases';
+    const mobileBuild = /-mobile(?:[.-]|$)/i.test(platform.app.getVersion());
+    const mobileRepository = 'Sakurakilove/folia-major-android-apk';
+    const upstreamRepository = 'chthollyphile/folia-major';
+    const releasesUrl = 'https://github.com/' + (mobileBuild ? mobileRepository : upstreamRepository) + '/releases';
     const { resolveReleaseChannel, compareVersions, parseUpdateMetadataVersion } = require('./electron/updateChannels.cjs');
     const channel = () => resolveReleaseChannel(platform.app.getVersion(), store.get('UPDATE_CHANNEL'));
     const enabled = key => store.getBoolean ? store.getBoolean(key, false) : store.get(key, false) === true;
@@ -31,10 +34,21 @@ module.exports = ({ store, events, dataDir, platform }) => {
         const operation = (async () => {
             try {
                 const suffix = selected.rollingReleaseTag ? '/tags/' + selected.rollingReleaseTag : '/latest';
-                const response = await fetch('https://api.github.com/repos/chthollyphile/folia-major/releases' + suffix,
+                const mobileLane = mobileBuild && selected.id === 'realeco';
+                const repository = mobileLane ? mobileRepository : upstreamRepository;
+                const response = await fetch('https://api.github.com/repos/' + repository + '/releases' + (mobileLane ? '?per_page=30' : suffix),
                     { headers: { Accept: 'application/vnd.github+json', 'User-Agent': 'Folia-Android' }, signal });
                 if (!response.ok) throw new Error('Release check failed: HTTP ' + response.status);
-                const release = await response.json();
+                let release = await response.json();
+                if (mobileLane) {
+                    if (!Array.isArray(release)) throw new Error('Android release feed is invalid');
+                    const candidates = release.filter(item => !item.draft
+                        && /^v?\d+\.\d+\.\d+-mobile[.-]\d+$/i.test(item.tag_name || '')
+                        && item.assets?.some(asset => asset.name?.endsWith('.apk')));
+                    candidates.sort((a, b) => compareVersions(String(b.tag_name).replace(/^v/, ''), String(a.tag_name).replace(/^v/, '')));
+                    release = candidates[0];
+                    if (!release) throw new Error('No Android APK release is available');
+                }
                 let version = String(release.tag_name || '').replace(/^v/, '');
                 if (selected.rollingReleaseTag) {
                     const metadata = (release.assets || []).find(item => item.name === selected.updaterChannel + '.yml');

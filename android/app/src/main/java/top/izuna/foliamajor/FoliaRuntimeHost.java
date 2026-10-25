@@ -149,6 +149,42 @@ final class FoliaRuntimeHost {
         }
     }
 
+    private void copyFrontendAssets(String asset, File destination) throws IOException {
+        String[] children = getContext().getAssets().list(asset);
+        if (children != null && children.length > 0) {
+            if (!destination.isDirectory() && !destination.mkdirs()) throw new IOException("Cannot create shared frontend directory");
+            for (String child : children) {
+                File target = new File(destination, child);
+                if (!target.getCanonicalPath().startsWith(destination.getCanonicalPath() + File.separator)) throw new IOException("Invalid frontend asset path");
+                copyFrontendAssets(asset + "/" + child, target);
+            }
+        } else {
+            try (InputStream input = getContext().getAssets().open(asset); OutputStream output = new FileOutputStream(destination)) {
+                byte[] buffer = new byte[65536]; int count;
+                while ((count = input.read(buffer)) != -1) output.write(buffer, 0, count);
+            }
+        }
+    }
+    private void prepareSharedFrontend(File runtime) throws Exception {
+        File declaration = new File(runtime, ".folia-shared-frontend");
+        if (!declaration.isFile()) return;
+        File frontend = new File(runtime, "dist");
+        removeRuntimeTree(frontend);
+        copyFrontendAssets("public", frontend);
+        String expected;
+        try (InputStream input = new FileInputStream(declaration)) {
+            expected = new String(readBytes(input), StandardCharsets.UTF_8).trim();
+        }
+        java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-256");
+        try (InputStream input = new FileInputStream(new File(frontend, "index.html"))) {
+            byte[] buffer = new byte[8192]; int count;
+            while ((count = input.read(buffer)) != -1) digest.update(buffer, 0, count);
+        }
+        StringBuilder actual = new StringBuilder();
+        for (byte value : digest.digest()) actual.append(String.format(java.util.Locale.ROOT, "%02x", value & 255));
+        if (!expected.equals(actual.toString())) throw new IOException("Frontend and backend build versions do not match");
+    }
+
     private File caBundle(File data,File prefix) throws Exception {
         File bundle=new File(data,"tls-ca.pem");
         javax.net.ssl.TrustManagerFactory factory=javax.net.ssl.TrustManagerFactory.getInstance(javax.net.ssl.TrustManagerFactory.getDefaultAlgorithm());
@@ -167,6 +203,7 @@ final class FoliaRuntimeHost {
     static void ensureStarted(Context context) throws Exception { applicationContext = context.getApplicationContext(); requestedShutdown = false; new FoliaRuntimeHost(context).start(); }
     private void start() throws Exception {
                 File data = new File(getContext().getFilesDir(), "runtime-data");
+                final Process startupProcess;
                 synchronized (FoliaRuntimeHost.class) {
                     if (nodeProcess != null && !nodeProcess.isAlive()) { launched = false; startupError = null; port = 0; }
                     if (!launched) {
@@ -178,6 +215,7 @@ final class FoliaRuntimeHost {
                             removeRuntimeTree(runtime);
                             extractRuntime("node-runtime.zip", runtime);
                             extractRuntime("native-runtime-" + abi + ".zip", prefix);
+                            prepareSharedFrontend(runtime);
                             marker.createNewFile();
                         }
                         discardOldRuntimes(runtime);
@@ -225,6 +263,7 @@ final class FoliaRuntimeHost {
                             } catch (Exception error) { synchronized (FoliaRuntimeHost.class) { if (nodeProcess == launchedProcess) startupError = error.getMessage(); } }
                         }, "FoliaNodeLogs").start();
                     }
+                    startupProcess = nodeProcess;
                 }
                 File ready = new File(data, "ready.json");
                 long deadline = System.currentTimeMillis() + 60000;
@@ -244,12 +283,36 @@ final class FoliaRuntimeHost {
                     Thread.sleep(100);
                 }
                 if (startupError != null) throw new IOException(startupError);
-                if (readyPort == 0) throw new IOException("Node startup timed out waiting for a valid ready record");
-                port = readyPort;
-                FoliaNativeDispatcher.start();
+                if (readyPort == 0) {
+                    synchronized (FoliaRuntimeHost.class) {
+                        if (nodeProcess == startupProcess && port == 0) {
+                            // Retire this generation before its log reader can overwrite a retry's state.
+                            nodeProcess = null;
+                            launched = false;
+                            startupError = null;
+                            if (startupProcess != null && startupProcess.isAlive()) {
+                                startupProcess.destroy();
+                                if (!startupProcess.waitFor(2, java.util.concurrent.TimeUnit.SECONDS)) {
+                                    startupProcess.destroyForcibly();
+                                    startupProcess.waitFor();
+                                }
+                            }
+                            ready.delete();
+                        }
+                    }
+                    throw new IOException("Node startup timed out waiting for a valid ready record; retry is available");
+                }
+                synchronized (FoliaRuntimeHost.class) {
+                    if (nodeProcess != startupProcess || startupProcess == null || !startupProcess.isAlive()) {
+                        throw new IOException("Node startup was superseded or exited");
+                    }
+                    port = readyPort;
+                    FoliaNativeDispatcher.start();
+                }
     }
     static synchronized void shutdown() throws Exception {
         requestedShutdown = true;
+        FoliaScriptSandbox.close();
         FoliaNativeDispatcher.stop();
         Process previous = nodeProcess; nodeProcess = null;
         launched = false; port = 0; startupError = null;

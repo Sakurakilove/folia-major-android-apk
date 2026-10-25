@@ -1,6 +1,8 @@
 // src/services/audioEffects/effectSources.ts
 // Generates the waveshaper curves and audio buffers used by the effect chain.
 
+import { generateEffectSamples } from './sourceSamples';
+
 const SATURATION_SAMPLES = 1024;
 const CRUSH_SAMPLES = 8192;
 
@@ -59,36 +61,16 @@ export const createBitCrushCurve = (amount: number) => {
 
 // Builds a stereo noise floor mixing constant hiss with sparse decaying crackles.
 export const createVinylNoiseBuffer = (context: BaseAudioContext): AudioBuffer => {
-    const length = Math.max(1, Math.floor(context.sampleRate * 3));
-    const buffer = context.createBuffer(2, length, context.sampleRate);
-
-    for (let channel = 0; channel < buffer.numberOfChannels; channel += 1) {
-        const data = buffer.getChannelData(channel);
-        let crackle = 0;
-        for (let index = 0; index < length; index += 1) {
-            if (Math.random() < 0.0007) {
-                crackle = Math.random() * 2 - 1;
-            }
-            crackle *= 0.88;
-            data[index] = (Math.random() * 2 - 1) * 0.12 + crackle * 0.9;
-        }
-    }
-
+    const channels = generateEffectSamples('noise', context.sampleRate);
+    const buffer = context.createBuffer(2, channels[0].length, context.sampleRate);
+    channels.forEach((channel, index) => buffer.getChannelData(index).set(channel));
     return buffer;
 };
 
-// Builds an exponentially decaying noise impulse response for the convolution reverb.
+// Offline export keeps synchronous preparation before startRendering; live playback uses preparedBuffers.
 export const createReverbImpulse = (context: BaseAudioContext, seconds = 2.2, decay = 2.8): AudioBuffer => {
-    const length = Math.max(1, Math.floor(context.sampleRate * seconds));
-    const buffer = context.createBuffer(2, length, context.sampleRate);
-
-    for (let channel = 0; channel < buffer.numberOfChannels; channel += 1) {
-        const data = buffer.getChannelData(channel);
-        for (let index = 0; index < length; index += 1) {
-            const progress = index / length;
-            data[index] = (Math.random() * 2 - 1) * (1 - progress) ** decay;
-        }
-    }
-
+    const channels = generateEffectSamples('reverb', context.sampleRate, seconds, decay);
+    const buffer = context.createBuffer(2, channels[0].length, context.sampleRate);
+    channels.forEach((channel, index) => buffer.getChannelData(index).set(channel));
     return buffer;
 };

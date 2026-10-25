@@ -30,3 +30,20 @@ it('spends the tile budget on the viewport before overscan without duplicating s
     expect(new Set(slots.map(slot => slot.key)).size).toBe(slots.length);
     expect(collectShapeSlots(BRAVAIS_BLOCK_SHAPE, bounds, 0, visible)).toEqual([]);
 });
+
+it('removes an abandoned queued decode and leaves capacity for the next visible request', async () => {
+    const queue = createWallArtworkQueue(1, 1);
+    let release!: () => void;
+    const first = queue(() => new Promise<void>(resolve => { release = resolve; }));
+    await Promise.resolve();
+    const controller = new AbortController();
+    let obsoleteRan = false;
+    const obsolete = queue(async () => { obsoleteRan = true; }, controller.signal).catch(error => error);
+    controller.abort();
+    expect((await obsolete).name).toBe('AbortError');
+    const visible = queue(async () => 42);
+    release();
+    await first;
+    expect(await visible).toBe(42);
+    expect(obsoleteRan).toBe(false);
+});

@@ -3,6 +3,7 @@ import type { VisualizerMode } from '../../../types';
 import { VisualizerBackdropContext } from '../VisualizerBackdrop';
 import { holdTurns } from '../preview/pictureTurns';
 import { FirstFrameContext, type FirstFrameReport } from './firstFrame';
+import { RendererFrameContext } from './RendererFrameBoundary';
 import { useLayerAnimation, useShownLayers, type LayerTransition, type ShownLayer } from './layerTransition';
 
 // src/components/visualizer/styleTransition/VisualizerStyleTransition.tsx
@@ -73,6 +74,11 @@ const StyleLayer: React.FC<StyleLayerProps> = ({ style, transition, onLeft, onSt
     const ref = useRef<HTMLDivElement | null>(null);
     useLayerAnimation(ref, style, transition, onLeft, holdTurns);
     const { key, leaving } = style;
+    const rendererFrame = useContext(RendererFrameContext);
+    const frameToken = useRef({}).current;
+    const frameStateRef = useRef({ leaving, rendererFrame });
+    frameStateRef.current = { leaving, rendererFrame };
+    useLayoutEffect(() => leaving ? undefined : rendererFrame?.claim(frameToken, 'style'), [frameToken, leaving, rendererFrame]);
     const backdrop = useContext(VisualizerBackdropContext);
     const frame = useMemo(() => (backdrop && leaving ? { ...backdrop, pointerArea: null } : backdrop), [backdrop, leaving]);
     // Only the new style of a switch that waits starts it, so a report that changes nothing (a style
@@ -93,14 +99,19 @@ const StyleLayer: React.FC<StyleLayerProps> = ({ style, transition, onLeft, onSt
             claimed.current = true;
         },
         drawn: () => {
+            const state = frameStateRef.current;
+            if (!state.leaving) state.rendererFrame?.drawn(frameToken);
             if (startsRef.current) onStart(key);
         },
-    }), [onStart, key]);
+    }), [frameToken, onStart, key]);
     // After the style's own layout effects, before the page is painted: a style that does not say when
     // it has drawn is ready now.
     useLayoutEffect(() => {
-        if (!claimed.current && startsRef.current) onStart(key);
-    }, [onStart, key]);
+        if (!claimed.current) {
+            if (!leaving) rendererFrame?.drawn(frameToken);
+            if (startsRef.current) onStart(key);
+        }
+    }, [frameToken, leaving, onStart, key, rendererFrame]);
 
     return (
         <div ref={ref} className="absolute inset-0" style={{ pointerEvents: 'none' }} inert={leaving} data-visualizer-style={style.value}>

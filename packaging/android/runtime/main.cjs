@@ -26,11 +26,9 @@ const defaults = { AI_PROVIDER: 'gemini', OPENAI_API_URL: 'https://api.openai.co
     ENABLE_UPDATE_CHECK: false, ENABLE_AUTO_UPDATE: false, UPDATE_CHANNEL: 'realeco',
     MOD_SYSTEM_ENABLED: false, DISCORD_RICH_PRESENCE_ENABLED: false };
 settings = { ...defaults, ...settings };
-const persist = () => {
-    const temporary = configPath + '.tmp';
-    fs.writeFileSync(temporary, JSON.stringify(settings), { mode: 0o600 });
-    fs.renameSync(temporary, configPath);
-};
+const { createJsonPersistence, flushJsonPersistence } = require('./jsonPersistence.cjs');
+const settingsPersistence = createJsonPersistence(configPath, () => JSON.stringify(settings));
+const persist = () => settingsPersistence.schedule();
 const store = { get store() { return { ...settings }; }, get: (key, fallback) => settings[key] ?? fallback,
     set: (key, value) => { settings[key] = value; persist(); },
     delete: key => { delete settings[key]; persist(); } };
@@ -178,10 +176,11 @@ const server = http.createServer(async (req, res) => {
         }
         const { method, args, windowId = 1 } = JSON.parse(Buffer.concat(chunks).toString('utf8'));
         if (!Array.isArray(args)) throw new Error('Invalid Android method arguments');
-        const decoded = wire.decode(args);
+        const decoded = await wire.decode(args);
         const result = await platform.context.run({ windowId }, () => Object.hasOwn(handlers, method) ? handlers[method](...decoded)
             : platform.invoke(apiSpec[method]?.channel || apiSpec[method]?.send, decoded, windowId));
-        res.end(JSON.stringify({ ok: true, result: wire.encode(platform.rewrite(result ?? null)) }));
+        await flushJsonPersistence();
+        res.end(JSON.stringify({ ok: true, result: await wire.encode(platform.rewrite(result ?? null)) }));
     } catch (error) {
         res.statusCode = 400;
         res.end(JSON.stringify({ ok: false, error: error.message }));

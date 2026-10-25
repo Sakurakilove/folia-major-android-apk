@@ -1,0 +1,44 @@
+{
+  "versionName": "0.7.20-mobile.5",
+  "versionCode": 702005,
+  "bytes": 343967900,
+  "sha256": "85c51cfbd669dbbb791916e276a31ca794c050c19c9eb66cd6d98635a889a0c8",
+  "signedWithSameCertificate": true,
+  "builtAtUTC": "2026-10-18T08:43:11.559039+00:00",
+  "checks": {
+    "typecheck": true,
+    "releaseKotlinJavaCompilation": true,
+    "webBuild": true,
+    "apkSignature": true,
+    "nativeLiquidGlassDexPresent": true,
+    "libraryBackdropDexPresent": true,
+    "newNativeLibraries16KiBAligned": true,
+    "deviceTesting": false,
+    "powerMeasurement": false
+  },
+  "nativeGlass": {
+    "repository": "https://github.com/Kyant0/AndroidLiquidGlass",
+    "maven": "io.github.kyant0:backdrop:2.0.1",
+    "rendering": "Compose drawBackdrop + vibrancy + blur + lens",
+    "maxBackdropWidthPixels": 540,
+    "interactionCaptureMinIntervalMs": 200,
+    "waitsForWebViewVisualState": true,
+    "newNativeLibraries": [
+      "lib/arm64-v8a/libandroidx.graphics.path.so"
+    ]
+  },
+  "changes": [
+    "Native liquid-glass phone controls reuse existing React actions and Lucide SVGs",
+    "Actual phone player rectangle reserves space for navigation, cards, subtitles and panels",
+    "Native surface yields to DOM dialogs/menus and preserves mod-added actions using the web fallback",
+    "Transparent status bar with content extending beneath it and safe offsets for interactive controls"
+  ],
+  "limitations": [
+    "Native liquid-glass rendering and device power require user device verification; no emulator run"
+  ],
+  "delivery": {
+    "url": "https://litter.catbox.moe/5mzat1.apk",
+    "expiryHours": 72,
+    "service": "Catbox Litterbox"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "version": "0.7.20-mobile.10",
+  "versionCode": 702010,
+  "bytes": 333718548,
+  "sha256": "f2ff275bae3728876fcc6508bf7c35805c4c7a5007bf809ae7886b619000baea",
+  "signerSha256": "b2acb003d186fe12ca8b7a17e5c7ea27041aca000830fe3086cb6627d08496ef",
+  "sameSignerAsMobile9": true,
+  "apkFrontendMatchesDist": true,
+  "sharedFrontendMarkerMatches": true,
+  "allFrontendAssetsMatch": true,
+  "runtimeHasNoDuplicateDist": true,
+  "abi": "arm64-v8a",
+  "deviceVerified": false,
+  "allReviewItemsCompleted": false
+}

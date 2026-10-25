@@ -4,6 +4,7 @@ import { PlayerState } from '../types';
 import type { SongResult } from '../types';
 import { getSongAlbumLabel, getSongArtistLabel, getSongCoverUrl } from '../services/onlineMusic/songMetadata';
 import {
+    bindMediaSessionAudio,
     getSupportedMediaSessionArtworkUrl,
     isMediaSessionSourceReady,
     publishMediaSessionTrack,
@@ -32,6 +33,7 @@ type UseMediaSessionBridgeOptions = {
     mediaSessionPauseRef: RefObject<() => void>;
     mediaSessionPrevRef: RefObject<() => void>;
     mediaSessionNextRef: RefObject<() => Promise<void> | void>;
+    mediaSessionSeekRef?: RefObject<((time: number) => void) | null>;
     isNowPlayingControlDisabledRef: RefObject<boolean>;
 };
 
@@ -48,8 +50,10 @@ export const useMediaSessionBridge = ({
     mediaSessionPauseRef,
     mediaSessionPrevRef,
     mediaSessionNextRef,
+    mediaSessionSeekRef,
     isNowPlayingControlDisabledRef,
 }: UseMediaSessionBridgeOptions) => {
+    useEffect(() => bindMediaSessionAudio(() => getDisplayAudioElement?.() ?? audioRef.current), [audioRef, getDisplayAudioElement]);
     useEffect(() => {
         if (!('mediaSession' in navigator)) {
             return;
@@ -98,13 +102,21 @@ export const useMediaSessionBridge = ({
             void mediaSessionNextRef.current();
         });
 
+        setActionHandlerSafely('seekto', details => {
+            if (isNowPlayingControlDisabledRef.current || !Number.isFinite(details.seekTime)) return;
+            const audio = getDisplayAudioElement?.() ?? audioRef.current;
+            if (!audio || !Number.isFinite(audio.duration)) return;
+            mediaSessionSeekRef?.current?.(Math.max(0, Math.min(audio.duration, details.seekTime!)));
+        });
+
         return () => {
             setActionHandlerSafely('play', null);
             setActionHandlerSafely('pause', null);
             setActionHandlerSafely('previoustrack', null);
             setActionHandlerSafely('nexttrack', null);
+            setActionHandlerSafely('seekto', null);
         };
-    }, [audioRef, isNowPlayingControlDisabledRef, mediaSessionNextRef, mediaSessionPauseRef, mediaSessionPlayRef, mediaSessionPrevRef]);
+    }, [audioRef, getDisplayAudioElement, mediaSessionSeekRef, isNowPlayingControlDisabledRef, mediaSessionNextRef, mediaSessionPauseRef, mediaSessionPlayRef, mediaSessionPrevRef]);
 
     useEffect(() => {
         if (!('mediaSession' in navigator)) {

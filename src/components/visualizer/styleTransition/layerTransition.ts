@@ -51,6 +51,10 @@ export const nextShownLayers = <T>(
     }
     const next: ShownLayer<T> = { key: current.key + 1, value, leaving: false, comesIn: animate, waits: animate && waits };
     if (!animate) return [next];
+    // Finish the currently visible handover before starting another. In particular the new
+    // layer can still be in its enter delay: dropping its opaque predecessor here exposes
+    // the empty backdrop. onLeft triggers a render that applies the latest requested value.
+    if (!current.waits && layers.length > 1 && layers[0].leaving) return layers;
     if (!current.waits) return [{ ...current, leaving: true, waits: next.waits }, next];
     const onScreen = layers.length > 1 ? layers[layers.length - 2] : null;
     if (!onScreen) return [next];

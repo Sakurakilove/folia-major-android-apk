@@ -40,11 +40,19 @@ module.exports = () => {
             });
         },
         native(method, ...args) {
+            if (pendingNative.size >= 128) return Promise.reject(new Error('Android native action queue is busy'));
             return new Promise((resolve, reject) => {
                 const id = require('node:crypto').randomUUID();
-                const timer = setTimeout(() => { pendingNative.delete(id); reject(new Error('Android did not answer ' + method)); }, method === 'ytmBrowserOpen' ? 15 * 60 * 1000 : 180000);
+                const duration = method === 'ytmBrowserOpen' ? 15 * 60 * 1000 : 180000;
+                const deadline = Date.now() + duration;
+                const timer = setTimeout(() => {
+                    pendingNative.delete(id);
+                    const queued = nativeQueue.findIndex(action => action.id === id);
+                    if (queued !== -1) nativeQueue.splice(queued, 1);
+                    reject(new Error('Android did not answer ' + method));
+                }, duration);
                 pendingNative.set(id, { resolve, reject, timer });
-                nativeQueue.push({ id, method, args });
+                nativeQueue.push({ id, method, args, deadline });
                 const waiter = waiting.shift();
                 if (waiter) { clearTimeout(waiter.timer); waiter.resolve(takeNative()); }
             });

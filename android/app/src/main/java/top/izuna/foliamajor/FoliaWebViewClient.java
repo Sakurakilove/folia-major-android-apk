@@ -13,8 +13,14 @@ import java.util.*;
 public class FoliaWebViewClient extends BridgeWebViewClient {
     private final Bridge foliaBridge;
     public FoliaWebViewClient(Bridge bridge) { super(bridge);foliaBridge=bridge; }
+    @Override public void onPageFinished(WebView view, String url) {
+        super.onPageFinished(view, url);
+        if (foliaBridge.getActivity() instanceof MainActivity) {
+            ((MainActivity)foliaBridge.getActivity()).publishWindowInsets(view);
+        }
+    }
     @Override public boolean onRenderProcessGone(WebView view,android.webkit.RenderProcessGoneDetail detail){
-        return FoliaWindowHost.rendererGone((MainActivity)foliaBridge.getActivity(),view);
+        return FoliaWindowHost.rendererGone((MainActivity)foliaBridge.getActivity(),view,detail);
     }
 
     @Override

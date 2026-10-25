@@ -69,14 +69,23 @@ function createYtmAudio({
   planTtlMs = 30 * 60 * 1000,
   stallMs = STALL_MS,
   planLimitMs = PLAN_LIMIT_MS,
+  createTrack = (total, mimeType) => new TrackBuffer(total, mimeType),
   log = (...args) => console.log(...args),
   warn = (...args) => console.warn(...args),
 }) {
   // An entry that leaves the cache (evicted, replaced, signed out) stops downloading: nothing can
   // ask for it again, and its buffer is as large as the track.
-  const ready = createByteLru(maxCacheBytes, entry => {
+  const ready = createByteLru(maxCacheBytes, (entry, reason) => {
     entry.released = true;
-    entry.stop?.();
+    // Cache ownership can end while a response still reads this download.
+    const release = () => {
+      entry.abortWhenOpened = true;
+      entry.stop?.();
+      const closing = entry.track?.dispose?.();
+      closing?.catch(error => warn('[Ytm] Cannot release track storage', error));
+    };
+    if (reason === 'eviction' && entry.track?.readers) entry.track.onIdle = release;
+    else release();
   });
   const pending = new Map();
   const keys = new Map();
@@ -160,13 +169,13 @@ function createYtmAudio({
   };
 
   const download = (videoId, entry) => {
-    const track = new TrackBuffer(entry.plan.contentLength, entry.plan.mimeType);
+    const track = createTrack(entry.plan.contentLength, entry.plan.mimeType);
     entry.track = track;
     const startedAt = now();
     let stalled = false;
     (async () => {
       const source = await entry.plan.open();
-      if (entry.released) {
+      if (entry.abortWhenOpened) {
         source.abort();
         throw new Error('Track was released');
       }
@@ -184,7 +193,7 @@ function createYtmAudio({
           clearTimeout(quiet);
           if (done) break;
           // A stream that brings more than it declared has not failed and would go on.
-          try { track.push(value); } catch (error) { source.abort(); throw error; }
+          try { const writing = track.push(value); if (writing) await writing; } catch (error) { source.abort(); throw error; }
         }
       } finally {
         clearTimeout(quiet);

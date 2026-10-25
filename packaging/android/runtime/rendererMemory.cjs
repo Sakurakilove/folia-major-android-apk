@@ -1,7 +1,7 @@
 const { randomUUID } = require('node:crypto');
 
 // Identify this WebView's actual renderer PID with its own trace marker, then read Chromium memory-infra dumps.
-module.exports = async client => {
+const collectRendererMemory = async client => {
     const marker = 'folia-memory-' + randomUUID();
     const entries = [];
     let finished, started = false, timer;
@@ -41,4 +41,14 @@ module.exports = async client => {
         if (started) await client.send('Tracing.end').catch(() => {});
         detach();
     }
+};
+
+// A client can own only one tracing session; repeated diagnostic ticks share its result.
+const pending = new WeakMap();
+module.exports = client => {
+    const active = pending.get(client);
+    if (active) return active;
+    const result = collectRendererMemory(client).finally(() => pending.delete(client));
+    pending.set(client, result);
+    return result;
 };

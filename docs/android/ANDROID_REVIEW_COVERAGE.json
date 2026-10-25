@@ -1,0 +1,608 @@
+{
+  "date": "2026-10-24",
+  "scope": "Android-specific source, generated runtime modules, and reviewed build/resource configuration; shared application dependencies are not fully reviewed",
+  "files": [
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaBackHandler.java",
+      "sha256": "49de8bb0bec1f7f79204ef990b8543efd9c06e34f270f22f20bc0fc5842a82fc",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaFileBrowser.java",
+      "sha256": "7c057e2adbf00129de3b3277b8824ea5278d9a7e8c346ccdfd886e19449372ea",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaFileSystemPlugin.java",
+      "sha256": "026ec130c681bd787be2914fe3b38a84902fdc3dc515c550d165f7c94a97dde2",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaNativeDispatcher.java",
+      "sha256": "a15d269cdec2d661d0757d05e08a4d5f34ac5281d5ba436cbafd3df5d7582cf5",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaNetwork.java",
+      "sha256": "293389e9805a737a821716ed6027bc07f8d89822ca60f150b03bae1e05b18f90",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaPlaybackService.java",
+      "sha256": "16e5d7b17ccf68f5fa9a24d46fe8ddcaee7bcabfc98aaf2fda3b68e0e29734ee",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaProcessMetrics.java",
+      "sha256": "2bf3bb97c15081c4461ebe309f515f07931e52fce16d927bac2ae8d7c813001f",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java",
+      "sha256": "4504de73ae798efaca79f7b5ccefabc85dd25b8b4efe0f6730e379d84e8b151b",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimeHost.java",
+      "sha256": "c058013b95a7c35653d515ddbf7068228c50d83d42fe2044cee1b74c7390d484",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java",
+      "sha256": "1cee6941d4ac9b4c5a5f1f0279d1ac277beca3d81c1b7f21b2504c8a2cc0144d",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaScriptSandbox.java",
+      "sha256": "af32f6d3a11ed028dc15179c78c449d55a51d0d7ccaec3762aeb3cd8ec8bb717",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaSecondaryBridge.java",
+      "sha256": "c984bef7ab9ff66b975ac236d67299c212f5243b9e880aa0e6564efe41f2699e",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java",
+      "sha256": "5457df3ac3486ac93d9e542ea58edf90db39d2616c1ad23deb831d40873e5027",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaSystemBars.java",
+      "sha256": "0646c3448ad8ab8f3ffb07e066b63ef4bcb2ee5a44b3dcf63fbde996be99a619",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaVoiceInput.java",
+      "sha256": "33f197e4318ac277292c85606057d6736d1d6da3a528d3908680cd2817cd8a4c",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaWallpaperService.java",
+      "sha256": "ce3deb212df0e2b5d0727a4e65057f0c5ebcd8aa9e364629f1a10a8a344b832c",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaWebViewClient.java",
+      "sha256": "a1553ed2f2509b0d6055c15bc197af5ff4b056108c65eef0c04e95c08395ea5e",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+      "sha256": "25926e194d90f40345eb2f936a342ab70eedc98472022a3daf7557aabb2349c5",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaYtmAuthProvider.java",
+      "sha256": "7099f097f9b02a9a516f8c3fd29cc53f5d04df8ef8aa7c8dcb1c22ca813aa9ed",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/FoliaYtmSignInActivity.java",
+      "sha256": "68e2f3d91e80d8447714f04c2baffba8c7cc15c0f75966834d8985086a5a42a9",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/java/top/izuna/foliamajor/MainActivity.java",
+      "sha256": "f7bc20f44e46477ad3af544b68140cc0df06a654a724da028a1bd5021822600a",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/checkPortCoverage.py",
+      "sha256": "eb33db0c16606b058154dc7aa522c0bf9fe7b99f7a59690f9984c2140ab231f8",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/extractDesktop.cjs",
+      "sha256": "f3ca9b0a7d2452faaebbff585664aac6197350b77e522d7c87423921ddc5ba14",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/generateApiSpec.py",
+      "sha256": "6bc9d0cf513fc3c4f68fa591b29725d9258bdbc6fc8164b798a7087e19d5c0d1",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/nativeArchive.py",
+      "sha256": "254614c7b915570dc14802f40c1b227e48fb88bd4742b3dd4b991bd8d5673e93",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/nativeLibraries.py",
+      "sha256": "459dbe51e70a2a780b427af0bf4ba0223c6c7980b1cf4fc37d1825c82e0ddcdf",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/prepareNative.py",
+      "sha256": "38ea19f97f4605326af834fd1059821d4200a5bdb1c3373e9500f8f95de373c5",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/prepareRuntime.py",
+      "sha256": "b97cae7d5e7e6de16a029d590be04fb7b079f7203efa8b395d816ab8d8cf2ede",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/ai.cjs",
+      "sha256": "cf2fc18a03b4d74ae0fdc6aa1dc18f7eecaf2cbf4d0f854e42f0c6bc524d9904",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/analysis.cjs",
+      "sha256": "fe286d4339b2e185bd4ce4509c289d1830a21241591ece84a7b85a3f2ca1ad24",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/beat_this_android.py",
+      "sha256": "6bfe3b2e106b6542c9160898fcbe73ffada306a12166812e085d3d449440d3c1",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/debugger.cjs",
+      "sha256": "1fd7b2d6a5ce6f95f89b9c7936ed703ca4040bbb0b2ebdef63bda52093ea8233",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/events.cjs",
+      "sha256": "fd7c6cd6256da40710b67aafe4a1e54847dc921e96735d977d5289e6c44c4a60",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/lazyBackend.cjs",
+      "sha256": "ad75dba4a00be5d686074478b2ffd0a8997e9fe8a6cf70d77eca70ee58f14c12",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/lifecycle.cjs",
+      "sha256": "ad0a5402811fd6fce1e211dcde469d46b2bc6f8226009d26ce3197a6a3741c51",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/localNetwork.cjs",
+      "sha256": "545de398f609fb91638bbfc8ee7cbf3789a460669e9a6f24ff54ab603a6b1116",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/main.cjs",
+      "sha256": "ca9f4f70ca6a89b03faa566a8603bab6a7002d9c5acd92e9ebf7806495e9623c",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/network.cjs",
+      "sha256": "b2b7e87d0d942f0d476b13e7d605c12777968ad6bc1a29c2c083c9979413f88b",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/platform.cjs",
+      "sha256": "aeff97d5051bf9e42c9c2f9e378b53367d57e569ca26f83c98672a3ab655019e",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/processMetrics.cjs",
+      "sha256": "8f59ccf36c971b57bccbb66d5bdedfd17888c11a5e05ec601a0910af433e9a90",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/rendererMemory.cjs",
+      "sha256": "a961fee98255c100a8f0cc2e84d56ed59c7d9b6c116878230cde9bc13464b630",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/subsystems.cjs",
+      "sha256": "db778f4fb5912cd729778701f5572e26028ef8ae41829e9079877b06dd5b32bf",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/updates.cjs",
+      "sha256": "7df73672f5d202d2873642c976f225c3a86152961e39fdc3861b9e8e194e414e",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/windowControls.cjs",
+      "sha256": "ffec704a1a271a8086d219efaee223946f38c83a079c3e0bdfbc59ca288858a7",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/windows.cjs",
+      "sha256": "674e53909bcf40d43f79c3735c2b40954acc60cfe560883b1d4118957003d6b5",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/wire.cjs",
+      "sha256": "d06a9650af1c4eb55d884c5717ddf39090f2862c6520083a3894802ac08bbd7c",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "packaging/android/runtime/ytmBrowser.cjs",
+      "sha256": "6b5d271434135faa42923203502b979931ff6e6d6f708fc29b1f1c874f506bdf",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/androidEvents.ts",
+      "sha256": "251750c9d2ba1f25e23133b8dbbbad676535c0fa7a1b51f0be8aa36f3e50683d",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/androidFileSystem.ts",
+      "sha256": "82625179849ca899b729631b48c992712bb9bad5fd6274dacd647162aafc0ed3",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/androidPhone.css",
+      "sha256": "0384fa4a8451552289be0dd8ccd984ed6c2b794d273ebc9ac24cf7a22e373c9b",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/androidPlayerGeometry.ts",
+      "sha256": "94cea7210b7abbd61f2b89330097a17c42f2bd2659524df669940be8951a9fa4",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/androidWire.ts",
+      "sha256": "f6660b9441e2f56e7fb77f1c5fd79348d0aa99ea86b14fe26d0876310f6ebb4c",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/installAndroidBack.ts",
+      "sha256": "ec4ac354ff058b0fb40e6f56befd6e1a20cd19f1f99003c4f69c011a78320e29",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/installAndroidBridge.ts",
+      "sha256": "31b8339041134de33a5b6f0a3de5794b9c46cff57cd20bb57f417a6446ab8f1a",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/installAndroidMediaSession.ts",
+      "sha256": "12b9a812ff82c20a0611ab4674d5c4b83148c91173e43a3f74e0c2cc73d2feaf",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/installAndroidPresentation.ts",
+      "sha256": "0f138c86552a738f8dffc1061112d7ae44fb13f0ddf7263b2c1b577acc00b542",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/installAndroidWindowDrag.ts",
+      "sha256": "06043431475f23b51cb87a4372489b19216874773579f5f8eea0a2ec37bc6868",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/secondaryEntry.ts",
+      "sha256": "263bf333774427ae6fee90f74471127bfffe9777510c53496fe45abba64c41d0",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/useAndroidSystemBars.ts",
+      "sha256": "608592f0967bd8f74c239aa01b8e5ae6abf3c5ed63193d82f3217093a9e0a33c",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "src/platform/android/usePhonePlayerGeometry.ts",
+      "sha256": "f0a8bb585be2b307c78b92b20e495fdfe65882fd69bb569e0d406d5a45346b96",
+      "status": "read",
+      "notes": "Referenced in PERFORMANCE_REVIEW.md; read does not imply defect-free or device-validated"
+    },
+    {
+      "path": "android/app/src/main/res/xml/config.xml",
+      "sha256": "e9dcda493e663c5c4db9e3cb3bd968477a6e90aa8840bcbba40d72ed54b767ce",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/xml/network_security_config.xml",
+      "sha256": "e1b05d0bb64cfc2428e2d163ba44a0eb98f0f7d0a5c6a4815b5c4b1e6bdd9116",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/xml/file_paths.xml",
+      "sha256": "f4cab58d9679946ce65aa1ba0c508028fb080ef994298312e7f1ce67ee8bc57d",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/xml/folia_wallpaper.xml",
+      "sha256": "b6c418516d11027afe42a13c3bffd42e68aca742f0d186cfeb41873a2bf859c5",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi-v33/ic_launcher_round.xml",
+      "sha256": "7e0d53a87cd7098aaa3b9b743f935b20df45ed4b8a1eeb9dffaa99218f785e31",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi-v33/ic_launcher.xml",
+      "sha256": "7e0d53a87cd7098aaa3b9b743f935b20df45ed4b8a1eeb9dffaa99218f785e31",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/folia_notification.xml",
+      "sha256": "89e04ac342813651c2013009c289c3b961bf69ca636aa2bcfdfcc16eabf8a2fc",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/folia_monochrome.xml",
+      "sha256": "1631c400fcf9f5bf5f9f9204d7b0e42213d87f34758263003c29b0d48227ceee",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/drawable/ic_launcher_background.xml",
+      "sha256": "718ba51adf166bb55c3e9936bb8199a0148457f7f0191aaa2f37a94f3159d6ec",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml",
+      "sha256": "ab4f1824580238bd4c74fc2adc79e0f276f28afe39c0af93b8bbafd136031738",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml",
+      "sha256": "ab4f1824580238bd4c74fc2adc79e0f276f28afe39c0af93b8bbafd136031738",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml",
+      "sha256": "a8514094f754b099d3e55ce1d6e0b2de79db418b2eeacb0fc2a6bb0bfadef221",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/values/styles.xml",
+      "sha256": "d90e6501b935cb5780ea8f0444b97af3facf28e9251ad1ec663b676abdd5205e",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/values/folia_colors.xml",
+      "sha256": "6175eb22e878d3f0cf0cfd5eb081b26d2864acb200b37ad33806742f97bf876c",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/values/ic_launcher_background.xml",
+      "sha256": "cd40bafe618ff506f4088778b135cb4faa15f25e0c9b475e22d730c74b7be115",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/values/strings.xml",
+      "sha256": "3ca4a67a9cc2e4d5e799b9fec342a5ca2854282a41b4fed6b1471ebcd4fc5c76",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/res/layout/activity_main.xml",
+      "sha256": "5d770feb791313b947020cbfc57e5c733c556dac5e9e49261a1190e527073253",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "packaging/android/runtime/generated/lyrics.cjs",
+      "sha256": "3b90b03b0b405713f6f75684ebd697ec197b727b88ca703c3b7e28ee36df5563",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "packaging/android/runtime/generated/publicSettings.cjs",
+      "sha256": "8070cae5b102b069678df23bf1ac24157aba9690d140eed1c70bfd877da266b6",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "packaging/android/runtime/generated/mediaCache.cjs",
+      "sha256": "55bbaa82f0a35fcd7e9f1b9d7d656168e10555dda5a81ee2d8f763fc25d5a1a4",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "packaging/android/runtime/generated/normalizeSettings.cjs",
+      "sha256": "670c8a71a2bd195a93073043b992317f2132e80a3291248934643c97558180fb",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "packaging/android/runtime/generated/obs.cjs",
+      "sha256": "e91fb8e7c1932790eb6b4b4fe8f4d1846fd5c26832be6a0a8caed13978429167",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "packaging/android/runtime/generated/fonts.cjs",
+      "sha256": "bc009b01ab498d6e89e85ef9ad44aa8f0ba92d11cbfe78fc7b72feae4a8f9b5f",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/main/AndroidManifest.xml",
+      "sha256": "d3a2e1686f641c996145e3d3a093822fdfc987d9cf62671dd8cb50602e59a298",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/build.gradle",
+      "sha256": "ba6de3850276a65db5c6fdbea1a2369974adadcc0d40dc18c78de6e3abec7812",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/build.gradle",
+      "sha256": "42d8ec1943f5d9e07dea8d626d3aca6aa5b0076e4f12385f29048702ce3fcb78",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/variables.gradle",
+      "sha256": "cf09263a98c48cb12a26a145a0550dff9f9ca26112b58dd4ccd0ce36d614cac4",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/settings.gradle",
+      "sha256": "6ce098d15ebd69b44c4ecd786bca1bdc366340d2459b2af4d7bb0ab317aa9669",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/capacitor.settings.gradle",
+      "sha256": "6ce5bd80aac6293daf83e2af40730a6c47c03e7dad3b2f65c29ebe1d0b3f02ec",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/gradle.properties",
+      "sha256": "50b116be14028c193aef122407df95a772958ba7874fbaf5fe3ed6faa1673f6f",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/gradle/wrapper/gradle-wrapper.properties",
+      "sha256": "a180163249c7252412ddaee1c7adcf59f6494b1183136f690fbd9a3b8aaed00e",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/capacitor.build.gradle",
+      "sha256": "a5afe9fddd8a2866ae6061f8b6b4a1be77d2ded38f88130eb9ecff94652197ae",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/proguard-rules.pro",
+      "sha256": "1cf8c57e8f79c250b0af9c1a5a4edad71a5c348a79ab70243b6bae086c150ad2",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "capacitor.config.json",
+      "sha256": "89f30c516641f7943fda7a7c3dbdad9ab310eda5e8dc7dde4dab65ef0132a735",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "packaging/android/runtime/package.json",
+      "sha256": "55ccdcd53d24d7949e3cbc7f18f7e7e1276011b6cb338d014a3c7dcae6ae5813",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "packaging/android/runtime/shared/androidApiSpec.json",
+      "sha256": "0aa569c22f059b3c52b8cc543c1f41d8eadcd7b3fae0e670ccab7f9495b48727",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "packaging/android/validation/checkReadyPublication.cjs",
+      "sha256": "bf35ad645106ad81dd82990f7f5c709d92f6af4049bbf1d14de6954e2aa4298e",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/androidTest/java/com/getcapacitor/myapp/ExampleInstrumentedTest.java",
+      "sha256": "ff50b4c110a7434312f9af54171f9e8523b015836f707c9b387b76d4c38a97f8",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    },
+    {
+      "path": "android/app/src/test/java/com/getcapacitor/myapp/ExampleUnitTest.java",
+      "sha256": "d4045ae8fac1f0807e6b24eb34e68409a9a235df9d1a3f896fb8c9a49424363d",
+      "status": "read",
+      "notes": "Source/configuration read; no execution or device validation"
+    }
+  ],
+  "summary": {
+    "reviewedEntries": 99,
+    "findings": 42,
+    "implementationChanged": false,
+    "testsRun": false,
+    "buildRun": false,
+    "sharedApplicationReviewComplete": false
+  }
+}

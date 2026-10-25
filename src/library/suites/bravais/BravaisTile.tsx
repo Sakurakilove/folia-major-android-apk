@@ -245,13 +245,14 @@ function BravaisTile({
     const mountEntranceTokenRef = useRef(entranceToken);
     useLayoutEffect(() => {
         const face = faceRef.current;
-        if (!entrance || !face || face.closest('[data-folia-wall-pinching="true"]')) return;
+        if (!entrance || !face) return;
         // 只给这一刻挂载的磁贴（探索页原地重排：留在原地的不动，正在放的入场也不打断）。
         if (entrance.mountsOnly && entrance.token !== mountEntranceTokenRef.current) return;
         const now = performance.now();
         if (now >= entrance.until) return;
         const stagger = entrance.reduced ? 0 : getWaveStagger(rect, entrance.corner, BRAVAIS_METRICS);
-        const delay = Math.max(0, entrance.startedAt + stagger - now);
+        // A culled tile rejoins the running wave at its actual phase instead of replaying from zero.
+        const delay = entrance.startedAt + stagger - now;
         outAnimationRef.current?.cancel();
         outAnimationRef.current = null;
         pendingInRef.current = null;

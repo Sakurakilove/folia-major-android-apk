@@ -33,7 +33,7 @@ import org.json.JSONObject;
 public class FoliaRuntimePlugin extends Plugin {
     private FoliaBackHandler backHandler;
     private FoliaVoiceInput voiceInput;
-    private static final ExecutorService executor = Executors.newCachedThreadPool();
+    private final ExecutorService executor = Executors.newCachedThreadPool();
     static HttpURLConnection openProtocol(String target, java.util.Map<String, String> headers) throws Exception {
         return FoliaRuntimeHost.openProtocol(target, headers);
     }
@@ -58,7 +58,32 @@ public class FoliaRuntimePlugin extends Plugin {
         super.handleOnResume();
         notifyListeners("appVisibility", new JSObject().put("visible", true));
     }
+    private volatile boolean closing;
+    private final java.util.Set<PluginCall> visualStateRequests = java.util.concurrent.ConcurrentHashMap.newKeySet();
+    private final java.util.concurrent.atomic.AtomicLong visualStateIds = new java.util.concurrent.atomic.AtomicLong();
+    @PluginMethod public void visualState(PluginCall call) {
+        getActivity().runOnUiThread(() -> {
+            if (closing || getActivity().isDestroyed() || getActivity().isFinishing()) { call.reject("Renderer host closed"); return; }
+            visualStateRequests.add(call);
+            try {
+                getBridge().getWebView().postVisualStateCallback(visualStateIds.incrementAndGet(), new android.webkit.WebView.VisualStateCallback() {
+                    @Override public void onComplete(long requestId) {
+                        if (visualStateRequests.remove(call)) call.resolve();
+                    }
+                });
+            } catch (Exception error) { visualStateRequests.remove(call); call.reject(error.getMessage()); }
+        });
+    }
+
     @Override protected void handleOnDestroy() {
+        closing = true;
+        for (PluginCall request : visualStateRequests) if (visualStateRequests.remove(request)) request.reject("Renderer host closed");
+        visualStateRequests.clear();
+        if (FoliaPlaybackService.plugin == this) {
+            FoliaPlaybackService.plugin = null;
+            getContext().stopService(new Intent(getContext(), FoliaPlaybackService.class));
+        }
+        executor.shutdownNow();
         if (voiceInput != null) voiceInput.close();
         for (String token : binaryStreams.keySet()) {
             FileOutputStream output = binaryStreams.remove(token);

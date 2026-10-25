@@ -1,0 +1,60 @@
+{
+  "date": "2026-10-17",
+  "environment": {
+    "androidRelease": "17",
+    "apiLevel": 37,
+    "pageSizeBytes": 16384,
+    "abi": "x86_64",
+    "execution": "Android emulator, software emulation; component binaries, not installed APK"
+  },
+  "passed": {
+    "nodeVersion": "24.18.0",
+    "pythonVersion": "3.14.6",
+    "numpyVersion": "2.5.4",
+    "onnxRuntimeVersion": "1.31.0",
+    "onnxProviders": [
+      "NnapiExecutionProvider",
+      "XnnpackExecutionProvider",
+      "CPUExecutionProvider"
+    ],
+    "onnxComputation": {
+      "model": "float32 Add, opset 13",
+      "inputX": [
+        1.25,
+        -3
+      ],
+      "inputY": [
+        2,
+        5
+      ],
+      "result": [
+        3.25,
+        2.0
+      ],
+      "modelSHA256": "2e2ae2a313a9272b4e2d0ecca8e3e87e18bd26cdbc4b75ea610253d05b6d5a9a"
+    },
+    "spotifyNativeAddon": "dlopen succeeded; LibrespotSession and stream/connect/download exports present",
+    "ffmpegVersion": "9.0.2",
+    "ffmpegVP9Encode": {
+      "dimensions": [
+        16,
+        16
+      ],
+      "durationSeconds": 1,
+      "fileBytes": 605
+    },
+    "nodeIntl": "zh-CN",
+    "nodeWebCrypto": true
+  },
+  "notValidated": [
+    "APK installation or cold start",
+    "ARM64 runtime execution",
+    "Beat This or Demucs model inference",
+    "Provider login or authenticated playback",
+    "Animation visual equivalence or frame rate",
+    "Predictive back gesture commit/cancel",
+    "Background audio and notification operation",
+    "Auxiliary renderers or video export through the application",
+    "Live wallpaper and floating windows"
+  ]
+}

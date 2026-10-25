@@ -17,17 +17,58 @@ import { COVER_SIZE_STEPS, getOriginalCoverUrl, getSizedCoverUrl, resolveCoverSi
  */
 const MAX_TRACKED_VARIANTS = 600;
 const androidDecode = createWallArtworkQueue(2);
-const desktopDecode = <T,>(task: () => Promise<T>): Promise<T> => task();
+const desktopDecode = <T,>(task: () => Promise<T>, _signal?: AbortSignal): Promise<T> => task();
 const artworkStep = (size: number) => resolveCoverSizeStep(runsOnAndroid() ? Math.min(size, 1024) : size);
 const decodedVariants = new Map<string, true>();
+// Hold decoded image owners under a byte budget; a boolean is not a lease on browser pixels.
+const decodedImages = new Map<string, { image: HTMLImageElement; bytes: number }>();
+let decodedImageBytes = 0;
+const MAX_DECODED_IMAGE_BYTES = 24 * 1024 * 1024;
+const retainDecodedImage = (url: string, image: HTMLImageElement): void => {
+    if (!runsOnAndroid()) return;
+    const previous = decodedImages.get(url);
+    if (previous) decodedImageBytes -= previous.bytes;
+    decodedImages.delete(url);
+    const bytes = image.naturalWidth * image.naturalHeight * 4;
+    if (bytes <= 0 || bytes > MAX_DECODED_IMAGE_BYTES) return;
+    decodedImages.set(url, { image, bytes });
+    decodedImageBytes += bytes;
+    while (decodedImageBytes > MAX_DECODED_IMAGE_BYTES) {
+        const oldest = decodedImages.entries().next().value;
+        if (!oldest) break;
+        decodedImages.delete(oldest[0]);
+        decodedImageBytes -= oldest[1].bytes;
+    }
+};
 /** In-flight decodes, so one URL is fetched once however many posters want it at the same moment. */
-const decodingVariants = new Map<string, Promise<boolean>>();
+type ArtworkDecode = { promise: Promise<boolean>; consumers: number; controller: AbortController; finished: boolean };
+const decodingVariants = new Map<string, ArtworkDecode>();
+const leaseDecode = (job: ArtworkDecode, signal?: AbortSignal): Promise<boolean> => {
+    if (signal?.aborted) return Promise.resolve(false);
+    job.consumers++;
+    let released = false;
+    const release = () => {
+        if (released) return;
+        released = true;
+        job.consumers--;
+        if (job.consumers === 0 && !job.finished) job.controller.abort();
+    };
+    signal?.addEventListener('abort', release, { once: true });
+    return job.promise.finally(() => { signal?.removeEventListener('abort', release); release(); });
+};
 /**
  * Variants that would not load. A local cover whose binary is missing from the asset store answers
  * 404 for every size, and without this a card would ask again on each gear change and each press.
  * Bounded like the decoded set, and for the same reason.
  */
-const failedVariants = new Map<string, true>();
+const failedVariants = new Map<string, number>();
+const failedRecently = (url: string): boolean => {
+    const until = failedVariants.get(url);
+    if (until === undefined) return false;
+    if (Date.now() < until) return true;
+    failedVariants.delete(url);
+    return false;
+};
 
 /** Ladder step the URL was cut at; `Infinity` stands for the provider's own asset. */
 type PosterArtwork = {
@@ -53,33 +94,65 @@ const variantUrl = (cover: string, step: number): string => (
 
 // Waits for a decoded frame rather than a load event: the swap that follows is then a repaint of
 // something already rasterized, instead of a decode landing in the middle of the expansion spring.
-const decodeVariant = (url: string): Promise<boolean> => {
-    if (!url || typeof Image === 'undefined' || failedVariants.has(url)) return Promise.resolve(false);
+const decodeVariant = (url: string, signal?: AbortSignal): Promise<boolean> => {
+    if (!url || signal?.aborted || typeof Image === 'undefined' || failedRecently(url)) return Promise.resolve(false);
     const pending = decodingVariants.get(url);
-    if (pending) return pending;
+    if (pending && !pending.controller.signal.aborted) return leaseDecode(pending, signal);
+    const controller = new AbortController();
+    const job: ArtworkDecode = { promise: Promise.resolve(false), consumers: 0, controller, finished: false };
 
+    let decodedImage: HTMLImageElement | null = null;
     const request = (runsOnAndroid() ? androidDecode : desktopDecode)(() => {
         const image = new Image();
+        decodedImage = image;
         image.decoding = 'async';
-        image.src = url;
-        return (typeof image.decode === 'function'
-            ? image.decode()
+        let timer: ReturnType<typeof setTimeout>;
+        const expired = new Promise<never>((_, reject) => {
+            timer = setTimeout(() => {
+                image.src = '';
+                reject(new DOMException('Artwork decode timed out', 'TimeoutError'));
+            }, 15000);
+        });
+        let cancel!: () => void;
+        const cancelled = new Promise<never>((_, reject) => {
+            cancel = () => { image.src = ''; reject(new DOMException('Artwork is no longer needed', 'AbortError')); };
+            controller.signal.addEventListener('abort', cancel, { once: true });
+        });
+        if (controller.signal.aborted) cancel();
+        const loaded = typeof image.decode === 'function'
+            ? (() => { image.src = url; return image.decode(); })()
             : new Promise<void>((resolve, reject) => {
                 image.onload = () => resolve();
                 image.onerror = () => reject(new Error(`Cover variant failed: ${url}`));
-            }));
-    })
+                image.src = url;
+            });
+        return Promise.race([loaded, expired, cancelled]).finally(() => {
+            controller.signal.removeEventListener('abort', cancel);
+            clearTimeout(timer);
+            image.onload = null;
+            image.onerror = null;
+        });
+    }, controller.signal)
         .then(() => {
             remember(decodedVariants, url);
+            if (decodedImage) retainDecodedImage(url, decodedImage);
             return true;
         })
-        .catch(() => {
-            remember(failedVariants, url);
+        .catch(error => {
+            // Queue pressure is cancellation, not a permanently broken cover.
+            if (!(error instanceof DOMException && error.name === 'AbortError')) {
+                failedVariants.set(url, Date.now() + 30000);
+                while (failedVariants.size > MAX_TRACKED_VARIANTS) failedVariants.delete(failedVariants.keys().next().value!);
+            }
             return false;
         })
-        .finally(() => { decodingVariants.delete(url); });
-    decodingVariants.set(url, request);
-    return request;
+        .finally(() => {
+            job.finished = true;
+            if (decodingVariants.get(url) === job) decodingVariants.delete(url);
+        });
+    job.promise = request;
+    decodingVariants.set(url, job);
+    return leaseDecode(job, signal);
 };
 
 /**
@@ -107,7 +180,7 @@ const pickDisplay = (cover: string, targetStep: number): PosterArtwork => {
 export const prewarmWallPosterArtwork = (cover: string | undefined, sizePx: number): void => {
     if (!cover) return;
     const url = variantUrl(cover, artworkStep(sizePx));
-    if (!url || decodedVariants.has(url) || failedVariants.has(url)) return;
+    if (!url || decodedVariants.has(url) || failedRecently(url)) return;
     void decodeVariant(url);
 };
 
@@ -131,18 +204,24 @@ export const useWallPosterArtwork = (cover: string | undefined, sizePx: number):
 
     useEffect(() => {
         const android = runsOnAndroid();
-        if (!source || current.step === targetStep || (!android && current.step > targetStep)) return;
+        if (!source) return;
+        const controller = new AbortController();
+        if (current.step === targetStep || (!android && current.step > targetStep)) {
+            // Cold CSS loads used to bypass both queue bookkeeping and decoded image ownership.
+            if (!decodedVariants.has(current.url) || (android && !decodedImages.has(current.url))) void decodeVariant(current.url, controller.signal);
+            return () => controller.abort();
+        }
         const url = variantUrl(source, targetStep);
         let cancelled = false;
         const load = () => {
             const upgrade = () => { if (!cancelled) setReady({ cover: source, step: targetStep, url }); };
             if (!android && decodedVariants.has(url)) { upgrade(); return; }
-            void decodeVariant(url).then(decoded => { if (decoded) upgrade(); });
+            void decodeVariant(url, controller.signal).then(decoded => { if (decoded) upgrade(); });
         };
         // Keep the current image throughout the gesture and decode the replacement before swapping.
         const timer = current.step > targetStep ? setTimeout(load, 1000) : undefined;
         if (timer === undefined) load();
-        return () => { cancelled = true; clearTimeout(timer); };
+        return () => { cancelled = true; clearTimeout(timer); controller.abort(); };
     }, [current, source, targetStep]);
 
     return current.url;

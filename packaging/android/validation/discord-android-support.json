@@ -1,0 +1,17 @@
+{
+  "checkedAtUTC": "2026-10-17T23:17:00.946711+00:00",
+  "desktopApplicationId": "1518508445483925645",
+  "officialAndroidRpcMinimumSdk": "1.10",
+  "oauthRequiredForAndroidPresence": false,
+  "requiresDiscordAppInstalledAndSignedIn": true,
+  "requiresNewUserProvidedApplicationId": false,
+  "androidSdkDependencyObtained": false,
+  "androidPresenceAdapterImplemented": false,
+  "notes": "Original desktop controller remains available for its portable snapshot/status rules; desktop IPC transport does not work on Android. Public vendor mirror examined is 1.9.16441 and is insufficient. OAuth redirect applies to account linking, not the Android direct RPC presence flow.",
+  "sources": [
+    "https://docs.discord.com/developers/discord-social-sdk/development-guides/setting-rich-presence#rich-presence-without-authentication",
+    "https://docs.discord.com/developers/discord-social-sdk/core-concepts/mobile",
+    "https://docs.discord.com/developers/discord-social-sdk/getting-started/using-c++",
+    "https://github.com/blazium-games/discord-social-sdk/blob/master/VERSION"
+  ]
+}

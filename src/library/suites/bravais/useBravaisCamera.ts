@@ -1,4 +1,5 @@
 import { animate } from 'framer-motion';
+import { flushSync } from 'react-dom';
 import { useCallback, useEffect, useMemo, useRef, useState, type MutableRefObject, type PointerEvent, type RefObject } from 'react';
 import type { Bounds } from '../../../components/wall/layout';
 import type { LatticeCamera } from '../../../components/wall/useWallCameraPan';
@@ -94,23 +95,25 @@ export const useBravaisCamera = ({
     }, [frameRef]);
 
     /** Publish cull bounds with the camera update instead of waiting for a second RAF. */
-    const publishCullBounds = useCallback(() => {
+    const publishCullBounds = useCallback((synchronous = false) => {
         const visible = getVisibleWorldBounds(frameRef.current);
         if (!visible) return;
         const previous = boundsRef.current;
         if (previous && previous.left === visible.left && previous.right === visible.right
             && previous.top === visible.top && previous.bottom === visible.bottom) return;
         boundsRef.current = visible;
-        setBounds(visible);
+        if (synchronous) flushSync(() => setBounds(visible));
+        else setBounds(visible);
     }, [frameRef]);
 
     /** 移到一个视图中心：写 DOM；快到裁剪边缘时（或调用方要求时）重新裁剪。 */
-    const moveTo = useCallback((center: WallViewCenter, forceRecull = false) => {
+    const moveTo = useCallback((center: WallViewCenter, forceRecull = false, synchronous = false) => {
         frameRef.current.center = center;
         syncPointerCamera();
-        renderFrame();
         const visible = getVisibleWorldBounds(frameRef.current);
-        if (visible && (forceRecull || needsRecull(visible, boundsRef.current))) publishCullBounds();
+        if (visible && (forceRecull || needsRecull(visible, boundsRef.current))) publishCullBounds(synchronous);
+        // A gesture must not expose the new camera until its required tiles are committed.
+        renderFrame();
     }, [frameRef, renderFrame, publishCullBounds, syncPointerCamera]);
 
     /**
@@ -144,7 +147,7 @@ export const useBravaisCamera = ({
                     top: Math.min(current.top, destination.top),
                     bottom: Math.max(current.bottom, destination.bottom),
                 };
-                return area(merged) > area(destination) * MAX_RESERVED_VIEWPORTS ? destination : merged;
+                return area(merged) > area(destination) * MAX_RESERVED_VIEWPORTS ? current : merged;
             });
         }
         if (reducedMotion || duration <= 0) {
@@ -155,12 +158,10 @@ export const useBravaisCamera = ({
             duration,
             ease: [0.22, 1, 0.36, 1],
             onUpdate: progress => {
-                frameRef.current.center = {
+                moveTo({
                     x: from.x + (target.x - from.x) * progress,
                     y: from.y + (target.y - from.y) * progress,
-                };
-                syncPointerCamera();
-                renderFrame();
+                });
             },
             onComplete: () => {
                 animationRef.current = null;
@@ -205,7 +206,7 @@ export const useBravaisCamera = ({
         const view = frameRef.current.view;
         if (!view) return;
         if (next.scale !== view.scale) frameRef.current.view = { ...view, scale: next.scale };
-        moveTo(constrain(viewCenterFromCamera(next, frameRef.current.view!)), Boolean(updateBounds));
+        moveTo(constrain(viewCenterFromCamera(next, frameRef.current.view!)), Boolean(updateBounds), true);
     }, [constrain, frameRef, moveTo]);
     const getWorldBounds = useCallback((camera: LatticeCamera) => {
         const view = frameRef.current.view;

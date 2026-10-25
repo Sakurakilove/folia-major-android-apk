@@ -1,0 +1,64 @@
+{
+  "checkedAtUTC": "2026-10-18T05:01:23.254496+00:00",
+  "sourcePortComplete": true,
+  "apkBuilt": true,
+  "nativeJavaCompilation": {
+    "task": ":app:assembleRelease",
+    "passed": true,
+    "targetSdk": 37,
+    "gradle": "9.3.1",
+    "androidGradlePlugin": "9.1.0",
+    "log": "mobile-release-build2.log"
+  },
+  "typeScriptTypecheckPassed": true,
+  "unitRegression": {
+    "files": 14,
+    "tests": 32,
+    "passed": true,
+    "scope": "Entire test/unit/android suite, including persistent file-picker recovery and Android feature gates. Original command suite separately passed 86 tests; original Discord 5 and cover URL 3 passed previously. Not APK integration."
+  },
+  "chromiumInteraction": {
+    "tests": 2,
+    "passed": true,
+    "scope": "Predictive-back JavaScript cancellation and portal focus dispatch; floating-window drag regions and nested button exclusion. Native gestures and window movement not device-validated."
+  },
+  "nodeRpcHostChecks": {
+    "passed": true,
+    "scope": "Host Node server startup, desktop setting defaults, save-settings boolean normalization, rejection of invalid update lane, live update-disable status. Not Android Java/Node integration."
+  },
+  "remainingSourceGaps": [],
+  "remainingDeviceValidation": [
+    "APK installation and cold start",
+    "settings persistence and native file access",
+    "all lyric and background animations",
+    "background audio and lockscreen controls",
+    "native predictive-back cancel/commit",
+    "export and wallpaper behavior",
+    "ARM64 execution"
+  ],
+  "upstreamCommit": "e1fcc9a8b9b891618d87c513c4da6519a5c22d23",
+  "scopeExclusions": [
+    "Discord rich presence, explicitly excluded by user"
+  ],
+  "sourcePortScope": "Reviewed source integration, not a claim of device runtime parity",
+  "typeScriptTypecheckLog": "mobile5-tsc-delivery.log",
+  "apkArtifactEvidence": "mobile5-release.json",
+  "deviceValidationStoppedByUser": true,
+  "apkInstalled": false,
+  "delivery": {
+    "url": "https://litter.catbox.moe/5mzat1.apk",
+    "expiryHours": 72,
+    "service": "Catbox Litterbox"
+  },
+  "latestPhoneLayoutCheck": {
+    "log": "mobile4-phone-ui2.log",
+    "passed": true,
+    "scope": "Android browser branches: metadata width and compact player height, not device power or raster flicker"
+  },
+  "latestNativeGlassRelease": {
+    "version": "0.7.20-mobile.5",
+    "nativeComposeLibrary": "io.github.kyant0:backdrop:2.0.1",
+    "releaseCompilationLog": "mobile5-release-final.log",
+    "deviceValidated": false
+  }
+}

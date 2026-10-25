@@ -147,7 +147,7 @@ function pickAudioFormat(formats, level = 'high') {
 //            track the player session made no plan for (a guest is refused some, such as
 //            age-restricted tracks) or whose download by that session's plan broke.
 function createYtmApiBridge({
-  store, safeStorage, fetch, evaluate, language = () => 'zh-CN',
+  store, safeStorage, fetch, evaluate, language = () => 'zh-CN', createTrack,
   loadLibraries = loadYtmLibraries, now = Date.now, log = (...args) => console.log(...args), warn = (...args) => console.warn(...args), sessionLimitMs = SESSION_LIMIT_MS,
   randomKey = () => crypto.randomBytes(16).toString('hex'),
   mintToken = createYtmTokenMinter({ fetch, evaluate, now }).mint,
@@ -245,7 +245,7 @@ function createYtmApiBridge({
   // requests go through the same guard.
   const memberSession = lazySession('member', () => createWebSession(undefined, webRepo.get(), true));
 
-  const audio = createYtmAudio({ loadPlan: (videoId, failed, level) => loadPlan(videoId, failed, level), now, randomKey, log, warn });
+  const audio = createYtmAudio({ loadPlan: (videoId, failed, level) => loadPlan(videoId, failed, level), createTrack, now, randomKey, log, warn });
 
   const forgetWeb = () => {
     webRepo.clear();

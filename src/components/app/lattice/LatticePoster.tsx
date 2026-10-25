@@ -1,5 +1,5 @@
 import { WallTitle } from '../../wall/WallTitle';
-import { lazy, memo, Suspense, useMemo } from 'react';
+import { lazy, memo, Suspense, useLayoutEffect, useMemo } from 'react';
 import { motion, type TransformProperties } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -38,6 +38,7 @@ const LatticeLyrics = lazy(() => import('./lyrics/LatticeLyrics'));
 
 type LatticePosterProps = {
     instanceId: string;
+    entranceHistory: MutableRefObject<Set<string>>;
     isFocused: boolean;
     tile: LatticeTile;
     rect: Omit<ReflowTile, 'instanceId'>;
@@ -139,6 +140,7 @@ const fallbackBackground = (id: string) => {
 
 function LatticePoster({
     instanceId,
+    entranceHistory,
     isFocused,
     tile,
     rect,
@@ -159,6 +161,17 @@ function LatticePoster({
     onOpenPlayer,
 }: LatticePosterProps) {
     countRender('LatticePoster');
+    const entranceKey = `${tile.id}\0${instanceId}`;
+    const enteredBefore = useRef(entranceHistory.current.has(entranceKey)).current;
+    const rememberEntrance = () => {
+        const history = entranceHistory.current;
+        history.delete(entranceKey); history.add(entranceKey);
+        while (history.size > 1600) history.delete(history.values().next().value!);
+    };
+    useLayoutEffect(() => {
+        if (mountsInPlace || reducedMotion || enteredBefore) rememberEntrance();
+    }, [entranceKey, entranceHistory, mountsInPlace, reducedMotion, enteredBefore]);
+
     const { t } = useTranslation();
     const chrome = useLatticeChromeDisclosure(expanded);
     // The open card is already the foreground and carries the lyric canvas, so it never pops.
@@ -260,7 +273,7 @@ function LatticePoster({
             className={`lattice-poster ${expanded ? 'is-expanded' : ''} ${isFocused ? 'is-focused' : ''} ${isCurrent ? 'is-current' : ''} ${tile.kind === 'collection' ? 'is-collection' : ''} ${tile.entryKind && tile.entryKind !== 'song' ? `is-kind-${tile.entryKind}` : ''} ${awaitsFlight ? 'is-awaiting-flight' : ''}`}
             data-instance-id={instanceId}
             {...(isFlightEnd ? { [LATTICE_TILE_ATTR]: tile.id } : {})}
-            initial={reducedMotion || mountsInPlace || handoff?.kind === 'static'
+            initial={reducedMotion || mountsInPlace || (enteredBefore && handoff === null) || handoff?.kind === 'static'
                 ? false
                 // 交接进来：落在原位、不透明，只是侧立着（看不见），等自己的时刻翻进来。
                 : handoff?.kind === 'hold' || handoff?.kind === 'in'
@@ -297,7 +310,10 @@ function LatticePoster({
                 backgroundImage: coverUrl ? `url("${coverUrl}")` : fallbackBackground(tile.id),
                 zIndex: expanded ? 20 : undefined,
             }}
-            onAnimationComplete={onExpansionComplete}
+            onAnimationComplete={() => {
+                if (handoff === null || handoff.kind === 'static') rememberEntrance();
+                onExpansionComplete();
+            }}
             onClick={handleClick}
             onKeyDown={handleKeyDown}
             role={expanded ? 'group' : 'button'}

@@ -24,12 +24,20 @@ public final class FoliaWallpaperService extends WallpaperService {
         private WebView view;
         private Presentation presentation;
         private VirtualDisplay display;
-        private boolean destroyed, rendererGone;
+        private boolean destroyed, rendererGone, visible;
         private int lastFormat,lastWidth,lastHeight;
         @Override public void onCreate(SurfaceHolder holder) { super.onCreate(holder); forwardTouch = getSharedPreferences("wallpaper", MODE_PRIVATE).getBoolean("forwardTouch", true); setTouchEventsEnabled(true); }
         @Override public void onSurfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+            if (width < 1 || height < 1) { releaseDisplay(); return; }
+            if (display != null && view != null && !rendererGone) {
+                display.setSurface(holder.getSurface());
+                if (width != lastWidth || height != lastHeight) {
+                    display.resize(width, height, getResources().getDisplayMetrics().densityDpi);
+                }
+                lastFormat=format;lastWidth=width;lastHeight=height;
+                return;
+            }
             releaseDisplay();lastFormat=format;lastWidth=width;lastHeight=height;rendererGone=false;
-            if (width < 1 || height < 1) return;
             DisplayManager manager = (DisplayManager)getSystemService(Context.DISPLAY_SERVICE);
             display = manager.createVirtualDisplay("Folia live lyrics", width, height, getResources().getDisplayMetrics().densityDpi,
                 holder.getSurface(), DisplayManager.VIRTUAL_DISPLAY_FLAG_OWN_CONTENT_ONLY);
@@ -39,6 +47,9 @@ public final class FoliaWallpaperService extends WallpaperService {
             WebSettings settings = view.getSettings(); settings.setJavaScriptEnabled(true); settings.setDomStorageEnabled(true);
             settings.setAllowFileAccess(false); settings.setAllowContentAccess(false); settings.setMediaPlaybackRequiresUserGesture(true);
             view.setWebViewClient(new WebViewClient() {
+                @Override public void onPageFinished(WebView renderer, String url) {
+                    if (view == renderer && !destroyed) publishVisibility();
+                }
                 @Override public boolean onRenderProcessGone(WebView renderer,RenderProcessGoneDetail detail){
                     rendererGone=true;releaseDisplay();
                     ui.postDelayed(()->{if(!destroyed && getSurfaceHolder().getSurface().isValid())onSurfaceChanged(getSurfaceHolder(),lastFormat,lastWidth,lastHeight);},1000);
@@ -59,14 +70,20 @@ public final class FoliaWallpaperService extends WallpaperService {
                     setTouchForwarding(FoliaWallpaperService.this, preferences.optBoolean("wallpaper_forward_mouse", true));
                     JSONObject response = FoliaRuntimeHost.rpc("setObsBrowserSourceEnabled", new JSONArray().put(true), 1);
                     String url = response.getJSONObject("result").getString("url");
-                    ui.post(() -> { if (!destroyed && view == renderer) renderer.loadUrl(url); });
+                    ui.post(() -> { if (!destroyed && view == renderer) renderer.loadUrl(android.net.Uri.parse(url).buildUpon().appendQueryParameter("foliaAndroidHost", "wallpaper").build().toString()); });
                 } catch (Exception error) { android.util.Log.e("FoliaWallpaper", "Cannot open lyrics renderer", error); }
             });
         }
-        @Override public void onVisibilityChanged(boolean visible) { if (view != null) {
+        private void publishVisibility() {
+            if (view == null) return;
             view.evaluateJavascript("window.dispatchEvent(new CustomEvent('folia-android-visibility',{detail:" + visible + "}))", null);
+            view.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
             if (visible) view.onResume(); else view.onPause();
-        } }
+        }
+        @Override public void onVisibilityChanged(boolean nextVisible) {
+            visible = nextVisible;
+            publishVisibility();
+        }
         @Override public void onTouchEvent(MotionEvent event) { if (forwardTouch && view != null) view.dispatchTouchEvent(event); }
         private void releaseDisplay() {
             if (view != null) { if(!rendererGone)view.stopLoading();view.destroy();view=null; }

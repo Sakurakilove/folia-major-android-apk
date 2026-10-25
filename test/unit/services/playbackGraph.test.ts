@@ -86,10 +86,13 @@ const buildWith = (effectsPreset: 'lofi' | 'flat') => {
 };
 
 describe('buildPlaybackGraph', () => {
-    it('puts the volume fader between the vinyl noise and the speakers', () => {
+    it('puts the volume fader between asynchronously prepared vinyl noise and the speakers', async () => {
+        vi.useFakeTimers();
+        try {
         const { graph, edges, context } = buildWith('lofi');
         // The looping noise buffer the vinyl branch starts - the one thing in the chain that makes
         // sound with no music playing at all.
+        await vi.runAllTimersAsync();
         const noiseSource = edges.map(([a]) => a).find(n => n.kind === 'bufferSource');
         expect(noiseSource, 'lo-fi should have started the vinyl noise source').toBeDefined();
 
@@ -101,6 +104,8 @@ describe('buildPlaybackGraph', () => {
             );
         });
         expect(context.destination).toBeDefined();
+        graph.effectChain.dispose();
+        } finally { vi.useRealTimers(); }
     });
 
     it('puts the volume fader after the bit crush, so the fader cannot change the bit depth', () => {

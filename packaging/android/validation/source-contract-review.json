@@ -1,0 +1,1568 @@
+{
+  "scope": "Public preload contracts mapped to reviewed implementations; not APK behavior or device validation. Excludes Discord at explicit user request.",
+  "contracts": {
+    "webUtils": {
+      "group": "renderer-platform-facade",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "webUtils.getPathForFile": {
+      "group": "renderer-platform-facade",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "platform": {
+      "group": "renderer-platform-facade",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "isLinuxX11": {
+      "group": "renderer-platform-facade",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "mods": {
+      "group": "renderer-platform-facade",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "openExternalUrl": {
+      "group": "renderer-platform-facade",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "setPlaybackDisplaySleepBlockingActive": {
+      "group": "renderer-platform-facade",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "getVoiceInputPauseStatus": {
+      "group": "renderer-platform-facade",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "updateTaskbarControls": {
+      "group": "renderer-platform-facade",
+      "implementationSources": [
+        "src/platform/android/installAndroidBridge.ts",
+        "src/platform/android/androidFileSystem.ts"
+      ]
+    },
+    "getSettings": {
+      "group": "settings-cache-location",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "saveSettings": {
+      "group": "settings-cache-location",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "setAppLocale": {
+      "group": "settings-cache-location",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "getCacheDirectory": {
+      "group": "settings-cache-location",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "chooseCacheDirectory": {
+      "group": "settings-cache-location",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "resetCacheDirectory": {
+      "group": "settings-cache-location",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/extractDesktop.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "generateTheme": {
+      "group": "ai",
+      "implementationSources": [
+        "packaging/android/runtime/ai.cjs",
+        "electron/aiTextClient.cjs",
+        "electron/aiCredentialStore.cjs"
+      ]
+    },
+    "segmentLyrics": {
+      "group": "ai",
+      "implementationSources": [
+        "packaging/android/runtime/ai.cjs",
+        "electron/aiTextClient.cjs",
+        "electron/aiCredentialStore.cjs"
+      ]
+    },
+    "testAiConnection": {
+      "group": "ai",
+      "implementationSources": [
+        "packaging/android/runtime/ai.cjs",
+        "electron/aiTextClient.cjs",
+        "electron/aiCredentialStore.cjs"
+      ]
+    },
+    "fetchLyricProxy": {
+      "group": "lyric-proxy",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "minimizeWindow": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "toggleMaximizeWindow": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "toggleFullscreenWindow": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "closeWindow": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "quitApp": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "isWindowMaximized": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "isWindowFullscreen": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getWindowTransparentMode": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setWindowTransparentMode": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "consumeWindowPlaybackHandoff": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "submitWindowPlaybackHandoff": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setNativeTheme": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getMainWindowClickThroughEnabled": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setMainWindowClickThroughEnabled": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setMainWindowClickThroughUnlockHover": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getMainWindowAlwaysOnTop": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setMainWindowAlwaysOnTop": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getPlaybackSyncBridgeStatus": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "openRemoteControl": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "toggleRemoteControl": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "closeRemoteControl": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getRemoteControlAlwaysOnTop": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setRemoteControlAlwaysOnTop": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getRemoteControlWindowSettings": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getRemoteControlPointerInside": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "publishRemoteControlSnapshot": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getRemoteControlSnapshot": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "sendRemoteControlCommand": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "getWallpaperDisplays": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "setWallpaperDisplay": {
+      "group": "window-controls",
+      "implementationSources": [
+        "packaging/android/runtime/windowControls.cjs",
+        "packaging/android/runtime/windows.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaWindowHost.java",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRemoteActivity.java"
+      ]
+    },
+    "runBeatThis": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "separateStems": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "getAutomixModelsPresent": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "diagMark": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "debugGetState": {
+      "group": "diagnostics",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "debugSetState": {
+      "group": "diagnostics",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "debugOpenLogs": {
+      "group": "diagnostics",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "debugWriteRuntimeLines": {
+      "group": "diagnostics",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "onDebugMainLines": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "debugRendererMemory": {
+      "group": "diagnostics",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "debugReportRendererMemory": {
+      "group": "diagnostics",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "onDebugMemorySample": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "chooseModelsDirectory": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "resetModelsDirectory": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "getAutomixModelStatus": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "downloadAutomixModel": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "cancelAutomixModelDownload": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "scanForAutomixModels": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "installAutomixModel": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "removeAllAutomixModels": {
+      "group": "original-models-android-ort",
+      "implementationSources": [
+        "packaging/android/runtime/analysis.cjs",
+        "packaging/android/runtime/beat_this_android.py",
+        "electron/analysis/htdemucs_runner.py",
+        "electron/analysis/modelStore.cjs"
+      ]
+    },
+    "onAutomixModelProgress": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onWallpaperModeChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onWallpaperTransparentRefused": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onWallpaperEntryRequested": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onWallpaperInputMonitorRequested": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onWallpaperDisplaysChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "getUpdateStatus": {
+      "group": "android-release-updates",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "checkForUpdates": {
+      "group": "android-release-updates",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "markUpdateSeen": {
+      "group": "android-release-updates",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "openUpdateReleasePage": {
+      "group": "android-release-updates",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "downloadUpdate": {
+      "group": "android-release-updates",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "quitAndInstallUpdate": {
+      "group": "android-release-updates",
+      "implementationSources": [
+        "packaging/android/runtime/updates.cjs",
+        "electron/updateChannels.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "onUpdateStatusChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "getAudioCache": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "hasAudioCache": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "saveAudioCache": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "removeAudioCache": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "getAudioCacheUsage": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "getAudioCacheStats": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "clearAudioCache": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "requestTranscodeFallback": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "cancelTranscodeFallback": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "getCoverCache": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "saveCoverCache": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "removeCoverCache": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "getCoverCacheUsage": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "clearCoverCache": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "hasLocalCoverAsset": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "saveLocalCoverAsset": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "removeLocalCoverAsset": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "clearLocalCoverAssets": {
+      "group": "original-cache-and-transcoding",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/localCoverAssets.cjs",
+        "electron/transcode/service.cjs"
+      ]
+    },
+    "getNeteasePort": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "getNeteaseApiStatus": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "getLoginDiagnostics": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "runLoginSelfCheck": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "restartNeteaseApi": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "onNeteaseApiStatusChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "getKugouApiStatus": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "kugouRequest": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "bodianRequest": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "ytmRequest": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "spotifyRequest": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "getQqPort": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "getQqApiStatus": {
+      "group": "original-music-backends",
+      "implementationSources": [
+        "packaging/android/runtime/main.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "electron/loginBackendIpc.cjs",
+        "packaging/android/runtime/ytmBrowser.cjs",
+        "packaging/android/nativeLibraries.py"
+      ]
+    },
+    "onQqApiStatusChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onWindowFullscreenChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onWindowPlaybackHandoffRequested": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onMainWindowClickThroughChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "getObsBrowserSourceStatus": {
+      "group": "original-obs-feed",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "setObsBrowserSourceEnabled": {
+      "group": "original-obs-feed",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "regenerateObsBrowserSourceToken": {
+      "group": "original-obs-feed",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "publishObsBrowserSourceConfig": {
+      "group": "original-obs-feed",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "publishObsBrowserSourceClock": {
+      "group": "original-obs-feed",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "publishObsBrowserSourceAudio": {
+      "group": "original-obs-feed",
+      "implementationSources": [
+        "packaging/android/extractDesktop.cjs",
+        "electron/main.cjs"
+      ]
+    },
+    "getLyricApiStatus": {
+      "group": "original-lyrics-api",
+      "implementationSources": [
+        "electron/lyricApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "setLyricApiEnabled": {
+      "group": "original-lyrics-api",
+      "implementationSources": [
+        "electron/lyricApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "publishLyricApiData": {
+      "group": "original-lyrics-api",
+      "implementationSources": [
+        "electron/lyricApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "onLyricApiStatusChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onVoiceInputStateChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onPlaybackSyncBridgeStatusChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onObsBrowserSourceStatusChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onTaskbarControl": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onRemoteControlWindowSettingsChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onRemoteControlPointerInside": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onRemoteControlCommand": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onRemoteControlSnapshot": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "chooseVideoExportPath": {
+      "group": "video-export-and-native-saf",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "reportDevicePixelRatio": {
+      "group": "video-export-and-native-saf",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "prepareVideoExportWindow": {
+      "group": "video-export-and-native-saf",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "restoreVideoExportWindow": {
+      "group": "video-export-and-native-saf",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "openVideoExportFile": {
+      "group": "video-export-and-native-saf",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "appendVideoExportChunk": {
+      "group": "video-export-and-native-saf",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "finishVideoExportFile": {
+      "group": "video-export-and-native-saf",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "abortVideoExportFile": {
+      "group": "video-export-and-native-saf",
+      "implementationSources": [
+        "packaging/android/runtime/subsystems.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "electron/videoExportFileWriter.cjs",
+        "electron/videoExportMp4.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaShellPlugin.java"
+      ]
+    },
+    "getStageStatus": {
+      "group": "original-stage-api",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "setStageEnabled": {
+      "group": "original-stage-api",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "regenerateStageToken": {
+      "group": "original-stage-api",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "clearStageState": {
+      "group": "original-stage-api",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "completeStageExternalPlayRequest": {
+      "group": "original-stage-api",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "publishStagePlayerSnapshot": {
+      "group": "original-stage-api",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "completeStagePlayerControlRequest": {
+      "group": "original-stage-api",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "completeStagePlayerQueueRequest": {
+      "group": "original-stage-api",
+      "implementationSources": [
+        "electron/stageApi.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "onStageSessionUpdated": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onStageSessionCleared": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onStageExternalPlayRequest": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onStagePlayerControlRequest": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "onStagePlayerQueueRequest": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "debugGetRenderedFonts": {
+      "group": "diagnostics",
+      "implementationSources": [
+        "electron/debug/debugHost.cjs",
+        "packaging/android/runtime/debugger.cjs",
+        "packaging/android/runtime/rendererMemory.cjs",
+        "packaging/android/runtime/processMetrics.cjs"
+      ]
+    },
+    "mods.listMods": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.setModEnabled": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.reloadMods": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModRpc": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModStorage": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModNetFetch": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModPickFile": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModRestoreFile": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.invokeModReleaseFile": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.cancelExport": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.pushRuntimeSnapshot": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.getFfmpegStatus": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.openModsDirectory": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.installModFromZip": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.getModStorageUsage": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.clearModCache": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.getModCallStats": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.reportModsStartSettled": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.reportModsStartAlive": {
+      "group": "original-folium-runtime",
+      "implementationSources": [
+        "electron/modSystem/modSystem.cjs",
+        "electron/modSystem/exportService.cjs",
+        "packaging/android/runtime/platform.cjs",
+        "packaging/android/runtime/subsystems.cjs"
+      ]
+    },
+    "mods.onModsStateChanged": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "mods.onExportProgress": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    },
+    "mods.onModLog": {
+      "group": "event-preload-and-native-feed",
+      "implementationSources": [
+        "src/platform/android/androidEvents.ts",
+        "packaging/android/runtime/events.cjs",
+        "packaging/android/runtime/subsystems.cjs",
+        "android/app/src/main/java/top/izuna/foliamajor/FoliaRuntimePlugin.java"
+      ]
+    }
+  },
+  "unclassified": []
+}

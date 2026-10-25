@@ -542,7 +542,7 @@ describe('YouTube Music audio scheme', () => {
         expect(plan.open).toHaveBeenCalledTimes(1);
     });
 
-    it('stops a download in progress when its track leaves the cache', async () => {
+    it('protects active readers on eviction but stops downloads on sign-out', async () => {
         for (const leave of ['sign-out', 'eviction'] as const) {
             const download = manualDownload();
             const plans = new Map<string, unknown>([
@@ -555,8 +555,16 @@ describe('YouTube Music audio scheme', () => {
             download.push(bytes(40));
             await vi.waitFor(() => expect(download.abort).not.toHaveBeenCalled());
             if (leave === 'sign-out') audio.clear('member'); else await audio.issue('ZRtdQ81jPUQ');
-            expect(download.abort).toHaveBeenCalledTimes(1);
-            await expect(response.arrayBuffer()).rejects.toThrow();
+            if (leave === 'sign-out') {
+                expect(download.abort).toHaveBeenCalledTimes(1);
+                await expect(response.arrayBuffer()).rejects.toThrow();
+            } else {
+                expect(download.abort).not.toHaveBeenCalled();
+                const body = response.arrayBuffer();
+                download.push(bytes(60, 40));
+                download.end();
+                expect(new Uint8Array(await body)).toEqual(bytes(100));
+            }
             // Stopped on purpose: not a failure to report.
             expect(warn).not.toHaveBeenCalled();
         }

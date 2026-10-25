@@ -22,21 +22,17 @@ interface Reply {
 }
 
 let worker: Worker | null = null;
-/** Set once the worker cannot be had or has failed; from then on everything runs in place. */
+/** Only environments without Worker permanently use the in-process implementation. */
 let offThreadDeclined = false;
 let nextId = 0;
 const pending = new Map<number, (reply: Reply) => void>();
 
 /**
- * Gives up on the worker for the rest of the session.
- *
- * All three ways here are permanent for the life of the page - no `Worker` constructor, a module the
- * bundler could not give the worker, a runtime error inside it - so retrying only pays the
- * construction cost again per track to reach the same place.
+ * Settles requests belonging to a failed worker. A later analysis can create a new worker;
+ * memory pressure or a transient startup failure must not pin all future jobs to the UI thread.
  */
 const decline = (why: string) => {
     if (!offThreadDeclined) console.warn(`[Automix] analysing on the main thread instead: ${why}`);
-    offThreadDeclined = true;
     worker?.terminate();
     worker = null;
     // Nobody is left to answer them; the caller's own fallback picks each one up.
@@ -68,7 +64,8 @@ const ensureWorker = (): Worker | null => {
     };
     // Fires for a module the worker could not load - a build problem, not a track one: it will
     // fail for the next track too.
-    worker.onerror = (event) => decline(event.message || 'worker error');
+    worker.onerror = (event) => { event.preventDefault(); decline(event.message || 'worker error'); };
+    worker.onmessageerror = () => decline('worker message could not be decoded');
     return worker;
 };
 

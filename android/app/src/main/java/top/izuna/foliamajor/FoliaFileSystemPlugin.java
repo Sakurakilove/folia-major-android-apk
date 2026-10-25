@@ -18,7 +18,23 @@ public class FoliaFileSystemPlugin extends Plugin {
     private final java.util.Map<String, File> writeFiles = new java.util.concurrent.ConcurrentHashMap<>();
     private final java.util.Map<String, Uri> writeTargets = new java.util.concurrent.ConcurrentHashMap<>();
 
+    private FoliaDirectoryWatch directoryWatch;
+    @Override public void load() { directoryWatch = new FoliaDirectoryWatch(getContext()); }
+    @PluginMethod public void watchDirectory(PluginCall call) {
+        String token=call.getString("token"), raw=call.getString("uri");
+        if(token==null || token.isEmpty() || raw==null || !"content".equals(Uri.parse(raw).getScheme())) {
+            call.reject("An authorized directory URI and watch token are required"); return;
+        }
+        directoryWatch.watch(token,Uri.parse(raw),Boolean.TRUE.equals(call.getBoolean("recursive",true)),
+            type->notifyListeners("directoryChanged",new JSObject().put("token",token).put("type",type)),
+            error->call.reject(error.getMessage()),()->call.resolve());
+    }
+    @PluginMethod public void unwatchDirectory(PluginCall call) {
+        String token=call.getString("token");if(token!=null)directoryWatch.unwatch(token);call.resolve();
+    }
+
     @Override protected void handleOnDestroy() {
+        if (directoryWatch != null) directoryWatch.close();
         for (String token : writes.keySet()) {
             RandomAccessFile file = writes.remove(token);
             File temporary = writeFiles.remove(token); writeTargets.remove(token);
@@ -63,19 +79,34 @@ public class FoliaFileSystemPlugin extends Plugin {
     }
     @PluginMethod public void finishWrite(PluginCall call) {
         String token = call.getString("token");
-        File temporary = writeFiles.remove(token); Uri target = writeTargets.remove(token); RandomAccessFile file = writes.remove(token);
+        File temporary = writeFiles.get(token); Uri target = writeTargets.get(token); RandomAccessFile file = writes.get(token);
+        boolean completed = false;
         try {
             if (file == null || temporary == null) throw new IOException("Writable document is closed");
             file.close();
             if (!Boolean.TRUE.equals(call.getBoolean("abort", false))) {
                 try (InputStream input = new FileInputStream(temporary); OutputStream output = getContext().getContentResolver().openOutputStream(target, "wt")) {
+                    if (output == null) throw new IOException("Document provider did not open an output stream");
                     byte[] bytes = new byte[65536]; int count;
                     while ((count = input.read(bytes)) >= 0) output.write(bytes, 0, count);
+                    output.flush();
                 }
             }
+            completed = true;
             call.resolve();
-        } catch (Exception error) { call.reject(error.getMessage()); }
-        finally { if (temporary != null) temporary.delete(); }
+        } catch (Exception error) {
+            // Keep the full private copy and the original token available for retry/abort.
+            if (temporary != null && temporary.isFile()) {
+                try { writes.put(token, new RandomAccessFile(temporary, "rw")); }
+                catch (IOException reopenError) { android.util.Log.e("FoliaFiles", "Cannot reopen recovery copy", reopenError); }
+            }
+            call.reject(error.getMessage());
+        } finally {
+            if (completed) {
+                writes.remove(token); writeTargets.remove(token); writeFiles.remove(token);
+                if (temporary != null) temporary.delete();
+            }
+        }
     }
 
     private String permission(Uri uri, boolean write) {

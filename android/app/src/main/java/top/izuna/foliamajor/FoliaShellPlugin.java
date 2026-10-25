@@ -22,6 +22,12 @@ public class FoliaShellPlugin extends Plugin {
     private final java.util.concurrent.ExecutorService io = java.util.concurrent.Executors.newFixedThreadPool(2);
 
     private final List<PluginCall> localNetworkRequests = new ArrayList<>();
+    @Override protected void handleOnDestroy() {
+        for (PluginCall call : new ArrayList<>(localNetworkRequests)) call.reject("Android permission host was closed");
+        localNetworkRequests.clear();
+        io.shutdown();
+        super.handleOnDestroy();
+    }
     @PermissionCallback private void localNetworkPermissionResult(PluginCall ignored) {
         boolean granted = getPermissionState("localNetwork") == PermissionState.GRANTED;
         List<PluginCall> pending = new ArrayList<>(localNetworkRequests); localNetworkRequests.clear();
@@ -49,7 +55,7 @@ public class FoliaShellPlugin extends Plugin {
                         File profile = new File(arguments.getString(0)).getCanonicalFile();
                         File allowed = new File(getContext().getFilesDir(), "runtime-data/ytm-sign-in").getCanonicalFile();
                         if (!profile.equals(allowed)) throw new IOException("Invalid sign-in browser profile");
-                        FoliaYtmAuthProvider.pending.put(requestId, call);
+                        FoliaYtmAuthProvider.registerPending(requestId, call);
                         getActivity().startActivity(new Intent(getContext(), FoliaYtmSignInActivity.class).putExtra("requestId", requestId).putExtra("profile", profile.getPath()));
                         break;
                     }

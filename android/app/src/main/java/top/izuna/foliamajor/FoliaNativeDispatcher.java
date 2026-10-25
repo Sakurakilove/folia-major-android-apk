@@ -10,10 +10,12 @@ import org.json.*;
 // Native requests continue while the music WebView is backgrounded; results never need a renderer round trip.
 final class FoliaNativeDispatcher {
     private static WeakReference<MainActivity> activity = new WeakReference<>(null);
-    private static final ExecutorService replies = Executors.newCachedThreadPool();
-    private static boolean running;
-    private static Thread requestThread;
-    static synchronized void stop() { running = false; if (requestThread != null) requestThread.interrupt(); requestThread = null; }
+    private static final ExecutorService replies = new ThreadPoolExecutor(2, 4, 30, TimeUnit.SECONDS,
+        new ArrayBlockingQueue<>(256), new ThreadPoolExecutor.AbortPolicy());
+    private static final ConcurrentHashMap<String, Long> deadlines = new ConcurrentHashMap<>();
+    private static volatile boolean running;
+    private static volatile Thread requestThread;
+    static synchronized void stop() { running = false; deadlines.clear(); if (requestThread != null) requestThread.interrupt(); requestThread = null; }
     static boolean isAttachedTo(MainActivity main) { return activity.get() == main; }
     static void attach(MainActivity main) { activity = new WeakReference<>(main); }
     static synchronized void start() {
@@ -23,6 +25,7 @@ final class FoliaNativeDispatcher {
                 try {
                     JSONObject response = FoliaRuntimeHost.rpc("_nativePoll", new JSONArray(), 1);
                     JSONObject action = response.optJSONObject("result");
+                    if (Thread.currentThread().isInterrupted() || requestThread != Thread.currentThread()) break;
                     if (action != null) dispatch(action);
                     Thread.sleep(action == null ? 150 : 10);
                 } catch (InterruptedException error) { Thread.currentThread().interrupt(); }
@@ -31,13 +34,25 @@ final class FoliaNativeDispatcher {
         }, "FoliaNativeRequests"); worker.setDaemon(true); requestThread = worker; worker.start();
     }
     private static void complete(String id, Object value, String error) {
-        replies.execute(() -> {
-            try { FoliaRuntimeHost.rpc("_completeNative", new JSONArray().put(id).put(value == null ? JSONObject.NULL : value).put(error == null ? JSONObject.NULL : error), 1); }
-            catch (Exception failure) { android.util.Log.w("FoliaNativeRequests", "Cannot deliver native result", failure); }
-        });
+        Long deadline = deadlines.remove(id);
+        if (deadline == null || System.currentTimeMillis() >= deadline) return;
+        try {
+            replies.execute(() -> {
+                if (System.currentTimeMillis() >= deadline) return;
+                try { FoliaRuntimeHost.rpc("_completeNative", new JSONArray().put(id).put(value == null ? JSONObject.NULL : value).put(error == null ? JSONObject.NULL : error), 1); }
+                catch (Exception failure) { android.util.Log.w("FoliaNativeRequests", "Cannot deliver native result", failure); }
+            });
+        } catch (RejectedExecutionException busy) {
+            android.util.Log.w("FoliaNativeRequests", "Native response queue is full", busy);
+        }
     }
     private static void dispatch(JSONObject action) {
         String id = action.optString("id"), method = action.optString("method");
+        long now = System.currentTimeMillis();
+        deadlines.entrySet().removeIf(entry -> entry.getValue() <= now);
+        long deadline = action.optLong("deadline", now + 180000);
+        if (deadline <= now) return;
+        deadlines.put(id, deadline);
         JSONArray args = action.optJSONArray("args");
         if(method.equals("appProcessMemory")){
             replies.execute(()->{try{complete(id,FoliaProcessMetrics.measure(),null);}catch(Exception error){complete(id,null,error.getMessage());}});return;

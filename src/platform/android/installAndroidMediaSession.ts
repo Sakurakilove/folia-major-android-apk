@@ -1,4 +1,5 @@
 import type { PluginListenerHandle } from '@capacitor/core';
+import { getMediaSessionAudio } from '../../utils/mediaSessionSync';
 
 // Forward the existing media-session actions to Android's lock screen, without replacing playback logic.
 interface AndroidMediaPlugin {
@@ -26,21 +27,19 @@ export const installAndroidMediaSession = (runtime: AndroidMediaPlugin): void =>
     let timer: ReturnType<typeof setTimeout> | undefined;
     const sync = () => {
         clearTimeout(timer);
-        const elements = [...document.querySelectorAll('audio')];
-        const audio = elements.find(element => !element.paused) ?? elements.find(element => Boolean(element.currentSrc));
-        if (!audio) return;
-        const playing = !audio.paused && !audio.ended;
+        const audio = getMediaSessionAudio();
+        if (!audio && !hadPlayback) return;
+        const playing = Boolean(audio && !audio.paused && !audio.ended);
         if (!playing && !hadPlayback) return;
         hadPlayback ||= playing;
         if (playing) timer = setTimeout(sync, 10000);
         const metadata = session?.metadata;
         const snapshot = { playing, title: metadata?.title || 'Folia', artist: metadata?.artist || '',
-            position: Number.isFinite(audio.currentTime) ? audio.currentTime : 0,
-            duration: Number.isFinite(audio.duration) ? audio.duration : 0 };
+            position: audio && Number.isFinite(audio.currentTime) ? audio.currentTime : 0,
+            duration: audio && Number.isFinite(audio.duration) ? audio.duration : 0 };
         const key = JSON.stringify({ ...snapshot, position: Math.floor(snapshot.position / 10) });
         if (key === last) return;
-        last = key;
-        void runtime.playback(snapshot).catch(error => console.warn('[AndroidMedia] Cannot update media controls', error));
+        void runtime.playback(snapshot).then(() => { last = key; }).catch(error => console.warn('[AndroidMedia] Cannot update media controls', error));
     };
     document.addEventListener('play', sync, true);
     document.addEventListener('pause', sync, true);

@@ -19,9 +19,9 @@
 | backend/electron | 128+ |
 | services | 128+ |
 | utils | 128+ |
-| 其他 | 128+ |
 | hooks | 64+ |
 | src (其他) | 64+ |
+| 其他 | 64+ |
 | stores | 32+ |
 | types | 16+ |
 | i18n | 4+ |

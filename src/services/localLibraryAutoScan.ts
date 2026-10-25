@@ -143,6 +143,7 @@ const drainScanQueue = async (): Promise<void> => {
 // ---------------------------------------------------------------------------
 
 const watches = new Map<string, RootWatch>();
+const attachingObservers = new Map<string, FileSystemObserverLike>();
 
 const clearWatchTimers = (watch: RootWatch) => {
     if (watch.quietTimer) {
@@ -176,6 +177,9 @@ const scheduleWatchFlush = (watch: RootWatch) => {
 };
 
 const detachWatch = (rootFolderName: string) => {
+    const attaching = attachingObservers.get(rootFolderName);
+    attachingObservers.delete(rootFolderName);
+    attaching?.disconnect();
     const watch = watches.get(rootFolderName);
     if (!watch) return;
 
@@ -189,7 +193,7 @@ const detachWatch = (rootFolderName: string) => {
 };
 
 const detachAllWatches = () => {
-    [...watches.keys()].forEach(detachWatch);
+    [...new Set([...watches.keys(), ...attachingObservers.keys()])].forEach(detachWatch);
 };
 
 const handleRecords = (rootFolderName: string, records: readonly LocalLibraryChangeRecordLike[]) => {
@@ -228,8 +232,13 @@ const attachWatch = async (
     }
 
     const observer = new FileSystemObserverCtor(records => handleRecords(rootFolderName, records));
+    attachingObservers.set(rootFolderName, observer);
     const register = async (recursive: boolean) => {
         await observer.observe(handle, { recursive });
+        if (startCount === 0 || !state.enabled || attachingObservers.get(rootFolderName) !== observer) {
+            observer.disconnect();
+            throw new DOMException('Directory observation was cancelled', 'AbortError');
+        }
         watches.set(rootFolderName, {
             rootFolderName,
             handle,
@@ -266,6 +275,8 @@ const attachWatch = async (
                 error: (error as Error)?.message || 'observe-failed',
             };
         }
+    } finally {
+        if (attachingObservers.get(rootFolderName) === observer) attachingObservers.delete(rootFolderName);
     }
 };
 
@@ -281,7 +292,7 @@ let startCount = 0;
 
 const runRefresh = async (): Promise<void> => {
     // A refresh already in flight when the runtime was torn down must not re-attach observers.
-    if (startCount === 0) {
+    if (startCount === 0 || !state.enabled) {
         detachAllWatches();
         return;
     }
@@ -311,7 +322,7 @@ const runRefresh = async (): Promise<void> => {
         const roots: LocalLibraryAutoScanRootState[] = [];
         for (const rootFolderName of rootFolderNames) {
             // Attaching is awaited per root, so the runtime can be torn down mid-loop.
-            if (startCount === 0) {
+            if (startCount === 0 || !state.enabled) {
                 detachAllWatches();
                 patchState({ roots: [], attaching: false });
                 return;
@@ -348,7 +359,11 @@ const runRefresh = async (): Promise<void> => {
                 continue;
             }
 
+            if (startCount === 0 || !state.enabled) { detachAllWatches(); return; }
             roots.push(await attachWatch(rootFolderName, handle));
+            if (startCount === 0 || !state.enabled) {
+                detachAllWatches(); patchState({ roots: [], attaching: false }); return;
+            }
         }
 
         patchState({ roots, attaching: false });

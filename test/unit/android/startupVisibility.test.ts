@@ -7,7 +7,7 @@ import { installAndroidPresentation } from '../../../src/platform/android/instal
 // A stale Activity pause from a startup permission dialog must not freeze the visible app.
 afterEach(() => { vi.unstubAllGlobals(); vi.clearAllMocks(); });
 describe('Android first-screen visibility', () => {
-    it('never parks the global RAF queue and defers idle throttling until the first screen mounts', () => {
+    it('never parks the visible main-app RAF queue or changes its selected cadence', () => {
         const root = { dataset: {} as Record<string, string> };
         const document = Object.assign(new EventTarget(), { documentElement: root, hidden: true, querySelectorAll: () => [] });
         const window = new EventTarget();
@@ -15,20 +15,20 @@ describe('Android first-screen visibility', () => {
         vi.stubGlobal('document', document);
         vi.stubGlobal('localStorage', { getItem: () => '60', setItem: vi.fn() });
         installAndroidPresentation();
-        expect(activity).toHaveBeenLastCalledWith(false, false);
+        expect(activity).toHaveBeenLastCalledWith(false);
         expect(root.dataset.foliaRenderPaused).toBe('false');
         document.hidden = false;
         window.dispatchEvent(new Event('folia-first-screen-mounted'));
         window.dispatchEvent(new CustomEvent('folia-android-visibility', { detail: false }));
-        expect(activity).toHaveBeenLastCalledWith(false, true);
+        expect(activity).toHaveBeenLastCalledWith(false);
         expect(root.dataset.foliaRenderPaused).toBe('false');
         root.dataset.foliaPlayerView = 'true';
         window.dispatchEvent(new Event('folia-player-view-changed'));
-        expect(activity).toHaveBeenLastCalledWith(false, false);
+        expect(activity).toHaveBeenLastCalledWith(false);
         root.dataset.foliaPlayerView = 'false';
         document.querySelectorAll = () => [{ paused: false, ended: false }] as never;
         window.dispatchEvent(new Event('folia-player-view-changed'));
-        expect(activity).toHaveBeenLastCalledWith(false, true);
+        expect(activity).toHaveBeenLastCalledWith(false);
         document.hidden = true;
         document.dispatchEvent(new Event('visibilitychange'));
         expect(root.dataset.foliaRenderPaused).toBe('true');
