@@ -375,3 +375,9 @@
 - 证据：AppSplashGate 的挂载 effect 直接 hideAppSplash；lazy 首页/舞台和 ResizeObserver 后续才能补齐，未与 WebView visual-state fence 关联。
 - 方案：Android 主页面提供实际 surface-ready 信号；冷启动与返回同样等可见内容准备和原生视觉状态，随后播放现有淡出。OBS/远程页保留自身启动路径，不能强加依赖造成死锁。
 - 限制：这是可定位的过早释放，仍不能据此确诊全部空闲整屏闪动。
+
+## PERF-47 — 裁剪预算优先级泄漏到图块呈现顺序
+
+- 证据：collectShapeSlots 先返回 viewport 交集，再返回其余 overscan；调用方直接用这个数组渲染。随着可见分类变化，同一保留节点的 key 虽不变，React 仍需移动 DOM，稳定 key 不能防止重排。
+- 方案：仅在选择有限集合时应用可见优先；最终按 row/column/slotIndex 固定世界地址呈现。保留全部图块视觉/交互/动画，不扩大预算或取消效果。
+- 验证：不同视口采样间共同 key 相对顺序必须相同，且原可见区优先预算不变；是否消除手机封面闪仍待实机。

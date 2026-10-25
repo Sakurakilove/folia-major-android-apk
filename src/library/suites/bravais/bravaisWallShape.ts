@@ -268,7 +268,9 @@ export const collectShapeSlots = (
     const { width, height } = shape.blockSize;
     const result: WallSlot[] = [];
     if (limit <= 0) return result;
-    // Fill the viewport before spending any of the budget on overscan. Two bounded passes avoid sorting.
+    // Select the viewport budget first, then restore fixed world order for presentation.
+    // Otherwise retained React keys move between the passes on every recull, needlessly detaching their DOM.
+    const present = () => result.sort((a, b) => a.row - b.row || a.column - b.column || a.slotIndex - b.slotIndex);
     const regions = visible ? [visible, bounds] : [bounds];
     for (const [pass, region] of regions.entries()) {
         for (let row = Math.floor(region.top / height); row <= Math.floor(region.bottom / height); row += 1) {
@@ -278,12 +280,12 @@ export const collectShapeSlots = (
                     if (!overlaps(box, region) || !overlaps(box, bounds)) continue;
                     if (pass === 1 && visible && overlaps(box, visible)) continue;
                     result.push(slot);
-                    if (result.length >= limit) return result;
+                    if (result.length >= limit) return present();
                 }
             }
         }
     }
-    return result;
+    return present();
 };
 
 /** 离 x 最近的块边界（缝开在它上面；探索形状的边界在街的正中）。 */

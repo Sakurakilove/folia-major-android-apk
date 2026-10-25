@@ -1,0 +1,12 @@
+{
+  "version": "0.7.20-mobile.12",
+  "versionCode": 702012,
+  "bytes": 333720360,
+  "sha256": "2ff5e3705ebce5bdc950c05453c165677968040d4e49aebfbf3bba2532bf1aa5",
+  "signerSha256": "b2acb003d186fe12ca8b7a17e5c7ea27041aca000830fe3086cb6627d08496ef",
+  "sameSignerAsMobile11": true,
+  "allFrontendAssetsMatchDist": true,
+  "runtimeSharedFrontendHashMatches": true,
+  "protectedSourcesUnchanged": 83,
+  "phoneScrollingVerified": false
+}

@@ -47,3 +47,13 @@ it('removes an abandoned queued decode and leaves capacity for the next visible 
     expect(await visible).toBe(42);
     expect(obsoleteRan).toBe(false);
 });
+
+it('keeps retained tile order stable when viewport priority changes during a pan', () => {
+    const bounds = { left: -600, right: 1800, top: -600, bottom: 1800 };
+    const first = collectShapeSlots(BRAVAIS_BLOCK_SHAPE, bounds, 400, { left: 100, right: 600, top: 100, bottom: 700 });
+    const next = collectShapeSlots(BRAVAIS_BLOCK_SHAPE, bounds, 400, { left: 300, right: 800, top: 300, bottom: 900 });
+    const firstKeys = new Set(first.map(slot => slot.key));
+    const nextKeys = new Set(next.map(slot => slot.key));
+    expect(first.filter(slot => nextKeys.has(slot.key)).map(slot => slot.key))
+        .toEqual(next.filter(slot => firstKeys.has(slot.key)).map(slot => slot.key));
+});

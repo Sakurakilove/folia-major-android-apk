@@ -1,0 +1,11 @@
+{
+  "baseline": "0.7.20-mobile.11",
+  "case": "retained tile order during viewport-priority recull",
+  "selectedTilesBefore": 54,
+  "selectedTilesAfter": 54,
+  "retainedDomDetachBefore": 27,
+  "retainedDomDetachAfter": 0,
+  "logicTests": 4,
+  "protectedSourcesUnchanged": 83,
+  "phoneScrollingVerified": false
+}
