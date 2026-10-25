@@ -1,3 +1,4 @@
+import { useWallRasterization, readWallRasterScale } from '../../wall/useWallRasterization';
 import { flushSync } from 'react-dom';
 import { runsOnAndroid } from '../../../utils/platform';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
@@ -156,7 +157,7 @@ export default function PosterWall({
     const applyCamera = useCallback((next: LatticeCamera, updateBounds = false) => {
         cameraRef.current = next;
         if (worldRef.current) {
-            worldRef.current.style.transform = formatWorldTransform(next.x, next.y, next.scale);
+            worldRef.current.style.transform = formatWorldTransform(next.x, next.y, next.scale, undefined, readWallRasterScale(worldRef.current));
         }
         publishCurrentPosterVisibility(next);
         cameraWatchRef.current(next);
@@ -187,6 +188,10 @@ export default function PosterWall({
             observer.disconnect();
         };
     }, [applyCamera]);
+
+    const rasterWorlds = useMemo(() => [worldRef], []);
+    const redrawRasterWorld = useCallback(() => applyCamera(cameraRef.current), [applyCamera]);
+    useWallRasterization(rasterWorlds, cameraScale, redrawRasterWorld);
 
     const applyGestureCamera = useCallback((next: LatticeCamera, updateBounds = false) => {
         const visible = getWorldBounds(next, viewportRef.current);

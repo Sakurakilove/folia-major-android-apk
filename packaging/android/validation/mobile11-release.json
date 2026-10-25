@@ -1,0 +1,15 @@
+{
+  "version": "0.7.20-mobile.11",
+  "versionCode": 702011,
+  "bytes": 333720352,
+  "sha256": "7f86aa9051b0f36c87ad3f8edba39501bf7a07ac6e2caa7f2b82200ba186f07e",
+  "signerSha256": "b2acb003d186fe12ca8b7a17e5c7ea27041aca000830fe3086cb6627d08496ef",
+  "sameSignerAsMobile10": true,
+  "allFrontendAssetsMatchDist": true,
+  "runtimeSharedFrontendHashMatches": true,
+  "rasterCssPresent": true,
+  "nativeViewportProtocolPresent": true,
+  "audioSourceParityFiles": 75,
+  "userAudioPassedOnMobile10": true,
+  "phoneFlickerVerified": false
+}

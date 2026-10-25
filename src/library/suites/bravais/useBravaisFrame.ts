@@ -1,5 +1,6 @@
 import { useCallback, useRef, type RefObject } from 'react';
 import { formatWorldTransform, type WallView, type WallViewCenter } from '../../../components/wall/wallView';
+import { readWallRasterScale } from '../../../components/wall/useWallRasterization';
 import { computeBravaisFrame, posterSafeArea, withTilt } from './bravaisFrame';
 
 // src/library/suites/bravais/useBravaisFrame.ts
@@ -57,8 +58,8 @@ export const useBravaisFrame = (refs: BravaisFrameRefs) => {
             tiltDeg: state.tiltDeg,
         });
         const { left, right, seam, seamContent, tab } = refs;
-        if (left.current) left.current.style.transform = withTilt(formatWorldTransform(frame.left.x, frame.left.y, frame.scale), frame.tilt);
-        if (right.current) right.current.style.transform = withTilt(formatWorldTransform(frame.right.x, frame.right.y, frame.scale), frame.tilt);
+        if (left.current) left.current.style.transform = withTilt(formatWorldTransform(frame.left.x, frame.left.y, frame.scale, undefined, readWallRasterScale(left.current)), frame.tilt);
+        if (right.current) right.current.style.transform = withTilt(formatWorldTransform(frame.right.x, frame.right.y, frame.scale, undefined, readWallRasterScale(right.current)), frame.tilt);
         const seamElement = seam.current;
         if (seamElement) {
             // 缝与两半墙同一层：倾斜时一起转（缝的 transform-origin 对准屏幕原点，见 bravais.css / bravaisPoster.css）。

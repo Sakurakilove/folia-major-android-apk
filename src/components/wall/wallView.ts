@@ -29,9 +29,9 @@ export const getViewLineX = (view: WallView) => view.lineX ?? view.width / 2;
  * a drag or a camera tween. Moving in whole device pixels keeps that fraction fixed, so panning only moves
  * tiles, the same way the browser snaps its own scroll offsets.
  */
-export const formatWorldTransform = (x: number, y: number, scale: number, devicePixelRatio = window.devicePixelRatio || 1) => {
+export const formatWorldTransform = (x: number, y: number, scale: number, devicePixelRatio = window.devicePixelRatio || 1, rasterScale = 1) => {
     const snap = (value: number) => Math.round(value * devicePixelRatio) / devicePixelRatio;
-    return `translate3d(${snap(x)}px, ${snap(y)}px, 0) scale(${scale})`;
+    return `translate3d(${snap(x)}px, ${snap(y)}px, 0) scale(${scale / rasterScale})`;
 };
 
 export const viewCenterFromCamera = (camera: WallViewCamera, view: WallView): WallViewCenter => ({

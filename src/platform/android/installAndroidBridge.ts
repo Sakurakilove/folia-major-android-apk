@@ -19,12 +19,12 @@ interface RuntimePlugin extends BinaryPlugin {
     playback(options: { playing: boolean; title: string; artist: string; position: number; duration: number }): Promise<void>;
     addListener(event: 'appVisibility', listener: (event: { visible: boolean }) => void): Promise<PluginListenerHandle>;
     addListener(event: 'mediaAction', listener: (event: { action: MediaSessionAction; position: number }) => void): Promise<PluginListenerHandle>;
-    addListener(event: 'backGesture', listener: (event: { phase: 'start' | 'progress' | 'cancel' | 'commit'; progress: number; edge?: number }) => void): Promise<PluginListenerHandle>;
+    addListener(event: 'backGesture', listener: (event: { phase: 'start' | 'progress' | 'cancel' | 'commit'; progress: number; nativeViewport?: boolean; edge?: number }) => void): Promise<PluginListenerHandle>;
     taskbarControls(options: { hasActiveTrack: boolean; canGoPrevious: boolean; canGoNext: boolean; isPlaying: boolean }): Promise<{ active: boolean }>;
     addListener(event: 'taskbarControl', listener: (event: { action: 'previous' | 'play-pause' | 'next' }) => void): Promise<PluginListenerHandle>;
     voiceInput(options: { enabled?: boolean }): Promise<{ active: boolean; enabled: boolean; supported: boolean }>;
     addListener(event: 'voiceInputState', listener: (event: { active: boolean; enabled: boolean; supported: boolean }) => void): Promise<PluginListenerHandle>;
-    backState(options: { enabled: boolean }): Promise<void>;
+    backState(options: { enabled: boolean; nativeViewport?: boolean }): Promise<void>;
 }
 
 let installation: Promise<void> | null = null;

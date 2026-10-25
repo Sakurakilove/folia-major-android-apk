@@ -1,0 +1,31 @@
+{
+  "upstreamComparisonCommit": "1f6d0f468f5bc81b23a8b40ad7ca96ccd4b1ecbe",
+  "upstreamVersion": "0.7.22",
+  "userAudioPassedOnMobile10": true,
+  "userScrollingPinchReturnFailedOnMobile10": true,
+  "geometryCases": 96,
+  "maxBoundsErrorCssPx": 0.000244140625,
+  "testDeviceScaleFactor": 3,
+  "oldPromotedLayerCssSize": [
+    400,
+    500
+  ],
+  "materializedLayerCssSize": [
+    208,
+    260
+  ],
+  "layoutBasis": 0.52,
+  "preservesDomAndAnimationImplementation": true,
+  "nativeBackRestoreMs": 180,
+  "nativeBackRestoreCurve": [
+    0.2,
+    0,
+    0,
+    1
+  ],
+  "phoneFlickerVerified": false,
+  "oldLayerReference": "Previously rejected natural-scale promotion, not measured mobile.10 total GPU usage",
+  "phonePinchPassed": true,
+  "phoneReturnPassed": true,
+  "phoneScrollingCoverFlickerRemains": true
+}

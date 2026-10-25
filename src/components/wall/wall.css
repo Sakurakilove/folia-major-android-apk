@@ -360,3 +360,15 @@
 
 /* 降级状态的来源同 wall.css 里海报的那条规则（useMotionSettingsStore → <html data-reduce-motion>）。 */
 :root[data-reduce-motion~='lattice'] .lattice-poster-lights-out { transition: none; }
+
+/* Android has continuous pinch zoom, unlike the original resize-only camera. CSS zoom materializes
+   each bounded tile at the committed scale BEFORE compositing; the world camera divides out that
+   basis. These tile layers therefore do not retain the old minimum-1x, ~3.7x oversized raster.
+   Never promote the infinite world or toggle promotion on pointer movement. At gesture commit the
+   layout basis and camera are rebased together, preserving final resolution, geometry and animations. */
+.lattice-world[data-folia-raster-scale] > * { zoom: var(--folia-raster-scale); }
+.lattice-world[data-folia-raster-scale] > .lattice-poster,
+.lattice-world[data-folia-raster-scale] > .lattice-heading,
+.lattice-world[data-folia-raster-scale] > .bravais-tile:not([data-bravais-kind='wall']):not([data-bravais-kind='window']) > .bravais-tile-face {
+    will-change: transform;
+}

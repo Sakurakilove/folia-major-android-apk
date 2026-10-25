@@ -1,3 +1,4 @@
+import { useWallRasterization } from '../../../components/wall/useWallRasterization';
 import { runsOnAndroid } from '../../../utils/platform';
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, type CSSProperties, type MouseEvent } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -131,6 +132,8 @@ const BravaisStage: React.FC<LibrarySuiteStageProps> = ({
     const { stateRef: frameRef, renderFrame } = useBravaisFrame(frameRefs);
     const { wallLook, seamLook } = useBravaisWallLook(reportPlayerOcclusion, reportPlayerBackdrop);
     const { view, commitScale } = useBravaisViewport(rootRef);
+    const rasterWorlds = useMemo(() => [leftRef, rightRef], []);
+    useWallRasterization(rasterWorlds, view?.scale ?? null, renderFrame);
     const reducedMotion = useReducedMotionFor('lattice');
     // B11：换层的翻牌 / 波次按「降低动态效果」降级成淡入淡出（lattice 或 collectionMorph，见 bravaisMotion）。
     const reducedTransitions = useBravaisReducedTransitions();

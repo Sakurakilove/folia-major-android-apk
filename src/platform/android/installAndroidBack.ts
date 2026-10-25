@@ -4,11 +4,12 @@ import type { PluginListenerHandle } from '@capacitor/core';
 interface BackEvent {
     phase: 'start' | 'progress' | 'cancel' | 'commit';
     progress: number;
+    nativeViewport?: boolean;
     edge?: number;
 }
 
 interface AndroidBackPlugin {
-    backState(options: { enabled: boolean }): Promise<void>;
+    backState(options: { enabled: boolean; nativeViewport?: boolean }): Promise<void>;
     addListener(event: 'backGesture', listener: (event: BackEvent) => void): Promise<PluginListenerHandle>;
 }
 
@@ -25,12 +26,15 @@ export const installAndroidBack = (runtime: AndroidBackPlugin): void => {
     let savedScale = '';
     let frame = 0;
     let pending: BackEvent | null = null;
-    let lastEnabled: boolean | null = null;
+    let lastState = '';
     const sync = () => {
-        const enabled = hasAndroidBackDestination(window.history.state?.appHistoryIndex, visibleDialogs().length);
-        if (lastEnabled === enabled) return;
-        lastEnabled = enabled;
-        void runtime.backState({ enabled }).catch(error => console.warn('[AndroidBack] Cannot update navigation state', error));
+        const overlays = visibleDialogs().length;
+        const enabled = hasAndroidBackDestination(window.history.state?.appHistoryIndex, overlays);
+        const nativeViewport = overlays === 0;
+        const state = `${enabled}:${nativeViewport}`;
+        if (lastState === state) return;
+        lastState = state;
+        void runtime.backState({ enabled, nativeViewport }).catch(error => console.warn('[AndroidBack] Cannot update navigation state', error));
     };
     const restore = (animate: boolean) => {
         cancelAnimationFrame(frame);
@@ -50,9 +54,10 @@ export const installAndroidBack = (runtime: AndroidBackPlugin): void => {
     void runtime.addListener('backGesture', event => {
         if (event.phase === 'start') {
             restore(false);
-            target = visibleDialogs().at(-1) ?? document.getElementById('root');
+            target = event.nativeViewport ? null : visibleDialogs().at(-1) ?? document.getElementById('root');
             if (target) { savedTranslate = target.style.translate; savedScale = target.style.scale; }
         } else if (event.phase === 'progress') {
+            if (event.nativeViewport) return;
             pending = event;
             if (frame) return;
             frame = requestAnimationFrame(() => {

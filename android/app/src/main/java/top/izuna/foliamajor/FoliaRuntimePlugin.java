@@ -77,6 +77,7 @@ public class FoliaRuntimePlugin extends Plugin {
 
     @Override protected void handleOnDestroy() {
         closing = true;
+        getActivity().runOnUiThread(() -> { if (backHandler != null) backHandler.close(); });
         for (PluginCall request : visualStateRequests) if (visualStateRequests.remove(request)) request.reject("Renderer host closed");
         visualStateRequests.clear();
         if (FoliaPlaybackService.plugin == this) {
@@ -184,7 +185,7 @@ public class FoliaRuntimePlugin extends Plugin {
     @Override
     public void load() {
         if (FoliaWindowHost.windowId(getBridge().getWebView()) != 1) return;
-        getActivity().runOnUiThread(() -> backHandler = new FoliaBackHandler(getActivity(),
+        getActivity().runOnUiThread(() -> backHandler = new FoliaBackHandler(getActivity(), getBridge().getWebView(),
             event -> notifyListeners("backGesture", event)));
         voiceInput = new FoliaVoiceInput(getContext(), event -> notifyListeners("voiceInputState", event));
     }
@@ -192,7 +193,7 @@ public class FoliaRuntimePlugin extends Plugin {
     @PluginMethod
     public void backState(PluginCall call) {
         getActivity().runOnUiThread(() -> {
-            if (backHandler != null) backHandler.setEnabled(Boolean.TRUE.equals(call.getBoolean("enabled", false)));
+            if (backHandler != null) backHandler.setEnabled(Boolean.TRUE.equals(call.getBoolean("enabled", false)), Boolean.TRUE.equals(call.getBoolean("nativeViewport", true)));
             call.resolve();
         });
     }
