@@ -72,6 +72,7 @@
 | 32+ | `src/utils/lyrics/graphemeTiming.ts` |
 | 32+ | `src/utils/lyrics/parserCore.ts` |
 | 32+ | `src/utils/lyrics/renderHints.ts` |
+| 32+ | `src/utils/platform.ts` |
 | 32+ | `test/component/fixtures.ts` |
 
 ## 动态注册点
