@@ -32,6 +32,7 @@ import org.json.JSONObject;
 @CapacitorPlugin(name = "FoliaRuntime")
 public class FoliaRuntimePlugin extends Plugin {
     private FoliaBackHandler backHandler;
+    private FoliaLiquidGlass liquidGlass;
     private android.app.AlertDialog keyRecoveryDialog;
     private FoliaVoiceInput voiceInput;
     private final ExecutorService executor = Executors.newCachedThreadPool();
@@ -77,9 +78,12 @@ public class FoliaRuntimePlugin extends Plugin {
     }
 
     @Override protected void handleOnDestroy() {
-        if (keyRecoveryDialog != null) { keyRecoveryDialog.dismiss(); keyRecoveryDialog = null; }
         closing = true;
-        getActivity().runOnUiThread(() -> { if (backHandler != null) backHandler.close(); });
+        if (keyRecoveryDialog != null) { keyRecoveryDialog.dismiss(); keyRecoveryDialog = null; }
+        getActivity().runOnUiThread(() -> {
+            if (backHandler != null) backHandler.close();
+            if (liquidGlass != null) { liquidGlass.close(); liquidGlass = null; }
+        });
         for (PluginCall request : visualStateRequests) if (visualStateRequests.remove(request)) request.reject("Renderer host closed");
         visualStateRequests.clear();
         if (FoliaPlaybackService.plugin == this) {
@@ -206,10 +210,15 @@ public class FoliaRuntimePlugin extends Plugin {
             call.resolve();
         });
     }
-    // Compatibility response for older renderer bundles; WebView owns phone glass composition.
-    @PluginMethod public void liquidPlayer(PluginCall call) {
-        call.resolve(new JSObject().put("active", false));
+    @PluginMethod public void opticalGlass(PluginCall call) {
+        getActivity().runOnUiThread(() -> {
+            if (closing) { call.resolve(new JSObject().put("active", false)); return; }
+            if (liquidGlass == null) liquidGlass = new FoliaLiquidGlass(getBridge().getWebView());
+            call.resolve(new JSObject().put("active", liquidGlass.update(call.getData())));
+        });
     }
+    // Compatibility response for older renderer bundles.
+    @PluginMethod public void liquidPlayer(PluginCall call) { call.resolve(new JSObject().put("active", false)); }
     @PluginMethod public void start(PluginCall call) {
         executor.execute(() -> {
             try {
@@ -227,11 +236,13 @@ public class FoliaRuntimePlugin extends Plugin {
         keyRecoveryDialog = new android.app.AlertDialog.Builder(getActivity())
             .setTitle(R.string.runtime_key_recovery_title)
             .setMessage(R.string.runtime_key_recovery_message)
-            .setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                if (!closing) executor.execute(keys::acknowledgeRecovery);
-            })
+            .setPositiveButton(android.R.string.ok, null)
             .create();
-        keyRecoveryDialog.setOnDismissListener(dialog -> keyRecoveryDialog = null);
+        keyRecoveryDialog.setOnDismissListener(dialog -> {
+            // A notice is acknowledged by dismissing it, including Back/outside taps. Destruction is not a dismissal by the user.
+            if (!closing) keys.acknowledgeRecovery();
+            keyRecoveryDialog = null;
+        });
         keyRecoveryDialog.show();
     }
 

@@ -235,6 +235,8 @@ const BravaisStage: React.FC<LibrarySuiteStageProps> = ({
 
     // 此刻渲染着的 slot（按显示的形状裁剪，见下面 useBravaisDisplay 之后）。
     const slotsRef = useRef<readonly WallSlot[]>([]);
+    // Publish only committed geometry, before the display hook's layout effects plan a transition.
+    useLayoutEffect(() => { slotsRef.current = slots; });
 
     // 键盘焦点换了：把 slot 换成条目 key 交给层描述（集合页据此写回浏览会话）。
     const onFocusEntry = useCallback((slotKey: string | null) => {
@@ -270,7 +272,6 @@ const BravaisStage: React.FC<LibrarySuiteStageProps> = ({
     const slots = useMemo<readonly WallSlot[]>(() => (
         stableWallSlots(camera.bounds ? collectShapeSlots(shape, expandBounds(camera.bounds, BRAVAIS_OVERSCAN), FLIP_MAX_TILES, camera.bounds) : [], slotsRef.current)
     ), [camera.bounds, shape]);
-    slotsRef.current = slots;
     // B11 transitions.beforePush：宿主压栈之前，没经过墙上磁贴的打开用键盘焦点所在的 slot 当起点磁贴。
     const getFocusedSlotKey = useCallback(() => focus.focusedRef.current, [focus.focusedRef]);
     useBravaisBeforePush(displayRef, getFocusedSlotKey);

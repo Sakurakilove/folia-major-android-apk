@@ -1,3 +1,4 @@
+import { liquidGlassTokens } from '../../utils/liquidGlass';
 import React, { useMemo, useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence, MotionValue, useMotionValueEvent } from 'framer-motion';
 import { X } from 'lucide-react';
@@ -228,7 +229,9 @@ const LyricsTimelineModal: React.FC<LyricsTimelineModalProps> = ({
                         initial={{ scale: 0.9, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.9, opacity: 0 }}
-                        className={`w-[90vw] max-w-4xl h-[80vh] ${glassBg} border ${borderColor} rounded-2xl p-8 relative flex flex-col`}
+                        data-folia-native-glass="timeline"
+                        style={liquidGlassTokens(isDaylight)}
+                        className={`w-[90vw] max-w-4xl h-[80vh] ${glassBg} border ${borderColor} rounded-2xl p-8 max-md:p-4 relative flex flex-col`}
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Header */}
@@ -247,7 +250,7 @@ const LyricsTimelineModal: React.FC<LyricsTimelineModalProps> = ({
                             ref={scrollContainerRef}
                             onScroll={handleScroll}
                             onTouchMove={handleScroll}
-                            className="flex-1 overflow-y-auto overflow-x-hidden px-8 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
+                            className="flex-1 overflow-y-auto overflow-x-hidden px-8 max-md:px-2 scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent"
                             style={{
                                 scrollbarWidth: 'thin',
                                 scrollbarColor: 'rgba(255,255,255,0.2) transparent'
@@ -270,7 +273,7 @@ const LyricsTimelineModal: React.FC<LyricsTimelineModalProps> = ({
                                             <div
                                                 key={dot.id}
                                                 ref={isActive ? activeItemRef : null}
-                                                className="relative w-full flex items-center mb-20"
+                                                className="relative w-full flex items-center mb-20 max-md:mb-5"
                                                 style={{ zIndex: isActive ? 20 : 1 }}
                                             >
                                                 {/* Left side content */}
@@ -367,7 +370,7 @@ const LyricsTimelineModal: React.FC<LyricsTimelineModalProps> = ({
                                                         opacity: isActive ? 1 : 0.7
                                                     }}
                                                     transition={{ duration: 0.3 }}
-                                                    className="hidden max-md:block absolute left-6 right-0"
+                                                    className="hidden max-md:block relative ml-6 min-w-0 flex-1 origin-left"
                                                 >
                                                     <div
                                                         className={`${itemBg} backdrop-blur-xl border ${itemBorder} rounded-lg p-4 ${disabledCursorClass} ${disabledItemClass} ${disabled ? '' : itemHoverBg} transition-all`}

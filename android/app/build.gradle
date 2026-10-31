@@ -3,7 +3,6 @@ import groovy.json.JsonSlurper
 // 当前文件：Folia Android 应用版本、SDK 与可选发布签名配置。
 
 apply plugin: 'com.android.application'
-apply plugin: 'org.jetbrains.kotlin.plugin.compose'
 
 def packageJson = new JsonSlurper().parseText(file('../../package.json').text)
 def keystorePropertiesFile = rootProject.file('keystore.properties')
@@ -15,7 +14,7 @@ if (hasReleaseKeystore) {
 }
 
 android {
-    buildFeatures { buildConfig true; compose true }
+    buildFeatures { buildConfig true }
     packagingOptions { jniLibs { useLegacyPackaging true } }
     namespace = "top.izuna.foliamajor"
     ndkVersion "28.2.13676358"
@@ -26,8 +25,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         def versionParts = packageJson.version.tokenize('-')[0].tokenize('.').collect { it.toInteger() }
-        versionCode((versionParts[0] * 1000000 + versionParts[1] * 1000 + versionParts[2]) * 100 + 15)
-        versionName "${packageJson.version}-mobile.15"
+        versionCode((versionParts[0] * 1000000 + versionParts[1] * 1000 + versionParts[2]) * 100 + 16)
+        versionName "${packageJson.version}-mobile.16"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -64,9 +63,6 @@ repositories {
 }
 
 dependencies {
-    implementation "io.github.kyant0:backdrop:2.0.1"
-    implementation "org.jetbrains.compose.foundation:foundation:1.12.0"
-    implementation "org.jetbrains.compose.ui:ui:1.12.0"
     implementation "com.caverock:androidsvg-aar:1.4"
     implementation "org.mozilla.geckoview:geckoview:158.0.20261007201254"
     implementation "org.apache.cordova:framework:$cordovaAndroidVersion"

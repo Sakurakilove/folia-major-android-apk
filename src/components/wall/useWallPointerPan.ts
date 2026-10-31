@@ -1,3 +1,4 @@
+import { runsOnAndroid } from '../../utils/platform';
 import { requestUncappedAnimationFrame, cancelUncappedAnimationFrame } from '../../utils/frameRateLimiter';
 // src/components/wall/useWallPointerPan.ts
 
@@ -150,8 +151,13 @@ export const useWallPointerPan = ({
             pointer.vy = (event.clientY - pointer.last.y) / elapsed * 1000;
         }
         pointer.last = { x: event.clientX, y: event.clientY, time: event.timeStamp };
-        if (pointer.dragged) queueCamera({ x: pointer.camera.x + dx, y: pointer.camera.y + dy, scale: cameraRef.current.scale });
-    }, [cameraRef, flushCamera, queueCamera]);
+        if (pointer.dragged) {
+            const next = { x: pointer.camera.x + dx, y: pointer.camera.y + dy, scale: cameraRef.current.scale };
+            // Chromium aligns touch moves to display input. Another RAF here adds a frame of latency.
+            if (event.pointerType === 'touch' && runsOnAndroid()) updateCamera(next.x, next.y, next.scale);
+            else queueCamera(next);
+        }
+    }, [cameraRef, flushCamera, queueCamera, updateCamera]);
 
     // Continue along the release velocity; stale samples and cancelled gestures never coast.
     const onPointerUp = useCallback((event: PointerEvent<HTMLDivElement>) => {

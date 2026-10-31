@@ -111,7 +111,8 @@ final class FoliaRuntimeKeyStore implements FoliaRuntimeKeys.Store {
         synchronized (FoliaRuntimeKeyStore.class) {
             try {
                 JSONObject record = readActive();
-                return record != null && record.optBoolean("recoveryNoticePending");
+                return record != null && record.optBoolean("recoveryNoticePending")
+                    && !record.getString("alias").equals(preferences.getString("recovery-acknowledged-alias-v1", null));
             } catch (Exception failure) {
                 android.util.Log.w("FoliaRuntimeKeyStore", "Cannot read key recovery notice state", failure);
                 return false;
@@ -122,7 +123,9 @@ final class FoliaRuntimeKeyStore implements FoliaRuntimeKeys.Store {
         synchronized (FoliaRuntimeKeyStore.class) {
             try {
                 JSONObject record = readActive();
-                if (record != null) writeActive(record.put("recoveryNoticePending", false));
+                if (record != null && !preferences.edit().putString("recovery-acknowledged-alias-v1", record.getString("alias")).commit()) {
+                    throw new IOException("Cannot persist key recovery acknowledgment");
+                }
             } catch (Exception failure) {
                 android.util.Log.w("FoliaRuntimeKeyStore", "Cannot acknowledge key recovery notice", failure);
             }

@@ -1,6 +1,11 @@
 AndroidLiquidGlass / Backdrop 2.0.1 by Kyant
 https://github.com/Kyant0/AndroidLiquidGlass
-Maven: io.github.kyant0:backdrop:2.0.1
+Integration: native AGSL source port of SDF/refraction/dispersion/highlight mathematics
+Source: backdrop/src/commonMain/kotlin/com/kyant/backdrop/internal/Shaders.kt
+Commit: 65ab177e90e5c1d8c62e70cf7755841982da65f6
+Changes: multi-surface coordinates, edge-only final-composite sampling, viewport clamping.
+The Compose double-recording integration is not used. The native port ships in shaders/kyantGlass.agsl.
+Copyright 2025 Kyant
 
 
                                  Apache License

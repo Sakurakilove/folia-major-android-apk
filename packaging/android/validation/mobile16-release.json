@@ -1,0 +1,23 @@
+{
+  "version": "0.7.20-mobile.16",
+  "versionCode": 702016,
+  "bytes": 329380817,
+  "sha256": "bb4f8952376706b49fbb12b38eef49f237902402df4d3719a710ed61d977a009",
+  "signerSha256": "b2acb003d186fe12ca8b7a17e5c7ea27041aca000830fe3086cb6627d08496ef",
+  "frontendMatchesDist": true,
+  "sharedFrontendHashMatches": true,
+  "nativeKyantShaderMatchesSource": true,
+  "kyantSourceCommit": "65ab177e90e5c1d8c62e70cf7755841982da65f6",
+  "integration": "native RuntimeShader/RenderEffect AGSL source port, edge-only, single WebView output",
+  "minimumNativeOpticalApi": 33,
+  "targetedTestsPassed": 8,
+  "skiaHostShaderCheck": {
+    "nativeOpticalChangedPixels": 2900,
+    "dispersionChangedPixels": 1193,
+    "interiorAndOutsideExact": true
+  },
+  "ackReceiptSeparatedFromKey": true,
+  "savedBytesVsMobile15": 4348039,
+  "phonePromptDragAndOpticsVerified": false,
+  "phonePowerMeasured": false
+}

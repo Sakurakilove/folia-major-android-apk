@@ -1,3 +1,4 @@
+import { installAndroidGlass } from './installAndroidGlass';
 import { Capacitor, registerPlugin } from '@capacitor/core';
 import { installAndroidMediaSession } from './installAndroidMediaSession';
 import { installAndroidBack } from './installAndroidBack';
@@ -90,6 +91,7 @@ const installBridge = async (): Promise<void> => {
         window.addEventListener('pointerup', event => { if (event.pointerType !== 'mouse') pointer(false); });
     }
     window.electron = bridge as unknown as Window['electron'];
+    installAndroidGlass();
     if (windowId === 1) {
         installAndroidMediaSession(runtime); installAndroidBack(runtime);
         await runtime.addListener('appVisibility', event => window.dispatchEvent(new CustomEvent('folia-android-visibility', { detail: event.visible })));

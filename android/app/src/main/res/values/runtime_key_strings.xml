@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="runtime_key_recovery_title">Encrypted storage recovery</string>
-    <string name="runtime_key_recovery_message">Android could not verify the previous security key. The original key records and settings have been preserved in a private recovery backup, and a new encrypted key now allows Folia to start. Some platform accounts and AI API keys may need to be entered again. Playlists, ordinary settings and local files have not been cleared.</string>
+    <string name="runtime_key_recovery_message">Android could not verify the previous security key. The original key records and settings have been preserved in a private recovery backup, and a new encrypted key now allows Folia to start. Working logins remain usable. Only credentials that cannot be decrypted may need to be entered again. Playlists, ordinary settings and local files have not been cleared.</string>
 </resources>

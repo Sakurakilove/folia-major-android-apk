@@ -1,6 +1,6 @@
 import { animate } from 'framer-motion';
 import { flushSync } from 'react-dom';
-import { useCallback, useEffect, useMemo, useRef, useState, type MutableRefObject, type PointerEvent, type RefObject } from 'react';
+import { startTransition, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type MutableRefObject, type PointerEvent, type RefObject } from 'react';
 import type { Bounds } from '../../../components/wall/layout';
 import type { LatticeCamera } from '../../../components/wall/useWallCameraPan';
 import { useWallPointerPan } from '../../../components/wall/useWallPointerPan';
@@ -56,9 +56,9 @@ export const getVisibleWorldBounds = (state: BravaisFrameState): Bounds | null =
 };
 
 /** 可见范围离已裁剪范围的边缘还剩不到一截 overscan 时才需要重新裁剪。 */
-export const needsRecull = (visible: Bounds, culled: Bounds | null) => {
+export const needsRecull = (visible: Bounds, culled: Bounds | null, prepare = false) => {
     if (!culled) return true;
-    const padding = BRAVAIS_OVERSCAN - BRAVAIS_CULL_EDGE_MARGIN;
+    const padding = (BRAVAIS_OVERSCAN - BRAVAIS_CULL_EDGE_MARGIN) * (prepare ? 0.5 : 1);
     return visible.left < culled.left - padding
         || visible.right > culled.right + padding
         || visible.top < culled.top - padding
@@ -81,7 +81,8 @@ export const useBravaisCamera = ({
     // 已裁剪（渲染了 slot）的可见范围；墙渲染它外扩 overscan 的 slot。
     const [bounds, setBounds] = useState<Bounds | null>(null);
     const boundsRef = useRef<Bounds | null>(null);
-    boundsRef.current = bounds;
+    const preparingBounds = useRef<Bounds | null>(null);
+    useLayoutEffect(() => { boundsRef.current = bounds; preparingBounds.current = null; }, [bounds]);
     const animationRef = useRef<{ stop: () => void } | null>(null);
     // useWallPointerPan 读写的是 Lattice 形状的平移相机：每次移动都同步它。
     const cameraRef = useRef<LatticeCamera>({ x: 0, y: 0, scale: 1 });
@@ -95,14 +96,17 @@ export const useBravaisCamera = ({
     }, [frameRef]);
 
     /** Publish cull bounds with the camera update instead of waiting for a second RAF. */
-    const publishCullBounds = useCallback((synchronous = false) => {
+    const publishCullBounds = useCallback((synchronous = false, prepare = false) => {
         const visible = getVisibleWorldBounds(frameRef.current);
         if (!visible) return;
         const previous = boundsRef.current;
         if (previous && previous.left === visible.left && previous.right === visible.right
             && previous.top === visible.top && previous.bottom === visible.bottom) return;
-        boundsRef.current = visible;
-        if (synchronous) flushSync(() => setBounds(visible));
+        if (prepare) {
+            if (preparingBounds.current) return;
+            preparingBounds.current = visible;
+            startTransition(() => setBounds(visible));
+        } else if (synchronous) flushSync(() => setBounds(visible));
         else setBounds(visible);
     }, [frameRef]);
 
@@ -112,6 +116,7 @@ export const useBravaisCamera = ({
         syncPointerCamera();
         const visible = getVisibleWorldBounds(frameRef.current);
         if (visible && (forceRecull || needsRecull(visible, boundsRef.current))) publishCullBounds(synchronous);
+        else if (visible && synchronous && needsRecull(visible, boundsRef.current, true)) publishCullBounds(false, true);
         // A gesture must not expose the new camera until its required tiles are committed.
         renderFrame();
     }, [frameRef, renderFrame, publishCullBounds, syncPointerCamera]);
