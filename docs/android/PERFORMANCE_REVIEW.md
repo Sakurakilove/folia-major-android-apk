@@ -392,3 +392,11 @@
 - 原实现解压后才清理旧 .ready 目录，失败目录永远不清理；每版 Node/native 解压约 510 MiB，前端另计。全路径排序删除还增加峰值内存。
 - 实施：未启动进程、类锁保护下先清理符合精确安装目录命名的旧版本；包括未写 ready 的半成品，不匹配 runtime-data/runtime-key；walkFileTree 默认不跟随链接，流式删除。失败解压清理自身，ready 创建失败不继续。
 - 必要检查：纯 JVM 使用真实文件/只读库/外部与断裂符号链接/重复清理，确认用户数据不变；无 message 的 crypto/null cause 和循环原因链正确描述。Android 编译与发布检查另见 WORKLOG。并非用户手机启动已通过的证据。
+
+## STARTUP-03 — Keystore 认证失败阻断所有后台功能
+
+- 用户 mobile.13 截图已定位 Android Keystore access 的 AEADBadTagException（-30），剩余 39299 MiB。不是本次存储不足；具体封装损坏/系统 key 失配原因无法由截图进一步区分。
+- 旧逻辑在已有 sealed 但 alias 消失时生成同名 key，既不能解原密文，也阻断应用启动。
+- 实施：健康旧 key 直接使用；认证/明确不可恢复失败重新读取一次，只有持续不可解封才启动恢复。原 alias/sealed 不改；新 alias 随机独立。先原样保存所有 key 偏好记录与 settings.json 到 noBackupFilesDir/runtime-key-recovery，fsync 文件并发布快照，之后新密钥加密回读自验并提交 noBackupFilesDir 中的 AtomicFile active-v2 记录；任何备份失败都不发布替代 key。记录显式 fsync/回读验证、使用统一原生锁，不依赖 SharedPreferences 失败提交后仍可能改变的内存缓存。普通系统服务/IO 异常不轮换。
+- 新会话仍使用 Android Keystore AES-256-GCM，不降为明文存储；原密文若无可用旧 key，无法承诺还原。主窗口显示 en/zh-CN/zh-TW/in 原生提示，确认后才消除；提醒部分登录/AI 密钥可能需重填。备份在应用私有目录，不写入运行日志/源码/发布包。
+- 检查：真实 JVM AES-GCM 的 9 个健康/失配/丢失/瞬态/备份失败/提交失败/重启场景通过；原生编译/发布与实机状态分别见 WORKLOG。动画、音频、后端业务不改。

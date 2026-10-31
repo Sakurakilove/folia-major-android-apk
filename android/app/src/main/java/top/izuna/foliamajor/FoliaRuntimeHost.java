@@ -3,8 +3,6 @@ package top.izuna.foliamajor;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyProperties;
 import android.util.Base64;
 import android.view.WindowManager;
 import com.getcapacitor.JSObject;
@@ -16,16 +14,11 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.security.KeyStore;
 import java.security.SecureRandom;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipEntry;
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.GCMParameterSpec;
 import org.json.JSONObject;
 
 // Shared process host lets Android wallpaper and media components restore the backend without an activity.
@@ -61,36 +54,9 @@ final class FoliaRuntimeHost {
     }
 
     private byte[] getRuntimeKey() throws Exception {
-        KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
-        keyStore.load(null);
-        String alias = "folia-runtime-key";
-        if (!keyStore.containsAlias(alias)) {
-            KeyGenerator generator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
-            generator.init(new KeyGenParameterSpec.Builder(alias,
-                KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
-                .setBlockModes(KeyProperties.BLOCK_MODE_GCM).setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE).build());
-            generator.generateKey();
+        synchronized (FoliaRuntimeKeyStore.class) {
+            return FoliaRuntimeKeys.load(new FoliaRuntimeKeyStore(getContext()));
         }
-        SecretKey wrappingKey = (SecretKey)keyStore.getKey(alias, null);
-        android.content.SharedPreferences preferences = getContext().getSharedPreferences("runtime-key", Context.MODE_PRIVATE);
-        String stored = preferences.getString("sealed", null);
-        Cipher cipher = Cipher.getInstance("AES/GCM/NoPadding");
-        if (stored != null) {
-            byte[] envelope = Base64.decode(stored, Base64.NO_WRAP);
-            byte[] iv = java.util.Arrays.copyOfRange(envelope, 0, 12);
-            cipher.init(Cipher.DECRYPT_MODE, wrappingKey, new GCMParameterSpec(128, iv));
-            return cipher.doFinal(envelope, 12, envelope.length - 12);
-        }
-        byte[] key = new byte[32];
-        new SecureRandom().nextBytes(key);
-        cipher.init(Cipher.ENCRYPT_MODE, wrappingKey);
-        byte[] sealed = cipher.doFinal(key);
-        ByteArrayOutputStream envelope = new ByteArrayOutputStream();
-        envelope.write(cipher.getIV()); envelope.write(sealed);
-        if (!preferences.edit().putString("sealed", Base64.encodeToString(envelope.toByteArray(), Base64.NO_WRAP)).commit()) {
-            throw new IOException("Cannot persist runtime key");
-        }
-        return key;
     }
 
     private static void removeRuntimeTree(File directory) throws IOException {

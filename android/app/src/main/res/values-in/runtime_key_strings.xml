@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="runtime_key_recovery_title">Pemulihan penyimpanan terenkripsi</string>
+    <string name="runtime_key_recovery_message">Android tidak dapat memverifikasi kunci keamanan sebelumnya. Catatan kunci asli dan pengaturan telah disimpan dalam cadangan pemulihan pribadi, dan kunci terenkripsi baru memungkinkan Folia dimulai. Beberapa akun platform dan kunci API AI mungkin perlu dimasukkan kembali. Daftar putar, pengaturan biasa, dan berkas lokal tidak dihapus.</string>
+</resources>

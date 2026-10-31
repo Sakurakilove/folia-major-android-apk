@@ -355,3 +355,19 @@
 - 本机已核对 mobile.7 APK 与其 GitHub 校验和/字节数一致，释放这一旧生成副本以供构建；远端历史包及本地源码归档保留。mobile.10/11/12 基准 APK 保留。
 - mobile.13 原生 release 构建通过（59 秒）；702013 / SDK 37 / ARM64，签名与 mobile.12 一致。网页/后端 assets 与 mobile.12 逐文件相同；首次宽泛对比被随 Java 编译变化的 assets/dexopt 基线元数据打断，修正比较范围后实际资源全部一致。音频/手势/网页未改。手机启动尚待用户确认，不把诊断改进当作截图根因已确诊。
 - mobile.13 APK：333721044 字节，SHA-256 d2a3444f9bcc8ce89ed50544f1979aa629647fca147f7fcd826974a1878fb0bb。
+- mobile.13 APK 优先发布；对应 3990 文件源码归档与 SHA256SUMS 随后上传，GitHub 返回的 APK/源码 digest 与本地一致。源码 main 已推送 fbec1d4dc90a1f4cec1b6db543413d4afa14abb6，新建 mobile.13 标签更新为同一提交。无用户手机启动通过证据，未扩大 UI/模拟器测试。
+- 发布页：https://github.com/Sakurakilove/folia-major-android-apk/releases/tag/v0.7.20-mobile.13 。截图 null 根因仍未由原生日志确诊；若仍失败，新版错误界面提供具体阶段/异常类，不建议为此清数据或卸载丢失账户。
+
+## 2026-10-31 — mobile.13 实机定位 Keystore 密文校验失败
+
+- 用户截图确认：Android Keystore access，AEADBadTagException / Signature-MAC verification failed (-30)，剩余 39299 MiB。排除存储不足作为这次启动失败的原因；mobile.13 诊断生效，但启动仍失败。无法仅由错误区分封装损坏、系统密钥失配或设备密钥失效。
+- STARTUP-03 发现即记录：现实现只要运行时密钥无法解封就阻断整个后台；且 sealed 存在但 alias 丢失时会先生成同名新 key，再必然解封失败。方案：重试读取以排除瞬态；只有确认不可解封时才启用独立新 alias，不覆盖原 alias/sealed；在后台运行前先原子保留原始密钥记录与完整 settings.json 密文快照，备份失败就不发布新密钥。新会话继续使用 Android Keystore 加密，既有不可解封的登录/AI 密钥可能需要重填，必须明确提示，不能声称恢复了旧明文。
+- 数据依赖审查：AI / QQ / 酷狗 / 波点 / Spotify / YTM 共用 safeStorage；QQ 登出/TTL 可删除旧 session，故仅保留 sealed 不足以保证旧账户密文可找回，必须先保留 settings.json。普通歌单/外观/缓存不依赖此 key，不应清除全应用数据。保留音频/捏合/返回/动画实现。
+- STARTUP-03 已实施：健康旧密钥原样复用；无法解封先重新读取一次，只有认证失败/明确不可恢复才走隔离 alias；系统服务等瞬态异常不触发轮换。启动 Node 前将原始所有密钥偏好记录和 settings.json 原样 fsync 写入 noBackupFilesDir/runtime-key-recovery 的独立快照，再原子发布目录。备份失败不创建/提交替代密钥；新密钥自验通过才提交 active-v2，旧 sealed/alias 不改不删。
+- 添加仅在实际恢复后出现的原生本地化说明，用户确认后才消除提示；说明部分账户/AI 密钥可能需重填，不能把新 key 误称恢复旧明文。后台/壁纸恢复不强弹 Activity；主窗口下次启动显示提示。
+- 必要的真实 AES-GCM JVM 回归 9 场景通过：健康 legacy、认证失配、alias 丢失、备份失败、瞬态服务失败、一次认证失败重试成功、重试时瞬态失败、提交失败、首次安装/重启稳定。与手机 KeyStore 实测不同，不据此标记手机启动通过。
+- 提交边界复查发现：SharedPreferences.commit 失败仍可能更新进程内缓存，下一次重试误用未持久化 key。未发布版本已改为 noBackupFilesDir 的 AtomicFile 记录，显式 fsync、原子提交并回读验证后才返回 key，不依赖失败提交的内存视图；原始偏好记录完整保留。该必要修正纳入最终重构建。
+- AtomicFile 的读取/写入/解封使用同一原生锁，避免提示确认与后台恢复竞争；确认提示的持久化在执行器中进行。最终构建将包含此收尾，不交付前面的中间 APK。类型检查已通过，未运行模拟器/全套 UI。
+- 本机 mobile.6 旧生成 APK 已与 GitHub 校验和一致后移除，远端及源码归档仍保留，释放构建空间；mobile.10/11/12/13 本地基准保留。
+- mobile.14 最终原生 release 构建通过（26 秒）；702014 / SDK37 / ARM64，签名与 mobile.13 相同。前端/后台 assets（排除原生 Dex 基线）与 mobile.13 完全一致，新 key 恢复类已进入最终 Dex。手机启动未验证。
+- APK 333725740 字节，SHA-256 a4894dc03d99b72d397977ee13a078b729d3c409c57bd243792ec1e612be140e。构建成功不等于手机恢复通过，也不承诺已无法验证的旧登录明文可恢复。

@@ -32,6 +32,7 @@ import org.json.JSONObject;
 @CapacitorPlugin(name = "FoliaRuntime")
 public class FoliaRuntimePlugin extends Plugin {
     private FoliaBackHandler backHandler;
+    private android.app.AlertDialog keyRecoveryDialog;
     private FoliaVoiceInput voiceInput;
     private final ExecutorService executor = Executors.newCachedThreadPool();
     static HttpURLConnection openProtocol(String target, java.util.Map<String, String> headers) throws Exception {
@@ -76,6 +77,7 @@ public class FoliaRuntimePlugin extends Plugin {
     }
 
     @Override protected void handleOnDestroy() {
+        if (keyRecoveryDialog != null) { keyRecoveryDialog.dismiss(); keyRecoveryDialog = null; }
         closing = true;
         getActivity().runOnUiThread(() -> { if (backHandler != null) backHandler.close(); });
         for (PluginCall request : visualStateRequests) if (visualStateRequests.remove(request)) request.reject("Renderer host closed");
@@ -212,10 +214,27 @@ public class FoliaRuntimePlugin extends Plugin {
         executor.execute(() -> {
             try {
                 FoliaRuntimeHost.ensureStarted(getContext());
+                if (!closing && getActivity() != null) getActivity().runOnUiThread(this::showKeyRecoveryNotice);
                 call.resolve(new JSObject().put("ready", true).put("windowId", FoliaWindowHost.windowId(getBridge().getWebView())));
             } catch (Exception error) { call.reject("Android backend startup failed: " + FoliaRuntimeFiles.describe(error)); }
         });
     }
+    private void showKeyRecoveryNotice() {
+        if (closing || getActivity() == null || getActivity().isFinishing() || getActivity().isDestroyed() || keyRecoveryDialog != null
+            || FoliaWindowHost.windowId(getBridge().getWebView()) != 1) return;
+        FoliaRuntimeKeyStore keys = new FoliaRuntimeKeyStore(getContext());
+        if (!keys.needsRecoveryNotice()) return;
+        keyRecoveryDialog = new android.app.AlertDialog.Builder(getActivity())
+            .setTitle(R.string.runtime_key_recovery_title)
+            .setMessage(R.string.runtime_key_recovery_message)
+            .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                if (!closing) executor.execute(keys::acknowledgeRecovery);
+            })
+            .create();
+        keyRecoveryDialog.setOnDismissListener(dialog -> keyRecoveryDialog = null);
+        keyRecoveryDialog.show();
+    }
+
     @PluginMethod public void invoke(PluginCall call) {
         executor.execute(() -> {
             try {

@@ -1,0 +1,14 @@
+{
+  "version": "0.7.20-mobile.14",
+  "versionCode": 702014,
+  "bytes": 333725740,
+  "sha256": "a4894dc03d99b72d397977ee13a078b729d3c409c57bd243792ec1e612be140e",
+  "signerSha256": "b2acb003d186fe12ca8b7a17e5c7ea27041aca000830fe3086cb6627d08496ef",
+  "frontendAndBackendAssetsByteIdenticalToMobile13": true,
+  "aesGcmRecoveryScenariosPassed": 9,
+  "legacyKeyAndSettingsPreservedBeforeRecovery": true,
+  "newAliasIndependent": true,
+  "activeRecordAtomicFileAndReadback": true,
+  "phoneStartupVerified": false,
+  "oldCredentialPlaintextRecoveryGuaranteed": false
+}
