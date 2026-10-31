@@ -1,0 +1,30 @@
+name: folia_mobile
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0-alpha.1+1
+
+environment:
+  sdk: ^3.13.7
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  characters: ^1.4.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  shaders:
+    - shaders/monet_word.frag
+    - shaders/liquid_glass.frag
+
+  assets:
+    - assets/AndroidLiquidGlass.txt
+    - assets/LICENSE

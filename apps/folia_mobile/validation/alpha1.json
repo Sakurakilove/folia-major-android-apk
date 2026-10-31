@@ -1,0 +1,20 @@
+{
+  "version": "0.1.0-alpha.1",
+  "applicationId": "top.izuna.foliamajor.next",
+  "bytes": 16527487,
+  "sha256": "1ec992d2bd044c944b8bfdef74fedb1c2066105ea24bdb6b7f6d6ac722ccd270",
+  "signerSha256": "b2acb003d186fe12ca8b7a17e5c7ea27041aca000830fe3086cb6627d08496ef",
+  "flutterVersion": "3.47.9",
+  "dartVersion": "3.13.7",
+  "flutterFramework": "c197ca5199e9ee5661e865596c9c07294dfab51c",
+  "flutterEngine": "89c39edfdfae2949f6806e4a315c0c08522238b7",
+  "flutterAotAndEnginePresent": true,
+  "nodeAssetsAbsent": true,
+  "compiledShadersAndLicensesPresent": true,
+  "analyzerPassed": true,
+  "minimalMotionAndLyricCheckPassed": true,
+  "fullFeatureParity": false,
+  "phoneStartupVerified": false,
+  "phoneVisualParityVerified": false,
+  "phonePowerMeasured": false
+}

@@ -126,3 +126,9 @@
 - mobile.16 原生光学为 Kyant AGSL 源码移植，Android 13+ 使用 RuntimeShader/RenderEffect 对单次 WebView 输出的有限玻璃边缘折射/色散；不是 Compose 控件或独立 DOM 背景层。禁止重新引入双绘制，旧 Android 回退与未测功耗须如实说明。
 
 - mobile.17 用户反馈为“骁龙 8 Gen 2、未充电、莫奈及其他页面约 10W”。功耗日志的电池数值是整机瞬时估算，宿主 CPU 不含隔离 renderer/GPU；不得混淆口径。原生替换剩余边界见 docs/android/POWER_REWRITE.md。
+
+## 当前 Flutter 重写分支
+
+- `feat/flutter-native-rewrite` 为用户指定的独立全量迁移分支；新客户端在 `apps/folia_mobile`。迁移台账见 `docs/android/FLUTTER_REWRITE.md`，继续前先读 WORKLOG。主线 mobile.17 仍保留为功能/动画对照，不向 main 合并未完成替换。
+- 技术栈 Flutter/Dart + Kotlin/Media3。默认客户端不得嵌入 Node/WebView；所有动画和功能的等价迁移是门槛，不能把缺少在线/音效/样式的预览包叫完整重写，也不能拿它的瓦数直接证明相同工作量已节电。
+- Dart 文件与成员按该工程 AGENTS 的官方命名/格式约定。发布预览用独立安装 ID `top.izuna.foliamajor.next` 和 prerelease，不覆盖旧账号/密钥数据；源码/产物从本分支构建，不能从旧 `/workspace/folia-major` 工作副本再覆盖新源码。

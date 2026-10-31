@@ -443,3 +443,24 @@
 - 最终原生几何 uniform 纳入 4 种布局像素对照，与 mobile.16 逐像素相同；原始色散检查仍为 2900 个边缘变化/1193 个色散对照变化。页面构建 7.8 秒通过。下一步仅最终发布构建/签名与包内资源核对，不扩大测试。
 - mobile.17 最终构建/签名/版本和资源闭包核对通过：702017 / SDK37 / ARM64，329383069 字节；同签名。前端 1897 文件逐字节匹配、共享前端哈希一致、最新 shader/原生功耗模块与历史恢复回执已入包。APK SHA-256 41eefcb7d4db29a4f765b1e479a1c6a0fed48cafe352b928c4df1ef23d33fe8b。实机瓦数/画面仍待用户反馈。
 - mobile.17 APK 已先上传并给覆盖安装链接；对应源码/校验和随后同步。词绘制对照脚本收录在 test/manual/android/checkMonetWordPaint.cjs，接收 mobile.16 原文件路径，可复现不依赖浏览器的最小样式对照；固定测量偏移的限制保持明确。
+
+## 2026-10-31 — 独立 Flutter / Kotlin 全量重写分支
+
+- 用户明确要求在独立分支进行全代码重写，可选 Kotlin/Flutter，由我决定；选择 Flutter/Dart 承载统一场景/界面/动画，Kotlin 承载 Android 音频/SAF/密钥/系统服务。分支 feat/flutter-native-rewrite 基于 mobile.17 的 45d7d8a。旧客户端留作行为对照，不把尚未迁移功能当成已实现。
+- REWRITE-01 发现即记录：逐模块用 native view 覆盖旧 DOM 仍有遮挡/第二合成源风险，原 WebView 整屏 RenderEffect 无法只靠换语言局部化。新工程应独立启动 Flutter 单一场景，不常驻 WebView/Node；先打通真实本地音频/歌词/莫奈和玻璃，而不是给空白工程改名冒充重写。
+- REWRITE-02 迁移约束：原颜色、逐字时序、尾迹、粒子、遮罩、阴影、转场与用户帧率保持；Flutter 不是“自动省电”的证据。新客户端隔离应用 ID，旧登录/密钥/文件不清理；全功能兼容门槛未达到前不替换正式主客户端。
+- 构建准备：Flutter SDK 未预装；官方与镜像 release 元数据返回 404，改用 Flutter 官方 stable 分支取得 SDK 源码并核对其 engine 锁定值。只清理旧客户端生成的 android/app/build/intermediates 以释放空间，源码/历史已交付 APK 不动。
+- REWRITE-03 第一条可运行迁移链路：Flutter 单场景 → 本地 URI/歌词 → Kotlin Media3 输出与媒体服务 → 莫奈原公式 + 缓存字形/glow + 局部 Backdrop。先用真实文件和原生音频打通，不引入 Node/WebView 兼容壳；在线平台/模组/全音效等以逐项功能台账追踪，未完成不默认启用替换。
+- REWRITE-04 发现即记录：Flutter 中若每帧新建带动态 shadow 的 TextPainter，仍会重复字形/blur 工作。已实现全 DPR 的字形及两个 glow mask 按词缓存，shader 只混合颜色/绝对时钟扫字；不截取界面。字体/换行/blur 与 DOM 的像素兼容仍待对照，不写成已完全一致。
+- 工具链锁定：Flutter 3.47.9 / Dart 3.13.7，framework c197ca5199e9ee5661e865596c9c07294dfab51c / engine 89c39edfdfae2949f6806e4a315c0c08522238b7；官方 stable Git 源可用，Dart SDK 官方 engine 资源下载成功，先前 metadata 404 未作为权限问题处理。
+- REWRITE-05 兼容风险发现即记：原工程的自定义字体/CSS 原子 token 换行、全音效和 DOM 模组无法仅靠框架替换自动等价。首个新包必须标为独立迁移预览，不覆盖旧 app；这些门槛未完成时不能宣称“完整动画已验证”或“全量重写已完成”。
+- REWRITE-06 发现即记录：新原型布局若在 painter 每帧创建 TextPainter/给同一 pending 字形重复挂 Future 回调，会把热路径搬到 Dart 而不是消除。改为持久的测量缓存、每 key 单一准备任务、串行预热；只在字体/布局变化时测量，不用每帧 setState。
+- REWRITE-07 原生播放时钟使用 Kotlin 单调时钟采样及 3 次最小 RTT 相关，Dart 在锚点之间本地插值；普通 1.5 秒 clock 消息不触发整棵 widget setState。只有可见场景或播放条需要时启动共享 ticker，后台停止 Flutter 动画，音频由原生服务继续。
+- 首次构建的 Gradle wrapper 没有使用已有发行版且 Java 直连失败。已将本机既有 Gradle 9.3.1 登记进标准 wrapper 缓存，并为 Java 配置会话代理及平台 CA 信任，不关闭 TLS 验证。
+- REWRITE-08 发现即记录：封面缓存仅按 32 张计数，对高分辨率封面不是可靠内存界限。改为实际 decoded 字节预算与可见项 pin，不降低源封面清晰度，离屏资源可释放。
+- 首次 Flutter ARM64 发布构建通过（301 秒，首次下载/编译工具链）；必要 analyzer 无问题，原 TS 生成的莫奈 envelope/fill/tone 数值与 Dart 的最小对照、LRC/YRC 时间检查通过。未运行模拟器/全套 UI；构建不代表手机启动/像素/功耗通过。后续队列/生命周期修改需纳入最终包，不能交付中间产物。
+- REWRITE-09 发现即记录：只有 Dart 持有队列时，UI 销毁/后台会丢自动切歌能力，后台继续发时钟也会无谓唤醒引擎。已把队列交 Media3 保持，追加曲目不重置当前输出；SAF URI 库用新 app AtomicFile 持久化，Activity 不可见时取消时钟事件，恢复时重新锚定。
+- REWRITE-10 代码收尾发现即记：原生仅绑定/导入队列时就刷新通知，会在从未播放的窗口销毁后留孤立通知；异步目录恢复也可能在 Dart controller 销毁后通知旧 UI。已将通知发布限于实际开始的媒体服务、销毁清通知/回调，Dart 用关闭代次保护延迟结果。新包需纳入最终重建。
+- REWRITE-11 发现即记录：异步 mask 缓存若逐词就绪就画，会让一行文字逐块出现；且先准备上两行会拖延当前行。改为当前行优先、整行就绪后一次出现，再启动同一原始入场 spring/opacity，不以缺少 glow 的词作占位。
+- REWRITE-12 发现即记录：普通 LRC 整行作为单个 timed token，未限制 TextPainter 宽度会导致长中日文越过视口，也可能生成超 GPU 纹理上限的单行 mask。改为按真实行宽排版/缓存、由多行内容撑高行距；不能把裁掉长词当作性能优化。字体/DOM 换行像素兼容仍待完成。
+- alpha.1 最终发布构建（108.7 秒）、analyzer、签名和资源核对通过：独立 applicationId top.izuna.foliamajor.next，16527487 字节；SHA-256 1ec992d2bd044c944b8bfdef74fedb1c2066105ea24bdb6b7f6d6ac722ccd270。签名与现版一致但安装身份独立；Flutter AOT/engine 和 shader/许可证已入包，没有 libnode/Node runtime 或旧 HTML 入口。手机启动/视觉/瓦数未验证，完整迁移未完成。

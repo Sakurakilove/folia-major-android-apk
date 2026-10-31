@@ -1,3 +1,5 @@
+> **Flutter/Kotlin 重写分支（迁移中）**：新工程见 [apps/folia_mobile](apps/folia_mobile)，完整功能/动画迁移台账见 [FLUTTER_REWRITE.md](docs/android/FLUTTER_REWRITE.md)。当前预览不替换正式客户端，也不代表全部功能或功耗已验收。
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/b5d0e863-48be-497b-b0e9-4bd8d8ce9bf0" alt="Folia" width="100%" />
 </p>
