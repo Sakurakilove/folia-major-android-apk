@@ -464,3 +464,6 @@
 - REWRITE-11 发现即记录：异步 mask 缓存若逐词就绪就画，会让一行文字逐块出现；且先准备上两行会拖延当前行。改为当前行优先、整行就绪后一次出现，再启动同一原始入场 spring/opacity，不以缺少 glow 的词作占位。
 - REWRITE-12 发现即记录：普通 LRC 整行作为单个 timed token，未限制 TextPainter 宽度会导致长中日文越过视口，也可能生成超 GPU 纹理上限的单行 mask。改为按真实行宽排版/缓存、由多行内容撑高行距；不能把裁掉长词当作性能优化。字体/DOM 换行像素兼容仍待完成。
 - alpha.1 最终发布构建（108.7 秒）、analyzer、签名和资源核对通过：独立 applicationId top.izuna.foliamajor.next，16527487 字节；SHA-256 1ec992d2bd044c944b8bfdef74fedb1c2066105ea24bdb6b7f6d6ac722ccd270。签名与现版一致但安装身份独立；Flutter AOT/engine 和 shader/许可证已入包，没有 libnode/Node runtime 或旧 HTML 入口。手机启动/视觉/瓦数未验证，完整迁移未完成。
+- alpha.1 已作为 prerelease 发布，APK/4076 文件完整源码/SHA256SUMS 的 GitHub digest 与本地一致；代码与归档提交 e935dc77bd4fab0d2c47915a5156981d1a47f845，源码归档 SHA-256 2a528320b2abf5e1e4684d5632c5cabef406b153ad7886a54fa785ff16d02f47。主线远端仍为 mobile.17 的 45d7d8a。
+- 发布页：https://github.com/Sakurakilove/folia-major-android-apk/releases/tag/native-v0.1.0-alpha.1 。全量迁移、完整动画/字体/图标/无障碍等价及实机功耗尚未完成；首个独立原生链路是迁移里程碑，不是整个请求的最终验收。
+- 下一优先里程碑：莫奈完整副字幕/肖像/关键词色/全部调节/出入场与背景，原生 PCM/FFT 和全部音效的等价路径，先建立同工作量功耗对照；同时按台账迁移资料库/在线平台/设置/同步/模组/系统集成，不能绕过原功能来把结果称为省电。

@@ -21,6 +21,7 @@
 | 缓存、数据库、同步、备份、密钥 | db、stores、sync、native keys | 原数据/密钥不触动；兼容迁移未完成 |
 | AI 配色、分词、歌词检索/编辑/导出 | services、analysis、lyricExport | 未迁移 |
 | Folium 模组与自定义 HTML/CSS/JS | mods | 兼容难点：Dart 不能直接执行 DOM/CSS 模组。需要按需隔离兼容宿主或正式等价原生 API；未解决前不能宣称完整兼容，也不删除模组功能 |
+| 无障碍/图标/键盘与触摸语义 | 原 DOM 语义、Lucide、输入命令 | 首包仅基础控件语义；画布语义/完整 Lucide 与输入等价尚未完成 |
 | OBS、遥控、桌面歌词、导出、壁纸 | obs、remote、window、wallpaper | 未迁移 |
 
 旧代码作为对照保留；新工程在 `apps/folia_mobile`，使用独立安装 ID。没有把缺失项隐藏成“精简版完成”。完整客户端的替换条件是上表的功能、数据和动画都通过相应门槛。
@@ -41,3 +42,5 @@
 尚未移植的动画、背景、在线平台、全音效/FFT/automix、模组和数据迁移不算完成；因此本包只能验证新架构、不能与完整旧版的功耗直接对标。需要同输入、同背景/音效/动画工作量完成后再作有效 A/B。
 
 构建说明见工程 README。必要检查为 analyzer、原 TS 值生成的最小 Dart 数学/歌词时间检查、ARM64 release 编译与签名。未做模拟器/截图，也没有实机功耗或完整像素兼容结论。
+
+预览发布：[native-v0.1.0-alpha.1](https://github.com/Sakurakilove/folia-major-android-apk/releases/tag/native-v0.1.0-alpha.1)。源代码/源码包提交 `e935dc77bd4fab0d2c47915a5156981d1a47f845`；后续工作日志提交不改变该预览二进制。
