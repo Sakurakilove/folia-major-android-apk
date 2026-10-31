@@ -6,7 +6,7 @@ width,height=240,160
 backdrop=skia.GradientShader.MakeLinear([skia.Point(0,0),skia.Point(width,height)],[skia.ColorRED,skia.ColorGREEN,skia.ColorBLUE])
 def render(code,count):
  effect=skia.RuntimeEffect.MakeForShader(code); builder=skia.RuntimeShaderBuilder(effect)
- values=[40.,30.,160.,100.]+[0.]*28+[24.,1.]+[0.]*14+[float(count),1.,float(width),float(height)]
+ values=[40.,30.,160.,100.]+[0.]*28+[24.,1.]+[0.]*14+[float(count),1.,float(width),float(height)]+[40.,30.,200.,130.]+[80.,50.,7.,36.]+[0.]*28
  data=builder.uniforms();np.frombuffer(data.writable_data(),dtype=np.float32)[:]=values
  builder.setChild('content',backdrop)
  surface=skia.Surface(width,height);surface.getCanvas().drawPaint(skia.Paint(Shader=builder.makeShader()))

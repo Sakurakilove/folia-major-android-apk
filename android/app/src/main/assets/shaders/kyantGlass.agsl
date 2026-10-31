@@ -23,6 +23,8 @@ uniform float2 glassParams[8];
 uniform float surfaceCount;
 uniform float pixelScale;
 uniform float2 viewport;
+uniform float4 opticalBounds;
+uniform float4 opticalGeometry[8];
 
 float radiusAt(float2 coord, float4 radii) {
     if (coord.x >= 0.0) {
@@ -58,58 +60,63 @@ half4 sampleContent(float2 coord) {
 
 half4 dispersedSample(float2 refractedCoord, float2 dispersedCoord) {
     half4 color = half4(0.0);
-    
+
     half4 red = sampleContent(refractedCoord + dispersedCoord);
     color.r += red.r / 3.5;
     color.a += red.a / 7.0;
-    
+
     half4 orange = sampleContent(refractedCoord + dispersedCoord * (2.0 / 3.0));
     color.r += orange.r / 3.5;
     color.g += orange.g / 7.0;
     color.a += orange.a / 7.0;
-    
+
     half4 yellow = sampleContent(refractedCoord + dispersedCoord * (1.0 / 3.0));
     color.r += yellow.r / 3.5;
     color.g += yellow.g / 3.5;
     color.a += yellow.a / 7.0;
-    
+
     half4 green = sampleContent(refractedCoord);
     color.g += green.g / 3.5;
     color.a += green.a / 7.0;
-    
+
     half4 cyan = sampleContent(refractedCoord - dispersedCoord * (1.0 / 3.0));
     color.g += cyan.g / 3.5;
     color.b += cyan.b / 3.0;
     color.a += cyan.a / 7.0;
-    
+
     half4 blue = sampleContent(refractedCoord - dispersedCoord * (2.0 / 3.0));
     color.b += blue.b / 3.0;
     color.a += blue.a / 7.0;
-    
+
     half4 purple = sampleContent(refractedCoord - dispersedCoord);
     color.r += purple.r / 7.0;
     color.b += purple.b / 3.0;
     color.a += purple.a / 7.0;
-    
+
     return color;
 }
 
 half4 main(float2 coord) {
     half4 original = content.eval(coord);
+    // Native geometry rejects whole rows/columns before any per-surface work.
+    if (coord.x < opticalBounds.x || coord.y < opticalBounds.y || coord.x > opticalBounds.z || coord.y > opticalBounds.w) return original;
     for (int i = 0; i < 8; i++) {
         if (float(i) >= surfaceCount) break;
         float4 rect = glassRects[i];
         if (coord.x < rect.x || coord.y < rect.y || coord.x > rect.x + rect.z || coord.y > rect.y + rect.w) continue;
-        float2 halfSize = rect.zw * 0.5;
+        float2 halfSize = opticalGeometry[i].xy;
         float2 centeredCoord = coord - rect.xy - halfSize;
         float radius = min(glassParams[i].x, min(halfSize.x, halfSize.y));
+        float refractionHeight = opticalGeometry[i].z;
+        // This rectangle is certainly beyond the rounded rim. The exact SDF handles all corners.
+        float inset = max(radius, refractionHeight);
+        if (abs(centeredCoord.x) < halfSize.x - inset && abs(centeredCoord.y) < halfSize.y - inset) return original;
         float sd = sdRoundedRect(centeredCoord, halfSize, radius);
         if (sd > 0.0) continue;
-        float refractionHeight = min(7.0 * pixelScale, min(halfSize.x, halfSize.y) * 0.45);
         if (-sd >= refractionHeight) return original;
         float edge = clamp(1.0 + sd / refractionHeight, 0.0, 1.0);
         float d = circleMap(edge) * 16.0 * pixelScale;
-        float gradRadius = min(radius * 1.5, min(halfSize.x, halfSize.y));
+        float gradRadius = opticalGeometry[i].w;
         float2 grad = normalize(gradSdRoundedRect(centeredCoord, halfSize, gradRadius) + 0.2 * normalize(centeredCoord));
         // Read outside the composited surface: keep foreground text out of the refracted backdrop.
         float2 refractedCoord = clamp(coord + (-sd + d) * grad, float2(0.0), viewport - float2(1.0));

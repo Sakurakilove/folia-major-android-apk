@@ -1,0 +1,26 @@
+{
+  "version": "0.7.20-mobile.17",
+  "versionCode": 702017,
+  "bytes": 329383069,
+  "sha256": "41eefcb7d4db29a4f765b1e479a1c6a0fed48cafe352b928c4df1ef23d33fe8b",
+  "signerSha256": "b2acb003d186fe12ca8b7a17e5c7ea27041aca000830fe3086cb6627d08496ef",
+  "frontendMatchesDist": true,
+  "frontendFileCount": 1897,
+  "sharedFrontendHashMatches": true,
+  "nativeKyantShaderMatchesSource": true,
+  "newNativePowerModuleInDex": true,
+  "phoneWattsMeasured": false,
+  "fullNativeRewrite": false,
+  "wholeWebViewOffscreenInputRemoved": false,
+  "optimizedAgslPixelExactAgainstMobile16": true,
+  "layouts": 4,
+  "resolution": [
+    240,
+    160
+  ],
+  "nativeGeometryUniforms": true,
+  "wordPaintMatchesMobile16": true,
+  "temporalComparisons": 84,
+  "includesBackwardSeeks": true,
+  "measuredGlyphOffsetsStubbed": true
+}

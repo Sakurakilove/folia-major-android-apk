@@ -124,3 +124,5 @@
 - 设置入场与新玻璃/悬浮入口的实机状态单独记录；没有手机量测就不写瓦数降幅。读取覆盖范围和原生替换未完成项仍见 WORKLOG / PERFORMANCE_REVIEW / REPAIR_STATUS。
 
 - mobile.16 原生光学为 Kyant AGSL 源码移植，Android 13+ 使用 RuntimeShader/RenderEffect 对单次 WebView 输出的有限玻璃边缘折射/色散；不是 Compose 控件或独立 DOM 背景层。禁止重新引入双绘制，旧 Android 回退与未测功耗须如实说明。
+
+- mobile.17 用户反馈为“骁龙 8 Gen 2、未充电、莫奈及其他页面约 10W”。功耗日志的电池数值是整机瞬时估算，宿主 CPU 不含隔离 renderer/GPU；不得混淆口径。原生替换剩余边界见 docs/android/POWER_REWRITE.md。

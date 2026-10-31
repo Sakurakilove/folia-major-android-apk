@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useLayoutEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import type { Theme } from '../../../types';
 import { colorWithAlpha } from '../colorMix';
@@ -65,6 +65,34 @@ const buildParticles = (availableIcons: string[]): FloatingParticle[] =>
         };
     });
 
+// The compositor owns this deterministic track; the fallback retains the original Motion contract.
+const FloatingDecorParticle: React.FC<{ particle: FloatingParticle; children: React.ReactNode }> = ({ particle: p, children }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const nativeAnimation = typeof Element !== 'undefined' && typeof Element.prototype.animate === 'function';
+    useLayoutEffect(() => {
+        if (!nativeAnimation || !ref.current) return;
+        const xs = p.reverse ? [15, -25, 10, -20, 15] : [-15, 25, -10, 20, -15];
+        const ys = p.reverse ? [-40, 60, -20, 40, -40] : [40, -60, 20, -40, 40];
+        const turns = [0, p.reverse ? -120 : 120, p.reverse ? -60 : 60, p.reverse ? -180 : 180, 0];
+        const alphas = [0.6, 1.2, 1, 1.3, 0.7];
+        const animation = ref.current.animate(xs.map((x, i) => ({
+            transform: `translateX(${x}px) translateY(${ys[i]}px) rotate(${p.rotation + turns[i]}deg)`,
+            opacity: p.opacity * alphas[i],
+            offset: i / 4,
+            easing: 'cubic-bezier(0.42, 0, 0.58, 1)',
+        })), { duration: p.duration * 1000, delay: p.delay * 1000, iterations: Infinity, fill: 'both' });
+        return () => animation.cancel();
+    }, [nativeAnimation, p]);
+    if (nativeAnimation) return <div ref={ref} className="absolute" style={{ left: `${p.x}%`, top: `${p.y}%` }}>{children}</div>;
+    return <motion.div className="absolute" style={{ left: `${p.x}%`, top: `${p.y}%` }}
+        animate={{
+            y: p.reverse ? [-40, 60, -20, 40, -40] : [40, -60, 20, -40, 40],
+            x: p.reverse ? [15, -25, 10, -20, 15] : [-15, 25, -10, 20, -15],
+            rotate: [p.rotation, p.rotation + (p.reverse ? -120 : 120), p.rotation + (p.reverse ? -60 : 60), p.rotation + (p.reverse ? -180 : 180), p.rotation],
+            opacity: [p.opacity * 0.6, p.opacity * 1.2, p.opacity, p.opacity * 1.3, p.opacity * 0.7],
+        }} transition={{ duration: p.duration, repeat: Infinity, ease: 'easeInOut', delay: p.delay }}>{children}</motion.div>;
+};
+
 const MonetFloatingDecor: React.FC<MonetFloatingDecorProps> = ({
     theme,
     staticMode = false,
@@ -115,26 +143,9 @@ const MonetFloatingDecor: React.FC<MonetFloatingDecorProps> = ({
     return (
         <div className="pointer-events-none absolute inset-0 z-[5] overflow-hidden">
             {particles.map(p => (
-                <motion.div
-                    key={p.id}
-                    className="absolute"
-                    style={{ left: `${p.x}%`, top: `${p.y}%` }}
-                    animate={{
-                        y: p.reverse ? [-40, 60, -20, 40, -40] : [40, -60, 20, -40, 40],
-                        x: p.reverse ? [15, -25, 10, -20, 15] : [-15, 25, -10, 20, -15],
-                        rotate: [p.rotation, p.rotation + (p.reverse ? -120 : 120), p.rotation + (p.reverse ? -60 : 60), p.rotation + (p.reverse ? -180 : 180), p.rotation],
-                        opacity: [p.opacity * 0.6, p.opacity * 1.2, p.opacity, p.opacity * 1.3, p.opacity * 0.7],
-                    }}
-                    whileInView={undefined}
-                    transition={{
-                        duration: p.duration,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                        delay: p.delay,
-                    }}
-                >
+                <FloatingDecorParticle key={p.id} particle={p}>
                     {renderParticleContent(p)}
-                </motion.div>
+                </FloatingDecorParticle>
             ))}
         </div>
     );

@@ -11,3 +11,5 @@ mobile.16 使用 Kyant0/AndroidLiquidGlass 的原生 AGSL 核心，来源提交 
 Android 13+ 才启用原生 RuntimeShader；Android 8–12 保留材质回退。低版本不具备原生色散，不能声称完整光学支持。
 
 必要算法核对用 `test/manual/android/checkKyantOptics.py`（宿主可选 skia-python，不是应用依赖）。记录的宿主 240×160 采样中 2900 个边缘像素改变、色散开关对照 1193 个像素不同，内部/外部逐字节不变；这不代替手机 GPU 效果与性能验证。
+
+mobile.17 将外包围、半尺寸、折射高度和梯度半径移到 Java 几何更新时计算，新增无效区域/安全内部快路径，并把 style 观察限定到玻璃和祖先。宿主多区域对照需保持 mobile.16 原像素；整视口 RenderEffect 输入仍在，不能把 shader 跳过运算写成已经局部化全部 GPU 缓冲。

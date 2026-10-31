@@ -3,12 +3,14 @@ import { setAndroidFrameActivity, VISUALIZER_FRAME_RATE_STORAGE_KEY } from '../.
 import './androidPhone.css';
 import './androidGlass.css';
 import { installAndroidPlaybackDiagnostics } from './installAndroidPlaybackDiagnostics';
+import { installAndroidPowerDiagnostics } from './installAndroidPowerDiagnostics';
 
 // Explicit host visibility can suspend wallpaper rendering; visible animations keep the user-selected cadence.
 export const installAndroidPresentation = (): void => {
     const wallpaperHost = new URLSearchParams(window.location?.search ?? '').get('foliaAndroidHost') === 'wallpaper';
     if (!wallpaperHost && (!Capacitor.isNativePlatform() || Capacitor.getPlatform() !== 'android')) return;
     installAndroidPlaybackDiagnostics();
+    if (!wallpaperHost) installAndroidPowerDiagnostics();
     const root = document.documentElement;
     root.dataset.foliaAndroid = 'true';
     // Respect an explicit user choice, including an unlimited frame rate.

@@ -27,6 +27,16 @@ export const installAndroidGlass = (): void => {
         if (!frame && !sending) frame = requestUncappedAnimationFrame(sync);
     };
     const resize = new ResizeObserver(schedule);
+    // Attribute records are created only for optical surfaces/ancestors, never for lyric words.
+    const attributes = new MutationObserver(records => {
+        for (const record of records) {
+            const element = record.target as Element;
+            if (record.attributeName !== 'style' || ancestors.get(element) !== geometryStyle(element)) {
+                schedule();
+                return;
+            }
+        }
+    });
     const sync = () => {
         frame = 0;
         dirty = false;
@@ -37,6 +47,9 @@ export const installAndroidGlass = (): void => {
         for (const node of document.querySelectorAll<HTMLElement>(selector)) {
             nextObserved.add(node);
             if (!observed.has(node)) resize.observe(node);
+            for (let parent: HTMLElement | null = node; parent; parent = parent.parentElement) {
+                nextAncestors.set(parent, geometryStyle(parent));
+            }
             const box = node.getBoundingClientRect();
             if (box.width < 12 || box.height < 12 || box.bottom <= 0 || box.right <= 0 || box.top >= innerHeight || box.left >= innerWidth) continue;
             const style = getComputedStyle(node);
@@ -44,7 +57,6 @@ export const installAndroidGlass = (): void => {
             let opacity = 1;
             let z = 0;
             for (let parent: HTMLElement | null = node; parent; parent = parent.parentElement) {
-                nextAncestors.set(parent, geometryStyle(parent));
                 const parentStyle = parent === node ? style : getComputedStyle(parent);
                 opacity *= Number(parentStyle.opacity);
                 z = Math.max(z, Number.parseInt(parentStyle.zIndex) || 0);
@@ -56,6 +68,12 @@ export const installAndroidGlass = (): void => {
         }
         for (const node of observed) if (!nextObserved.has(node)) resize.unobserve(node);
         observed.clear(); for (const node of nextObserved) observed.add(node);
+        if (ancestors.size !== nextAncestors.size || [...nextAncestors.keys()].some(node => !ancestors.has(node))) {
+            attributes.disconnect();
+            for (const node of nextAncestors.keys()) {
+                attributes.observe(node, { attributes: true, attributeFilter: ['style', 'class', 'hidden'] });
+            }
+        }
         ancestors = nextAncestors;
         // Topmost windows precede the transport behind them; one pixel receives optics only once.
         const selected = document.hidden ? [] : surfaces.sort((a, b) => b.z - a.z || b.order - a.order).slice(0, 8)
@@ -76,9 +94,8 @@ export const installAndroidGlass = (): void => {
     };
     const mutations = new MutationObserver(records => {
         for (const record of records) {
-            if (record.type === 'attributes' && record.target instanceof Element && ancestors.has(record.target)) {
-                if (record.attributeName !== 'style' || ancestors.get(record.target) !== geometryStyle(record.target)) { schedule(); return; }
-            }
+            if (record.type === 'attributes' && record.target instanceof Element
+                && (observed.has(record.target) || record.target.matches(selector))) { schedule(); return; }
             if (record.type === 'childList') {
                 for (const node of [...record.addedNodes, ...record.removedNodes]) {
                     if (node instanceof Element && (observed.has(node) || node.matches(selector) || node.querySelector(selector))) { schedule(); return; }
@@ -86,7 +103,7 @@ export const installAndroidGlass = (): void => {
             }
         }
     });
-    mutations.observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['style', 'class', 'hidden'] });
+    mutations.observe(document.body, { subtree: true, childList: true, attributes: true, attributeFilter: ['class', 'data-folia-native-glass'] });
     window.addEventListener('resize', schedule);
     document.addEventListener('visibilitychange', schedule);
     window.addEventListener('pagehide', () => {

@@ -100,6 +100,12 @@ public class FoliaRuntimePlugin extends Plugin {
         }
         super.handleOnDestroy();
     }
+    @PluginMethod public void powerSnapshot(PluginCall call) {
+        executor.execute(() -> {
+            try { call.resolve(FoliaPowerSnapshot.read(getContext())); }
+            catch (Exception failure) { call.reject("Cannot read power counters", failure); }
+        });
+    }
     @PluginMethod public void localFonts(PluginCall call){
         executor.execute(()->{
             try{

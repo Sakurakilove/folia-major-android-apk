@@ -1,5 +1,6 @@
-import React, { useMemo } from 'react';
-import { motion, motionValue, useTransform, MotionValue } from 'framer-motion';
+import React, { useLayoutEffect, useMemo, useRef } from 'react';
+import type { MotionValue } from 'framer-motion';
+import { useMonetWordClock, type RegisterMonetWord } from './useMonetWordClock';
 import { type GraphemeTiming } from '../../../utils/lyrics/graphemeTiming';
 import { getLineRenderEndTime } from '../../../utils/lyrics/renderHints';
 import { colorWithAlpha, mixColors } from '../colorMix';
@@ -11,8 +12,6 @@ import type { PositionedMonetLineEntry } from './monetRailLayout';
 // src/components/visualizer/monet/MonetRailTokens.tsx
 // 行内的逐词渲染：按时间着色的 token 与当前行的扫字遮罩 / 填充 / glow。
 
-/** A clock that never moves, for words whose look does not depend on the time. */
-const STILL_TIME = motionValue(0);
 
 export const MonetTimedTokenSpan: React.FC<{
     entry: PositionedMonetLineEntry;
@@ -27,6 +26,7 @@ export const MonetTimedTokenSpan: React.FC<{
     audioPower?: MotionValue<number>;
     renderStaticPassed?: boolean;
 }> = ({ entry, currentTime, accentColor, fontPx, fontStack, fontsEpoch, wordColorMatchers, isChorus, chorusAccentColor, audioPower, renderStaticPassed = false }) => {
+    const registerWord = useMonetWordClock(currentTime);
     const lineRenderEndTime = useMemo(() => getLineRenderEndTime(entry.line), [entry.line]);
     const tokens = useMemo(() => buildMonetDisplayTokens(entry.line), [entry.line]);
     const wordColorRanges = useMemo(
@@ -68,7 +68,7 @@ export const MonetTimedTokenSpan: React.FC<{
                         endTime={token.endTime}
                         graphemeTimings={token.graphemeTimings}
                         lineRenderEndTime={lineRenderEndTime}
-                        currentTime={currentTime}
+                        registerWord={registerWord}
                         lineStatus={entry.status}
                         wordColor={tokenColors.get(token.key) ?? resolvedAccentColor}
                         baseColor={entry.tone.baseColor}
@@ -94,7 +94,7 @@ const MonetWordSweep: React.FC<{
     endTime: number;
     graphemeTimings: GraphemeTiming[];
     lineRenderEndTime: number;
-    currentTime: MotionValue<number>;
+    registerWord: RegisterMonetWord;
     lineStatus: MonetLineStatus;
     wordColor: string;
     baseColor: string;
@@ -110,7 +110,7 @@ const MonetWordSweep: React.FC<{
     endTime,
     graphemeTimings,
     lineRenderEndTime,
-    currentTime,
+    registerWord,
     lineStatus,
     wordColor,
     baseColor,
@@ -128,60 +128,62 @@ const MonetWordSweep: React.FC<{
             [text, fontPx, fontSpec, fontsEpoch],
         );
 
-        // Only a line being sung moves with the clock, and only sung lines can still be glowing.
-        // Every other word reads a clock that never ticks: its transforms already ignore the time
-        // when the line is not active, so the values are the same, but dozens of words per rail no
-        // longer each run four transforms on every frame. useTransform re-subscribes on every
-        // render, so a word picks the live clock up on the render that makes its line active.
-        const sweepTime = isLineActive ? currentTime : STILL_TIME;
-        const glowTime = canRenderGlow ? currentTime : STILL_TIME;
-
-        const wordStatus = useTransform(sweepTime, latest => (
-            isLineActive ? resolveMonetWordStatus(latest, startTime, endTime) : lineStatus
-        ));
-
-        const wordProgress = useTransform(sweepTime, latest => {
-            if (!isLineActive || latest <= startTime) return 0;
-            if (latest >= endTime) return 1;
-            return (latest - startTime) / Math.max(0.001, endTime - startTime);
-        });
-
-        const fillWidth = useTransform(sweepTime, latest => (
-            isLineActive ? resolveMonetFillWidth(latest, startTime, endTime, graphemeOffsets, graphemeTimings) : 0
-        ));
-
-        const maskImage = useTransform(fillWidth, latest => {
+        const baseRef = useRef<HTMLSpanElement>(null);
+        const maskRef = useRef<HTMLSpanElement>(null);
+        const fillRef = useRef<HTMLSpanElement>(null);
+        const paint = useMemo(() => {
+            let previousTime: number | undefined;
+            let previousSweepTime: number | undefined;
+            const written = new WeakMap<HTMLElement, Partial<Record<keyof CSSStyleDeclaration, string>>>();
+            const tail = Math.max(lineRenderEndTime, endTime + 1.05, startTime + Math.max(0.001, endTime - startTime) * 1.18);
             const edgeSoftness = resolveMonetSweepEdgeSoftness(fontPx);
             const fullWidth = graphemeOffsets[graphemeOffsets.length - 1] ?? 0;
-            const sweepEnd = resolveMonetSweepEnd(latest, fullWidth, edgeSoftness);
-            const solidEnd = Math.max(sweepEnd - edgeSoftness, 0);
-            const featherStart = Math.max(sweepEnd - edgeSoftness * 0.55, 0);
-            const featherEnd = Math.max(sweepEnd, 0);
-            return `linear-gradient(90deg, rgba(0, 0, 0, 1) 0px, rgba(0, 0, 0, 1) ${solidEnd}px, rgba(0, 0, 0, 0.92) ${featherStart}px, rgba(0, 0, 0, 0) ${featherEnd}px, rgba(0, 0, 0, 0) 100%)`;
-        });
-
-        const fillGradient = useTransform(wordProgress, progress => {
-            const color = mixColors(baseColor, wordColor, Math.min(progress, 1));
-            return `linear-gradient(90deg, ${color} 0%, ${colorWithAlpha(color, 0.92)} 68%, ${colorWithAlpha(color, 0.72)} 100%)`;
-        });
-
-        const resolvedBaseColor = useTransform(wordStatus, status =>
-            (isLineActive && status === 'passed') || lineStatus === 'passed' ? wordColor : baseColor,
-        );
-
-        const glowShadow = useTransform(glowTime, latest => {
-            if (!canRenderGlow || latest <= startTime) return 'none';
-
-            const intensity = resolveMonetGlow(latest, startTime, endTime, lineRenderEndTime);
-
-            if (intensity <= 0) return 'none';
-
             const radiusOne = Math.round(fontPx * (isChorus ? 0.45 : 0.28));
             const radiusTwo = Math.round(fontPx * (isChorus ? 0.90 : 0.65));
             const maxAlpha = isChorus ? 1.0 : 0.88;
-            const glowColor = mixColors(baseColor, wordColor, intensity, intensity * maxAlpha);
-            return `0 0 ${radiusOne}px ${glowColor}, 0 0 ${radiusTwo}px ${glowColor}`;
-        }) as unknown as MotionValue<string>;
+            const write = (element: HTMLElement, key: 'color' | 'textShadow' | 'maskImage' | 'webkitMaskImage' | 'backgroundImage', value: string) => {
+                const values = written.get(element) ?? {};
+                if (values[key] === value) return;
+                element.style[key] = value;
+                values[key] = value;
+                written.set(element, values);
+            };
+            return (time: number) => {
+                const base = baseRef.current;
+                if (!base) return;
+                // Saturated words are static, including across seeks back into their live interval.
+                const stamp = isLineActive || canRenderGlow ? Math.max(startTime, Math.min(time, tail)) : 0;
+                if (stamp === previousTime) return;
+                previousTime = stamp;
+                const status = isLineActive ? resolveMonetWordStatus(time, startTime, endTime) : lineStatus;
+                write(base, 'color', (isLineActive && status === 'passed') || lineStatus === 'passed' ? wordColor : baseColor);
+                let shadow = 'none';
+                if (canRenderGlow && time > startTime) {
+                    const intensity = resolveMonetGlow(time, startTime, endTime, lineRenderEndTime);
+                    if (intensity > 0) {
+                        const color = mixColors(baseColor, wordColor, intensity, intensity * maxAlpha);
+                        shadow = `0 0 ${radiusOne}px ${color}, 0 0 ${radiusTwo}px ${color}`;
+                    }
+                }
+                write(base, 'textShadow', shadow);
+                if (!isLineActive || !maskRef.current || !fillRef.current) return;
+                const sweepStamp = Math.max(startTime, Math.min(time, endTime));
+                if (previousSweepTime === sweepStamp) return;
+                previousSweepTime = sweepStamp;
+                const width = resolveMonetFillWidth(time, startTime, endTime, graphemeOffsets, graphemeTimings);
+                const sweepEnd = resolveMonetSweepEnd(width, fullWidth, edgeSoftness);
+                const solidEnd = Math.max(sweepEnd - edgeSoftness, 0);
+                const featherStart = Math.max(sweepEnd - edgeSoftness * 0.55, 0);
+                const featherEnd = Math.max(sweepEnd, 0);
+                const mask = `linear-gradient(90deg, rgba(0, 0, 0, 1) 0px, rgba(0, 0, 0, 1) ${solidEnd}px, rgba(0, 0, 0, 0.92) ${featherStart}px, rgba(0, 0, 0, 0) ${featherEnd}px, rgba(0, 0, 0, 0) 100%)`;
+                write(maskRef.current, 'maskImage', mask);
+                write(maskRef.current, 'webkitMaskImage', mask);
+                const progress = time <= startTime ? 0 : time >= endTime ? 1 : (time - startTime) / Math.max(0.001, endTime - startTime);
+                const color = mixColors(baseColor, wordColor, Math.min(progress, 1));
+                write(fillRef.current, 'backgroundImage', `linear-gradient(90deg, ${color} 0%, ${colorWithAlpha(color, 0.92)} 68%, ${colorWithAlpha(color, 0.72)} 100%)`);
+            };
+        }, [baseColor, canRenderGlow, endTime, fontPx, graphemeOffsets, graphemeTimings, isChorus, isLineActive, lineRenderEndTime, lineStatus, startTime, wordColor]);
+        useLayoutEffect(() => registerWord(paint), [paint, registerWord]);
 
         // Glyphs with deep descenders (g, j, p, y, and many CJK forms) sit below the line box
         // whenever the font's em box is taller than `line-height`, which drives half-leading
@@ -192,11 +194,12 @@ const MonetWordSweep: React.FC<{
 
         return (
             <span className="relative inline-block whitespace-pre-wrap break-words">
-                <motion.span style={{ color: resolvedBaseColor, textShadow: glowShadow }}>
+                <span ref={baseRef} style={{ color: baseColor }}>
                     {text}
-                </motion.span>
+                </span>
                 {isLineActive ? (
-                    <motion.span
+                    <span
+                        ref={maskRef}
                         aria-hidden
                         className="pointer-events-none absolute left-0 right-0 block whitespace-pre-wrap break-words"
                         style={{
@@ -205,8 +208,6 @@ const MonetWordSweep: React.FC<{
                             paddingTop: sweepOverflowPx,
                             paddingBottom: sweepOverflowPx,
                             boxSizing: 'border-box',
-                            WebkitMaskImage: maskImage,
-                            maskImage,
                             WebkitMaskSize: '100% 100%',
                             maskSize: '100% 100%',
                             WebkitMaskRepeat: 'no-repeat',
@@ -214,7 +215,8 @@ const MonetWordSweep: React.FC<{
                             textShadow: 'none',
                         }}
                     >
-                        <motion.span
+                        <span
+                            ref={fillRef}
                             className="block whitespace-pre-wrap break-words"
                             style={{
                                 marginTop: -sweepOverflowPx,
@@ -222,14 +224,13 @@ const MonetWordSweep: React.FC<{
                                 paddingBottom: sweepOverflowPx,
                                 color: 'transparent',
                                 WebkitTextFillColor: 'transparent',
-                                backgroundImage: fillGradient,
                                 WebkitBackgroundClip: 'text',
                                 backgroundClip: 'text',
                             }}
                         >
                             {text}
-                        </motion.span>
-                    </motion.span>
+                        </span>
+                    </span>
                 ) : null}
             </span>
         );

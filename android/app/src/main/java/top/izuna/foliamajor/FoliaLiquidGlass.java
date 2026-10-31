@@ -57,7 +57,10 @@ final class FoliaLiquidGlass implements AutoCloseable {
             int count = surfaces == null ? 0 : Math.min(8, surfaces.length());
             float[] rectangles = new float[32];
             float[] parameters = new float[16];
+            float[] geometry = new float[32];
             float[] signature = new float[52];
+            float left = Float.POSITIVE_INFINITY, top = Float.POSITIVE_INFINITY;
+            float right = Float.NEGATIVE_INFINITY, bottom = Float.NEGATIVE_INFINITY;
             for (int index = 0; index < count; index++) {
                 JSONObject surface = surfaces.getJSONObject(index);
                 int r = index * 4, p = index * 2;
@@ -65,8 +68,17 @@ final class FoliaLiquidGlass implements AutoCloseable {
                 rectangles[r + 1] = (float)surface.getDouble("y") * scale;
                 rectangles[r + 2] = (float)surface.getDouble("width") * scale;
                 rectangles[r + 3] = (float)surface.getDouble("height") * scale;
+                left = Math.min(left, rectangles[r]); top = Math.min(top, rectangles[r + 1]);
+                right = Math.max(right, rectangles[r] + rectangles[r + 2]);
+                bottom = Math.max(bottom, rectangles[r + 1] + rectangles[r + 3]);
                 parameters[p] = (float)surface.getDouble("radius") * scale;
                 parameters[p + 1] = (float)surface.optDouble("opacity", 1);
+                float halfWidth = rectangles[r + 2] * 0.5f, halfHeight = rectangles[r + 3] * 0.5f;
+                float halfMin = Math.min(halfWidth, halfHeight);
+                float radius = Math.min(parameters[p], halfMin);
+                geometry[r] = halfWidth; geometry[r + 1] = halfHeight;
+                geometry[r + 2] = Math.min(7f * scale, halfMin * 0.45f);
+                geometry[r + 3] = Math.min(radius * 1.5f, halfMin);
             }
             System.arraycopy(rectangles, 0, signature, 0, 32);
             System.arraycopy(parameters, 0, signature, 32, 16);
@@ -80,6 +92,8 @@ final class FoliaLiquidGlass implements AutoCloseable {
             shader.setFloatUniform("surfaceCount", count);
             shader.setFloatUniform("pixelScale", scale);
             shader.setFloatUniform("viewport", view.getWidth(), view.getHeight());
+            shader.setFloatUniform("opticalBounds", left, top, right, bottom);
+            shader.setFloatUniform("opticalGeometry", geometry);
             view.setRenderEffect(RenderEffect.createRuntimeShaderEffect(shader, "content"));
         } catch (Exception failure) {
             previous = null;
