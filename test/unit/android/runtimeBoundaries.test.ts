@@ -53,15 +53,15 @@ describe('Android native runtime boundaries', () => {
         expect(Math.abs(sample.mainHeapUsedMB - actualHeapMB)).toBeLessThan(4);
         expect(sample.totalPrivateMB).toBeGreaterThan(0);
     });
-    it('preserves float audio slices, consumes temporary files, and rejects paths outside the bridge directory', () => {
+    it('preserves float audio slices, consumes temporary files, and rejects paths outside the bridge directory', async () => {
         const folder = directory();
         const wire = require('../../../packaging/android/runtime/wire.cjs')(folder);
         const audio = new Float32Array([99, 0.25, -0.75, 88]).subarray(1, 3);
-        const encoded = wire.encode({ nested: [audio] });
+        const encoded = await wire.encode({ nested: [audio] });
         const file = encoded.nested[0].path;
-        expect(wire.decode(encoded).nested[0]).toEqual(new Float32Array([0.25, -0.75]));
+        expect((await wire.decode(encoded)).nested[0]).toEqual(new Float32Array([0.25, -0.75]));
         expect(existsSync(file)).toBe(false);
-        expect(() => wire.decode({ __foliaBinary: true, path: path.join(folder, '../secret'), type: 'Uint8Array' })).toThrow('Invalid binary bridge file');
+        await expect(wire.decode({ __foliaBinary: true, path: path.join(folder, '../secret'), type: 'Uint8Array' })).rejects.toThrow('Invalid binary bridge file');
     });
     it('retains the APK-managed inference runtime when removing models and refuses to replace it', async () => {
         const folder = directory();

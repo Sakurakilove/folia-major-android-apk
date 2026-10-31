@@ -1,3 +1,4 @@
+import { useAndroidOverlayReady } from '../../platform/android/useAndroidOverlayReady';
 import React, { useState, useEffect, useMemo, useRef, startTransition } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { MotionValue } from 'framer-motion';
@@ -821,11 +822,16 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     };
 
     useEffect(() => {
-        if (activeTab === 'options') {
-            // Like the answers above, it lands while the window is opening.
-            void getCacheUsageByCategory().then(usage => startTransition(() => applyCacheUsage(usage)));
-        }
-    }, [activeTab]);
+        if (activeTab !== 'options' || activeSettingsSection !== 'storage') return;
+        let cancelled = false;
+        // Storage enumeration is useful only here; let the retained entrance animation finish first.
+        const timer = setTimeout(() => {
+            void getCacheUsageByCategory().then(usage => {
+                if (!cancelled) startTransition(() => applyCacheUsage(usage));
+            }).catch(error => console.warn('[SettingsCache] Cannot count cache usage', error));
+        }, 280);
+        return () => { cancelled = true; clearTimeout(timer); };
+    }, [activeTab, activeSettingsSection]);
 
     const handleClear = async (category: CacheCategory) => {
         setIsCleaning(category);
@@ -852,6 +858,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     };
 
     // const isDaylight = theme?.name === 'Daylight Default'; // Deprecated, passed as prop
+    const overlayReady = useAndroidOverlayReady();
     const overlayBackground = isDaylight ? 'rgba(0,0,0,0.32)' : 'rgba(0,0,0,0.5)';
     const shellTransition = { duration: 0.24, ease: 'easeOut' as const };
     // The move is one transform rather than y and scale. motion hands opacity and transform to the
@@ -862,7 +869,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     // which is scale(0).
     const panelMotion = {
         initial: { opacity: 0, transform: 'translateY(20px) scale(0.98)' },
-        animate: { opacity: 1, transform: 'translateY(0px) scale(1)' },
+        animate: overlayReady ? { opacity: 1, transform: 'translateY(0px) scale(1)' } : { opacity: 0.001, transform: 'translateY(20px) scale(0.98)' },
         exit: { opacity: 0, transform: 'translateY(16px) scale(0.985)' },
     };
 
@@ -1154,18 +1161,17 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
 
     return (
         <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={shellTransition}
+            initial={false}
             data-folia-keyboard-window="true"
             data-ponder-page-scope={activeTab === 'help' ? 'help-page' : 'settings-page'}
             data-folia-settings-overlay
             className="fixed inset-0 z-[100] flex items-center justify-center px-4 py-8 sm:px-5 sm:py-12"
-            style={{ backgroundColor: overlayBackground }}
             onMouseDown={handleOverlayMouseDown}
             onClick={(event) => handleBackdropClose(event, onClose)}
         >
+            <motion.div aria-hidden="true" className="pointer-events-none absolute inset-0"
+                initial={{ opacity: 0 }} animate={{ opacity: overlayReady ? 1 : 0 }} exit={{ opacity: 0 }}
+                transition={shellTransition} style={{ backgroundColor: overlayBackground }} />
             <motion.div
                 {...panelMotion}
                 transition={shellTransition}

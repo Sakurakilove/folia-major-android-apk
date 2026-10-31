@@ -123,7 +123,7 @@ const VignetteOverlay: React.FC<{ disabled?: boolean }> = ({ disabled = false })
  * is and play goes on from there, so pausing (also the moment the next track loads) moves nothing.
  * The colours follow a new theme over a second, as the base colour does.
  */
-const GeometricScene: React.FC<{
+const GeometricLiveScene: React.FC<{
   theme: Theme;
   audioPower: MotionValue<number>;
   audioBands?: AudioBands;
@@ -214,6 +214,11 @@ const GeometricScene: React.FC<{
     </div>
   );
 };
+
+// A hidden shape layer has no spring consumers; keep only its independently visible vignette.
+const GeometricScene: React.FC<React.ComponentProps<typeof GeometricLiveScene>> = props => props.hideShapes
+  ? <VignetteOverlay disabled={props.disableVignette} />
+  : <GeometricLiveScene {...props} />;
 
 const GeometricLayer: React.FC<GeometricBackgroundProps> = ({
   theme,

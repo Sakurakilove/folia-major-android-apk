@@ -1,3 +1,4 @@
+import { liquidGlassTokens } from '../../utils/liquidGlass';
 import { createContext, useContext, useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
 import { AnimatePresence, motion, useIsPresent, useTransform, type MotionStyle } from 'framer-motion';
 import { CircleHelp, Command, Layers3, Settings2, X } from 'lucide-react';
@@ -159,7 +160,7 @@ export function WallToolsSurface({ idPrefix, label, isDaylight, destination, ent
     return (
         <motion.div
             ref={rootRef}
-            style={{ bottom: bottomPx, '--wall-tools-bottom': bottomVar } as unknown as MotionStyle}
+            style={{ ...liquidGlassTokens(isDaylight), bottom: bottomPx, '--wall-tools-bottom': bottomVar } as unknown as MotionStyle}
             className={`lattice-tools group ${above ? 'has-above' : ''} ${isDaylight ? 'is-daylight' : ''}`}
         >
             {/* 面板与队列浮岛叠在按钮上方的一列里（column-reverse：面板在下、浮岛在上）：定位在 stack 上，面板自己不再 absolute。 */}

@@ -1,3 +1,4 @@
+import { liquidGlassTokens } from '../utils/liquidGlass';
 import { usePhoneLayout } from '../hooks/usePhoneLayout';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -371,7 +372,7 @@ const FloatingPlayerControls: React.FC<FloatingPlayerControlsProps> = ({
                         ref={layoutRef}
                         onUpdate={invalidateLayout}
                         onLayoutAnimationComplete={invalidateLayout}
-                        layout={phoneLayout ? false : true}
+                        layout={phoneLayout ? 'position' : true}
                         transition={{ layout: CONTROL_LAYOUT_SPRING }}
                         onClick={handleClick}
                         // 用原生 pointer 事件而不是 framer-motion 的 drag：位移已经由 playerBottomBarLiveOffset
@@ -383,13 +384,13 @@ const FloatingPlayerControls: React.FC<FloatingPlayerControlsProps> = ({
                         onPointerMove={handlePositionDragMove}
                         onPointerUp={handlePositionDragEnd}
                         onPointerCancel={handlePositionDragEnd}
-                        style={{ touchAction: isPositioning ? 'none' : undefined }}
-                        className={`backdrop-blur-xl shadow-2xl overflow-hidden rounded-full relative transition-colors duration-300
+                        style={{ ...(phoneLayout ? liquidGlassTokens(isDaylight) : {}), touchAction: isPositioning ? 'none' : undefined }}
+                        className={`${phoneLayout ? 'folia-glass-surface' : ''} backdrop-blur-xl shadow-2xl overflow-hidden rounded-full relative transition-colors duration-300
                             ${isPositioning ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer'}
                             ${showExpanded ? `p-3 ${glassBgExpanded} w-full` : `px-4 py-2 ${glassBgCollapsed} ${COLLAPSED_WIDTH_CLASS}`}`}
                     >
                         <motion.div
-                            layout={phoneLayout ? false : true}
+                            layout={phoneLayout ? 'position' : true}
                             transition={{ layout: CONTROL_LAYOUT_SPRING }}
                             // 定位模式下 seek 和所有按钮一起失效：这时胶囊是个被拖的物体，不是控件。
                             className={`w-full ${isPositioning ? 'pointer-events-none select-none' : ''}`}

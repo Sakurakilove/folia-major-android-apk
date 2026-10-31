@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import type { MutableRefObject } from 'react';
 import type { MotionValue } from 'framer-motion';
-import { findLatestActiveLineIndex } from '../../../../utils/appPlaybackHelpers';
+import { createActiveLineLookup } from '../../../../utils/lyrics/activeLineIndex';
 import { PlayerState } from '../../../../types';
 import type { AudioBands, LyricData } from '../../../../types';
 import { setCurrentLineIndex, setPlayerState } from '../../../../stores/usePlaybackStore';
@@ -75,6 +75,7 @@ export function usePlaybackVisualizerBridge({
     const lyrics = usePlaybackStore(selectDisplayLyrics);
 
     const currentLineIndexRef = useRef(-1);
+    const findActiveLine = useMemo(() => createActiveLineLookup(lyrics?.lines ?? []), [lyrics]);
 
     const updateLoop = useCallback(() => {
         // Normally the active deck; the outgoing one for as long as a blend holds the picture on
@@ -141,7 +142,7 @@ export function usePlaybackVisualizerBridge({
             lyricCurrentTime.set(effectiveLyricTime);
 
             if (lyrics) {
-                const foundIndex = findLatestActiveLineIndex(lyrics.lines, effectiveLyricTime);
+                const foundIndex = findActiveLine(effectiveLyricTime);
                 if (foundIndex !== currentLineIndexRef.current) {
                     currentLineIndexRef.current = foundIndex;
                     setCurrentLineIndex(foundIndex);
@@ -157,7 +158,7 @@ export function usePlaybackVisualizerBridge({
             lyricCurrentTime.set(effectiveLyricTime);
 
             if (lyrics) {
-                const foundIndex = findLatestActiveLineIndex(lyrics.lines, effectiveLyricTime);
+                const foundIndex = findActiveLine(effectiveLyricTime);
                 if (foundIndex !== currentLineIndexRef.current) {
                     currentLineIndexRef.current = foundIndex;
                     setCurrentLineIndex(foundIndex);
@@ -172,7 +173,7 @@ export function usePlaybackVisualizerBridge({
                     syncNowPlayingClock(0, duration, false);
                     currentTime.set(0);
                     if (lyrics) {
-                        const restartedLineIndex = findLatestActiveLineIndex(lyrics.lines, 0);
+                        const restartedLineIndex = findActiveLine(0);
                         if (restartedLineIndex !== currentLineIndexRef.current) {
                             currentLineIndexRef.current = restartedLineIndex;
                             setCurrentLineIndex(restartedLineIndex);
@@ -192,7 +193,7 @@ export function usePlaybackVisualizerBridge({
             lyricCurrentTime.set(effectiveLyricTime);
 
             if (lyrics) {
-                const foundIndex = findLatestActiveLineIndex(lyrics.lines, effectiveLyricTime);
+                const foundIndex = findActiveLine(effectiveLyricTime);
                 if (foundIndex !== currentLineIndexRef.current) {
                     currentLineIndexRef.current = foundIndex;
                     setCurrentLineIndex(foundIndex);
@@ -208,7 +209,7 @@ export function usePlaybackVisualizerBridge({
 
             currentTime.set(nextTime);
 
-            const foundIndex = findLatestActiveLineIndex(lyrics.lines, nextTime);
+            const foundIndex = findActiveLine(nextTime);
             if (foundIndex !== currentLineIndexRef.current) {
                 currentLineIndexRef.current = foundIndex;
                 setCurrentLineIndex(foundIndex);
@@ -218,7 +219,7 @@ export function usePlaybackVisualizerBridge({
                 if (effectiveLoopMode === 'one' || effectiveLoopMode === 'all') {
                     syncStageLyricsClock(clock.startTimeSec, clock.endTimeSec, PlayerState.PLAYING, clock.startTimeSec);
                     currentTime.set(clock.startTimeSec);
-                    const restartedLineIndex = findLatestActiveLineIndex(lyrics.lines, clock.startTimeSec);
+                    const restartedLineIndex = findActiveLine(clock.startTimeSec);
                     if (restartedLineIndex !== currentLineIndexRef.current) {
                         currentLineIndexRef.current = restartedLineIndex;
                         setCurrentLineIndex(restartedLineIndex);
@@ -247,6 +248,7 @@ export function usePlaybackVisualizerBridge({
         isNowPlayingStageActive,
         isPlayerCapStageActive,
         lyrics,
+        findActiveLine,
         playerState,
         setCurrentLineIndex,
         setPlayerState,

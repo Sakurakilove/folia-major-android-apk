@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion, useTransform, type MotionStyle } from 'framer-motion';
 import type { Theme } from '../../../types';
-import { usePlayerBottomBarBottomPx } from '../../../hooks/usePlayerBottomBarBottomPx';
+import { usePanelBottom } from './usePanelBottom';
 import { usePlayerOverlayObstacle } from '../../../hooks/usePlayerOverlayLayout';
 import { kitTransition, useKitReducedMotion } from '../../modal/settings/kit/motion';
 import { panelTokens } from './panelTheme';
@@ -57,7 +57,7 @@ type PanelSurfaceProps = Omit<PanelShellProps, 'isOpen' | 'handle'> & {
 
 const PanelSurface: React.FC<PanelSurfaceProps> = ({ hasHandle, isCover, tabKey, theme, isDaylight, header, dock, children, layoutRef, onLayoutUpdate }) => {
     const reduced = useKitReducedMotion();
-    const bottomBarBottomPx = usePlayerBottomBarBottomPx();
+    const bottomBarBottomPx = usePanelBottom();
     // What is under the surface: the handle, or a small gap. A variable, so the two heights below follow it at once.
     const underPx = hasHandle ? HANDLE_ROOM_PX : BARE_GAP_PX;
     // Never taller than the window allows, wherever the bottom bar's baseline has been lifted to.
@@ -145,7 +145,7 @@ const PanelSurface: React.FC<PanelSurfaceProps> = ({ hasHandle, isCover, tabKey,
 };
 
 const PanelShell: React.FC<PanelShellProps> = ({ isOpen, handle, ...surface }) => {
-    const bottomBarBottomPx = usePlayerBottomBarBottomPx();
+    const bottomBarBottomPx = usePanelBottom();
     const { ref: layoutRef, invalidate: invalidateLayout } = usePlayerOverlayObstacle('player-panel', 'panel');
 
     return (

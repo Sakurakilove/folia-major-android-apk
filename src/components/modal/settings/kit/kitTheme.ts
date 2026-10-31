@@ -1,3 +1,5 @@
+import { runsOnAndroid } from '../../../../utils/platform';
+import { liquidGlassTokens } from '../../../../utils/liquidGlass';
 import { createContext, useContext, type CSSProperties } from 'react';
 import type { Theme } from '../../../../types';
 import { getContrastRatio } from '../../../../utils/themeColorMath';
@@ -44,6 +46,14 @@ export const settingsTokens = (isDaylight: boolean, theme?: Theme): CSSPropertie
         '--st-track': 'color-mix(in srgb, var(--text-primary) 17%, transparent)',
         '--st-accent': accent,
         '--st-on-accent': onAccentColor(accent),
+        ...(runsOnAndroid() ? {
+            ...liquidGlassTokens(isDaylight),
+            '--st-win': 'transparent',
+            '--st-side': isDaylight ? 'rgba(255,255,255,.16)' : 'rgba(0,0,0,.12)',
+            '--st-card': isDaylight ? 'rgba(255,255,255,.32)' : 'rgba(255,255,255,.07)',
+            '--st-menu': isDaylight ? 'rgba(245,250,255,.84)' : 'rgba(22,27,34,.86)',
+            '--st-raise': isDaylight ? 'rgba(255,255,255,.6)' : 'rgba(255,255,255,.18)',
+        } : {}),
     } as CSSProperties;
 };
 

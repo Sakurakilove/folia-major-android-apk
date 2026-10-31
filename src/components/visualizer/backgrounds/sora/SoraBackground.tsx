@@ -165,7 +165,6 @@ const SoraBackground: React.FC<SoraBackgroundProps> = ({ theme, isDaylight, paus
       }
       lastTimestamp = pausedRef.current ? null : now;
 
-      twgl.resizeCanvasToDisplaySize(canvas);
       gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
       // Clear background
@@ -193,10 +192,14 @@ const SoraBackground: React.FC<SoraBackgroundProps> = ({ theme, isDaylight, paus
       if (!pausedRef.current) invalidate();
     };
 
-    const resizeObserver = new ResizeObserver(invalidate);
+    const resize = () => {
+      twgl.resizeCanvasToDisplaySize(canvas);
+      invalidate();
+    };
+    const resizeObserver = new ResizeObserver(resize);
     resizeObserver.observe(canvas);
     invalidateRef.current = invalidate;
-    invalidate();
+    resize();
 
     return () => {
       invalidateRef.current = null;

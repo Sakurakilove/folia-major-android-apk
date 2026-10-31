@@ -1,6 +1,7 @@
 import { Capacitor } from '@capacitor/core';
 import { setAndroidFrameActivity, VISUALIZER_FRAME_RATE_STORAGE_KEY } from '../../utils/frameRateLimiter';
 import './androidPhone.css';
+import './androidGlass.css';
 import { installAndroidPlaybackDiagnostics } from './installAndroidPlaybackDiagnostics';
 
 // Explicit host visibility can suspend wallpaper rendering; visible animations keep the user-selected cadence.

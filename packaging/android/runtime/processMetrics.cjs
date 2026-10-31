@@ -20,7 +20,9 @@ module.exports = () => {
             swapTotal: memory.SwapTotal, swapFree: memory.SwapFree };
     };
     process.getProcessMemoryInfo ??= async () => {
-        const memory = fields('/proc/self/smaps_rollup');
+        let memory;
+        try { memory = Object.fromEntries([...(await fs.promises.readFile('/proc/self/smaps_rollup', 'utf8')).matchAll(/^([A-Za-z_]+):\s+(\d+)/gm)].map(match => [match[1], Number(match[2])])); }
+        catch { memory = {}; }
         if (memory.Private_Clean === undefined || memory.Private_Dirty === undefined) throw new Error('Android does not expose process private memory');
         return { private: memory.Private_Clean + memory.Private_Dirty + (memory.Private_Hugetlb || 0),
             shared: (memory.Shared_Clean || 0) + (memory.Shared_Dirty || 0) + (memory.Shared_Hugetlb || 0), residentSet: memory.Rss };

@@ -400,3 +400,22 @@
 - 实施：健康旧 key 直接使用；认证/明确不可恢复失败重新读取一次，只有持续不可解封才启动恢复。原 alias/sealed 不改；新 alias 随机独立。先原样保存所有 key 偏好记录与 settings.json 到 noBackupFilesDir/runtime-key-recovery，fsync 文件并发布快照，之后新密钥加密回读自验并提交 noBackupFilesDir 中的 AtomicFile active-v2 记录；任何备份失败都不发布替代 key。记录显式 fsync/回读验证、使用统一原生锁，不依赖 SharedPreferences 失败提交后仍可能改变的内存缓存。普通系统服务/IO 异常不轮换。
 - 新会话仍使用 Android Keystore AES-256-GCM，不降为明文存储；原密文若无可用旧 key，无法承诺还原。主窗口显示 en/zh-CN/zh-TW/in 原生提示，确认后才消除；提醒部分登录/AI 密钥可能需重填。备份在应用私有目录，不写入运行日志/源码/发布包。
 - 检查：真实 JVM AES-GCM 的 9 个健康/失配/丢失/瞬态/备份失败/提交失败/重启场景通过；原生编译/发布与实机状态分别见 WORKLOG。动画、音频、后端业务不改。
+
+## 2026-10-31 mobile.15 — 确认通过基线后继续减少无效工作
+
+用户已确认启动、滑动/缩放不闪；设置入场闪帧和滑动卡顿继续处理，功耗优化扩展至所有层。详见 WORKLOG PERF-48 至 PERF-57 的发现即记记录。
+
+| 条目 | 实施与边界 |
+| --- | --- |
+| PERF-48 | 遮罩和窗口分别做原有 .24s 入场；窗口保持有限合成层，原生 visual-state 准备后揭示；缓存统计仅存储页/动画后执行，过期答案不再更新窗口。手机待验。 |
+| PERF-49 | 按同一实测 player-clearance 布置面板及完整入口，保留左滑命令和原转场；移除 Android 顶部灯泡，但帮助/思索功能留在原帮助入口。 |
+| PERF-50 | 输入相机使用已有 uncapped RAF，保持 visualizer 用户帧率设置；同值缝样式不重复写。没有修改墙的物化比例/节点世界顺序。 |
+| PERF-51 | 不能按 MotionValue change 订阅判断 spectrum 是否有消费者，Monet/OBS/模组可直接 get；该省略快照方案撤回，数组所有权保持。 |
+| PERF-52 | 11 类 Android 文档 IO 由低优先级单 worker/128 队列按序执行；accepted IO 结束后清理，桥线程不复制整文件。不等于已完成直接 URI 播放/全零拷贝。 |
+| PERF-53 | 不可变歌词快照建立开始时间二分/prefix-max end 索引；重叠、尾迹、空隙、乱序/非有限时刻保留旧结果。 |
+| PERF-54 | hideShapes 时只保留 vignette，不挂载无消费者的 6 组音频 spring；可见时同参数/同轨迹。 |
+| PERF-55 | Sora backing-size 更新仅在 ResizeObserver/首次发生；同分辨率、粒子、shader、时间曲线。 |
+| PERF-56 | Node PNG/raw/HTML 和 smaps 读取异步化；帧文件失败也收尾。不是播放效果图迁移。 |
+| PERF-57 | 单次裁剪复用 blockSlots，两遍不重复生成；全字段（含 area）相等才复用旧数组，纯呈现墙 memo；原预算/世界顺序不变。 |
+
+材质统一为实时 CSS backdrop、边缘高光、内外阴影；不使用静态图片，不冒充 Kyant 原生折射。仅普通命令面板的有限窗口模糊，移除 Android 全屏额外采样；要求 clear 的实时预览仍为 clear。原生 Media3 全音效、Kyant 折射、直接 URI 和实机全功耗验证等依旧未完成。

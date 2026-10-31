@@ -22,7 +22,6 @@ html[data-folia-render-paused='true'] *, html[data-folia-render-paused='true'] *
     html[data-folia-android='true'] .bravais-seam-home-nav { overflow-y: auto; touch-action: pan-y; }
     html[data-folia-android='true'] .bravais-seam-icon { min-width: 40px; min-height: 40px; }
     html[data-folia-android='true'] [data-folia-mobile-player] { width: calc(100% - 24px); max-width: 440px !important; padding-inline: 0; }
-    html[data-folia-android='true'] [data-folia-mobile-player-panel] { border-radius: 24px !important; backdrop-filter: blur(12px) saturate(1.35); -webkit-backdrop-filter: blur(12px) saturate(1.35); background-color: color-mix(in srgb, var(--bg-color, #18181b) 20%, transparent) !important; }
     html[data-folia-android='true'] .status-toast { max-width: calc(100vw - 24px); }
     html[data-folia-android='true'] .status-toast-line { min-width: 0; flex-wrap: wrap; }
     html[data-folia-android='true'] .status-toast-title { white-space: normal; overflow-wrap: anywhere; }

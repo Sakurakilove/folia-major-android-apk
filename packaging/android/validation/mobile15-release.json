@@ -1,0 +1,19 @@
+{
+  "version": "0.7.20-mobile.15",
+  "versionCode": 702015,
+  "bytes": 333728856,
+  "sha256": "bc5c40bcdbe7a15f713e1fd84fb01cc8eb99960249463951ccc1ea3ba36b7455",
+  "signerSha256": "b2acb003d186fe12ca8b7a17e5c7ea27041aca000830fe3086cb6627d08496ef",
+  "frontendFilesMatchDist": 1897,
+  "sharedFrontendHashMatches": true,
+  "runtimeIoSourcesMatch": true,
+  "nativeDocumentIoWorkerIncluded": true,
+  "targetedTestsPassed": 14,
+  "protectedSourcesUnchanged": 60,
+  "soraShaderUnchanged": true,
+  "phoneScrollingAndPinchPassedOnMobile14": true,
+  "phoneSettingsFlashVerified": false,
+  "phoneScrollJankVerified": false,
+  "phonePowerWattsMeasured": false,
+  "nativeKyantRefractionImplemented": false
+}

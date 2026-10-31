@@ -371,3 +371,30 @@
 - 本机 mobile.6 旧生成 APK 已与 GitHub 校验和一致后移除，远端及源码归档仍保留，释放构建空间；mobile.10/11/12/13 本地基准保留。
 - mobile.14 最终原生 release 构建通过（26 秒）；702014 / SDK37 / ARM64，签名与 mobile.13 相同。前端/后台 assets（排除原生 Dex 基线）与 mobile.13 完全一致，新 key 恢复类已进入最终 Dex。手机启动未验证。
 - APK 333725740 字节，SHA-256 a4894dc03d99b72d397977ee13a078b729d3c409c57bd243792ec1e612be140e。构建成功不等于手机恢复通过，也不承诺已无法验证的旧登录明文可恢复。
+- mobile.14 APK 已优先发布，随后完成对应源码（3998 文件）、SHA256SUMS 和 main/新版本标签同步；GitHub 返回 APK/源码 digest 与本地一致。源码提交 2d56c9c78c93482c757b32e2df6ab3ded4c7850b，源码归档 SHA-256 99100896f958acad03d7fb3ec66439f9dd1c20797fd7c7fca7d074d077d7e7ba。
+- 发布页：https://github.com/Sakurakilove/folia-major-android-apk/releases/tag/v0.7.20-mobile.14 。本轮交付完成；用户手机启动仍待确认，不能写成已恢复旧凭据明文。滑动效果仍待确认，音频/捏合/返回此前通过状态保留。
+
+## 2026-10-31 — mobile.14 启动/滑动/缩放通过，统一玻璃与全链路功耗
+
+- 用户实机确认滑动和缩放不闪，能进入应用；设置弹出闪一下，滑动仍卡顿。右上灯泡删除，右下面板按钮重整；统一液态玻璃，恢复此前取消的动画，允许跨语言/组件/安卓原生替换，降功耗范围扩大到全部代码。不得把允许重写解释为允许改变效果或删功能。
+- PERF-48 发现即记录：SettingsModal 外层 opacity 与内层 opacity/transform 同时入场，当前设置为实色窗；还在任意 options 页一打开就统计所有缓存。方案：遮罩/玻璃表面各自合成，稳定有限窗口层，原生 visual-state 准备后保留原 .24s 动画；仅存储页在入场后统计缓存并取消过期结果，避免不相关启动 IO。
+- PERF-49 发现即记录：PanelHandle 与播放条使用同一 bottom 基线，触屏时还向右偏移一半/opacity .6，截图表明与播放条及队列按钮重叠。方案：读取已有实测 player-clearance，把入口整体放到播放条上方；同材质 44-48px 完整命中区，面板/命令滑动功能保留，取消隐藏半颗按钮的布局而不删除手势动画。
+- PERF-50 发现即记录：墙的拖动/捏合 RAF 走全局 visualizer FPS gate，而 Framer 惯性动画可能在显示原生节奏运行；Android 默认 gate60 与高刷显示产生输入节奏差。方案：只让输入相机更新使用既有 uncapped RAF，visualizer 的用户帧率设置不动；栅格/固定节点顺序不改。另逐帧 frame 写缝宽/opacity/安全区相同值，改为按值去重，保持坐标/动画。
+- PERF-51 发现即记录：播放可视化每帧 new Uint8Array(FFT bins)，即使没有 spectrum 消费者也分配；但 MotionValue 消费者可能保留历史数组，不能简单反复覆盖同一数组。方案：频带采样复用私有 scratch，只有真实 spectrum 订阅者存在时发布独立快照；同精度/频段/节奏保留，避免未消费的分配和 GC。
+- PERF-52 发现即记录：SAF 原生 beginWrite/finishWrite/stage/entries/stat 等 IO 在 Capacitor 共用调用线程直接完成，大文件复制和 provider 查询会占用同一桥。方案：有界、低优先级、按序原生 IO 执行器，原来文件/权限/字节语义保留，销毁时等待已入队 IO 后清理；不搬去 JS 或再加大块桥复制。
+- 全范围优化按实际热点和生命周期跨前端/Node/原生推进；不会把路径索引、构建成功或未量测的推测写成已全量逐行审完或实测瓦数下降。原生 Kyant 折射尚未完成，当前实时网页背景玻璃必须如实标识。
+- PERF-51 继续读取后修正方案：Monet/OBS/模组可在 RAF 内直接 spectrum.get()，没有 change 订阅不代表无人消费。撤回按订阅判断省略快照的假设；本轮不改频谱数组所有权或已通过的输出图。
+- PERF-53 发现即记录：findLatestActiveLineIndex 每帧从整曲末尾反向扫描，长曲前半段会反复跨过所有未来行。方案：播放桥按不可变歌词快照创建开始时间二分索引及 prefix-max end，保留重叠行/尾迹/空隙的最后有效下标语义，未排序/非有限时刻走原算法。只改查询，逐字时钟/动画不改。
+- PERF-54 发现即记录：GeometricScene 即使 hideShapes=true 仍建立 6 组音频 spring/derived signals，尽管所有形状/粒子均未渲染。方案：不可见形状不挂载其信号驱动组件；仍保留 vignette，开启时保留同一生成数据、CSS 路径和原 spring 参数。
+- PERF-55 发现即记录：Sora 已有 ResizeObserver，却仍每个动画帧 resizeCanvasToDisplaySize 读取布局。方案：只在 ResizeObserver/首次绘制更新同分辨率 backing size，每帧保留同一 shader/uniform/粒子/时间节奏；不降采样或帧率。
+- PERF-56 发现即记录：AndroidWindow.capturePage 和 loadFile 在 async 方法内同步读 PNG+完整 raw/HTML、同步删除；/proc/smaps_rollup 异步接口内也是同步读取。方案：保持像素/字节与接口不变，改 Node fs.promises IO，capture 完成/失败都收尾临时帧；不阻塞其他播放/桥 RPC。
+- PERF-57 发现即记录：每次裁剪 collectShapeSlots 对可见块与 overscan 重复调用 blockSlots；相同磁贴集合仍返回新数组，BravaisWall 也未 memo，导致一批无视觉变化的元素重建/比较。方案：单次收集共享块几何，完整几何相等时复用旧数组，纯呈现墙浅比较；保留 mobile.12 固定世界顺序、原预算及真实几何变化。
+- 已统一播放条/设置窗/播放器面板/墙工具及队列浮岛/普通命令面板的实时 backdrop 材质、边缘高光与阴影。命令面板仅自身玻璃采样，Android 不再额外模糊整个屏幕；实时预览要求透明时保留原契约。未使用静态截图，也未宣称已实现 Kyant 原生折射。
+- 首次小范围检查 13/14 通过；失败项是既有 wire 测试仍同步调用已为 async 的 encode/decode。已用发布 mobile.14 原模块复现同一 TypeError，并验证原异步契约通过；只修测试缺失的 await，未改播放/二进制模块。新 4 项歌词/裁剪回归已通过。
+- 本批必要回归：新歌词索引/同块几何复用/稳定顺序、既有图片队列/预算与原生 runtime 边界共 14/14 通过；类型检查通过；原生 Java 编译通过。已确认原逐字信号、频谱数组和音频输出图未改。
+- 动效核对：完整动态效果默认仍开启，未改用户 reduced-motion 开关；保留已通过的墙栅格/固定顺序/返回交接，恢复手机控制条位置布局 spring 与触摸按压/播放图标过渡，菜单滑动触发动画不删。不是把已播放过的磁贴入场反复重播来制造“恢复动画”。
+- 构建前核对远端校验和后删除 mobile.5 与仅诊断用 mobile.13 的本机生成 APK 副本，历史 Release/源码归档及 mobile.10/11/12/14 基准包保留。
+- 收尾核对补上 WallSlot.area 的相等条件，避免未来同外形但不同格占用被错误复用；对应 4 项新回归再次通过。材质白天/夜间 token 已接到墙工具宿主，最终网页重新构建后再封包，未上传中间产物。
+- 最终源核对：60 个音频/物化/返回/密钥恢复/墙波次关键文件与 mobile.14 逐字节一致；Sora shader 字符串、几何动画 CSS 不变。实际改动触及前端表现与计算、2 个 Node IO 文件、1 个原生文件 IO 模块，不能写成“所有模块已原生化”。
+- mobile.15 最终发布构建（23 秒）、类型、签名与包内闭包核对通过；702015 / SDK37 / ARM64，333728856 字节。前端全部 Vite 输出与 APK 匹配、共享前端哈希一致，Node 新 IO 源与原生 DocumentIO Worker 已入包。
+- APK SHA-256 bc5c40bcdbe7a15f713e1fd84fb01cc8eb99960249463951ccc1ea3ba36b7455；与 mobile.14 同签名，可覆盖安装。手机设置闪帧/滑动卡顿及实际功耗仍待用户实测，未用构建或小范围回归冒充瓦数改善。

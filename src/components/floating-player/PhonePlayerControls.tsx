@@ -1,4 +1,6 @@
 import React, { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { useReducedMotionFor } from '../../hooks/useReducedMotionFor';
 import { usePhonePlayerGeometry } from '../../platform/android/usePhonePlayerGeometry';
 import { useTranslation } from 'react-i18next';
 import { Play, Pause, SkipBack, SkipForward } from 'lucide-react';
@@ -17,6 +19,8 @@ const PhonePlayerControls: React.FC<ExpandedViewProps> = (props) => {
     const root = useRef<HTMLDivElement>(null);
     usePhonePlayerGeometry(root);
     const { t } = useTranslation();
+    const calm = useReducedMotionFor('uiMicroMotion');
+    const press = calm ? undefined : { scale: 0.9 };
     const artist = currentSong?.artists?.map(artist => artist.name).join(' / ');
     const buttonClass = 'flex h-11 w-11 shrink-0 items-center justify-center rounded-full disabled:opacity-25';
     return (
@@ -26,17 +30,21 @@ const PhonePlayerControls: React.FC<ExpandedViewProps> = (props) => {
                     <div data-folia-track-title className="truncate text-sm font-semibold">{currentSong?.name || noTrackText}</div>
                     {artist && <div data-folia-track-artist className="truncate text-xs" style={{ color: secondaryColor }}>{artist}</div>}
                 </div>
-                {trackNavigation && <button type="button" className={buttonClass} data-folia-native-action="prev" aria-label={trackNavigation.prevLabel}
+                {trackNavigation && <motion.button whileTap={press} type="button" className={buttonClass} data-folia-native-action="prev" aria-label={trackNavigation.prevLabel}
                     disabled={controlsDisabled || !trackNavigation.canPrev}
-                    onClick={event => { event.stopPropagation(); trackNavigation.onPrev(); }}><SkipBack size={19} fill="currentColor" /></button>}
-                <button type="button" className={buttonClass} data-folia-native-action="play" aria-label={t(playerState === PlayerState.PLAYING ? 'ui.pause' : 'ui.play')} disabled={controlsDisabled || !canTogglePlay}
+                    onClick={event => { event.stopPropagation(); trackNavigation.onPrev(); }}><SkipBack size={19} fill="currentColor" /></motion.button>}
+                <motion.button whileTap={press} type="button" className={buttonClass} data-folia-native-action="play" aria-label={t(playerState === PlayerState.PLAYING ? 'ui.pause' : 'ui.play')} disabled={controlsDisabled || !canTogglePlay}
                     style={{ backgroundColor: primaryColor, color: 'var(--bg-color)' }}
                     onClick={event => { event.stopPropagation(); onTogglePlay(); }}>
-                    {playerState === PlayerState.PLAYING ? <Pause size={21} fill="currentColor" /> : <Play size={21} fill="currentColor" />}
-                </button>
-                {trackNavigation && <button type="button" className={buttonClass} data-folia-native-action="next" aria-label={trackNavigation.nextLabel}
+                    <motion.span key={playerState === PlayerState.PLAYING ? 'pause' : 'play'} className="flex items-center justify-center"
+                        initial={calm ? false : { opacity: 0, scale: 0.75, rotate: -12 }} animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                        transition={{ duration: 0.18, ease: 'easeOut' }}>
+                        {playerState === PlayerState.PLAYING ? <Pause size={21} fill="currentColor" /> : <Play size={21} fill="currentColor" />}
+                    </motion.span>
+                </motion.button>
+                {trackNavigation && <motion.button whileTap={press} type="button" className={buttonClass} data-folia-native-action="next" aria-label={trackNavigation.nextLabel}
                     disabled={controlsDisabled || !trackNavigation.canNext}
-                    onClick={event => { event.stopPropagation(); trackNavigation.onNext(); }}><SkipForward size={19} fill="currentColor" /></button>}
+                    onClick={event => { event.stopPropagation(); trackNavigation.onNext(); }}><SkipForward size={19} fill="currentColor" /></motion.button>}
             </div>
             <div className="flex min-w-0 items-center gap-1">
                 <div data-folia-native-slot="primary" className="shrink-0"><PlayerControlSlotButton actionId={slotPrimary} context={slotContext} primaryColor={primaryColor}

@@ -3,7 +3,10 @@ import { PANEL_SLIDE_CLAMP_PX, PANEL_SLIDE_TRACK_BASE_PX, PANEL_SLIDE_TRACK_FULL
 import { motion, AnimatePresence } from 'framer-motion';
 import { Settings2, X, Command } from 'lucide-react';
 import type { Theme } from '../../../types';
-import { usePlayerBottomBarBottomPx } from '../../../hooks/usePlayerBottomBarBottomPx';
+import { usePanelBottom } from './usePanelBottom';
+import { usePhoneLayout } from '../../../hooks/usePhoneLayout';
+import { liquidGlassTokens } from '../../../utils/liquidGlass';
+import { useTranslation } from 'react-i18next';
 import { usePlayerOverlayObstacle } from '../../../hooks/usePlayerOverlayLayout';
 
 // src/components/panelTab/shell/PanelHandle.tsx
@@ -40,7 +43,9 @@ const PanelHandle: React.FC<PanelHandleProps> = ({
     const [showGuideLine, setShowGuideLine] = React.useState(false);
     const [isDragging, setIsDragging] = React.useState(false);
     const guideHideTimeoutRef = React.useRef<number | null>(null);
-    const bottomBarBottomPx = usePlayerBottomBarBottomPx();
+    const bottomBarBottomPx = usePanelBottom();
+    const phone = usePhoneLayout();
+    const { t } = useTranslation();
     // The button is in the way of a mod's player layout, as the open panel above it is.
     const { ref: layoutRef, invalidate: invalidateLayout } = usePlayerOverlayObstacle('panel-toggle', 'panel');
     const supportsHover = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -51,7 +56,7 @@ const PanelHandle: React.FC<PanelHandleProps> = ({
     const trackFillRef = React.useRef<HTMLDivElement | null>(null);
     const canSlideOpenCommandPalette = !isOpen && Boolean(onOpenCommandPalette);
     const isGuideLineVisible = canSlideOpenCommandPalette && (showGuideLine || isPanelGuideHotspotActive);
-    const toggleButtonMotionClass = (isOpen || isGuideLineVisible || isDragging)
+    const toggleButtonMotionClass = (phone || isOpen || isGuideLineVisible || isDragging)
         ? 'translate-x-0 opacity-100'
         : supportsHover
             ? 'translate-x-1/2 opacity-60 group-hover:translate-x-0 group-hover:opacity-100 md:translate-x-0 md:opacity-100 md:hover:scale-105'
@@ -322,6 +327,7 @@ const PanelHandle: React.FC<PanelHandleProps> = ({
                     }
                     transition={{ duration: 0.24, ease: 'easeOut' }}
                     data-testid="panel-toggle"
+                    data-folia-panel-handle={phone || undefined}
                     ref={layoutRef}
                     onUpdate={invalidateLayout}
                     style={{ bottom: bottomBarBottomPx }}
@@ -395,8 +401,9 @@ const PanelHandle: React.FC<PanelHandleProps> = ({
                             onPointerUp={clearToggleButtonGesture}
                             onPointerCancel={clearToggleButtonGesture}
                             onClick={handleToggleButtonClick}
-                            style={{ touchAction: canSlideOpenCommandPalette ? 'none' : undefined }}
-                            className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg backdrop-blur-md transform
+                            style={{ ...(phone ? liquidGlassTokens(isDaylight) : {}), touchAction: canSlideOpenCommandPalette ? 'none' : undefined }}
+                            aria-label={t(isOpen ? 'ui.close' : 'panel.controls')}
+                            className={`${phone ? 'folia-glass-surface' : ''} w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg backdrop-blur-md transform
                                 border-none absolute right-0 top-0 z-10 ${isOpen ? 'bg-white text-black' : (isDaylight ? 'bg-white/70 text-zinc-900' : 'bg-black/40 text-white')}`}
                         >
                             {isOpen ? <X size={20} /> : <Settings2 size={20} />}

@@ -272,10 +272,17 @@ export const collectShapeSlots = (
     // Otherwise retained React keys move between the passes on every recull, needlessly detaching their DOM.
     const present = () => result.sort((a, b) => a.row - b.row || a.column - b.column || a.slotIndex - b.slotIndex);
     const regions = visible ? [visible, bounds] : [bounds];
+    const blocks = new Map<string, WallSlot[]>();
+    const slotsFor = (column: number, row: number) => {
+        const key = `${column}:${row}`;
+        let slots = blocks.get(key);
+        if (!slots) { slots = shape.blockSlots(column, row); blocks.set(key, slots); }
+        return slots;
+    };
     for (const [pass, region] of regions.entries()) {
         for (let row = Math.floor(region.top / height); row <= Math.floor(region.bottom / height); row += 1) {
             for (let column = Math.floor(region.left / width); column <= Math.floor(region.right / width); column += 1) {
-                for (const slot of shape.blockSlots(column, row)) {
+                for (const slot of slotsFor(column, row)) {
                     const box = { left: slot.x, right: slot.x + slot.width, top: slot.y, bottom: slot.y + slot.height };
                     if (!overlaps(box, region) || !overlaps(box, bounds)) continue;
                     if (pass === 1 && visible && overlaps(box, visible)) continue;

@@ -1,3 +1,4 @@
+import { runsOnAndroid } from '../../utils/platform';
 import React, { Suspense, lazy, useRef } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
@@ -75,7 +76,7 @@ const PonderHost: React.FC<PonderHostProps> = ({ theme, isDaylight }) => {
 
             <PonderNavigationPage theme={theme} isDaylight={isDaylight} />
 
-            <PagePonderTouchButton theme={theme} isDaylight={isDaylight} />
+            {!runsOnAndroid() && <PagePonderTouchButton theme={theme} isDaylight={isDaylight} />}
 
             {/* 教程层自己带进出场，AnimatePresence 负责在 session 清掉之后留住它把退场播完。 */}
             <AnimatePresence>

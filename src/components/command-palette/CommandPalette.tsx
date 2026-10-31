@@ -1,3 +1,5 @@
+import { runsOnAndroid } from '../../utils/platform';
+import { liquidGlassTokens } from '../../utils/liquidGlass';
 import React, { Suspense, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, CircleHelp, Command, CornerDownLeft, Loader2, Search, X } from 'lucide-react';
@@ -410,7 +412,7 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
             {isOpen && (
                 <motion.div
                     data-folia-keyboard-window="true"
-                    className={`fixed inset-0 z-[150] flex items-start justify-center px-4 pt-[18vh] ${hasClearBackdrop ? '' : 'backdrop-blur-md'}`}
+                    className={`fixed inset-0 z-[150] flex items-start justify-center px-4 pt-[18vh] ${hasClearBackdrop || runsOnAndroid() ? '' : 'backdrop-blur-md'}`}
                     style={{
                         backgroundColor: hasClearBackdrop
                             ? (isDaylight ? 'rgba(250,250,249,0.12)' : 'rgba(0,0,0,0.16)')
@@ -439,9 +441,10 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
                         onMouseDown={(event) => event.stopPropagation()}
                     >
                         <div
-                            className={`overflow-hidden rounded-3xl border shadow-2xl ${panelBg}`}
+                            className={`overflow-hidden rounded-3xl border shadow-2xl ${runsOnAndroid() && !hasClearBackdrop ? 'folia-glass-surface' : ''} ${panelBg}`}
                             data-testid="command-palette-panel"
                             style={{
+                                ...liquidGlassTokens(isDaylight),
                                 borderColor: isDaylight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)',
                                 color: 'var(--text-primary)',
                             }}
@@ -573,7 +576,8 @@ const CommandPalette: React.FC<CommandPaletteProps> = ({
                                             <div
                                                 className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border"
                                                 style={{
-                                                    borderColor: isDaylight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)',
+                                                    ...liquidGlassTokens(isDaylight),
+                                borderColor: isDaylight ? 'rgba(0,0,0,0.10)' : 'rgba(255,255,255,0.12)',
                                                     color: theme.accentColor,
                                                 }}
                                             >

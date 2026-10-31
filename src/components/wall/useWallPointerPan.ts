@@ -1,3 +1,4 @@
+import { requestUncappedAnimationFrame, cancelUncappedAnimationFrame } from '../../utils/frameRateLimiter';
 // src/components/wall/useWallPointerPan.ts
 
 import { animate } from 'framer-motion';
@@ -71,7 +72,7 @@ export const useWallPointerPan = ({
 
     // Touch input can arrive several times per display frame. Paint only the latest camera for both pan and pinch.
     const flushCamera = useCallback(() => {
-        if (cameraFrame.current !== null) cancelAnimationFrame(cameraFrame.current);
+        if (cameraFrame.current !== null) cancelUncappedAnimationFrame(cameraFrame.current);
         cameraFrame.current = null;
         const next = pinchPending.current && pinch.current && touches.current.size === 2
             ? pinchWallCamera(pinch.current.camera, pinch.current.pair, wallTouchPair([...touches.current.values()]))
@@ -83,7 +84,7 @@ export const useWallPointerPan = ({
 
     const queueCamera = useCallback((next: LatticeCamera) => {
         pendingCamera.current = next;
-        if (cameraFrame.current === null) cameraFrame.current = requestAnimationFrame(flushCamera);
+        if (cameraFrame.current === null) cameraFrame.current = requestUncappedAnimationFrame(flushCamera);
     }, [flushCamera]);
 
     const interrupt = useCallback(() => {
@@ -131,7 +132,7 @@ export const useWallPointerPan = ({
         }
         if (pinch.current && touches.current.size >= 2) {
             pinchPending.current = true;
-            if (cameraFrame.current === null) cameraFrame.current = requestAnimationFrame(flushCamera);
+            if (cameraFrame.current === null) cameraFrame.current = requestUncappedAnimationFrame(flushCamera);
             return;
         }
         const pointer = pointerRef.current;
@@ -224,7 +225,7 @@ export const useWallPointerPan = ({
         const stopWheel = () => {
             const wheel = wheelRef.current;
             if (!wheel) return;
-            if (wheel.frame !== null) cancelAnimationFrame(wheel.frame);
+            if (wheel.frame !== null) cancelUncappedAnimationFrame(wheel.frame);
             wheelRef.current = null;
             if (animationRef.current === wheel.handle) animationRef.current = null;
         };
@@ -252,7 +253,7 @@ export const useWallPointerPan = ({
                 stopWheel();
                 return;
             }
-            wheel.frame = requestAnimationFrame(tick);
+            wheel.frame = requestUncappedAnimationFrame(tick);
         };
         // 一次滚动手势锁定在墙上：触控板双指平移时光标不动、墙在动，叠在墙上的东西（bravais 的海报缝）会滑到光标下面，
         // 之后的 wheel 落到它身上、不再经过墙——上一下 wheel 不久之前还在推墙，就接着算墙的（同浏览器原生滚动的锁定）。
@@ -315,11 +316,11 @@ export const useWallPointerPan = ({
                 animationRef.current = next.handle;
             }
             wheel.pending = { x: wheel.pending.x - dx, y: wheel.pending.y - dy };
-            if (wheel.frame === null) wheel.frame = requestAnimationFrame(tick);
+            if (wheel.frame === null) wheel.frame = requestUncappedAnimationFrame(tick);
         };
         const cancel = (commitScale = false) => {
             const wasPinching = pinch.current !== null;
-            if (cameraFrame.current !== null) cancelAnimationFrame(cameraFrame.current);
+            if (cameraFrame.current !== null) cancelUncappedAnimationFrame(cameraFrame.current);
             cameraFrame.current = null;
             pendingCamera.current = null;
             pinchPending.current = false;

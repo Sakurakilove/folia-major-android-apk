@@ -93,4 +93,4 @@ const BravaisWall: React.FC<BravaisWallProps> = ({
     );
 };
 
-export default BravaisWall;
+export default React.memo(BravaisWall);

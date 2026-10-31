@@ -31,6 +31,13 @@ export type BravaisFrameRefs = {
     tab: RefObject<HTMLButtonElement | null>;
 };
 
+const setStyle = (element: HTMLElement, key: 'transform' | 'width' | 'opacity', value: string) => {
+    if (element.style[key] !== value) element.style[key] = value;
+};
+const setVariable = (element: HTMLElement, name: string, value: string) => {
+    if (element.style.getPropertyValue(name) !== value) element.style.setProperty(name, value);
+};
+
 export const useBravaisFrame = (refs: BravaisFrameRefs) => {
     const stateRef = useRef<BravaisFrameState>({
         view: null,
@@ -58,25 +65,25 @@ export const useBravaisFrame = (refs: BravaisFrameRefs) => {
             tiltDeg: state.tiltDeg,
         });
         const { left, right, seam, seamContent, tab } = refs;
-        if (left.current) left.current.style.transform = withTilt(formatWorldTransform(frame.left.x, frame.left.y, frame.scale, undefined, readWallRasterScale(left.current)), frame.tilt);
-        if (right.current) right.current.style.transform = withTilt(formatWorldTransform(frame.right.x, frame.right.y, frame.scale, undefined, readWallRasterScale(right.current)), frame.tilt);
+        if (left.current) setStyle(left.current, 'transform', withTilt(formatWorldTransform(frame.left.x, frame.left.y, frame.scale, undefined, readWallRasterScale(left.current)), frame.tilt));
+        if (right.current) setStyle(right.current, 'transform', withTilt(formatWorldTransform(frame.right.x, frame.right.y, frame.scale, undefined, readWallRasterScale(right.current)), frame.tilt));
         const seamElement = seam.current;
         if (seamElement) {
             // 缝与两半墙同一层：倾斜时一起转（缝的 transform-origin 对准屏幕原点，见 bravais.css / bravaisPoster.css）。
-            seamElement.style.transform = withTilt(`translate3d(${frame.seam.x - frame.seam.width / 2}px, 0, 0)`, frame.tilt);
-            seamElement.style.width = `${frame.seam.width}px`;
+            setStyle(seamElement, 'transform', withTilt(`translate3d(${frame.seam.x - frame.seam.width / 2}px, 0, 0)`, frame.tilt));
+            setStyle(seamElement, 'width', `${frame.seam.width}px`);
             const visibility = frame.seam.visible ? 'visible' : 'hidden';
             if (seamElement.style.visibility !== visibility) seamElement.style.visibility = visibility;
         }
         const contentElement = seamContent.current;
         if (contentElement) {
-            contentElement.style.opacity = String(frame.contentOpacity);
+            setStyle(contentElement, 'opacity', String(frame.contentOpacity));
             // 海报跟着倾斜时四个角会转出屏幕：内容缩进安全区（posterSafeArea，按落定的海报宽度算，拖动时不变）。
             const safe = state.poster
                 ? posterSafeArea({ width: state.targetOpenWidth, height: state.view.height, deg: frame.tilt.deg })
                 : { scale: 1, offsetY: 0 };
-            contentElement.style.setProperty('--bravais-poster-safe-scale', safe.scale.toFixed(4));
-            contentElement.style.setProperty('--bravais-poster-safe-y', `${safe.offsetY.toFixed(1)}px`);
+            setVariable(contentElement, '--bravais-poster-safe-scale', safe.scale.toFixed(4));
+            setVariable(contentElement, '--bravais-poster-safe-y', `${safe.offsetY.toFixed(1)}px`);
         }
         const tabElement = tab.current;
         if (tabElement) {

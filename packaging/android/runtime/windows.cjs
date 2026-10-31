@@ -26,8 +26,12 @@ module.exports = ({ events, mainWindow, dataDir }) => {
                 capturePage: async () => {
                     await this.ready;
                     const image = await events.native('windowCapture', this.id);
-                    const png = fs.readFileSync(image.png), raw = fs.readFileSync(image.raw);
-                    fs.rmSync(image.png); fs.rmSync(image.raw);
+                    let png, raw;
+                    try { [png, raw] = await Promise.all([fs.promises.readFile(image.png), fs.promises.readFile(image.raw)]); }
+                    finally {
+                        await Promise.all([image.png, image.raw].map(file => fs.promises.rm(file, { force: true })
+                            .catch(error => console.warn('[AndroidWindow] Cannot remove captured frame', error))));
+                    }
                     return { isEmpty: () => !png.length, getSize: () => ({ width: image.width, height: image.height }),
                         toPNG: () => png, toBitmap: () => raw, getBitmap: () => raw };
                 },
@@ -44,7 +48,7 @@ module.exports = ({ events, mainWindow, dataDir }) => {
         async loadFile(file, options = {}) {
             await this.ready;
             this.url = require('node:url').pathToFileURL(file).href;
-            let html = fs.readFileSync(file, 'utf8');
+            let html = await fs.promises.readFile(file, 'utf8');
             if (this.options.privileged === true) {
                 // Defer original inline desktop scripts until the Android preload facade is installed.
                 html = html.replace(/<script(?![^>]*\btype=["']module["'])([^>]*)>/gi, '<script type="application/folia-deferred"$1>');

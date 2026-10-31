@@ -1,3 +1,5 @@
+import { runsOnAndroid } from '../../utils/platform';
+import { liquidGlassTokens } from '../../utils/liquidGlass';
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import type { LucideIcon } from 'lucide-react';
@@ -43,6 +45,7 @@ export const SlideActionButton: React.FC<SlideActionButtonProps> = ({
     accentForeground = '#ffffff',
     disabled = false,
 }) => {
+    const android = runsOnAndroid();
     const [showGuideLine, setShowGuideLine] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const gestureRef = useRef<{ startX: number; startY: number; triggered: boolean } | null>(null);
@@ -51,7 +54,7 @@ export const SlideActionButton: React.FC<SlideActionButtonProps> = ({
     const trackEndIconRef = useRef<HTMLDivElement>(null);
     const trackFillRef = useRef<HTMLDivElement>(null);
     const supportsHover = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    const motionClass = showGuideLine || isDragging
+    const motionClass = android || showGuideLine || isDragging
         ? 'translate-x-0 opacity-100'
         : supportsHover
             ? 'translate-x-1/2 opacity-60 group-hover:translate-x-0 group-hover:opacity-100 md:translate-x-0 md:opacity-100 md:hover:scale-105'
@@ -211,8 +214,8 @@ export const SlideActionButton: React.FC<SlideActionButtonProps> = ({
                     }
                     onActivate();
                 }}
-                style={{ touchAction: 'none' }}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg backdrop-blur-md transform border-none absolute right-0 top-0 z-10 disabled:opacity-40 disabled:cursor-default ${isDaylight ? 'bg-white/70 text-zinc-900' : 'bg-black/40 text-white'}`}
+                style={{ ...(android ? liquidGlassTokens(isDaylight) : {}), touchAction: 'none' }}
+                className={`${android ? 'folia-glass-surface' : ''} w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg backdrop-blur-md transform border-none absolute right-0 top-0 z-10 disabled:opacity-40 disabled:cursor-default ${isDaylight ? 'bg-white/70 text-zinc-900' : 'bg-black/40 text-white'}`}
                 title={title}
                 aria-label={title}
             >
