@@ -31,6 +31,7 @@ import org.json.JSONObject;
 // Shared process host lets Android wallpaper and media components restore the backend without an activity.
 final class FoliaRuntimeHost {
     private final Context context;
+    private String startupStage = "initialization";
     private FoliaRuntimeHost(Context context) { this.context = context.getApplicationContext(); }
     private Context getContext() { return context; }
     private static boolean launched;
@@ -93,18 +94,13 @@ final class FoliaRuntimeHost {
     }
 
     private static void removeRuntimeTree(File directory) throws IOException {
-        if (!directory.exists()) return;
-        try (java.util.stream.Stream<java.nio.file.Path> paths = java.nio.file.Files.walk(directory.toPath())) {
-            java.util.Iterator<java.nio.file.Path> iterator = paths.sorted(java.util.Comparator.reverseOrder()).iterator();
-            while (iterator.hasNext()) java.nio.file.Files.delete(iterator.next());
-        }
+        FoliaRuntimeFiles.removeTree(directory);
     }
     private void discardOldRuntimes(File current) {
         File[] entries = getContext().getFilesDir().listFiles();
         if (entries == null) return;
         for (File entry : entries) {
-            if (entry.equals(current) || !entry.getName().matches("runtime-[0-9]+\\.[0-9]+\\.[0-9]+(?:-[A-Za-z0-9.-]+)?-[0-9]{13}")) continue;
-            if (!new File(entry, ".ready").isFile() || !new File(entry, "main.cjs").isFile()) continue;
+            if (entry.equals(current) || !FoliaRuntimeFiles.isInstallation(entry)) continue;
             try { removeRuntimeTree(entry); }
             catch (IOException error) { android.util.Log.w("FoliaRuntime", "Cannot remove obsolete runtime files", error); }
         }
@@ -200,7 +196,18 @@ final class FoliaRuntimeHost {
         }
         return bundle;
     }
-    static void ensureStarted(Context context) throws Exception { applicationContext = context.getApplicationContext(); requestedShutdown = false; new FoliaRuntimeHost(context).start(); }
+    static void ensureStarted(Context context) throws Exception {
+        applicationContext = context.getApplicationContext();
+        requestedShutdown = false;
+        FoliaRuntimeHost host = new FoliaRuntimeHost(context);
+        try { host.start(); }
+        catch (Exception error) {
+            String description = "Stage " + host.startupStage + " (" + BuildConfig.VERSION_NAME + ", free "
+                + context.getFilesDir().getUsableSpace() / (1024 * 1024) + " MiB): " + FoliaRuntimeFiles.describe(error);
+            android.util.Log.e("FoliaRuntime", "Backend startup failed: " + description, error);
+            throw new IOException(description, error);
+        }
+    }
     private void start() throws Exception {
                 File data = new File(getContext().getFilesDir(), "runtime-data");
                 final Process startupProcess;
@@ -211,19 +218,33 @@ final class FoliaRuntimeHost {
                         File marker = new File(runtime, ".ready");
                         String abi = android.os.Build.SUPPORTED_ABIS[0];
                         File prefix = new File(runtime, "usr");
-                        if (!marker.exists()) {
-                            removeRuntimeTree(runtime);
-                            extractRuntime("node-runtime.zip", runtime);
-                            extractRuntime("native-runtime-" + abi + ".zip", prefix);
-                            prepareSharedFrontend(runtime);
-                            marker.createNewFile();
-                        }
+                        // No process is running here. Release previous installations before allocating the next one.
+                        startupStage = "old installation cleanup";
                         discardOldRuntimes(runtime);
+                        if (!marker.isFile()) {
+                            try {
+                                startupStage = "incomplete installation cleanup";
+                                removeRuntimeTree(runtime);
+                                startupStage = "Node archive extraction";
+                                extractRuntime("node-runtime.zip", runtime);
+                                startupStage = "native archive extraction (" + abi + ")";
+                                extractRuntime("native-runtime-" + abi + ".zip", prefix);
+                                startupStage = "shared frontend installation";
+                                prepareSharedFrontend(runtime);
+                                startupStage = "installation commit";
+                                if (!marker.createNewFile()) throw new IOException("Cannot commit runtime ready marker");
+                            } catch (Exception failure) {
+                                try { removeRuntimeTree(runtime); }
+                                catch (IOException cleanupFailure) { failure.addSuppressed(cleanupFailure); }
+                                throw failure;
+                            }
+                        }
                         data.mkdirs();
                         new File(data, "ready.json").delete();
                         byte[] nonce = new byte[32];
                         new SecureRandom().nextBytes(nonce);
                         bearer = Base64.encodeToString(nonce, Base64.NO_WRAP);
+                        startupStage = "Android Keystore access";
                         String secret = Base64.encodeToString(getRuntimeKey(), Base64.NO_WRAP);
                         String nativeDirectory = getContext().getApplicationInfo().nativeLibraryDir;
                         ProcessBuilder builder = new ProcessBuilder(new File(nativeDirectory, "libnode-runner.so").getPath(),
@@ -237,6 +258,7 @@ final class FoliaRuntimeHost {
                         environment.put("FOLIA_NATIVE_LIB_DIR", nativeDirectory);
                         environment.put("FOLIA_APP_VERSION", BuildConfig.VERSION_NAME);
                         environment.put("FOLIA_LOCALE", getContext().getResources().getConfiguration().getLocales().get(0).toLanguageTag());
+                        startupStage = "native addon setup";
                         File addon = new File(runtime, "spotify-addon.node");
                         if (!addon.exists()) android.system.Os.symlink(new File(nativeDirectory, "liblibrespot-addon.so").getPath(), addon.getPath());
                         environment.put("LOX_LIBRESPOT_ADDON_PATH", addon.getPath());
@@ -248,9 +270,11 @@ final class FoliaRuntimeHost {
                         environment.put("OMP_NUM_THREADS", "2");
                         environment.put("OPENBLAS_NUM_THREADS", "2");
                         environment.put("TMPDIR", new File(data, "tmp").getPath());
+                        startupStage = "system CA bundle preparation";
                         environment.put("SSL_CERT_FILE",caBundle(data,prefix).getPath());
                         environment.merge("NODE_OPTIONS","--use-openssl-ca",(current,extra)->current+" "+extra);
                         environment.put("OPENSSL_MODULES", new File(prefix, "lib/ossl-modules").getPath());
+                        startupStage = "Node process launch";
                         final Process launchedProcess = builder.start();
                         nodeProcess = launchedProcess;
                         launched = true;
@@ -260,11 +284,12 @@ final class FoliaRuntimeHost {
                                 while ((line = logs.readLine()) != null) android.util.Log.i("FoliaNode", line);
                                 int exit = launchedProcess.waitFor();
                                 synchronized (FoliaRuntimeHost.class) { if (nodeProcess == launchedProcess) startupError = "Node runtime stopped (" + exit + ")"; }
-                            } catch (Exception error) { synchronized (FoliaRuntimeHost.class) { if (nodeProcess == launchedProcess) startupError = error.getMessage(); } }
+                            } catch (Exception error) { synchronized (FoliaRuntimeHost.class) { if (nodeProcess == launchedProcess) startupError = FoliaRuntimeFiles.describe(error); } }
                         }, "FoliaNodeLogs").start();
                     }
                     startupProcess = nodeProcess;
                 }
+                startupStage = "backend ready handshake";
                 File ready = new File(data, "ready.json");
                 long deadline = System.currentTimeMillis() + 60000;
                 // File existence alone does not mean its JSON has been fully published.

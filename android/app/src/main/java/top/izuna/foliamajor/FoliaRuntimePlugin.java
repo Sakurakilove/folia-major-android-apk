@@ -213,7 +213,7 @@ public class FoliaRuntimePlugin extends Plugin {
             try {
                 FoliaRuntimeHost.ensureStarted(getContext());
                 call.resolve(new JSObject().put("ready", true).put("windowId", FoliaWindowHost.windowId(getBridge().getWebView())));
-            } catch (Exception error) { call.reject("Android backend startup failed: " + error.getMessage()); }
+            } catch (Exception error) { call.reject("Android backend startup failed: " + FoliaRuntimeFiles.describe(error)); }
         });
     }
     @PluginMethod public void invoke(PluginCall call) {

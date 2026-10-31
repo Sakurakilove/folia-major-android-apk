@@ -1,0 +1,12 @@
+{
+  "version": "0.7.20-mobile.13",
+  "versionCode": 702013,
+  "bytes": 333721044,
+  "sha256": "d2a3444f9bcc8ce89ed50544f1979aa629647fca147f7fcd826974a1878fb0bb",
+  "signerSha256": "b2acb003d186fe12ca8b7a17e5c7ea27041aca000830fe3086cb6627d08496ef",
+  "frontendAndBackendAssetsByteIdenticalToMobile12": true,
+  "androidDexProfilesExcludedFromResourceComparison": true,
+  "nativeInstallationAndDiagnosticsOnly": true,
+  "phoneStartupVerified": false,
+  "nullErrorRootCauseConfirmed": false
+}

@@ -381,3 +381,14 @@
 - 证据：collectShapeSlots 先返回 viewport 交集，再返回其余 overscan；调用方直接用这个数组渲染。随着可见分类变化，同一保留节点的 key 虽不变，React 仍需移动 DOM，稳定 key 不能防止重排。
 - 方案：仅在选择有限集合时应用可见优先；最终按 row/column/slotIndex 固定世界地址呈现。保留全部图块视觉/交互/动画，不扩大预算或取消效果。
 - 验证：不同视口采样间共同 key 相对顺序必须相同，且原可见区优先预算不变；是否消除手机封面闪仍待实机。
+
+## STARTUP-01 — 启动失败异常的 message 为空时丢失诊断
+
+- 用户 2026-10-31 截图为 Android backend startup failed: null。Plugin.start 原来只拼 getMessage；类型、原因链、阶段均丢失。截图尚不能确诊根因。
+- 实施：安装清理、两次归档解压、前端安装、Keystore、CA、进程启动和 ready 握手分别标记；无 message 时保留异常类名，保留原因链且避免循环，原生 Log.e 记录异常；不重置用户密钥或账户。
+
+## STARTUP-02 — 更新解压前不释放旧运行时，且遗漏失败目录
+
+- 原实现解压后才清理旧 .ready 目录，失败目录永远不清理；每版 Node/native 解压约 510 MiB，前端另计。全路径排序删除还增加峰值内存。
+- 实施：未启动进程、类锁保护下先清理符合精确安装目录命名的旧版本；包括未写 ready 的半成品，不匹配 runtime-data/runtime-key；walkFileTree 默认不跟随链接，流式删除。失败解压清理自身，ready 创建失败不继续。
+- 必要检查：纯 JVM 使用真实文件/只读库/外部与断裂符号链接/重复清理，确认用户数据不变；无 message 的 crypto/null cause 和循环原因链正确描述。Android 编译与发布检查另见 WORKLOG。并非用户手机启动已通过的证据。
