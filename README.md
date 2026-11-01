@@ -1,4 +1,4 @@
-> **Flutter/Kotlin 重写分支（迁移中）**：新工程见 [apps/folia_mobile](apps/folia_mobile)，完整功能/动画迁移台账见 [FLUTTER_REWRITE.md](docs/android/FLUTTER_REWRITE.md)。当前预览不替换正式客户端，也不代表全部功能或功耗已验收。
+> **全量等价重写分支（未完成，不可交付）**：前端代码也在重写范围，全部功能、界面与动画必须保持原样；全量完成后逐项核对一致才可交付，硬性约束见 [AGENTS.md](AGENTS.md)。[apps/folia_mobile](apps/folia_mobile) 中简化 alpha.1 已被否决并撤回迁移候选身份。原完整客户端保留为对照，迁移台账见 [FLUTTER_REWRITE.md](docs/android/FLUTTER_REWRITE.md)。
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/b5d0e863-48be-497b-b0e9-4bd8d8ce9bf0" alt="Folia" width="100%" />

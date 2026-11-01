@@ -1,0 +1,481 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "features": {
+    "app:ai-themes-segmentation": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "app:all-audio-effects": {
+      "state": "in_progress",
+      "nativeSources": [
+        "apps/folia_mobile/android/app/src/main/cpp/CMakeLists.txt",
+        "apps/folia_mobile/android/app/src/main/cpp/analysis_engine.cpp",
+        "apps/folia_mobile/android/app/src/main/cpp/analysis_engine.h",
+        "apps/folia_mobile/android/app/src/main/cpp/analysis_frame.h",
+        "apps/folia_mobile/android/app/src/main/cpp/analysis_jni.cpp",
+        "apps/folia_mobile/android/app/src/main/cpp/analysis_snapshot.h",
+        "apps/folia_mobile/android/app/src/main/cpp/fft_kernel.cpp",
+        "apps/folia_mobile/android/app/src/main/cpp/fft_kernel.h",
+        "apps/folia_mobile/android/app/src/main/cpp/pcm_format.cpp",
+        "apps/folia_mobile/android/app/src/main/cpp/pcm_format.h",
+        "apps/folia_mobile/android/app/src/main/cpp/pcm_timeline.cpp",
+        "apps/folia_mobile/android/app/src/main/cpp/pcm_timeline.h",
+        "apps/folia_mobile/android/app/src/main/cpp/playback_anchor.h",
+        "apps/folia_mobile/android/app/src/main/kotlin/top/izuna/foliamajor/next/analysis/AnalysisAudioSink.kt",
+        "apps/folia_mobile/android/app/src/main/kotlin/top/izuna/foliamajor/next/analysis/AnalysisRenderersFactory.kt",
+        "apps/folia_mobile/android/app/src/main/kotlin/top/izuna/foliamajor/next/analysis/NativeSpectrum.kt",
+        "apps/folia_mobile/lib/audio/analysis/spectrum_feed.dart",
+        "apps/folia_mobile/lib/audio/analysis/spectrum_reader.dart",
+        "apps/folia_mobile/lib/audio/analysis/spectrum_snapshot.dart"
+      ],
+      "evidence": null
+    },
+    "app:all-lyric-formats-and-editing": {
+      "state": "in_progress",
+      "nativeSources": [
+        "apps/folia_mobile/lib/lyrics/active_line_lookup.dart",
+        "apps/folia_mobile/lib/lyrics/grapheme_timing.dart",
+        "apps/folia_mobile/lib/lyrics/lyric_document.dart",
+        "apps/folia_mobile/lib/lyrics/lyric_types.dart",
+        "apps/folia_mobile/lib/lyrics/render_hints.dart",
+        "apps/folia_mobile/lib/lyrics/subtitle_tracks.dart",
+        "apps/folia_mobile/lib/lyrics/visualizer_runtime.dart"
+      ],
+      "evidence": null
+    },
+    "app:automix": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "app:branding-fonts-accessibility": {
+      "state": "in_progress",
+      "nativeSources": [
+        "apps/folia_mobile/lib/i18n/folia_strings.dart",
+        "apps/folia_mobile/lib/rendering/folia_icons.dart",
+        "apps/folia_mobile/lib/theme/folia_theme.dart",
+        "apps/folia_mobile/lib/theme/font_stacks.dart",
+        "apps/folia_mobile/lib/rendering/folia_typography.dart"
+      ],
+      "evidence": null
+    },
+    "app:equal-workload-power": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "app:liquid-glass-all-surfaces": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "app:mods-and-custom-content": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "app:navidrome": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "app:obs-remote-stage-export-wallpaper": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "app:queue-playback-media": {
+      "state": "in_progress",
+      "nativeSources": [
+        "apps/folia_mobile/android/app/src/main/kotlin/top/izuna/foliamajor/next/PlaybackService.kt",
+        "apps/folia_mobile/lib/playback/audio_track.dart",
+        "apps/folia_mobile/lib/playback/playback_controller.dart"
+      ],
+      "evidence": null
+    },
+    "app:shell-navigation-transitions": {
+      "state": "in_progress",
+      "nativeSources": [
+        "apps/folia_mobile/lib/visualizer/scene_frame_clock.dart",
+        "apps/folia_mobile/lib/visualizer/transitions/scene_first_frame.dart",
+        "apps/folia_mobile/lib/visualizer/transitions/scene_layers.dart",
+        "apps/folia_mobile/lib/visualizer/transitions/scene_transition.dart",
+        "apps/folia_mobile/lib/visualizer/transitions/scene_transition_controller.dart",
+        "apps/folia_mobile/lib/visualizer/transitions/scene_transition_host.dart",
+        "apps/folia_mobile/lib/visualizer/transitions/scene_transition_layer.dart"
+      ],
+      "evidence": null
+    },
+    "app:storage-data-credentials": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "app:sync-backup-import-export": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "app:system-integrations": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "background:common": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "background:latent": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "background:monet": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "background:nomand": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "background:sora": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "background:url": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:artistCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:directoryCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:executeModeCommand": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:filterViewCommand": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:fmModeCommand": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:gridCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:libraryWallLookCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:lyricExportCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:lyricSegmentationCommand": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:modsCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:navigationCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:panelCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:playbackCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:queueCommand": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:searchCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:settingsCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:sleepTimerCommand": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:suiteChromeCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:visualizerCommands": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "commands:volumeCommand": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "library:bravais": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "library:grid": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "library:tui": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "provider:bodian": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "provider:kugou": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "provider:netease": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "provider:qq": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "provider:spotify": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "provider:ytm": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Appearance": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Desktop": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Developer": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:General": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Graphics": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Help": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Home": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Integration": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Interaction": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Lyrics": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Mods": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Playback": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Player": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "settings:Storage": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:cadenza": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:cappella": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:claddagh": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:classic": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:diorama": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:fume": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:lumiere": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:monet": {
+      "state": "in_progress",
+      "nativeSources": [
+        "apps/folia_mobile/lib/monet/audio/monet_audio_geometry.dart",
+        "apps/folia_mobile/lib/monet/audio/monet_audio_overlay.dart",
+        "apps/folia_mobile/lib/monet/audio/monet_audio_profile.dart",
+        "apps/folia_mobile/lib/monet/glyph_cache.dart",
+        "apps/folia_mobile/lib/monet/monet_floating_decor.dart",
+        "apps/folia_mobile/lib/monet/monet_lyrics_model.dart",
+        "apps/folia_mobile/lib/monet/monet_portrait_image.dart",
+        "apps/folia_mobile/lib/monet/monet_portrait_layers.dart",
+        "apps/folia_mobile/lib/monet/page/monet_description_capsule.dart",
+        "apps/folia_mobile/lib/monet/page/monet_entrance.dart",
+        "apps/folia_mobile/lib/monet/page/monet_portrait.dart",
+        "apps/folia_mobile/lib/monet/page/monet_portrait_drag_region.dart",
+        "apps/folia_mobile/lib/monet/page/monet_portrait_drift.dart",
+        "apps/folia_mobile/lib/monet/page/monet_portrait_frame.dart",
+        "apps/folia_mobile/lib/monet/page/monet_portrait_hanger.dart",
+        "apps/folia_mobile/lib/monet/page/monet_poster_columns.dart",
+        "apps/folia_mobile/lib/monet/page/monet_poster_composition.dart",
+        "apps/folia_mobile/lib/monet/page/monet_poster_layout.dart",
+        "apps/folia_mobile/lib/monet/page/monet_poster_metadata.dart",
+        "apps/folia_mobile/lib/monet/page/monet_poster_scene.dart",
+        "apps/folia_mobile/lib/monet/page/monet_tuning.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_paint_row.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_rail.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_rail_configuration.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_rail_inputs.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_rail_layout.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_rail_masks.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_rail_motion.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_rail_painter.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_rail_preparation.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_rail_selection.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_rail_words.dart",
+        "apps/folia_mobile/lib/monet/rail/monet_text_measurement.dart",
+        "apps/folia_mobile/shaders/monet_token.frag"
+      ],
+      "evidence": null
+    },
+    "visualizer:partita": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:pendolo": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:sonnet": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:still": {
+      "state": "in_progress",
+      "nativeSources": [
+        "apps/folia_mobile/lib/still/still_fog.dart",
+        "apps/folia_mobile/lib/still/still_lyric_row.dart",
+        "apps/folia_mobile/lib/still/still_scene.dart",
+        "apps/folia_mobile/lib/still/still_text_shadow.dart"
+      ],
+      "evidence": null
+    },
+    "visualizer:tempera": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    },
+    "visualizer:tilt": {
+      "state": "pending",
+      "nativeSources": [],
+      "evidence": null
+    }
+  }
+}

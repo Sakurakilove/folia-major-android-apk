@@ -8,6 +8,8 @@ import android.media.session.PlaybackState
 import android.os.*
 import androidx.media3.common.*
 import androidx.media3.exoplayer.ExoPlayer
+import top.izuna.foliamajor.next.analysis.AnalysisRenderersFactory
+import top.izuna.foliamajor.next.analysis.NativeSpectrum
 
 // The native service owns the only output/focus and continues independently of the Flutter scene.
 class PlaybackService : Service() {
@@ -20,9 +22,12 @@ class PlaybackService : Service() {
     private var uri: String? = null
     private var title = "Folia"
     private var artist = ""
+    private var album = ""
     private var error: String? = null
     private var closed = false
     private var started = false
+    private var spectrumRequested = false
+    private fun updateAnalysis() { NativeSpectrum.requestEnabled(spectrumRequested && listener != null && player.isPlaying && !closed) }
     private val tick = object : Runnable {
         override fun run() { publish("clock"); if (player.isPlaying && listener != null) handler.postDelayed(this, 1500) }
     }
@@ -30,7 +35,7 @@ class PlaybackService : Service() {
         super.onCreate()
         getSystemService(NotificationManager::class.java).createNotificationChannel(
             NotificationChannel("playback", "Folia", NotificationManager.IMPORTANCE_LOW).apply { setSound(null, null) })
-        player = ExoPlayer.Builder(this).build().apply {
+        player = ExoPlayer.Builder(this, AnalysisRenderersFactory(this)).build().apply {
             setAudioAttributes(AudioAttributes.Builder().setUsage(C.USAGE_MEDIA).setContentType(C.AUDIO_CONTENT_TYPE_MUSIC).build(), true)
             setHandleAudioBecomingNoisy(true)
             setWakeMode(C.WAKE_MODE_LOCAL)
@@ -40,8 +45,10 @@ class PlaybackService : Service() {
                     p.currentMediaItem?.let { item ->
                         uri = item.mediaId; title = item.mediaMetadata.title?.toString() ?: "Folia"
                         artist = item.mediaMetadata.artist?.toString() ?: ""
+                        album = item.mediaMetadata.albumTitle?.toString() ?: ""
                     }
                     publish("state")
+                    updateAnalysis()
                     updateSession()
                     handler.removeCallbacks(tick)
                     if (p.isPlaying && listener != null) handler.postDelayed(tick, 1500)
@@ -63,16 +70,18 @@ class PlaybackService : Service() {
     }
     fun listen(next: ((Map<String, Any?>) -> Unit)?) {
         listener = next; handler.removeCallbacks(tick)
+        updateAnalysis()
         if (next != null) { publish("state"); if (player.isPlaying) handler.postDelayed(tick,1500) }
     }
     fun command(method: String, args: Map<*, *>?) {
         when (method) {
+            "setSpectrumEnabled" -> { spectrumRequested = args?.get("enabled") == true; updateAnalysis() }
             "setQueue" -> {
                 val items = (args?.get("items") as? List<*>)?.map { value ->
                     val entry = value as Map<*, *>
                     val source = entry["uri"] as String
                     MediaItem.Builder().setMediaId(source).setUri(source).setMediaMetadata(
-                        androidx.media3.common.MediaMetadata.Builder().setTitle(entry["title"] as? String).setArtist(entry["artist"] as? String).build()).build()
+                        androidx.media3.common.MediaMetadata.Builder().setTitle(entry["title"] as? String).setArtist(entry["artist"] as? String).setAlbumTitle(entry["album"] as? String).build()).build()
                 } ?: emptyList()
                 val prefix = player.mediaItemCount <= items.size && (0 until player.mediaItemCount).all { player.getMediaItemAt(it).mediaId == items[it].mediaId }
                 if (prefix) player.addMediaItems(items.drop(player.mediaItemCount))
@@ -82,11 +91,13 @@ class PlaybackService : Service() {
                 uri = args?.get("uri") as? String ?: throw IllegalArgumentException("Missing URI")
                 title = args?.get("title") as? String ?: "Folia"
                 artist = args?.get("artist") as? String ?: ""
+                album = args?.get("album") as? String ?: ""
                 error = null
                 started = true; startForeground(32, notification())
                 val index = (0 until player.mediaItemCount).firstOrNull { player.getMediaItemAt(it).mediaId == uri }
                 if (index != null) player.seekToDefaultPosition(index)
-                else player.setMediaItem(MediaItem.Builder().setMediaId(uri!!).setUri(uri!!).build())
+                else player.setMediaItem(MediaItem.Builder().setMediaId(uri!!).setUri(uri!!).setMediaMetadata(
+                    androidx.media3.common.MediaMetadata.Builder().setTitle(title).setArtist(artist).setAlbumTitle(album).build()).build())
                 player.prepare(); player.play()
             }
             "pause" -> player.pause()
@@ -96,7 +107,7 @@ class PlaybackService : Service() {
         }
     }
     private fun snapshot(reason: String) = mapOf<String, Any?>(
-        "sampledAtMs" to SystemClock.elapsedRealtimeNanos() / 1_000_000.0, "reason" to reason, "uri" to uri, "playing" to player.isPlaying,
+        "sampledAtMs" to System.nanoTime() / 1_000_000.0, "reason" to reason, "uri" to uri, "playing" to player.isPlaying,
         "positionMs" to player.currentPosition, "durationMs" to player.duration.coerceAtLeast(0),
         "speed" to player.playbackParameters.speed.toDouble(), "error" to error)
     private fun publish(reason: String) { listener?.invoke(snapshot(reason)) }
@@ -115,7 +126,7 @@ class PlaybackService : Service() {
     private fun updateSession() {
         if (uri == null) return
         session.setMetadata(MediaMetadata.Builder().putString(MediaMetadata.METADATA_KEY_TITLE, title)
-            .putString(MediaMetadata.METADATA_KEY_ARTIST, artist).putLong(MediaMetadata.METADATA_KEY_DURATION, player.duration.coerceAtLeast(0)).build())
+            .putString(MediaMetadata.METADATA_KEY_ARTIST, artist).putString(MediaMetadata.METADATA_KEY_ALBUM, album).putLong(MediaMetadata.METADATA_KEY_DURATION, player.duration.coerceAtLeast(0)).build())
         session.setPlaybackState(PlaybackState.Builder().setActions(PlaybackState.ACTION_PLAY or PlaybackState.ACTION_PAUSE or PlaybackState.ACTION_SEEK_TO or PlaybackState.ACTION_STOP or PlaybackState.ACTION_SKIP_TO_NEXT or PlaybackState.ACTION_SKIP_TO_PREVIOUS)
             .setState(if (player.isPlaying) PlaybackState.STATE_PLAYING else PlaybackState.STATE_PAUSED, player.currentPosition, if (player.isPlaying) player.playbackParameters.speed else 0f).build())
         if (started) getSystemService(NotificationManager::class.java).notify(32, notification())
@@ -128,6 +139,7 @@ class PlaybackService : Service() {
     override fun onBind(intent: Intent?) = binder
     override fun onDestroy() {
         closed = true; handler.removeCallbacksAndMessages(null); listener = null
+        NativeSpectrum.requestEnabled(false)
         stopForeground(STOP_FOREGROUND_REMOVE); getSystemService(NotificationManager::class.java).cancel(32)
         session.release(); player.release(); super.onDestroy()
     }

@@ -1,0 +1,3739 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "scope": "Baseline layer states and transition constants only; not rasterization, full host integration or visual acceptance.",
+  "transition": {
+    "leave": {
+      "to": {
+        "opacity": 0,
+        "filter": "blur(8px)",
+        "transform": "scale(1.02)"
+      },
+      "duration": 360,
+      "easing": "cubic-bezier(0.4, 0, 1, 1)"
+    },
+    "enter": {
+      "from": {
+        "opacity": 0,
+        "filter": "blur(8px)",
+        "transform": "scale(1.02)"
+      },
+      "delay": 80,
+      "duration": 520,
+      "easing": "cubic-bezier(0.16, 1, 0.3, 1)"
+    }
+  },
+  "cases": [
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "classic",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "classic",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "classic",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "classic",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "monet",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "monet",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "monet",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "monet",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "fume",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 1,
+          "value": "fume",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "fume",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 1,
+          "value": "fume",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "fume",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "fume",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "fume",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "fume",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 1,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "still",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 1,
+          "value": "still",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "still",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 1,
+          "value": "still",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "still",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "still",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "value": "still",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "still",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 1,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "classic",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 2,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "classic",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 2,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "classic",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "classic",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "monet",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "monet",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "monet",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "monet",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "fume",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 2,
+          "value": "fume",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "fume",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 2,
+          "value": "fume",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "fume",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 2,
+          "value": "fume",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "fume",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 2,
+          "value": "fume",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "still",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 2,
+          "value": "still",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "still",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 2,
+          "value": "still",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "still",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 2,
+          "value": "still",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "value": "still",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": true
+        },
+        {
+          "key": 2,
+          "value": "still",
+          "leaving": false,
+          "comesIn": true,
+          "waits": true
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": true
+            },
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": true,
+              "waits": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "classic",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 2,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "classic",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 2,
+          "value": "classic",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "classic",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "classic",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "classic",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "monet",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "monet",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "monet",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "monet",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "fume",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 2,
+          "value": "fume",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "fume",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 2,
+          "value": "fume",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "fume",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "fume",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "fume",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "still",
+      "animate": false,
+      "waits": false,
+      "expected": [
+        {
+          "key": 2,
+          "value": "still",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "still",
+      "animate": false,
+      "waits": true,
+      "expected": [
+        {
+          "key": 2,
+          "value": "still",
+          "leaving": false,
+          "comesIn": false,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 2,
+              "value": "still",
+              "leaving": false,
+              "comesIn": false,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "still",
+      "animate": true,
+      "waits": false,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "layers": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "value": "still",
+      "animate": true,
+      "waits": true,
+      "expected": [
+        {
+          "key": 0,
+          "value": "classic",
+          "leaving": true,
+          "comesIn": false,
+          "waits": false
+        },
+        {
+          "key": 1,
+          "value": "monet",
+          "leaving": false,
+          "comesIn": true,
+          "waits": false
+        }
+      ],
+      "starts": [
+        {
+          "key": 0,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 1,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        },
+        {
+          "key": 999,
+          "expected": [
+            {
+              "key": 0,
+              "value": "classic",
+              "leaving": true,
+              "comesIn": false,
+              "waits": false
+            },
+            {
+              "key": 1,
+              "value": "monet",
+              "leaving": false,
+              "comesIn": true,
+              "waits": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

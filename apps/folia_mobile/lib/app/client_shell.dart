@@ -40,6 +40,7 @@ class _ClientShellState extends State<ClientShell>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    frames.addSampler(playback.analysis.onFrame);
     playback.addListener(changed);
     playback.connect();
   }
@@ -87,6 +88,8 @@ class _ClientShellState extends State<ClientShell>
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     foreground = state == AppLifecycleState.resumed;
+    playback.analysis.setForeground(foreground);
+    if (foreground) playback.refreshClock();
     syncTicker();
   }
 
@@ -106,6 +109,7 @@ class _ClientShellState extends State<ClientShell>
     WidgetsBinding.instance.removeObserver(this);
     viewTransition.dispose();
     ticker.dispose();
+    frames.removeSampler(playback.analysis.onFrame);
     playback.removeListener(changed);
     playback.dispose();
     frames.dispose();

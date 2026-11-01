@@ -38,7 +38,7 @@ class MainActivity : FlutterActivity() {
         })
         MethodChannel(engine.dartExecutor.binaryMessenger, "top.izuna.folia/native").setMethodCallHandler { call, result ->
             when (call.method) {
-                "getClock" -> result.success(android.os.SystemClock.elapsedRealtimeNanos() / 1_000_000.0)
+                "getClock" -> result.success(System.nanoTime() / 1_000_000.0)
                 "loadLibrary", "saveLibrary" -> io.execute {
                     try {
                         val value = if (call.method == "loadLibrary") LibraryStore.read(this) else { LibraryStore.write(this, call.arguments as List<*>); null }
@@ -55,7 +55,7 @@ class MainActivity : FlutterActivity() {
                         addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
                     }, if (audio) 101 else 102) } catch (failure: Exception) { picker = null; result.error("picker", failure.message, null) }
                 }
-                "play", "pause", "resume", "seek", "setQueue" -> {
+                "play", "pause", "resume", "seek", "setQueue", "setSpectrumEnabled" -> {
                     val action = {
                         try {
                             if (call.method == "play" || call.method == "resume") startService(Intent(this, PlaybackService::class.java))

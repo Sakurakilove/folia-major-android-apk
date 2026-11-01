@@ -3,22 +3,23 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 import '../platform/android_host.dart';
+import 'audio_track.dart';
+
+export 'audio_track.dart';
 import '../lyrics/lyric_document.dart';
+import '../audio/analysis/spectrum_feed.dart';
 
 // Discrete application state and monotonic interpolation are separate: frames never rebuild the app.
-class AudioTrack {
-  AudioTrack(this.uri, this.title, this.artist, this.coverPath);
-  final String uri, title, artist;
-  final String? coverPath;
-  factory AudioTrack.fromMap(Map<String, dynamic> data) => AudioTrack(
-    data['uri'] as String,
-    data['title'] as String? ?? '',
-    data['artist'] as String? ?? '',
-    data['coverPath'] as String?,
-  );
-}
-
 class PlaybackController extends ChangeNotifier {
+  PlaybackController() {
+    analysis = SpectrumFeed(
+      onError: (failure) {
+        error = failure.toString();
+        _notify();
+      },
+    );
+  }
+  late final SpectrumFeed analysis;
   final clock = Stopwatch()..start();
   StreamSubscription<dynamic>? _subscription;
   List<AudioTrack> tracks = [];
@@ -26,6 +27,7 @@ class PlaybackController extends ChangeNotifier {
   int currentIndex = -1;
   double _position = 0, _anchor = 0, duration = 0, rate = 1;
   double? _nativeOffsetMs, _lastNativeSampleMs;
+  Future<void>? _clockCorrelation;
   bool playing = false;
   bool _closed = false;
   void _notify() {
@@ -49,11 +51,13 @@ class PlaybackController extends ChangeNotifier {
     try {
       var best = double.infinity;
       for (var i = 0; i < 3; i++) {
+        if (_closed) return;
         final before = clock.elapsedMicroseconds / 1000;
         final native = (await AndroidHost.methods.invokeMethod<num>(
           'getClock',
         ))!.toDouble();
         final after = clock.elapsedMicroseconds / 1000;
+        if (_closed) return;
         if (after - before < best) {
           best = after - before;
           _nativeOffsetMs = native - (before + after) / 2;
@@ -66,6 +70,11 @@ class PlaybackController extends ChangeNotifier {
       /* Receipt-time interpolation remains available if native clock correlation fails. */
     }
   }
+
+  Future<void> refreshClock() =>
+      _clockCorrelation ??= _correlateClock().whenComplete(() {
+        _clockCorrelation = null;
+      });
 
   Future<void> _restore() async {
     try {
@@ -91,20 +100,12 @@ class PlaybackController extends ChangeNotifier {
     }
   }
 
-  List<Map<String, dynamic>> _catalog() => tracks
-      .map(
-        (t) => {
-          'uri': t.uri,
-          'title': t.title,
-          'artist': t.artist,
-          'coverPath': t.coverPath,
-        },
-      )
-      .toList();
+  List<Map<String, dynamic>> _catalog() =>
+      tracks.map((track) => track.toMap()).toList();
   Future<void> _syncQueue() =>
       AndroidHost.command('setQueue', {'items': _catalog()});
   void connect() {
-    unawaited(_correlateClock());
+    unawaited(refreshClock());
     unawaited(_restore());
     _subscription = AndroidHost.events.receiveBroadcastStream().listen(
       (dynamic value) {
@@ -119,6 +120,7 @@ class PlaybackController extends ChangeNotifier {
             : clock.elapsedMicroseconds / 1e6;
         duration = (data['durationMs'] as num).toDouble() / 1000;
         playing = data['playing'] == true;
+        analysis.setPlaying(playing);
         rate = (data['speed'] as num?)?.toDouble() ?? 1;
         error = data['error'] as String?;
         final index = tracks.indexWhere((item) => item.uri == data['uri']);
@@ -156,6 +158,7 @@ class PlaybackController extends ChangeNotifier {
       'uri': tracks[index].uri,
       'title': tracks[index].title,
       'artist': tracks[index].artist,
+      'album': tracks[index].album,
     });
   }
 
@@ -178,6 +181,7 @@ class PlaybackController extends ChangeNotifier {
   @override
   void dispose() {
     _closed = true;
+    analysis.close();
     _subscription?.cancel();
     super.dispose();
   }

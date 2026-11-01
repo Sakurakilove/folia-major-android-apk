@@ -1,5 +1,7 @@
 # Flutter / Kotlin 全量重写
 
+**交付硬性门槛以根目录 AGENTS.md 为准：包括前端在内的全部代码必须完成重写，功能、界面、交互及动画保持原样；全量迁移完成后检查全部差异并修复，确认一致才可交付。不得以继续保留旧前端宣称全量完成，也不得发布另做的精简界面代替等价迁移。**
+
 分支：`feat/flutter-native-rewrite`。对照版本 mobile.17，基线提交 `45d7d8a27afc7efb7a33308824def68329a86651`。
 
 选择 Flutter/Dart 管理界面、排版、手势与同一场景的动画；Kotlin 承载 Android 媒体、URI、密钥、权限与系统服务。目标是移除默认客户端中的 WebView/Node 常驻链路、逐帧桥传输和整屏玻璃重合成。选择框架不是已证实省电，手机瓦数必须另测。
@@ -11,7 +13,7 @@
 | 启动、窗口、设置、国际化、主题 | bootstrap/App、stores、i18n | 新工程与壳开始；全设置/语言/迁移未完成 |
 | 本地文件、音频、歌词入口 | localMusicService、FoliaDocumentIO | Kotlin SAF/Media3 + Dart 歌词为首条纵向链路 |
 | 播放、队列、系统通知与时钟 | playback、FoliaPlaybackService | Kotlin 单输出 + 稀疏时钟锚；双 deck/全契约未完成 |
-| 均衡器、全部音效、混音与分析 | audioEffects、automix | 未迁移；不能以原生播放器默认输出冒充全音效 |
+| 均衡器、全部音效、混音与分析 | audioEffects、automix | 原生 PCM/FFT/FFI 分析通路已实现；完整效果图、后效果取样、采样率等价与双 deck 未完成 |
 | 莫奈文字、扫字、glow、粒子、肖像 | visualizer/monet | 首个动画迁移目标；需字体/像素/交互实机对照 |
 | 其他歌词样式与模式切换 | visualizer registry/各 entry | 全部保留在迁移清单，尚未移植 |
 | 通用/莫奈/漫游/隐现/星空/网页背景 | backgrounds registry | 各 shader/暂停/过渡逐项移植，尚未完整覆盖 |
@@ -35,7 +37,9 @@
 - Kotlin 原生音频/前台服务拥有唯一音频输出和焦点，Dart 只收离散状态/时钟锚。完整 EQ/音效/自动混音必须另行等价移植。
 - 同一设备固定亮度、刷新设置、歌曲、动画和操作比较 GPU/CPU/温度及整机电池读数；未取得实机证据不报瓦数降幅。
 
-## 首个迁移预览 alpha.1
+## 已否决的 alpha.1 架构实验（不是迁移候选）
+
+用户已明确否决该包：自建 Material 界面、Flutter 图标和空本地库不符合原版。发布页已标为撤回迁移候选；保留原始资产与历史，仅供内部架构研究。以下内容仅记录当时实验范围，不构成可继续发布预览的许可。
 
 已实现代码路径：真实本地 SAF 导入/直接 URI 音频、原生 Media3 队列与自动下一首/后台播放、原生媒体会话、独立 URI 库持久化、单调时钟锚点、原生拖动/缩放墙、LRC/YRC 基础对象、莫奈 envelope/spring/十粒子、全 DPR glyph/glow mask 缓存和局部七色色散 shader。库可静止无 ticker；不可见时原生取消时钟发送。页面/播放图标保留可运行的淡变/缩放路径，完整转场/肖像/副字幕/主题变体仍待移植。
 
@@ -43,4 +47,22 @@
 
 构建说明见工程 README。必要检查为 analyzer、原 TS 值生成的最小 Dart 数学/歌词时间检查、ARM64 release 编译与签名。未做模拟器/截图，也没有实机功耗或完整像素兼容结论。
 
-预览发布：[native-v0.1.0-alpha.1](https://github.com/Sakurakilove/folia-major-android-apk/releases/tag/native-v0.1.0-alpha.1)。源代码/源码包提交 `e935dc77bd4fab0d2c47915a5156981d1a47f845`；后续工作日志提交不改变该预览二进制。
+已撤回候选的历史记录：[native-v0.1.0-alpha.1](https://github.com/Sakurakilove/folia-major-android-apk/releases/tag/native-v0.1.0-alpha.1)。源代码/源码包提交 `e935dc77bd4fab0d2c47915a5156981d1a47f845`；后续规则和源码修订不改变该历史二进制。
+
+## 按原实现迁移中的规则与资源
+
+- 原始 `LyricData/Line/Word` 元数据（音节、ruby、合唱、副声部、分词覆盖、TTML agents 等）由 `lib/lyrics/lyric_types.dart` 与 `lyric_document.dart` 保留，包含未知字段往返；原来的两个基础导入解析器尚不等价于原版全解析链路。
+- `render_hints.dart`、`grapheme_timing.dart`、`subtitle_tracks.dart`、`monet_lyrics_model.dart`、`monet_rail_layout.dart`、`word_coloring.dart`、`font_stacks.dart`、共享 `folia_typography.dart` 和 `monet_portrait_layers.dart` 按原函数迁移；最小差分脚本从原 TS 执行生成数据核对，不把固定合成文字度量当成字体/画面相同的证据。
+- 原生封面组件先解码再叠层，保留 900ms 淡变、快速切歌的四层上限、失败保留旧封面和动画封面播放。原生字形缓存新增字体回退、字重/变量轴、locale、行高与字体加载代次键；原生测量适配器与最终 DOM 排版的严格差异仍须检查、修复。
+- `assets/original` 从原源文件导出四套语言、默认主题/设置和 2,118 个 Lucide 图标节点，携带来源摘要与许可证；原生按需解析图标 Path，有界缓存，不使用 Material 图标替代。资源相同不等于最终界面已相同。
+- 上述组件仍在接入完整页面，不能把存在独立规则模块写成完整页面/全量迁移已完成；不交付新的替换 APK。
+
+
+## 当前内容组件与公共运行时（未达到交付条件）
+
+- `lib/monet/page/monet_poster_scene.dart` 组合原版海报布局、元数据/标题、歌词栏/字幕、胶囊、频谱及立绘编辑/漂移/交接，保留各自时序。原 Chromium 三个视口的数值仅作 CSS 参考；字体排版、像素、手势和整页动画尚未通过 Android 对照。
+- `lib/still` 独立迁移原三行静态样式；不把其他模式换成 Monet。其间隙留行、直接翻译字段、日夜混合与文字投影仍须在完整宿主上核对。
+- `lib/visualizer/transitions` 复用原层状态、softFocus、首帧等待和背景 underNext；48 组原状态函数对照通过，完整切换与宿主整合未验收。`scene_frame_clock.dart` 按真实监听者调度全刷新率 tick，保留离屏时间，不在静态模式强开帧循环；尚待完整 root 接入。
+- 原生 `analysis` 模块仅在可见消费者请求时运行 FFT，停用时无周期线程唤醒；播放线程保留有界 PCM 历史以供即时恢复。FFI 一致性快照 ABI 为版本 1 / 1112 字节；不通过 channel 逐帧传递音频数组。仍需完整后效果、重采样及设备播放头的等价验证。
+- `AudioTrack` / `LibraryStore` 保留未知嵌套源字段，新增专辑/原生标签通路。实验 URI 目录并不等价于原版全部 SongResult/LocalSong、旧数据库或账号迁移。
+- 实验 root 仍不是原版完整界面。78 组清单当前 7 组进行中，0 组取得最终等价验证；其余保留待办。没有发布新的替换 APK，也没有实机功耗降幅结论。

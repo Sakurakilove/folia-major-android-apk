@@ -1,0 +1,261 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "note": "Entry-point coverage inventory, not proof of complete feature/visual equivalence.",
+  "sourceTrees": {
+    "src": "6574f375376c3cd1f239220ee80ed457737cfdcb",
+    "public": "897961b12ed4b0ada40023ae58b87c6f402bdcfb",
+    "electron": "a6e4ae3a76deeaf3a09467c494a4c6469e165843",
+    "shared": "c48b8cd7522dfa8357065f703807cff77bdc626f",
+    "android": "843fa713651df9d0b31b85784ad50e600303916b",
+    "packaging/android": "b1953fdc2ed6502c1bff11edf7a9804258d62dbe"
+  },
+  "features": {
+    "app:ai-themes-segmentation": [
+      "src/services",
+      "src/components/modal/ThemePark.tsx"
+    ],
+    "app:all-audio-effects": [
+      "src/services/audioEffects",
+      "src/utils/audioEffects.ts"
+    ],
+    "app:all-lyric-formats-and-editing": [
+      "src/utils/lyrics"
+    ],
+    "app:automix": [
+      "src/services/automix"
+    ],
+    "app:branding-fonts-accessibility": [
+      "src/utils/fontStacks.ts",
+      "src/components/AppSplashGate.tsx",
+      "public/icon.svg"
+    ],
+    "app:equal-workload-power": [
+      "docs/android/POWER_REWRITE.md"
+    ],
+    "app:liquid-glass-all-surfaces": [
+      "src/platform/android/installAndroidGlass.ts",
+      "android/app/src/main/java"
+    ],
+    "app:mods-and-custom-content": [
+      "src/mods",
+      "mods"
+    ],
+    "app:navidrome": [
+      "src/services/navidromeService.ts"
+    ],
+    "app:obs-remote-stage-export-wallpaper": [
+      "src/components/app",
+      "electron"
+    ],
+    "app:queue-playback-media": [
+      "src/components/app/playback",
+      "src/services/playbackAdapters.ts"
+    ],
+    "app:shell-navigation-transitions": [
+      "src/App.tsx",
+      "src/components/app/AppShell.tsx",
+      "src/index.css"
+    ],
+    "app:storage-data-credentials": [
+      "src/services/db.ts",
+      "src/stores",
+      "android/app/src/main/java"
+    ],
+    "app:sync-backup-import-export": [
+      "src/services/sync"
+    ],
+    "app:system-integrations": [
+      "shared/androidApiSpec.json",
+      "packaging/android/runtime"
+    ],
+    "background:common": [
+      "src/components/visualizer/backgrounds/common/entry.tsx"
+    ],
+    "background:latent": [
+      "src/components/visualizer/backgrounds/latent/entry.tsx"
+    ],
+    "background:monet": [
+      "src/components/visualizer/backgrounds/monet/entry.tsx"
+    ],
+    "background:nomand": [
+      "src/components/visualizer/backgrounds/nomand/entry.tsx"
+    ],
+    "background:sora": [
+      "src/components/visualizer/backgrounds/sora/entry.tsx"
+    ],
+    "background:url": [
+      "src/components/visualizer/backgrounds/url/entry.tsx"
+    ],
+    "commands:artistCommands": [
+      "src/components/command-palette/commands/artistCommands.ts"
+    ],
+    "commands:directoryCommands": [
+      "src/components/command-palette/commands/directoryCommands.ts"
+    ],
+    "commands:executeModeCommand": [
+      "src/components/command-palette/commands/executeModeCommand.ts"
+    ],
+    "commands:filterViewCommand": [
+      "src/components/command-palette/commands/filterViewCommand.ts"
+    ],
+    "commands:fmModeCommand": [
+      "src/components/command-palette/commands/fmModeCommand.ts"
+    ],
+    "commands:gridCommands": [
+      "src/components/command-palette/commands/gridCommands.ts"
+    ],
+    "commands:libraryWallLookCommands": [
+      "src/components/command-palette/commands/libraryWallLookCommands.ts"
+    ],
+    "commands:lyricExportCommands": [
+      "src/components/command-palette/commands/lyricExportCommands.ts"
+    ],
+    "commands:lyricSegmentationCommand": [
+      "src/components/command-palette/commands/lyricSegmentationCommand.ts"
+    ],
+    "commands:modsCommands": [
+      "src/components/command-palette/commands/modsCommands.ts"
+    ],
+    "commands:navigationCommands": [
+      "src/components/command-palette/commands/navigationCommands.ts"
+    ],
+    "commands:panelCommands": [
+      "src/components/command-palette/commands/panelCommands.ts"
+    ],
+    "commands:playbackCommands": [
+      "src/components/command-palette/commands/playbackCommands.ts"
+    ],
+    "commands:queueCommand": [
+      "src/components/command-palette/commands/queueCommand.ts"
+    ],
+    "commands:searchCommands": [
+      "src/components/command-palette/commands/searchCommands.ts"
+    ],
+    "commands:settingsCommands": [
+      "src/components/command-palette/commands/settingsCommands.ts"
+    ],
+    "commands:sleepTimerCommand": [
+      "src/components/command-palette/commands/sleepTimerCommand.ts"
+    ],
+    "commands:suiteChromeCommands": [
+      "src/components/command-palette/commands/suiteChromeCommands.ts"
+    ],
+    "commands:visualizerCommands": [
+      "src/components/command-palette/commands/visualizerCommands.ts"
+    ],
+    "commands:volumeCommand": [
+      "src/components/command-palette/commands/volumeCommand.ts"
+    ],
+    "library:bravais": [
+      "src/library/suites/bravais/entry.ts"
+    ],
+    "library:grid": [
+      "src/library/suites/grid/entry.ts"
+    ],
+    "library:tui": [
+      "src/library/suites/tui/entry.ts"
+    ],
+    "provider:bodian": [
+      "src/services/onlineMusic/bodian/bodianProvider.ts"
+    ],
+    "provider:kugou": [
+      "src/services/onlineMusic/kugou/kugouProvider.ts"
+    ],
+    "provider:netease": [
+      "src/services/onlineMusic/netease/neteaseProvider.ts"
+    ],
+    "provider:qq": [
+      "src/services/onlineMusic/qq/qqProvider.ts"
+    ],
+    "provider:spotify": [
+      "src/services/onlineMusic/spotify/spotifyProvider.ts"
+    ],
+    "provider:ytm": [
+      "src/services/onlineMusic/ytm/ytmProvider.ts"
+    ],
+    "settings:Appearance": [
+      "src/components/modal/settings/pages/AppearancePage.tsx"
+    ],
+    "settings:Desktop": [
+      "src/components/modal/settings/pages/DesktopPage.tsx"
+    ],
+    "settings:Developer": [
+      "src/components/modal/settings/pages/DeveloperPage.tsx"
+    ],
+    "settings:General": [
+      "src/components/modal/settings/pages/GeneralPage.tsx"
+    ],
+    "settings:Graphics": [
+      "src/components/modal/settings/pages/GraphicsPage.tsx"
+    ],
+    "settings:Help": [
+      "src/components/modal/settings/pages/HelpPage.tsx"
+    ],
+    "settings:Home": [
+      "src/components/modal/settings/pages/HomePage.tsx"
+    ],
+    "settings:Integration": [
+      "src/components/modal/settings/pages/IntegrationPage.tsx"
+    ],
+    "settings:Interaction": [
+      "src/components/modal/settings/pages/InteractionPage.tsx"
+    ],
+    "settings:Lyrics": [
+      "src/components/modal/settings/pages/LyricsPage.tsx"
+    ],
+    "settings:Mods": [
+      "src/components/modal/settings/pages/ModsPage.tsx"
+    ],
+    "settings:Playback": [
+      "src/components/modal/settings/pages/PlaybackPage.tsx"
+    ],
+    "settings:Player": [
+      "src/components/modal/settings/pages/PlayerPage.tsx"
+    ],
+    "settings:Storage": [
+      "src/components/modal/settings/pages/StoragePage.tsx"
+    ],
+    "visualizer:cadenza": [
+      "src/components/visualizer/cadenza/entry.tsx"
+    ],
+    "visualizer:cappella": [
+      "src/components/visualizer/cappella/entry.tsx"
+    ],
+    "visualizer:claddagh": [
+      "src/components/visualizer/claddagh/entry.tsx"
+    ],
+    "visualizer:classic": [
+      "src/components/visualizer/classic/entry.tsx"
+    ],
+    "visualizer:diorama": [
+      "src/components/visualizer/diorama/entry.tsx"
+    ],
+    "visualizer:fume": [
+      "src/components/visualizer/fume/entry.tsx"
+    ],
+    "visualizer:lumiere": [
+      "src/components/visualizer/lumiere/entry.tsx"
+    ],
+    "visualizer:monet": [
+      "src/components/visualizer/monet/entry.tsx"
+    ],
+    "visualizer:partita": [
+      "src/components/visualizer/partita/entry.tsx"
+    ],
+    "visualizer:pendolo": [
+      "src/components/visualizer/pendolo/entry.tsx"
+    ],
+    "visualizer:sonnet": [
+      "src/components/visualizer/sonnet/entry.tsx"
+    ],
+    "visualizer:still": [
+      "src/components/visualizer/still/entry.tsx"
+    ],
+    "visualizer:tempera": [
+      "src/components/visualizer/tempera/entry.tsx"
+    ],
+    "visualizer:tilt": [
+      "src/components/visualizer/tilt/entry.tsx"
+    ]
+  }
+}

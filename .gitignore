@@ -71,6 +71,9 @@ ffmpeg-8.1.2/
 .windowtolayer-src/
 # Local reference clone of upstream main used for pollution review; never ship.
 original/
+# Generated original Folia resources are intentional native application assets, not a reference clone.
+!apps/folia_mobile/assets/original/
+!apps/folia_mobile/assets/original/**
 # Local upstream implementation references used during investigation; never ship.
 reference/
 # Optional developer override for FFmpeg; packaged builds fetch their pinned runtime.

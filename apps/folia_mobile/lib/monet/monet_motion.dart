@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+import '../lyrics/grapheme_timing.dart';
+
 // Port of visualizer/monet/monetLyricMotion.ts; keep the absolute-time envelopes unchanged.
 double clampProgress(double value) => value.clamp(0.0, 1.0);
 
@@ -21,11 +23,27 @@ double resolveMonetFillWidth(
   double time,
   double start,
   double end,
-  List<double> offsets,
-) {
-  final width = offsets.last;
+  List<double> offsets, [
+  List<GraphemeTiming> timings = const [],
+]) {
+  final width = offsets.isEmpty ? 0.0 : offsets.last;
   if (time <= start) return 0;
   if (time >= end) return width;
+  final count = math.min(timings.length, offsets.length - 1);
+  if (count > 0) {
+    for (var i = 0; i < count; i++) {
+      final timingStart = math.max(start, timings[i].start);
+      final timingEnd = math.max(timingStart, timings[i].end);
+      if (time < timingStart) return offsets[i];
+      if (time <= timingEnd) {
+        final progress =
+            (time - timingStart) / math.max(.001, timingEnd - timingStart);
+        return offsets[i] + (offsets[i + 1] - offsets[i]) * progress;
+      }
+    }
+    return offsets[count];
+  }
+  if (offsets.isEmpty) return width;
   final index =
       clampProgress((time - start) / math.max(0.001, end - start)) *
       (offsets.length - 1);

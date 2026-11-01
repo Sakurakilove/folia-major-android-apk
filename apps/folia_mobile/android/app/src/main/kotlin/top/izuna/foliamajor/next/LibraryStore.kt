@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AtomicFile
 import java.io.File
 import org.json.JSONArray
+import org.json.JSONObject
 
 // Only the new app's URI catalog is persisted; no legacy settings, keys or account data are read.
 object LibraryStore {
@@ -14,9 +15,17 @@ object LibraryStore {
         val array = store.openRead().use { JSONArray(it.bufferedReader(Charsets.UTF_8).readText()) }
         return (0 until array.length()).map { index ->
             val item = array.getJSONObject(index)
-            mapOf("uri" to item.getString("uri"),"title" to item.optString("title"),"artist" to item.optString("artist"),
-                "coverPath" to item.optString("coverPath").takeIf { it.isNotEmpty() && File(it).isFile })
+            require(item.opt("uri") is String) { "Catalog item has no URI" }
+            @Suppress("UNCHECKED_CAST")
+            (decode(item) as Map<String, Any?>)
         }
+    }
+    // StandardMessageCodec cannot carry JSONObject/JSONArray/JSONObject.NULL, including inside unknown nested source fields.
+    private fun decode(value: Any?): Any? = when (value) {
+        JSONObject.NULL, null -> null
+        is JSONObject -> value.keys().asSequence().associateWith { key -> decode(value.get(key)) }
+        is JSONArray -> (0 until value.length()).map { index -> decode(value.get(index)) }
+        else -> value
     }
     fun write(context: Context, entries: List<*>) {
         val store=file(context);val stream=store.startWrite()

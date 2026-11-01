@@ -5,6 +5,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/painting.dart';
 import 'package:characters/characters.dart';
 
+import '../rendering/folia_typography.dart';
+
 // Immutable full-DPR glyph and blur masks; no screen/View capture and no per-frame text rasterization.
 class GlyphRaster {
   GlyphRaster(
@@ -14,17 +16,21 @@ class GlyphRaster {
     this.size,
     this.padding,
     this.advance,
-    this.offsets,
-  );
+    this.offsets, [
+    this.backgroundShadow,
+  ]);
   final ui.Image glyph, nearGlow, farGlow;
+  final ui.Image? backgroundShadow;
   final ui.Size size;
   final double padding, advance;
   final List<double> offsets;
-  int get bytes => glyph.width * glyph.height * 4 * 3;
+  int get bytes =>
+      glyph.width * glyph.height * 4 * (backgroundShadow == null ? 3 : 4);
   void dispose() {
     glyph.dispose();
     nearGlow.dispose();
     farGlow.dispose();
+    backgroundShadow?.dispose();
   }
 }
 
@@ -45,12 +51,18 @@ class GlyphCache {
     double dpr,
     bool chorus, [
     double maxWidth = double.infinity,
-  ]) => '$text|$font|$dpr|$chorus|$maxWidth';
+    FoliaTypography? typography,
+    bool backgroundShadow = false,
+  ]) =>
+      '$text|$font|$dpr|$chorus|$maxWidth|${typography?.cacheKey}|$backgroundShadow';
   GlyphRaster? get(String key) {
     final value = _ready.remove(key);
     if (value != null) _ready[key] = value;
     return value;
   }
+
+  // Visible glyphs are pinned: frame reads need no LRU remove/reinsert or hash-table churn.
+  GlyphRaster? peek(String key) => _ready[key];
 
   void pin(Set<String> keys) {
     _pinned = keys;
@@ -73,27 +85,45 @@ class GlyphCache {
     double dpr,
     bool chorus, [
     double maxWidth = double.infinity,
+    FoliaTypography? typography,
+    bool backgroundShadow = false,
   ]) {
-    final id = key(text, font, dpr, chorus, maxWidth);
+    final id = key(
+      text,
+      font,
+      dpr,
+      chorus,
+      maxWidth,
+      typography,
+      backgroundShadow,
+    );
     final existing = get(id);
     if (existing != null) return Future.value(existing);
     return _pending.putIfAbsent(id, () {
       final task = _tail.then<GlyphRaster?>((_) async {
+        final ownedImages = <ui.Image>[];
+        TextPainter? paragraph;
         try {
           if (_closed || !_pinned.contains(id)) return null;
-          final style = TextStyle(
-            fontSize: font,
-            fontWeight: FontWeight.w700,
-            color: const ui.Color(0xffffffff),
-            height: 1.2,
-          );
-          final paragraph = TextPainter(
+          final style =
+              typography?.style(font) ??
+              TextStyle(
+                fontSize: font,
+                fontWeight: FontWeight.w700,
+                color: const ui.Color(0xffffffff),
+                height: 1.2,
+              );
+          paragraph = TextPainter(
             text: TextSpan(text: text, style: style),
-            textDirection: ui.TextDirection.ltr,
+            textDirection: typography?.direction ?? ui.TextDirection.ltr,
+            locale: typography?.locale,
           )..layout(maxWidth: maxWidth);
           final r1 = (font * (chorus ? .45 : .28)).roundToDouble();
           final r2 = (font * (chorus ? .9 : .65)).roundToDouble();
-          final padding = math.max(r2 * 2 + 4, font / 2);
+          final padding = math.max(
+            math.max(r2 * 2 + 4, font / 2),
+            backgroundShadow ? 52.0 : 0.0,
+          );
           final size = ui.Size(
             paragraph.width + 2 * padding,
             paragraph.height + 2 * padding,
@@ -105,6 +135,7 @@ class GlyphCache {
           paragraph.paint(canvas, ui.Offset(padding, padding));
           final picture = recorder.endRecording();
           final glyph = await picture.toImage(width, height);
+          ownedImages.add(glyph);
           picture.dispose();
           Future<ui.Image> blur(double radius) async {
             final recorder = ui.PictureRecorder();
@@ -119,18 +150,21 @@ class GlyphCache {
             );
             final picture = recorder.endRecording();
             final image = await picture.toImage(width, height);
+            ownedImages.add(image);
             picture.dispose();
             return image;
           }
 
           final nearGlow = await blur(r1), farGlow = await blur(r2);
+          final shadow = backgroundShadow ? await blur(34) : null;
           final offsets = <double>[0];
           var prefix = '';
           for (final character in text.characters) {
             prefix += character;
             final measure = TextPainter(
               text: TextSpan(text: prefix, style: style),
-              textDirection: ui.TextDirection.ltr,
+              textDirection: typography?.direction ?? ui.TextDirection.ltr,
+              locale: typography?.locale,
             )..layout();
             offsets.add(measure.width);
             measure.dispose();
@@ -143,9 +177,10 @@ class GlyphCache {
             padding,
             paragraph.width,
             offsets,
+            shadow,
           );
-          paragraph.dispose();
-          if (_closed) {
+          ownedImages.clear();
+          if (_closed || !_pinned.contains(id)) {
             value.dispose();
             return null;
           }
@@ -155,8 +190,15 @@ class GlyphCache {
           return value;
         } catch (_) {
           _failed.add(id);
+          while (_failed.length > 420) {
+            _failed.remove(_failed.first);
+          }
           return null;
         } finally {
+          paragraph?.dispose();
+          for (final image in ownedImages) {
+            image.dispose();
+          }
           _pending.remove(id);
         }
       });
@@ -171,5 +213,7 @@ class GlyphCache {
       value.dispose();
     }
     _ready.clear();
+    _bytes = 0;
+    _failed.clear();
   }
 }

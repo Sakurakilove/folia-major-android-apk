@@ -1,21 +1,61 @@
-// Unified lyric times remain source data; rendering never invents timing from string searches.
-class LyricWord {
-  const LyricWord(this.text, this.start, this.end);
-  final String text;
-  final double start, end;
-}
+import 'lyric_types.dart';
+import 'active_line_lookup.dart';
 
-class LyricLine {
-  const LyricLine(this.text, this.start, this.end, this.words);
-  final String text;
-  final double start, end;
-  final List<LyricWord> words;
-}
+export 'lyric_types.dart';
+
+// Normalized lyrics retain all original fields; the provisional raw parser is a separate entry point.
 
 class LyricDocument {
-  const LyricDocument(this.lines, [this.prefixMaxEnd = const []]);
+  const LyricDocument(
+    this.lines, [
+    this.prefixMaxEnd = const [],
+    this.source = const {},
+    this.lookup,
+  ]);
   final List<double> prefixMaxEnd;
   final List<LyricLine> lines;
+  final LyricJson source;
+  final ActiveLineLookup? lookup;
+  String? get title => source['title'] as String?;
+  String? get artist => source['artist'] as String?;
+  bool? get isWordByWord => source['isWordByWord'] as bool?;
+  Map<String, dynamic>? get ttml => source['ttml'] is Map
+      ? Map<String, dynamic>.from(source['ttml'] as Map)
+      : null;
+
+  factory LyricDocument.fromJson(LyricJson data) => LyricDocument.indexed(
+    (data['lines'] as List)
+        .map(
+          (line) => LyricLine.fromJson(Map<String, dynamic>.from(line as Map)),
+        )
+        .toList(),
+    source: data,
+  );
+
+  factory LyricDocument.indexed(
+    List<LyricLine> lines, {
+    LyricJson source = const {},
+  }) {
+    var maxEnd = double.negativeInfinity;
+    final prefix = lines
+        .map((line) {
+          final end = line.renderHints?.renderEndTime ?? line.end;
+          if (end > maxEnd) maxEnd = end;
+          return maxEnd;
+        })
+        .toList(growable: false);
+    return LyricDocument(
+      List.unmodifiable(lines),
+      List.unmodifiable(prefix),
+      Map.unmodifiable(source),
+      ActiveLineLookup(lines),
+    );
+  }
+
+  LyricJson toJson() => {
+    ...source,
+    'lines': lines.map((line) => line.toJson()).toList(),
+  };
   static LyricDocument parse(String source, {double duration = 0}) {
     final yrc = RegExp(r'^\[(\d+),(\d+)\](.*)$');
     final word = RegExp(r'\((\d+),(\d+),[^)]*\)([^()]*)');
@@ -79,14 +119,7 @@ class LyricDocument {
             : line.words,
       );
     }, growable: false);
-    var maxEnd = double.negativeInfinity;
-    final prefix = result
-        .map((line) {
-          if (line.end > maxEnd) maxEnd = line.end;
-          return maxEnd;
-        })
-        .toList(growable: false);
-    return LyricDocument(result, prefix);
+    return LyricDocument.indexed(result);
   }
 
   int latestStartedIndex(double time) {
@@ -103,10 +136,7 @@ class LyricDocument {
   }
 
   int activeIndex(double time) {
-    for (var i = latestStartedIndex(time); i >= 0; i--) {
-      if (prefixMaxEnd.isNotEmpty && prefixMaxEnd[i] < time) break;
-      if (time <= lines[i].end) return i;
-    }
-    return -1;
+    if (lines.isEmpty) return -1;
+    return (lookup ?? ActiveLineLookup(lines))(time);
   }
 }

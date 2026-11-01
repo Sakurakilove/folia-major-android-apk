@@ -1,5 +1,5 @@
 name: folia_mobile
-description: "A new Flutter project."
+description: "Folia implementation migration; exact original frontend parity is required before delivery."
 publish_to: 'none'
 version: 0.1.0-alpha.1+1
 
@@ -12,6 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   characters: ^1.4.1
+  path_drawing: 1.0.1
 
 dev_dependencies:
   flutter_test:
@@ -23,8 +24,12 @@ flutter:
 
   shaders:
     - shaders/monet_word.frag
+    - shaders/monet_token.frag
     - shaders/liquid_glass.frag
 
   assets:
     - assets/AndroidLiquidGlass.txt
     - assets/LICENSE
+    - assets/original/
+    - assets/original/locales/
+    - assets/original/icons/

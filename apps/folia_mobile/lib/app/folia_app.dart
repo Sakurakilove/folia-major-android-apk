@@ -11,7 +11,7 @@ class FoliaApp extends StatelessWidget {
   final ui.FragmentProgram words, glass;
   @override
   Widget build(BuildContext context) => MaterialApp(
-    title: 'Folia Next',
+    title: 'Folia',
     debugShowCheckedModeBanner: false,
     supportedLocales: const [Locale('en'), Locale('zh'), Locale('id')],
     localizationsDelegates: GlobalMaterialLocalizations.delegates,

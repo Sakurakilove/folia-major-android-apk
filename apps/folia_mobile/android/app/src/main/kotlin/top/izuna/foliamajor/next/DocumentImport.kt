@@ -25,7 +25,13 @@ object DocumentImport {
                 file.absolutePath
             } else null
             mapOf("uri" to uri.toString(), "title" to (retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE) ?: name),
-                "artist" to (retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST) ?: ""), "coverPath" to cover)
+                "artist" to (retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST) ?: ""), "album" to (retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM) ?: ""),
+                "albumArtist" to retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST),
+                "genre" to retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_GENRE),
+                "trackNumber" to retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_CD_TRACK_NUMBER),
+                "year" to retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_YEAR),
+                "durationMs" to retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)?.toLongOrNull(),
+                "coverPath" to cover)
         } finally { retriever.release() }
     }
     fun lyrics(context: Context, uri: Uri): String {
