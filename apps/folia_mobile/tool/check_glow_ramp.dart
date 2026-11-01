@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:folia_mobile/visualizer/glow_word/glow_ramp_spec.dart';
 import 'package:folia_mobile/visualizer/motion/color_value.dart';
 import 'package:folia_mobile/visualizer/motion/scalar_value.dart';
+import 'package:folia_mobile/visualizer/motion/follow_spring.dart';
 
 // This validates source parameters and color values; final full-scene/font/backend fidelity remains a separate required gate.
 void main() {
@@ -65,6 +66,24 @@ void main() {
   equal(continuity.value, 50);
   equal(continuity.velocity(500), 25 * 1000 / 30);
   equal(continuity.velocity(531), 0);
+  for (final row in data['followers']) {
+    final o = row['options'] as Map;
+    final spring = MotionFollowSpring(
+      1,
+      stiffness: (o['stiffness'] as num).toDouble(),
+      damping: (o['damping'] as num).toDouble(),
+      mass: (o['mass'] as num?)?.toDouble() ?? 1,
+    );
+    for (final step in row['steps']) {
+      final now = (step['ms'] as num).toDouble();
+      if (step.containsKey('set')) {
+        spring.setTarget((step['set'] as num).toDouble(), now);
+      }
+      if (step['tick'] == true) spring.advance(now);
+      equal(spring.value, step['value']);
+      equal(spring.isAnimating, step['running']);
+    }
+  }
   stdout.writeln(
     '${data['ramps'].length} original glyph ramps and 30 Motion color samples passed.',
   );

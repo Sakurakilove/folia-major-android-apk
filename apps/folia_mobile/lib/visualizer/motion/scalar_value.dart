@@ -59,6 +59,9 @@ class MotionScalarValue {
     _updatedAt = now;
   }
 
+  // Shared source MotionValue history for follower generators whose analytical trajectory is owned externally.
+  void recordObserved(double next, double now) => _set(next, now);
+
   void jump(double next, double now) {
     _animation = null;
     _set(next, now);

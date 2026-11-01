@@ -1,0 +1,4 @@
+BudouX Japanese model and parser: Copyright 2021 Google LLC, Apache-2.0.
+Jieba dictionary/HMM and Folia reimplementation: see jieba-LICENSE.txt and original application LICENSE.
+Traditional/simplified character pairs derive from the baseline OpenCC data; see bundled OpenCC licenses.
+Generated numeric log tables preserve baseline JavaScript math at the build boundary.

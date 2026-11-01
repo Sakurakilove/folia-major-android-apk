@@ -80,3 +80,6 @@
 - JS/WAAPI 分流按原库支持表和各组件直接 Element.animate 的实际分支迁移；numeric keyframes、命名 easing、逐段曲线/时间数组已有原库对照（209 个采样）。Classic 呼吸/立绘漂移/挂钩脉冲已接入，原生立绘的中断 900ms 淡变与退休/解码租约也有最小生命周期回归。完整宿主、WAAPI spring 曲线取样、逐帧时序、颜色/复杂 CSS 插值和最终像素仍未完成核对。
 
 - Shared GlowWord 现有实际正文/光晕/副歌 ripple 绘制和行级帧生命周期；原 54 组 glow 参数/30 个 Motion 颜色采样通过，Classic atomic flex 与行内容 presenter 已加入。两个小型 headless 检查覆盖 native 字体颜色/重叠覆盖及暂停/离屏/5s 旋转清理；完整宿主、热更新/量化切换、原浏览器像素与实机功耗仍未验收。为保留 native glyph coverage，已撤掉本轮不等价的纹理着色实验，正文复用已排版 paragraph，光晕保留全 DPR 输入。
+
+- Partita 的原布局/分块/字号/引导线/逐词内容已加入，108 组原参数对照通过；63 个原 follower 操作/帧采样与字幕 direct-baseline/spring-presence 检查通过。完整 scene/热更新/像素仍未验收。
+- 原生 ICU 批量通路已 Kotlin 增量编译，Dart codec/缓存最小检查通过；原 jieba/HMM/BudouX 数据与纯 Dart 算法已加入，50 混合流程/24 参考文本/40 加词权重通过，仍缺设备 ICU 兼容与后台 isolate/文档 rebake 接线。用户将主页封面墙列为当前优先项，下一批优先推进原 wall/Bravais 迁移，不缩减其他既定范围。

@@ -4,12 +4,11 @@ import 'package:flutter/painting.dart';
 
 import '../lyrics/lyric_types.dart';
 import '../rendering/folia_typography.dart';
-import '../rendering/word_coloring.dart';
 import '../theme/folia_theme.dart';
 import '../visualizer/glow_word/glow_word_glyphs.dart';
 import '../visualizer/glow_word/glow_word_motion.dart';
 import '../visualizer/glow_word/glow_word_timing.dart';
-import '../visualizer/motion/color_value.dart';
+import '../visualizer/glow_word/glow_word_preparation.dart';
 import '../visualizer/subtitles/subtitle_overlay_model.dart';
 import 'classic_layout.dart';
 import 'classic_tuning.dart';
@@ -78,65 +77,21 @@ Future<ClassicPreparedLine> prepareClassicLine({
       'clamp(${(2.25 * lyricsFontScale).toStringAsFixed(3)}rem, ${(6 * lyricsFontScale).toStringAsFixed(3)}vw, ${(4.5 * lyricsFontScale).toStringAsFixed(3)}rem)';
   final px = resolveSubtitleClampPx(sourceSize, viewportWidth),
       profile = GlowWordRenderProfile(line);
-  MotionRgba color(String css) {
-    final parsed = MotionRgba.parse(css);
-    if (parsed != null) return parsed;
-    final c = resolveColor(css);
-    return MotionRgba(c.r * 255, c.g * 255, c.b * 255, c.a);
-  }
-
-  final base = color(theme.primaryColor),
-      words = <GlowWordMotion>[],
-      glyphs = <GlowWordGlyphs>[];
-  var transferred = false;
-  try {
-    for (var i = 0; i < displayWords.length; i++) {
-      if (stillWanted != null && !stillWanted()) {
-        throw const ClassicPreparationCancelled();
-      }
-      final active = resolveWordColor(
-        displayWords[i].text,
-        theme.wordColors,
-        theme.accentColor,
-      );
-      final motion = GlowWordMotion(
-        word: displayWords[i],
-        profile: profile,
-        config: layout.words[i],
-        intensity: theme.animationIntensity,
-        baseColor: base,
-        activeColor: color(active),
-        baseColorAnimatable: MotionRgba.parse(theme.primaryColor) != null,
-        activeColorAnimatable: MotionRgba.parse(active) != null,
-        baseColorKey: theme.primaryColor,
-        activeColorKey: active,
-        rippleScale: 1.5 + random() * 2,
-        chorus: line.isChorus,
-        enableWordRotation: tuning.enableWordRotation,
-      );
-      words.add(motion);
-      glyphs.add(await GlowWordGlyphs.prepare(motion, font, px, dpr));
-    }
-    if (stillWanted != null && !stillWanted()) {
-      throw const ClassicPreparationCancelled();
-    }
-    final result = ClassicPreparedLine(
-      line,
-      layout,
-      List.unmodifiable(words),
-      List.unmodifiable(glyphs),
-    );
-    transferred = true;
-    return result;
-  } finally {
-    if (!transferred) {
-      for (final glyph in glyphs) {
-        glyph.dispose();
-      }
-    }
-  }
+  final prepared = await prepareGlowWords(
+    displayWords: displayWords,
+    configs: layout.words,
+    profile: profile,
+    theme: theme,
+    font: font,
+    fontPx: px,
+    dpr: dpr,
+    resolveColor: resolveColor,
+    random: random,
+    chorus: line.isChorus,
+    enableWordRotation: tuning.enableWordRotation,
+    stillWanted: stillWanted,
+  );
+  return ClassicPreparedLine(line, layout, prepared.words, prepared.glyphs);
 }
 
-class ClassicPreparationCancelled implements Exception {
-  const ClassicPreparationCancelled();
-}
+typedef ClassicPreparationCancelled = GlowPreparationCancelled;

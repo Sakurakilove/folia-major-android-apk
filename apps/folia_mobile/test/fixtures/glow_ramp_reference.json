@@ -1,6 +1,6 @@
 {
   "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
-  "scope": "Typed ramp parameters and Motion JS explicit colors only; no glyph pixels or settings-toggle acceptance.",
+  "scope": "Typed ramps, explicit colors and source useSpring follower ticks only; no glyph pixels or settings-toggle acceptance.",
   "ramps": [
     {
       "quantized": false,
@@ -2059,6 +2059,414 @@
             "blue": 255,
             "alpha": 1
           }
+        }
+      ]
+    }
+  ],
+  "followers": [
+    {
+      "options": {
+        "stiffness": 280,
+        "damping": 28
+      },
+      "steps": [
+        {
+          "ms": 0,
+          "set": 0,
+          "tick": true,
+          "value": 1,
+          "running": true
+        },
+        {
+          "ms": 10.2,
+          "tick": true,
+          "value": 0.9872493163007477,
+          "running": true
+        },
+        {
+          "ms": 20.7,
+          "tick": true,
+          "value": 0.9492760394913082,
+          "running": true
+        },
+        {
+          "ms": 22,
+          "set": 0.4,
+          "value": 0.9492760394913082,
+          "running": true
+        },
+        {
+          "ms": 22,
+          "set": 0.8,
+          "value": 0.9492760394913082,
+          "running": true
+        },
+        {
+          "ms": 33.333,
+          "tick": true,
+          "value": 0.8880782892760444,
+          "running": true
+        },
+        {
+          "ms": 49.9,
+          "tick": true,
+          "value": 0.808529250449346,
+          "running": true
+        },
+        {
+          "ms": 66.6,
+          "set": 1,
+          "value": 0.808529250449346,
+          "running": true
+        },
+        {
+          "ms": 83.3,
+          "tick": true,
+          "value": 0.7313646262202234,
+          "running": true
+        },
+        {
+          "ms": 100,
+          "tick": true,
+          "value": 0.7243475475931678,
+          "running": true
+        },
+        {
+          "ms": 125,
+          "set": 0,
+          "value": 0.7243475475931678,
+          "running": true
+        },
+        {
+          "ms": 133.333,
+          "tick": true,
+          "value": 0.7609625512108185,
+          "running": true
+        },
+        {
+          "ms": 180,
+          "tick": true,
+          "value": 0.64883606640129,
+          "running": true
+        },
+        {
+          "ms": 250,
+          "tick": true,
+          "value": 0.30023784446502366,
+          "running": true
+        },
+        {
+          "ms": 800,
+          "tick": true,
+          "value": 0,
+          "running": false
+        },
+        {
+          "ms": 2000,
+          "tick": true,
+          "value": 0,
+          "running": false
+        },
+        {
+          "ms": 2100,
+          "set": 1,
+          "value": 0,
+          "running": true
+        },
+        {
+          "ms": 2116.5,
+          "tick": true,
+          "value": 0.03451101135629597,
+          "running": true
+        },
+        {
+          "ms": 2150,
+          "tick": true,
+          "value": 0.21907955863569095,
+          "running": true
+        },
+        {
+          "ms": 2500,
+          "tick": true,
+          "value": 1.0060293763569519,
+          "running": true
+        },
+        {
+          "ms": 4000,
+          "tick": true,
+          "value": 1,
+          "running": false
+        }
+      ]
+    },
+    {
+      "options": {
+        "stiffness": 100,
+        "damping": 10
+      },
+      "steps": [
+        {
+          "ms": 0,
+          "set": 0,
+          "tick": true,
+          "value": 1,
+          "running": true
+        },
+        {
+          "ms": 10.2,
+          "tick": true,
+          "value": 0.995166584721977,
+          "running": true
+        },
+        {
+          "ms": 20.7,
+          "tick": true,
+          "value": 0.9794902156104939,
+          "running": true
+        },
+        {
+          "ms": 22,
+          "set": 0.4,
+          "value": 0.9794902156104939,
+          "running": true
+        },
+        {
+          "ms": 22,
+          "set": 0.8,
+          "value": 0.9794902156104939,
+          "running": true
+        },
+        {
+          "ms": 33.333,
+          "tick": true,
+          "value": 0.9515086775176702,
+          "running": true
+        },
+        {
+          "ms": 49.9,
+          "tick": true,
+          "value": 0.9065003796436455,
+          "running": true
+        },
+        {
+          "ms": 66.6,
+          "set": 1,
+          "value": 0.9065003796436455,
+          "running": true
+        },
+        {
+          "ms": 83.3,
+          "tick": true,
+          "value": 0.8315386881911825,
+          "running": true
+        },
+        {
+          "ms": 100,
+          "tick": true,
+          "value": 0.8026852033660345,
+          "running": true
+        },
+        {
+          "ms": 125,
+          "set": 0,
+          "value": 0.8026852033660345,
+          "running": true
+        },
+        {
+          "ms": 133.333,
+          "tick": true,
+          "value": 0.7735772168880612,
+          "running": true
+        },
+        {
+          "ms": 180,
+          "tick": true,
+          "value": 0.6868598126061128,
+          "running": true
+        },
+        {
+          "ms": 250,
+          "tick": true,
+          "value": 0.41722140733100027,
+          "running": true
+        },
+        {
+          "ms": 800,
+          "tick": true,
+          "value": 0.017169305651097453,
+          "running": true
+        },
+        {
+          "ms": 2000,
+          "tick": true,
+          "value": 0,
+          "running": false
+        },
+        {
+          "ms": 2100,
+          "set": 1,
+          "value": 0,
+          "running": true
+        },
+        {
+          "ms": 2116.5,
+          "tick": true,
+          "value": 0.013632316373406117,
+          "running": true
+        },
+        {
+          "ms": 2150,
+          "tick": true,
+          "value": 0.10440547345507933,
+          "running": true
+        },
+        {
+          "ms": 2500,
+          "tick": true,
+          "value": 1.1531227684140493,
+          "running": true
+        },
+        {
+          "ms": 4000,
+          "tick": true,
+          "value": 1,
+          "running": false
+        }
+      ]
+    },
+    {
+      "options": {
+        "stiffness": 142,
+        "damping": 28,
+        "mass": 0.82
+      },
+      "steps": [
+        {
+          "ms": 0,
+          "set": 0,
+          "tick": true,
+          "value": 1,
+          "running": true
+        },
+        {
+          "ms": 10.2,
+          "tick": true,
+          "value": 0.9922592104131387,
+          "running": true
+        },
+        {
+          "ms": 20.7,
+          "tick": true,
+          "value": 0.9696996751932885,
+          "running": true
+        },
+        {
+          "ms": 22,
+          "set": 0.4,
+          "value": 0.9696996751932885,
+          "running": true
+        },
+        {
+          "ms": 22,
+          "set": 0.8,
+          "value": 0.9696996751932885,
+          "running": true
+        },
+        {
+          "ms": 33.333,
+          "tick": true,
+          "value": 0.9339958806514777,
+          "running": true
+        },
+        {
+          "ms": 49.9,
+          "tick": true,
+          "value": 0.8887119092850685,
+          "running": true
+        },
+        {
+          "ms": 66.6,
+          "set": 1,
+          "value": 0.8887119092850685,
+          "running": true
+        },
+        {
+          "ms": 83.3,
+          "tick": true,
+          "value": 0.8425561993997254,
+          "running": true
+        },
+        {
+          "ms": 100,
+          "tick": true,
+          "value": 0.8345642211377424,
+          "running": true
+        },
+        {
+          "ms": 125,
+          "set": 0,
+          "value": 0.8345642211377424,
+          "running": true
+        },
+        {
+          "ms": 133.333,
+          "tick": true,
+          "value": 0.8430132114283435,
+          "running": true
+        },
+        {
+          "ms": 180,
+          "tick": true,
+          "value": 0.7562381811196709,
+          "running": true
+        },
+        {
+          "ms": 250,
+          "tick": true,
+          "value": 0.5260532184009467,
+          "running": true
+        },
+        {
+          "ms": 800,
+          "tick": true,
+          "value": 0.017755810224452984,
+          "running": true
+        },
+        {
+          "ms": 2000,
+          "tick": true,
+          "value": 0,
+          "running": false
+        },
+        {
+          "ms": 2100,
+          "set": 1,
+          "value": 0,
+          "running": true
+        },
+        {
+          "ms": 2116.5,
+          "tick": true,
+          "value": 0.02072650517823138,
+          "running": true
+        },
+        {
+          "ms": 2150,
+          "tick": true,
+          "value": 0.12786929485751664,
+          "running": true
+        },
+        {
+          "ms": 2500,
+          "tick": true,
+          "value": 0.8922206608975087,
+          "running": true
+        },
+        {
+          "ms": 4000,
+          "tick": true,
+          "value": 1,
+          "running": false
         }
       ]
     }

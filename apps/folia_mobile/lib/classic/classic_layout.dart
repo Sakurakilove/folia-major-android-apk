@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import '../lyrics/lyric_types.dart';
+import '../rendering/js_number.dart';
 import 'classic_tuning.dart';
 import '../visualizer/glow_word/glow_word_variants.dart';
 
@@ -112,13 +113,10 @@ ClassicLineLayout buildClassicLineLayout({
     return x - x.floor();
   }
 
-  String number(double value) => value == value.truncateToDouble()
-      ? value.toInt().toString()
-      : value.toString();
   final words = <ClassicWordConfig>[];
   for (var i = 0; i < displayWords.length; i++) {
     final wordSeed = seed + i,
-        id = '${displayWords[i].text}-$i-${number(seed)}';
+        id = '${displayWords[i].text}-$i-${jsNumberString(seed)}';
     double rng(int offset) => random(wordSeed, offset);
     if (interlude) {
       words.add(
@@ -138,7 +136,7 @@ ClassicLineLayout buildClassicLineLayout({
     final scale = chaotic ? .8 + rng(4) * .6 : 1.1 + rng(4) * .2,
         x = (rng(1) - .5) * spread * 2,
         y = (rng(2) - .5) * spread * 2;
-    var margin = chaotic ? '${number(rng(5) * 1.5)}rem' : '0.8rem';
+    var margin = chaotic ? '${jsNumberString(rng(5) * 1.5)}rem' : '0.8rem';
     if (!tuning.useLegacyLayout) {
       double nextWidth = 0, nextScale = 1, nextX = 0;
       if (i + 1 < displayWords.length) {

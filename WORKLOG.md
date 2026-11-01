@@ -530,3 +530,9 @@
 - CLASSIC-NATIVE-01 增加原几何与原生字体一致的行准备、逐词 atomic flex-wrap/间距/对齐/min-height 300、整行初入/next-line exit 与单独 text-hidden fade、单一行帧订阅和局部绘制。Canvas 的原测量与 CSS 显示空白/三位小数字号分开处理。仅整行内容组件，尚未组装完整 Classic 页面/空态/保留层和设置热更新。
 - POWER-NATIVE-04 一个必要 headless 生命周期检查验证：暂停后有限动效结束即释放 display clock，原 passed 旋转 5 秒完整运行；离屏解除帧监听，离散 seek 可重接，销毁解除音频监听。两个定向 native 绘制/生命周期用例通过，analyzer 无问题；没有模拟器/全 UI/新 APK，也没有实机功耗量测。
 - 当前显式未完成：原始前端仍完整保留作对照；主题/调节热更新时不中断每个属性的继承、量化开关跨状态的遗留 CSS 语义、CSS 色彩空间和全部字体/光晕/组合动画像素对照仍待继续。台账 9 组进行中、0 组最终验证，不把当前内容组件当成全量迁移或新的交付物。源码检查点保存后继续 Partita 与完整页面装配。
+
+- PARTITA-NATIVE-01 实际列/分块/逐词与引导线内容已迁移到 lib/partita：原一列顺序布局（不启用原代码未使用的目标列数 helper）、高度分块/稳定随机错位/密度字号、正反引导线/阴影、chunk 与 word 独立运动、原 line 共享进出场。108 组实际原函数布局/逐词参数/字号对照通过；与 Classic 复用文字准备、行 painter 和单一 frame 订阅。完整页面宿主、热更新与最终外观仍未完成。
+- ANIMATION-NATIVE-08 原 useSpring/FollowAnimation 与 variants 的速度路径不同：新 follower 按帧合并多次目标，使用解析速度转向、整数毫秒取样和 restDelta .001/restSpeed .01；63 个真实原库操作/帧采样通过。底栏字幕位置接入 direct baseline/Android clearance + 独立 presence spring，一个既有 headless 字幕检查扩展验证拖动不启动弹簧、presence 退让结束后解除帧订阅。隐藏后重连/完整宿主仍待最终时序检查。
+- WORDS-NATIVE-01 Android 原生 ICU 模块新增专用后台执行器，按文档分批输出 Int32 UTF-16 边界/词类，避免返回重复片段字符串或逐帧请求；Dart 先准备不可变的文档查表并有界缓存，关闭取消未完成结果。原生 ARM64 Kotlin release 增量编译通过（14 秒，未重建 Dart AOT/打包 APK）；一个最小 codec/UTF-16/缓存/所有权检查通过。Android ICU 与原 WebView 的版本/语言边界仍必须实机核对，不能算 native 分词已最终等价。
+- WORDS-NATIVE-02 原版数据插件导出 349045 词词典、5088 个 JS 原值 log、HMM float64、繁简映射、BudouX 日文模型及固定词汇补丁，携原来源摘要与许可。Dart 引擎保留排序字符串/二分查找，合并同 key 的前缀/词频查找、避免展开 349k 个字符串键的字典；保留 HMM 状态/相等分数决胜顺序、二字 cap 和混合脚本/粒子/连字符规则。50 个原混合流程/双引擎输入、24 条原 jieba 参考、40 个加词建议权重通过；ICU pieces 由原 oracle 提供，仍不是设备 ICU 证据。后台 isolate/按需装载与文档 rebake 尚未接入；不会在莫奈等不使用分词的页面常驻启动这组数据。
+- PRIORITY-WALL-01 用户特别要求关注主页封面墙，并再次要求全任务完成前不得停止。立即将下一实现重点切到原主页封面墙：共享 wall 几何/拖动/惯性/滚轮/捏合、Bravais 的缝/翻牌/卡片与原版所有入口；同时保留 grid/tui 和 Lattice 等完整迁移范围，不把简化列表当作封面墙。当前分词 isolate 后续接续，不能因优先级切换丢掉。

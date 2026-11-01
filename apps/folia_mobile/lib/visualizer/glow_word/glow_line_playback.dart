@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 
+import '../motion/time_driven_motion.dart';
 import 'glow_line_motion.dart';
 import 'glow_word_motion.dart';
 
@@ -14,6 +15,7 @@ class GlowLinePlayback extends ChangeNotifier {
     required this.milliseconds,
     required this.isPlaying,
     required this.isGlowBlurQuantized,
+    this.auxiliary = const [],
     this.onRetired,
   }) {
     _previousAudio = audioTime();
@@ -21,6 +23,7 @@ class GlowLinePlayback extends ChangeNotifier {
     _sync();
   }
   final List<GlowWordMotion> words;
+  final List<TimeDrivenMotion> auxiliary;
   final GlowLineMotion line;
   final Listenable frames, audioChanges;
   final double Function() audioTime, milliseconds;
@@ -29,7 +32,10 @@ class GlowLinePlayback extends ChangeNotifier {
   late double _previousAudio;
   bool _active = true, _attached = false, _closed = false, _reported = false;
   bool get wantsFrames =>
-      isPlaying() || line.isAnimating || words.any((w) => w.isAnimating);
+      isPlaying() ||
+      line.isAnimating ||
+      words.any((w) => w.isAnimating) ||
+      auxiliary.any((m) => m.isAnimating);
   void setActive(bool value) {
     if (_closed || _active == value) return;
     _active = value;
@@ -60,6 +66,10 @@ class GlowLinePlayback extends ChangeNotifier {
         now = milliseconds(),
         changed = time != _previousAudio;
     _previousAudio = time;
+    for (final motion in auxiliary) {
+      if (changed) motion.acceptTime(time, now);
+      motion.advance(now);
+    }
     for (final word in words) {
       if (changed) {
         word.acceptTime(time, now, glowBlurQuantized: isGlowBlurQuantized());
