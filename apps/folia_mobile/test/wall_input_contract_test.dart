@@ -5,6 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:folia_mobile/library/bravais/bravais_frame.dart';
 import 'package:folia_mobile/library/bravais/bravais_reflow.dart';
+import 'package:folia_mobile/library/bravais/tiles/bravais_tile_motion.dart';
+import 'package:folia_mobile/library/bravais/tiles/bravais_tile_types.dart';
 import 'package:folia_mobile/library/bravais/bravais_viewport.dart';
 import 'package:folia_mobile/library/wall/input/wall_pointer_pan.dart';
 import 'package:folia_mobile/library/wall/wall_pan_motion.dart';
@@ -199,6 +201,66 @@ void main() {
       clock.dispose();
     },
   );
+  test('original tile effects retain wave token and discrete face commits', () {
+    final reference = (jsonDecode(
+          File('test/fixtures/wall_reference.json').readAsStringSync(),
+        ) as Map)['tile'],
+        clock = _Clock();
+    var now = 0.0;
+    final motion = BravaisTileMotion<Map<String, String>>(
+      frames: clock,
+      nowMs: () => now,
+      initial: const BravaisTileFace('A', {'key': 'A', 'title': 'A'}),
+      rect: const WallRect(0, 0, 400, 300),
+    );
+    final List operations = reference['operations'];
+    for (var i = 0; i < operations.length; i++) {
+      final op = operations[i];
+      now = (op['time'] as num).toDouble();
+      if (op['kind'] == 'target') {
+        motion.setTarget(
+          BravaisTileFace(op['key'], {
+            'key': op['key'],
+            'title': op['title'] ?? op['key'],
+          }),
+          step: BravaisFlipStep(
+            op['token'],
+            op['key'],
+            (op['delay'] as num).toDouble(),
+            1,
+            waveInDelay: (op['waveInDelay'] as num?)?.toDouble(),
+          ),
+          reducedMotion: op['reduced'] ?? false,
+        );
+      } else if (op['kind'] == 'entrance') {
+        motion.setEntrance(
+          BravaisEntrance(
+            token: op['token'],
+            corner: const WallPoint(0, 0),
+            startedAt: (op['startedAt'] as num).toDouble(),
+            until: (op['until'] as num).toDouble(),
+            reduced: false,
+            mountsOnly: op['mountsOnly'] ?? false,
+          ),
+          const WallRect(0, 0, 400, 300),
+        );
+      } else {
+        clock.tick();
+      }
+      _equal(
+        {
+          'key': motion.face.value.payload['key'],
+          'title': motion.face.value.payload['title'],
+          'flight': motion.flightKind?.name,
+        },
+        reference['states'][i],
+        'source tile operation $i',
+      );
+    }
+    expect(clock.count, 0);
+    motion.dispose();
+    clock.dispose();
+  });
   testWidgets('camera frames retain poster layout and child layers', (
     tester,
   ) async {

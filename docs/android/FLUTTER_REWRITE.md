@@ -83,3 +83,7 @@
 
 - Partita 的原布局/分块/字号/引导线/逐词内容已加入，108 组原参数对照通过；63 个原 follower 操作/帧采样与字幕 direct-baseline/spring-presence 检查通过。完整 scene/热更新/像素仍未验收。
 - 原生 ICU 批量通路已 Kotlin 增量编译，Dart codec/缓存最小检查通过；原 jieba/HMM/BudouX 数据与纯 Dart 算法已加入，50 混合流程/24 参考文本/40 加词权重通过，仍缺设备 ICU 兼容与后台 isolate/文档 rebake 接线。用户将主页封面墙列为当前优先项，下一批优先推进原 wall/Bravais 迁移，不缩减其他既定范围。
+
+### 持续迁移：封面墙卡片与原生封面（2026-11-01）
+
+Bravais 卡片 flip/wave/entrance 的有限动画、固定 Ada WHATWG URL 适配和 Kotlin/FFI 描述符封面读取已加入；动图流直接更新 retained RenderImage，内联图片本地 FFI 解码。保留原图像尺寸规则与动图帧序，后台 HTTP 缓存遵守响应缓存策略。当前 HTTP/content 新加载和取消仍用稀疏 channel 元数据；完整卡片与所有主页/数据/root 未接入，不能由模块检查推出整页等价或功耗下降。必要检查和未完成项详见根 WORKLOG 的 WALL-NATIVE-04 / ARTWORK-NATIVE-01..03。当前 10 组进行中、0 组最终验证，继续全量迁移，不发布简化 APK。

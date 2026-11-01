@@ -45,6 +45,9 @@ class RenderBravaisViewport extends RenderBox
   }
 
   Matrix4? _left, _right;
+  final _clip = LayerHandle<ClipRectLayer>(),
+      _leftLayer = LayerHandle<TransformLayer>(),
+      _rightLayer = LayerHandle<TransformLayer>();
   set frame(ValueListenable<BravaisFrame> value) {
     if (identical(value, _frame)) return;
     if (attached) _frame.removeListener(_changed);
@@ -143,38 +146,46 @@ class RenderBravaisViewport extends RenderBox
         ..translateByDouble(data.rect!.x, data.rect!.y, 0, 1);
   @override
   void paint(PaintingContext context, Offset offset) {
-    context.pushClipRect(needsCompositing, offset, Offset.zero & size, (
-      context,
+    _clip.layer = context.pushClipRect(
+      needsCompositing,
       offset,
-    ) {
-      // Source paints the complete left layer, then the right, preserving world order within each half.
-      for (final left in [true, false]) {
-        context.pushTransform(needsCompositing, offset, _half(left), (
-          context,
-          offset,
-        ) {
-          final plates = _plates;
-          if (plates != null) {
-            final canvas = context.canvas;
-            canvas.save();
-            canvas.translate(offset.dx, offset.dy);
-            plates.paint(canvas, left, _reflow?.value ?? const {});
-            canvas.restore();
-          }
-          var child = firstChild;
-          while (child != null) {
-            final data = child.parentData! as BravaisSeatData;
-            if (_onLeft(data) == left) {
-              context.paintChild(
-                child,
-                offset + Offset(data.rect!.x, data.rect!.y),
-              );
-            }
-            child = data.nextSibling;
-          }
-        });
-      }
-    }, clipBehavior: Clip.hardEdge);
+      Offset.zero & size,
+      (context, offset) {
+        // Source paints the complete left layer, then the right, preserving world order within each half.
+        for (final left in [true, false]) {
+          final owner = left ? _leftLayer : _rightLayer;
+          owner.layer = context.pushTransform(
+            needsCompositing,
+            offset,
+            _half(left),
+            (context, offset) {
+              final plates = _plates;
+              if (plates != null) {
+                final canvas = context.canvas;
+                canvas.save();
+                canvas.translate(offset.dx, offset.dy);
+                plates.paint(canvas, left, _reflow?.value ?? const {});
+                canvas.restore();
+              }
+              var child = firstChild;
+              while (child != null) {
+                final data = child.parentData! as BravaisSeatData;
+                if (_onLeft(data) == left) {
+                  context.paintChild(
+                    child,
+                    offset + Offset(data.rect!.x, data.rect!.y),
+                  );
+                }
+                child = data.nextSibling;
+              }
+            },
+            oldLayer: owner.layer,
+          );
+        }
+      },
+      clipBehavior: Clip.hardEdge,
+      oldLayer: _clip.layer,
+    );
   }
 
   @override
@@ -201,4 +212,11 @@ class RenderBravaisViewport extends RenderBox
   @override
   void applyPaintTransform(RenderBox child, Matrix4 transform) =>
       transform.multiply(_childTransform(child.parentData! as BravaisSeatData));
+  @override
+  void dispose() {
+    _clip.layer = null;
+    _leftLayer.layer = null;
+    _rightLayer.layer = null;
+    super.dispose();
+  }
 }

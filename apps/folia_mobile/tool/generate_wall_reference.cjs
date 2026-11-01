@@ -80,6 +80,6 @@ const wheelSteps=[0,1,16.6666666667,50,120,-2].map(dt=>({dt,pending:{x:48,y:-160
     fs.writeFileSync(path.join(__dirname,'../test/fixtures/wall_reference.json'),JSON.stringify({baseline,
         scope:'Original pure geometry/input math only; not home UI, artwork, gesture timing, pixels or power acceptance.',
         blockCases,finiteCases,latticeCases,viewCases,wheelCases,wheelSteps,inertiaCases,frameCases,transitionCases,wrapCases,reflowCases,
-        pointer:require('./wall_pointer_oracle.cjs')(),plates:require('./wall_plate_oracle.cjs')()})+'\n');
+        pointer:require('./wall_pointer_oracle.cjs')(),plates:require('./wall_plate_oracle.cjs')(),tile:require('./wall_tile_oracle.cjs')()})+'\n');
     console.log('Generated original wall geometry, wheel and inertia reference.');
 })();

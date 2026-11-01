@@ -28,6 +28,7 @@ flutter:
     - shaders/liquid_glass.frag
 
   assets:
+    - assets/ada_url/
     - assets/icu_folia/
     - assets/Unicode-LICENSE.txt
     - assets/motion-dom-LICENSE.md

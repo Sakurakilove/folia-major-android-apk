@@ -9,6 +9,7 @@ import io.flutter.plugin.common.EventChannel
 import io.flutter.plugin.common.MethodChannel
 import java.util.concurrent.Executors
 import top.izuna.foliamajor.next.lyrics.NativeWordSegmentation
+import top.izuna.foliamajor.next.artwork.NativeArtworkAccess
 
 // Native URI access and media ownership are independent of Flutter's frame loop.
 class MainActivity : FlutterActivity() {
@@ -20,6 +21,7 @@ class MainActivity : FlutterActivity() {
     private var bound = false
     private var visible = false
     private var wordSegmentation: NativeWordSegmentation? = null
+    private var artworkAccess: NativeArtworkAccess? = null
     private fun attachEvents() { service?.listen(if (visible && sink != null) { event -> sink?.success(event) } else null) }
     override fun onStart() { super.onStart(); visible = true; attachEvents() }
     override fun onStop() { visible = false; attachEvents(); super.onStop() }
@@ -35,6 +37,8 @@ class MainActivity : FlutterActivity() {
         super.configureFlutterEngine(engine)
         wordSegmentation?.close()
         wordSegmentation = NativeWordSegmentation(engine.dartExecutor.binaryMessenger)
+        artworkAccess?.close()
+        artworkAccess = NativeArtworkAccess(this, engine.dartExecutor.binaryMessenger)
         bound = bindService(Intent(this, PlaybackService::class.java), connection, BIND_AUTO_CREATE)
         EventChannel(engine.dartExecutor.binaryMessenger, "top.izuna.folia/playback").setStreamHandler(object : EventChannel.StreamHandler {
             override fun onListen(args: Any?, events: EventChannel.EventSink) { sink = events; attachEvents() }
@@ -91,6 +95,7 @@ class MainActivity : FlutterActivity() {
     }
     override fun onDestroy() {
         wordSegmentation?.close(); wordSegmentation = null
+        artworkAccess?.close(); artworkAccess = null
         service?.listen(null); service = null
         if (bound) unbindService(connection)
         bound = false; sink = null

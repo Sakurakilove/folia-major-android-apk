@@ -1,0 +1,28 @@
+{
+  "project": "https://github.com/ada-url/ada",
+  "version": "3.4.4",
+  "commit": "8d50724a7dea209a05234a445e28f97994b0a5f6",
+  "purpose": "Native WHATWG URL semantics for original provider artwork URLs; not a JavaScript runtime.",
+  "files": {
+    "ada.h": {
+      "sha256": "f20418137a442ee59208d1e25dbae5f12c63c361c935ca31002af45896f3ad6f",
+      "source": "https://github.com/ada-url/ada/releases/download/v3.4.4/ada.h"
+    },
+    "ada.cpp": {
+      "sha256": "ac8fba37ceddb7c10ca5a24fd57a0f0a0ca32cd3d391e40c6f9f6b7af3801fd4",
+      "source": "https://github.com/ada-url/ada/releases/download/v3.4.4/ada.cpp"
+    },
+    "ada_c.h": {
+      "sha256": "cdf7b3000d25302a0a3c486badbaf7f2082175f4a14eb098fec456523dd75789",
+      "source": "https://github.com/ada-url/ada/releases/download/v3.4.4/ada_c.h"
+    },
+    "LICENSE-MIT": {
+      "sha256": "af0d7d2cef91fc243cf4ad98570b03d1f26f5e0227cad0f5f4a7376e2feb3160",
+      "source": "https://raw.githubusercontent.com/ada-url/ada/8d50724a7dea209a05234a445e28f97994b0a5f6/LICENSE-MIT"
+    },
+    "LICENSE-APACHE": {
+      "sha256": "508d4676d4083e874df706f302d9d42e5e7f9aed3f5a7ea614dc6d2b2252a22f",
+      "source": "https://raw.githubusercontent.com/ada-url/ada/8d50724a7dea209a05234a445e28f97994b0a5f6/LICENSE-APACHE"
+    }
+  }
+}
