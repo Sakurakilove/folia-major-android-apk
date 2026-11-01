@@ -78,3 +78,5 @@
 - duration/bounce/visualDuration 派生 spring 及物理参数优先级已迁移，108 个原库选项采样通过；property/default-transition 完整适配和 WAAPI 取样未完成，仍无全部动画等价结论。
 
 - JS/WAAPI 分流按原库支持表和各组件直接 Element.animate 的实际分支迁移；numeric keyframes、命名 easing、逐段曲线/时间数组已有原库对照（209 个采样）。Classic 呼吸/立绘漂移/挂钩脉冲已接入，原生立绘的中断 900ms 淡变与退休/解码租约也有最小生命周期回归。完整宿主、WAAPI spring 曲线取样、逐帧时序、颜色/复杂 CSS 插值和最终像素仍未完成核对。
+
+- Shared GlowWord 现有实际正文/光晕/副歌 ripple 绘制和行级帧生命周期；原 54 组 glow 参数/30 个 Motion 颜色采样通过，Classic atomic flex 与行内容 presenter 已加入。两个小型 headless 检查覆盖 native 字体颜色/重叠覆盖及暂停/离屏/5s 旋转清理；完整宿主、热更新/量化切换、原浏览器像素与实机功耗仍未验收。为保留 native glyph coverage，已撤掉本轮不等价的纹理着色实验，正文复用已排版 paragraph，光晕保留全 DPR 输入。

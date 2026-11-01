@@ -523,3 +523,10 @@
 - ANIMATION-NATIVE-06 完整命名 easing 与 numeric keyframes/interpolate 的时间数组/逐段 easing/重复边界分支已迁移；19 组原库轨迹 × 11 时刻（209 个位置/结束采样）通过。Classic 呼吸、立绘漂移和挂钩脉冲已复用此轨迹核，而非各自简化 ease 算法；不削动画数量、刷新率或画质。
 - PORTRAIT-NATIVE-01 修正原生原型的中途淡变被 reverse() 按剩余比例缩短：改从当前透明度重新执行原 900ms，旧立绘保留。原版按 settling key/fadeMs 的单一退休时机迁移到父层，动图首解码仅接纳一次后交给 Image 继续播放；单层无需退休时省去无可见作用的 timer。一个 headless 中断清空回归通过（.5→.25→0，且保留图像/结束无 ticker），不构成立绘像素或全部快速切歌验收。
 - 最新共享字幕生命周期与文字转换最小检查通过；严格全量/外观/功耗门槛仍未满足。此次只是持续工作中的源码检查点，不结束任务、不等用户重复“继续”。
+
+- ANIMATION-NATIVE-07 新增有限属性动画/逐帧观测速度与 variant 目标记忆。状态改变但解析后目标未变时保留正在运行的轨迹，避免 active→passed 把相同 x/y 的原弹簧改成重新缓动；保留 30ms 速度窗口、局部 delay/默认参数。WAAPI 单个 ease 先作用于整个动画时间、ease 数组才逐 keyframe，已有单独数值后端。重复/复杂 CSS/完整 compositor 时序仍待全量接入。
+- GLOW-NATIVE-01 Classic/Partita 共用的实际逐词绘制加入：正文颜色/blur、原 syllable/grapheme 光晕 ramp、双阴影半径及副歌 circle/随机幅度/打断退场；量化设置的链式 drop-shadow 保留“外阴影也投影内阴影”的组合。54 组原 wordGlow.ts 参数及 30 个实际 Motion RGB/HSLA 插值采样通过，不构成像素等价证明。
+- GLOW-NATIVE-02 最小原生绘制检查发现缓存不透明字形再乘 alpha 会改变字形重叠处的覆盖；黑白纹理重着色也受 Skia 颜色相关 AA 影响。已移除这条新实验着色器及其纹理开销，正文/彩色字体改为持有原生 paragraph，仅颜色改变时重建，稳定颜色的帧复用同一 paragraph；光晕输入仍为全 DPR 缓存，不降特效。相同 native font 的不透明/半透明覆盖回归通过，不能推成与 Android 原 WebView 字体已一致。
+- CLASSIC-NATIVE-01 增加原几何与原生字体一致的行准备、逐词 atomic flex-wrap/间距/对齐/min-height 300、整行初入/next-line exit 与单独 text-hidden fade、单一行帧订阅和局部绘制。Canvas 的原测量与 CSS 显示空白/三位小数字号分开处理。仅整行内容组件，尚未组装完整 Classic 页面/空态/保留层和设置热更新。
+- POWER-NATIVE-04 一个必要 headless 生命周期检查验证：暂停后有限动效结束即释放 display clock，原 passed 旋转 5 秒完整运行；离屏解除帧监听，离散 seek 可重接，销毁解除音频监听。两个定向 native 绘制/生命周期用例通过，analyzer 无问题；没有模拟器/全 UI/新 APK，也没有实机功耗量测。
+- 当前显式未完成：原始前端仍完整保留作对照；主题/调节热更新时不中断每个属性的继承、量化开关跨状态的遗留 CSS 语义、CSS 色彩空间和全部字体/光晕/组合动画像素对照仍待继续。台账 9 组进行中、0 组最终验证，不把当前内容组件当成全量迁移或新的交付物。源码检查点保存后继续 Partita 与完整页面装配。
