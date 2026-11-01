@@ -39,8 +39,12 @@
         "apps/folia_mobile/lib/lyrics/lyric_document.dart",
         "apps/folia_mobile/lib/lyrics/lyric_types.dart",
         "apps/folia_mobile/lib/lyrics/render_hints.dart",
+        "apps/folia_mobile/lib/lyrics/semantic_layout.dart",
+        "apps/folia_mobile/lib/lyrics/semantic_layout_sticky.dart",
         "apps/folia_mobile/lib/lyrics/subtitle_tracks.dart",
-        "apps/folia_mobile/lib/lyrics/visualizer_runtime.dart"
+        "apps/folia_mobile/lib/lyrics/visualizer_runtime.dart",
+        "apps/folia_mobile/lib/lyrics/word_segmentation.dart",
+        "apps/folia_mobile/lib/visualizer/subtitles/subtitle_overlay_model.dart"
       ],
       "evidence": null
     },
@@ -90,7 +94,8 @@
       "nativeSources": [
         "apps/folia_mobile/android/app/src/main/kotlin/top/izuna/foliamajor/next/PlaybackService.kt",
         "apps/folia_mobile/lib/playback/audio_track.dart",
-        "apps/folia_mobile/lib/playback/playback_controller.dart"
+        "apps/folia_mobile/lib/playback/playback_controller.dart",
+        "apps/folia_mobile/lib/playback/player_bottom_geometry.dart"
       ],
       "evidence": null
     },
@@ -383,8 +388,14 @@
       "evidence": null
     },
     "visualizer:classic": {
-      "state": "pending",
-      "nativeSources": [],
+      "state": "in_progress",
+      "nativeSources": [
+        "apps/folia_mobile/lib/classic/classic_breathing.dart",
+        "apps/folia_mobile/lib/classic/classic_layout.dart",
+        "apps/folia_mobile/lib/classic/classic_tuning.dart",
+        "apps/folia_mobile/lib/visualizer/glow_word/glow_word_timing.dart",
+        "apps/folia_mobile/lib/visualizer/glow_word/glow_word_variants.dart"
+      ],
       "evidence": null
     },
     "visualizer:diorama": {
@@ -443,8 +454,11 @@
       "evidence": null
     },
     "visualizer:partita": {
-      "state": "pending",
-      "nativeSources": [],
+      "state": "in_progress",
+      "nativeSources": [
+        "apps/folia_mobile/lib/visualizer/glow_word/glow_word_timing.dart",
+        "apps/folia_mobile/lib/visualizer/glow_word/glow_word_variants.dart"
+      ],
       "evidence": null
     },
     "visualizer:pendolo": {

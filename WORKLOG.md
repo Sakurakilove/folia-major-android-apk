@@ -500,3 +500,7 @@
 - 新组件仍未替换实验 root 的简化界面；这不是可交付迁移包。全部设置、其他 12 种歌词样式、6 类背景、完整资料库/账号/效果/模组/数据/系统集成及最终严格比较仍未完成，必须继续；没有发布新 APK。
 
 - 后续实际核对：专辑/catalog 的 Kotlin release 增量编译通过（29 秒）；Dart/C ABI、inactive reads、idle breath 与关闭后快照所有权检查在最新 C++ 上重新通过，48 组转场状态与原莫奈 envelope/LRC/YRC、歌词规则差分再次通过。新增共享帧时钟按监听者/前后台和场景域控制全刷新率 ticker，尚未接入完整 root，不把这一点写成完整应用已降功耗。
+
+- PARITY-16 继续 Classic/Partita：原 render profile、lookahead、active-end/display-duration、none/fast/normal 整行 motion，逐词 waiting/active/passed 的布局/正文参数、Classic 的稳定随机几何/缩放避让/设置边界/呼吸组件已有 Dart 实现。24 组原实际 useMemo 布局（含负时间和 interlude）、3 类时序、18 组词状态参数的最小对照通过；原 Framer 未指定的 transition 字段仍保留未指定，后续 motion adapter 不能用 Flutter 默认值替代。字体、glow/ripple 的实际绘制与整页仍未完成。
+- PARITY-17 保存/自动/普通分词优先级、边缘空白、UTF-16 偏移、语义映射、缩写/标点粘连和 displayWords 保留原规则，32 组语义/粘连布局对照通过。shared bottom subtitle 内容选择/marker 过滤/双轨回退和字号 clamp/缩放、播放条与字幕底部几何已移植，32 组原字幕内容对照通过。普通 ICU 分词在这次检查中是原函数提供的数据，不构成原生分词引擎已完成的证据；jieba/BudouX/ICU 引擎及原版字幕层 UI/让位弹簧仍待接入。
+- 台账当前 9 组进行中，0 组最终验证通过。所有页面/14 样式/6 背景/3 资料库/设置/弹窗的保真要求不变；不交付不合格的简化 root。前一批源码已推送 6862243，继续在同一独立分支，不改 main、不发布替换 APK。

@@ -74,6 +74,41 @@ const entriesAt = time => {
     return model.buildMonetVisibleLineEntries({ lines, currentLineIndex: activeIndex, activeLine: lines[activeIndex] ?? null, recentCompletedLine: recent, upcomingLine: next, currentTime: time });
 };
 const publicEntries = entries => entries.map(({ key, index, offset, status }) => ({ key, index, offset, status }));
+const segmentation = load('src/utils/lyrics/wordSegmentation.ts');
+const semantic = load('src/utils/lyrics/cjkSemanticLayout.ts');
+const semanticLines = [
+    { fullText: 'It’s unbelievable', pieces: ['It', '’', 's', 'unbelievable'] },
+    { fullText: '世界。', pieces: ['世', '界', '。'], autoWordSegments: ['世界', '。'] },
+    { fullText: '世界的夢', pieces: ['世', '界', '的', '夢'], autoWordSegments: ['世界的', '夢'] },
+    { fullText: '君の 夢に', pieces: ['君', 'の', '夢', 'に'], wordSegments: ['君の ', '夢に'] },
+    { fullText: 'of course I love you', pieces: ['of', 'course', 'I', 'love', 'you'], wordSegments: ['of course ', 'I ', 'love you'] },
+    { fullText: 'we’re…', pieces: ['we', '’re', '…'], wordSegments: ['stale'] },
+    { fullText: 'αβ! שלום', pieces: ['α', 'β', '!', 'שלום'] },
+    { fullText: 'a 👨‍👩‍👧‍👦 é', pieces: ['a', '👨‍👩‍👧‍👦', 'é'], wordSegments: ['a ', '👨‍👩‍👧‍👦 ', 'é'] },
+].map(({ pieces, ...rest }, n) => ({ ...rest, startTime: n * 4, endTime: n * 4 + 3,
+    words: pieces.map((text, i) => ({ text, startTime: n * 4 + i * .2, endTime: n * 4 + (i + 1) * .2 })) }));
+const semanticCases = semanticLines.map(line => ({ line, plain: segmentation.segmentTextWords(line.fullText),
+    segments: segmentation.segmentLyricWords(line), key: segmentation.getWordSegmentationKey(line),
+    override: segmentation.hasWordSegmentationOverride(line),
+    layouts: [false, true].flatMap(group => [false, true].map(sticky => {
+        const units = semantic.buildPostLyricLayoutUnits(line, { semantic: group, sticky });
+        return { semantic: group, sticky, units, displayWords: semantic.buildDisplayWordsFromLayoutUnits(units) };
+    })) }));
+const vm = require('node:vm');
+const { stripTypeScriptTypes } = require('node:module');
+const overlaySource = require('./original_source.cjs').sourceText('src/components/visualizer/VisualizerSubtitleOverlay.tsx');
+const overlayBody = overlaySource.slice(overlaySource.indexOf('export const resolveVisualizerSubtitleOverlayContent'), overlaySource.indexOf('const VisualizerSubtitleOverlay:'));
+const overlaySandbox = { resolveLyricSubtitleTracks: subtitles.resolveLyricSubtitleTracks, resolveSubtitleContentMode: subtitles.resolveSubtitleContentMode,
+    hasReadableText: text => Boolean(text && /[\p{L}\p{N}]/u.test(text)) };
+vm.runInNewContext(stripTypeScriptTypes(overlayBody.replace('export const', 'const') + ';globalThis.resolve=resolveVisualizerSubtitleOverlayContent;', { mode: 'transform' }), overlaySandbox);
+const overlayCases = [null, ...lines.slice(0, 3)].flatMap(activeLine => [false, true].flatMap(showText =>
+    ['none', 'translation', 'romanization', 'both'].map(subtitleContentMode => {
+        const input = { activeLine, recentCompletedLine: lines[2], nextLines: lines.slice(1), showText, subtitleContentMode };
+        const expected = overlaySandbox.resolve(input);
+        return { input, expected: { ...expected, upcomingLines: expected.upcomingLines.map(line => line.fullText) } };
+    })));
+const subtitleSizes = load('src/components/visualizer/subtitleFontSizes.ts');
+const subtitleSizeCases = [.5, 1, 1.2, 2, -1].map(scale => ({ scale, expected: subtitleSizes.resolveSubtitleFontSizes(scale) }));
 const data = {
     baseline: '45d7d8a27afc7efb7a33308824def68329a86651',
     scope: 'Pure timing/token/subtitle/rail rules only; fixed synthetic text advances, no font or visual parity assertion.',
@@ -98,6 +133,9 @@ const data = {
         return { text: line.fullText, ranges, tokenColors: Object.fromEntries(colors.resolveTokenColorMap(tokens, ranges)) };
     }), resolves: ['你', '你好', '你好，你好', 'hello!', 'ever', 'for', ''].flatMap(text => ['target-contains-token', 'bidirectional-contains', 'exact'].map(cjkMatchMode => ({ text, mode: cjkMatchMode, value: colors.resolveWordColor(text, wordColors, '#000000', { cjkMatchMode }) }))) },
     portraitEvents,
+    semanticCases,
+    overlayCases,
+    subtitleSizeCases,
 };
 fs.writeFileSync(path.join(__dirname, '../test/fixtures/lyric_reference.json'), JSON.stringify(data, null, 2) + '\n');
 process.stdout.write('Baseline lyric oracle regenerated; no visual parity claimed.\n');

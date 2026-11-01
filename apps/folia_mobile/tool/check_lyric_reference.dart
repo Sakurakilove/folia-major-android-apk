@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math' as math;
 
+import 'check_semantic_reference.dart';
+
 import 'package:characters/characters.dart';
 import 'package:folia_mobile/lyrics/grapheme_timing.dart';
 import 'package:folia_mobile/lyrics/lyric_document.dart';
@@ -325,6 +327,7 @@ void main() {
     );
     same(monetPortraitTargetSource(layers), item['target'], 'portrait target');
   }
+  checkSemanticReference(data, same);
   stdout.writeln(
     'Baseline timing, metadata, token, subtitle and rail geometry checks passed; font/visual parity remains unverified.',
   );

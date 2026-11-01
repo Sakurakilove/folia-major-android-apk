@@ -1,0 +1,4674 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "scope": "Shared timing and Classic layout body with synthetic code-unit widths; no fonts, pixels, gestures or full animation acceptance.",
+  "layouts": [
+    {
+      "line": {
+        "startTime": -0.2,
+        "endTime": 1.8,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": -0.2,
+            "endTime": 0.1333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.1333333333333333,
+            "endTime": 0.4666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.4666666666666666,
+            "endTime": 0.8
+          },
+          {
+            "text": "世界",
+            "startTime": 0.8,
+            "endTime": 1.1333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.1333333333333333,
+            "endTime": 1.4666666666666668
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "calm",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0--0.2",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1842181145620998,
+            "marginRight": "18.4px",
+            "alignSelf": "auto",
+            "passedRotate": -2.994581427792582
+          },
+          {
+            "id": "’-1--0.2",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1707823283184553,
+            "marginRight": "14.0px",
+            "alignSelf": "auto",
+            "passedRotate": -14.763198707228185
+          },
+          {
+            "id": "s-2--0.2",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2956411724851933,
+            "marginRight": "18.5px",
+            "alignSelf": "auto",
+            "passedRotate": -13.1081633677627
+          },
+          {
+            "id": "世界-3--0.2",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1267022772162818,
+            "marginRight": "79.9px",
+            "alignSelf": "auto",
+            "passedRotate": 6.1964700787848415
+          },
+          {
+            "id": "unbelievable-4--0.2",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1866907492098109,
+            "marginRight": "69.9px",
+            "alignSelf": "auto",
+            "passedRotate": 11.211850294939723
+          }
+        ],
+        "lineConfig": {
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": -0.2,
+        "endTime": 1.8,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": -0.2,
+            "endTime": 0.1333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.1333333333333333,
+            "endTime": 0.4666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.4666666666666666,
+            "endTime": 0.8
+          },
+          {
+            "text": "世界",
+            "startTime": 0.8,
+            "endTime": 1.1333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.1333333333333333,
+            "endTime": 1.4666666666666668
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "calm",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0--0.2",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1842181145620998,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -2.994581427792582
+          },
+          {
+            "id": "’-1--0.2",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1707823283184553,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -14.763198707228185
+          },
+          {
+            "id": "s-2--0.2",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2956411724851933,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -13.1081633677627
+          },
+          {
+            "id": "世界-3--0.2",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1267022772162818,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 6.1964700787848415
+          },
+          {
+            "id": "unbelievable-4--0.2",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1866907492098109,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 11.211850294939723
+          }
+        ],
+        "lineConfig": {
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": -0.2,
+        "endTime": 1.8,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": -0.2,
+            "endTime": 0.1333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.1333333333333333,
+            "endTime": 0.4666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.4666666666666666,
+            "endTime": 0.8
+          },
+          {
+            "text": "世界",
+            "startTime": 0.8,
+            "endTime": 1.1333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.1333333333333333,
+            "endTime": 1.4666666666666668
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "normal",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0--0.2",
+            "x": 2.436359809107671,
+            "y": -0.9476487219217233,
+            "rotate": 3.815015590512303,
+            "scale": 1.1842181145620998,
+            "marginRight": "20.7px",
+            "alignSelf": "auto",
+            "passedRotate": -2.994581427792582
+          },
+          {
+            "id": "’-1--0.2",
+            "x": -0.9476487219217233,
+            "y": 15.260062362049212,
+            "rotate": -0.78909427189501,
+            "scale": 1.1707823283184553,
+            "marginRight": "3.6px",
+            "alignSelf": "auto",
+            "passedRotate": -14.763198707228185
+          },
+          {
+            "id": "s-2--0.2",
+            "x": 15.260062362049212,
+            "y": -3.15637708758004,
+            "rotate": -1.4608835840772372,
+            "scale": 1.2956411724851933,
+            "marginRight": "31.4px",
+            "alignSelf": "auto",
+            "passedRotate": -13.1081633677627
+          },
+          {
+            "id": "世界-3--0.2",
+            "x": -3.15637708758004,
+            "y": -5.843534336308949,
+            "rotate": 4.782058624259662,
+            "scale": 1.1267022772162818,
+            "marginRight": "81.7px",
+            "alignSelf": "auto",
+            "passedRotate": 6.1964700787848415
+          },
+          {
+            "id": "unbelievable-4--0.2",
+            "x": -5.843534336308949,
+            "y": 19.128234497038648,
+            "rotate": -3.66488613918591,
+            "scale": 1.1866907492098109,
+            "marginRight": "65.8px",
+            "alignSelf": "auto",
+            "passedRotate": 11.211850294939723
+          }
+        ],
+        "lineConfig": {
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": -0.2,
+        "endTime": 1.8,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": -0.2,
+            "endTime": 0.1333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.1333333333333333,
+            "endTime": 0.4666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.4666666666666666,
+            "endTime": 0.8
+          },
+          {
+            "text": "世界",
+            "startTime": 0.8,
+            "endTime": 1.1333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.1333333333333333,
+            "endTime": 1.4666666666666668
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "normal",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0--0.2",
+            "x": 2.436359809107671,
+            "y": -0.9476487219217233,
+            "rotate": 3.815015590512303,
+            "scale": 1.1842181145620998,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -2.994581427792582
+          },
+          {
+            "id": "’-1--0.2",
+            "x": -0.9476487219217233,
+            "y": 15.260062362049212,
+            "rotate": -0.78909427189501,
+            "scale": 1.1707823283184553,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -14.763198707228185
+          },
+          {
+            "id": "s-2--0.2",
+            "x": 15.260062362049212,
+            "y": -3.15637708758004,
+            "rotate": -1.4608835840772372,
+            "scale": 1.2956411724851933,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -13.1081633677627
+          },
+          {
+            "id": "世界-3--0.2",
+            "x": -3.15637708758004,
+            "y": -5.843534336308949,
+            "rotate": 4.782058624259662,
+            "scale": 1.1267022772162818,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 6.1964700787848415
+          },
+          {
+            "id": "unbelievable-4--0.2",
+            "x": -5.843534336308949,
+            "y": 19.128234497038648,
+            "rotate": -3.66488613918591,
+            "scale": 1.1866907492098109,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 11.211850294939723
+          }
+        ],
+        "lineConfig": {
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": -0.2,
+        "endTime": 1.8,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": -0.2,
+            "endTime": 0.1333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.1333333333333333,
+            "endTime": 0.4666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.4666666666666666,
+            "endTime": 0.8
+          },
+          {
+            "text": "世界",
+            "startTime": 0.8,
+            "endTime": 1.1333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.1333333333333333,
+            "endTime": 1.4666666666666668
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "chaotic",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0--0.2",
+            "x": 7.309079427323013,
+            "y": -2.84294616576517,
+            "rotate": 22.890093543073817,
+            "scale": 1.0526543436862994,
+            "marginRight": "20.4px",
+            "alignSelf": "flex-end",
+            "passedRotate": -2.994581427792582
+          },
+          {
+            "id": "’-1--0.2",
+            "x": -2.84294616576517,
+            "y": 45.780187086147635,
+            "rotate": -4.73456563137006,
+            "scale": 1.012346984955366,
+            "marginRight": "2.4px",
+            "alignSelf": "auto",
+            "passedRotate": -14.763198707228185
+          },
+          {
+            "id": "s-2--0.2",
+            "x": 45.780187086147635,
+            "y": -9.46913126274012,
+            "rotate": -8.765301504463423,
+            "scale": 1.3869235174555796,
+            "marginRight": "52.3px",
+            "alignSelf": "auto",
+            "passedRotate": -13.1081633677627
+          },
+          {
+            "id": "世界-3--0.2",
+            "x": -9.46913126274012,
+            "y": -17.530603008926846,
+            "rotate": 28.69235174555797,
+            "scale": 0.8801068316488454,
+            "marginRight": "61.2px",
+            "alignSelf": "auto",
+            "passedRotate": 6.1964700787848415
+          },
+          {
+            "id": "unbelievable-4--0.2",
+            "x": -17.530603008926846,
+            "y": 57.38470349111594,
+            "rotate": -21.98931683511546,
+            "scale": 1.0600722476294322,
+            "marginRight": "39.3px",
+            "alignSelf": "auto",
+            "passedRotate": 11.211850294939723
+          }
+        ],
+        "lineConfig": {
+          "perspective": 499.8
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": -0.2,
+        "endTime": 1.8,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": -0.2,
+            "endTime": 0.1333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.1333333333333333,
+            "endTime": 0.4666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.4666666666666666,
+            "endTime": 0.8
+          },
+          {
+            "text": "世界",
+            "startTime": 0.8,
+            "endTime": 1.1333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.1333333333333333,
+            "endTime": 1.4666666666666668
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "chaotic",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0--0.2",
+            "x": 7.309079427323013,
+            "y": -2.84294616576517,
+            "rotate": 22.890093543073817,
+            "scale": 1.0526543436862994,
+            "marginRight": "0.5308674623884144rem",
+            "alignSelf": "flex-end",
+            "passedRotate": -2.994581427792582
+          },
+          {
+            "id": "’-1--0.2",
+            "x": -2.84294616576517,
+            "y": 45.780187086147635,
+            "rotate": -4.73456563137006,
+            "scale": 1.012346984955366,
+            "marginRight": "1.4673087936389493rem",
+            "alignSelf": "auto",
+            "passedRotate": -14.763198707228185
+          },
+          {
+            "id": "s-2--0.2",
+            "x": 45.780187086147635,
+            "y": -9.46913126274012,
+            "rotate": -8.765301504463423,
+            "scale": 1.3869235174555796,
+            "marginRight": "0.2002670791221135rem",
+            "alignSelf": "auto",
+            "passedRotate": -13.1081633677627
+          },
+          {
+            "id": "世界-3--0.2",
+            "x": -9.46913126274012,
+            "y": -17.530603008926846,
+            "rotate": 28.69235174555797,
+            "scale": 0.8801068316488454,
+            "marginRight": "0.6501806190735806rem",
+            "alignSelf": "auto",
+            "passedRotate": 6.1964700787848415
+          },
+          {
+            "id": "unbelievable-4--0.2",
+            "x": -17.530603008926846,
+            "y": 57.38470349111594,
+            "rotate": -21.98931683511546,
+            "scale": 1.0600722476294322,
+            "marginRight": "0.2578933764257272rem",
+            "alignSelf": "auto",
+            "passedRotate": 11.211850294939723
+          }
+        ],
+        "lineConfig": {
+          "perspective": 499.8
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 0,
+        "endTime": 2,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 0,
+            "endTime": 0.3333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.3333333333333333,
+            "endTime": 0.6666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.6666666666666666,
+            "endTime": 1
+          },
+          {
+            "text": "世界",
+            "startTime": 1,
+            "endTime": 1.3333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.3333333333333333,
+            "endTime": 1.6666666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "calm",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-0",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2950093841436683,
+            "marginRight": "22.0px",
+            "alignSelf": "auto",
+            "passedRotate": 3.710980521818783
+          },
+          {
+            "id": "’-1-0",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2514506737232296,
+            "marginRight": "14.7px",
+            "alignSelf": "auto",
+            "passedRotate": -14.181641209543159
+          },
+          {
+            "id": "s-2-0",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.269003602148314,
+            "marginRight": "21.7px",
+            "alignSelf": "auto",
+            "passedRotate": 13.000099783585028
+          },
+          {
+            "id": "世界-3-0",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2731974375781647,
+            "marginRight": "87.7px",
+            "alignSelf": "auto",
+            "passedRotate": -18.092947816548985
+          },
+          {
+            "id": "unbelievable-4-0",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2164932467636391,
+            "marginRight": "74.2px",
+            "alignSelf": "auto",
+            "passedRotate": -10.313100195726292
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-center",
+          "alignItems": "items-center",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 0,
+        "endTime": 2,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 0,
+            "endTime": 0.3333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.3333333333333333,
+            "endTime": 0.6666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.6666666666666666,
+            "endTime": 1
+          },
+          {
+            "text": "世界",
+            "startTime": 1,
+            "endTime": 1.3333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.3333333333333333,
+            "endTime": 1.6666666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "calm",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-0",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2950093841436683,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 3.710980521818783
+          },
+          {
+            "id": "’-1-0",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2514506737232296,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -14.181641209543159
+          },
+          {
+            "id": "s-2-0",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.269003602148314,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 13.000099783585028
+          },
+          {
+            "id": "世界-3-0",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2731974375781647,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -18.092947816548985
+          },
+          {
+            "id": "unbelievable-4-0",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2164932467636391,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -10.313100195726292
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-center",
+          "alignItems": "items-center",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 0,
+        "endTime": 2,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 0,
+            "endTime": 0.3333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.3333333333333333,
+            "endTime": 0.6666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.6666666666666666,
+            "endTime": 1
+          },
+          {
+            "text": "世界",
+            "startTime": 1,
+            "endTime": 1.3333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.3333333333333333,
+            "endTime": 1.6666666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "normal",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-0",
+            "x": 8.393923158582766,
+            "y": 18.970730272703804,
+            "rotate": -2.9991940132777017,
+            "scale": 1.2950093841436683,
+            "marginRight": "14.6px",
+            "alignSelf": "auto",
+            "passedRotate": 3.710980521818783
+          },
+          {
+            "id": "’-1-0",
+            "x": 18.970730272703804,
+            "y": -11.996776053110807,
+            "rotate": 4.750469207183414,
+            "scale": 1.2514506737232296,
+            "marginRight": "36.4px",
+            "alignSelf": "auto",
+            "passedRotate": -14.181641209543159
+          },
+          {
+            "id": "s-2-0",
+            "x": -11.996776053110807,
+            "y": 19.001876828733657,
+            "rotate": 2.572533686161478,
+            "scale": 1.269003602148314,
+            "marginRight": "3.6px",
+            "alignSelf": "auto",
+            "passedRotate": 13.000099783585028
+          },
+          {
+            "id": "世界-3-0",
+            "x": 19.001876828733657,
+            "y": 10.290134744645911,
+            "rotate": 3.45018010741569,
+            "scale": 1.2731974375781647,
+            "marginRight": "93.8px",
+            "alignSelf": "auto",
+            "passedRotate": -18.092947816548985
+          },
+          {
+            "id": "unbelievable-4-0",
+            "x": 10.290134744645911,
+            "y": 13.80072042966276,
+            "rotate": 3.659871878908234,
+            "scale": 1.2164932467636391,
+            "marginRight": "81.4px",
+            "alignSelf": "auto",
+            "passedRotate": -10.313100195726292
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-start",
+          "alignItems": "items-start",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 0,
+        "endTime": 2,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 0,
+            "endTime": 0.3333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.3333333333333333,
+            "endTime": 0.6666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.6666666666666666,
+            "endTime": 1
+          },
+          {
+            "text": "世界",
+            "startTime": 1,
+            "endTime": 1.3333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.3333333333333333,
+            "endTime": 1.6666666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "normal",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-0",
+            "x": 8.393923158582766,
+            "y": 18.970730272703804,
+            "rotate": -2.9991940132777017,
+            "scale": 1.2950093841436683,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 3.710980521818783
+          },
+          {
+            "id": "’-1-0",
+            "x": 18.970730272703804,
+            "y": -11.996776053110807,
+            "rotate": 4.750469207183414,
+            "scale": 1.2514506737232296,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -14.181641209543159
+          },
+          {
+            "id": "s-2-0",
+            "x": -11.996776053110807,
+            "y": 19.001876828733657,
+            "rotate": 2.572533686161478,
+            "scale": 1.269003602148314,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 13.000099783585028
+          },
+          {
+            "id": "世界-3-0",
+            "x": 19.001876828733657,
+            "y": 10.290134744645911,
+            "rotate": 3.45018010741569,
+            "scale": 1.2731974375781647,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -18.092947816548985
+          },
+          {
+            "id": "unbelievable-4-0",
+            "x": 10.290134744645911,
+            "y": 13.80072042966276,
+            "rotate": 3.659871878908234,
+            "scale": 1.2164932467636391,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": -10.313100195726292
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-start",
+          "alignItems": "items-start",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 0,
+        "endTime": 2,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 0,
+            "endTime": 0.3333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.3333333333333333,
+            "endTime": 0.6666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.6666666666666666,
+            "endTime": 1
+          },
+          {
+            "text": "世界",
+            "startTime": 1,
+            "endTime": 1.3333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.3333333333333333,
+            "endTime": 1.6666666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "chaotic",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-0",
+            "x": 25.181769475748297,
+            "y": 56.91219081811141,
+            "rotate": -17.99516407966621,
+            "scale": 1.3850281524310049,
+            "marginRight": "2.4px",
+            "alignSelf": "flex-start",
+            "passedRotate": 3.710980521818783
+          },
+          {
+            "id": "’-1-0",
+            "x": 56.91219081811141,
+            "y": -35.99032815933242,
+            "rotate": 28.502815243100486,
+            "scale": 1.2543520211696886,
+            "marginRight": "80.2px",
+            "alignSelf": "flex-start",
+            "passedRotate": -14.181641209543159
+          },
+          {
+            "id": "s-2-0",
+            "x": -35.99032815933242,
+            "y": 57.00563048620097,
+            "rotate": 15.435202116968867,
+            "scale": 1.3070108064449415,
+            "marginRight": "2.4px",
+            "alignSelf": "auto",
+            "passedRotate": 13.000099783585028
+          },
+          {
+            "id": "世界-3-0",
+            "x": 57.00563048620097,
+            "y": 30.870404233937734,
+            "rotate": 20.70108064449414,
+            "scale": 1.319592312734494,
+            "marginRight": "97.4px",
+            "alignSelf": "auto",
+            "passedRotate": -18.092947816548985
+          },
+          {
+            "id": "unbelievable-4-0",
+            "x": 30.870404233937734,
+            "y": 41.40216128898828,
+            "rotate": 21.959231273449404,
+            "scale": 1.1494797402909172,
+            "marginRight": "86.1px",
+            "alignSelf": "flex-end",
+            "passedRotate": -10.313100195726292
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-start",
+          "alignItems": "items-start",
+          "perspective": 500
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 0,
+        "endTime": 2,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 0,
+            "endTime": 0.3333333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 0.3333333333333333,
+            "endTime": 0.6666666666666666
+          },
+          {
+            "text": "s",
+            "startTime": 0.6666666666666666,
+            "endTime": 1
+          },
+          {
+            "text": "世界",
+            "startTime": 1,
+            "endTime": 1.3333333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 1.3333333333333333,
+            "endTime": 1.6666666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "chaotic",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-0",
+            "x": 25.181769475748297,
+            "y": 56.91219081811141,
+            "rotate": -17.99516407966621,
+            "scale": 1.3850281524310049,
+            "marginRight": "1.1358800529242217rem",
+            "alignSelf": "flex-start",
+            "passedRotate": 3.710980521818783
+          },
+          {
+            "id": "’-1-0",
+            "x": 56.91219081811141,
+            "y": -35.99032815933242,
+            "rotate": 28.502815243100486,
+            "scale": 1.2543520211696886,
+            "marginRight": "1.2675270161123535rem",
+            "alignSelf": "flex-start",
+            "passedRotate": -14.181641209543159
+          },
+          {
+            "id": "s-2-0",
+            "x": -35.99032815933242,
+            "y": 57.00563048620097,
+            "rotate": 15.435202116968867,
+            "scale": 1.3070108064449415,
+            "marginRight": "1.298980781836235rem",
+            "alignSelf": "auto",
+            "passedRotate": 13.000099783585028
+          },
+          {
+            "id": "世界-3-0",
+            "x": 57.00563048620097,
+            "y": 30.870404233937734,
+            "rotate": 20.70108064449414,
+            "scale": 1.319592312734494,
+            "marginRight": "0.8736993507272928rem",
+            "alignSelf": "auto",
+            "passedRotate": -18.092947816548985
+          },
+          {
+            "id": "unbelievable-4-0",
+            "x": 30.870404233937734,
+            "y": 41.40216128898828,
+            "rotate": 21.959231273449404,
+            "scale": 1.1494797402909172,
+            "marginRight": "0.2772786263485614rem",
+            "alignSelf": "flex-end",
+            "passedRotate": -10.313100195726292
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-start",
+          "alignItems": "items-start",
+          "perspective": 500
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 2.25,
+        "endTime": 4.25,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 2.25,
+            "endTime": 2.5833333333333335
+          },
+          {
+            "text": "’",
+            "startTime": 2.5833333333333335,
+            "endTime": 2.9166666666666665
+          },
+          {
+            "text": "s",
+            "startTime": 2.9166666666666665,
+            "endTime": 3.25
+          },
+          {
+            "text": "世界",
+            "startTime": 3.25,
+            "endTime": 3.583333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 3.583333333333333,
+            "endTime": 3.916666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": false,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "calm",
+      "viewportWidth": 1600,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-2.25",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1415669048863721,
+            "marginRight": "36.9px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-2.25",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2617580230111345,
+            "marginRight": "25.7px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-2.25",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1084204786806369,
+            "marginRight": "39.8px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-2.25",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2789707608671053,
+            "marginRight": "142.9px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-2.25",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1031391904090926,
+            "marginRight": "115.6px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-center",
+          "alignItems": "items-center",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 2.25,
+        "endTime": 4.25,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 2.25,
+            "endTime": 2.5833333333333335
+          },
+          {
+            "text": "’",
+            "startTime": 2.5833333333333335,
+            "endTime": 2.9166666666666665
+          },
+          {
+            "text": "s",
+            "startTime": 2.9166666666666665,
+            "endTime": 3.25
+          },
+          {
+            "text": "世界",
+            "startTime": 3.25,
+            "endTime": 3.583333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 3.583333333333333,
+            "endTime": 3.916666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": false,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "calm",
+      "viewportWidth": 1600,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-2.25",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1415669048863721,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-2.25",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2617580230111345,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-2.25",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1084204786806369,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-2.25",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.2789707608671053,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-2.25",
+            "x": 0,
+            "y": 0,
+            "rotate": 0,
+            "scale": 1.1031391904090926,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-center",
+          "alignItems": "items-center",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 2.25,
+        "endTime": 4.25,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 2.25,
+            "endTime": 2.5833333333333335
+          },
+          {
+            "text": "’",
+            "startTime": 2.5833333333333335,
+            "endTime": 2.9166666666666665
+          },
+          {
+            "text": "s",
+            "startTime": 2.9166666666666665,
+            "endTime": 3.25
+          },
+          {
+            "text": "世界",
+            "startTime": 3.25,
+            "endTime": 3.583333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 3.583333333333333,
+            "endTime": 3.916666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": false,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "normal",
+      "viewportWidth": 1600,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-2.25",
+            "x": -18.053812043344806,
+            "y": -15.743291433391278,
+            "rotate": 0,
+            "scale": 1.1415669048863721,
+            "marginRight": "35.2px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-2.25",
+            "x": -15.743291433391278,
+            "y": 6.202629363178858,
+            "rotate": 0,
+            "scale": 1.2617580230111345,
+            "marginRight": "10.4px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-2.25",
+            "x": 6.202629363178858,
+            "y": -11.686619022725608,
+            "rotate": 0,
+            "scale": 1.1084204786806369,
+            "marginRight": "52.3px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-2.25",
+            "x": -11.686619022725608,
+            "y": 12.351604602226871,
+            "rotate": 0,
+            "scale": 1.2789707608671053,
+            "marginRight": "126.1px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-2.25",
+            "x": 12.351604602226871,
+            "y": -18.315904263872653,
+            "rotate": 0,
+            "scale": 1.1031391904090926,
+            "marginRight": "124.3px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-end",
+          "alignItems": "items-center",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 2.25,
+        "endTime": 4.25,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 2.25,
+            "endTime": 2.5833333333333335
+          },
+          {
+            "text": "’",
+            "startTime": 2.5833333333333335,
+            "endTime": 2.9166666666666665
+          },
+          {
+            "text": "s",
+            "startTime": 2.9166666666666665,
+            "endTime": 3.25
+          },
+          {
+            "text": "世界",
+            "startTime": 3.25,
+            "endTime": 3.583333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 3.583333333333333,
+            "endTime": 3.916666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": false,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "normal",
+      "viewportWidth": 1600,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-2.25",
+            "x": -18.053812043344806,
+            "y": -15.743291433391278,
+            "rotate": 0,
+            "scale": 1.1415669048863721,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-2.25",
+            "x": -15.743291433391278,
+            "y": 6.202629363178858,
+            "rotate": 0,
+            "scale": 1.2617580230111345,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-2.25",
+            "x": 6.202629363178858,
+            "y": -11.686619022725608,
+            "rotate": 0,
+            "scale": 1.1084204786806369,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-2.25",
+            "x": -11.686619022725608,
+            "y": 12.351604602226871,
+            "rotate": 0,
+            "scale": 1.2789707608671053,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-2.25",
+            "x": 12.351604602226871,
+            "y": -18.315904263872653,
+            "rotate": 0,
+            "scale": 1.1031391904090926,
+            "marginRight": "0.8rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-end",
+          "alignItems": "items-center",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 2.25,
+        "endTime": 4.25,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 2.25,
+            "endTime": 2.5833333333333335
+          },
+          {
+            "text": "’",
+            "startTime": 2.5833333333333335,
+            "endTime": 2.9166666666666665
+          },
+          {
+            "text": "s",
+            "startTime": 2.9166666666666665,
+            "endTime": 3.25
+          },
+          {
+            "text": "世界",
+            "startTime": 3.25,
+            "endTime": 3.583333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 3.583333333333333,
+            "endTime": 3.916666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": false,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "chaotic",
+      "viewportWidth": 1600,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-2.25",
+            "x": -54.16143613003442,
+            "y": -47.22987430017383,
+            "rotate": 0,
+            "scale": 0.924700714659116,
+            "marginRight": "22.1px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-2.25",
+            "x": -47.22987430017383,
+            "y": 18.607888089536573,
+            "rotate": 0,
+            "scale": 1.285274069033403,
+            "marginRight": "4.8px",
+            "alignSelf": "flex-end",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-2.25",
+            "x": 18.607888089536573,
+            "y": -35.059857068176825,
+            "rotate": 0,
+            "scale": 0.8252614360419103,
+            "marginRight": "73.3px",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-2.25",
+            "x": -35.059857068176825,
+            "y": 37.05481380668061,
+            "rotate": 0,
+            "scale": 1.3369122826013156,
+            "marginRight": "10.1px",
+            "alignSelf": "flex-start",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-2.25",
+            "x": 37.05481380668061,
+            "y": -54.94771279161796,
+            "rotate": 0,
+            "scale": 0.8094175712272773,
+            "marginRight": "56.5px",
+            "alignSelf": "flex-end",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-end",
+          "alignItems": "items-center",
+          "perspective": 502.25
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 2.25,
+        "endTime": 4.25,
+        "fullText": "It’s 世界 unbelievable",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 2.25,
+            "endTime": 2.5833333333333335
+          },
+          {
+            "text": "’",
+            "startTime": 2.5833333333333335,
+            "endTime": 2.9166666666666665
+          },
+          {
+            "text": "s",
+            "startTime": 2.9166666666666665,
+            "endTime": 3.25
+          },
+          {
+            "text": "世界",
+            "startTime": 3.25,
+            "endTime": 3.583333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 3.583333333333333,
+            "endTime": 3.916666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": false,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "chaotic",
+      "viewportWidth": 1600,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-2.25",
+            "x": -54.16143613003442,
+            "y": -47.22987430017383,
+            "rotate": 0,
+            "scale": 0.924700714659116,
+            "marginRight": "1.2131851725835077rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-2.25",
+            "x": -47.22987430017383,
+            "y": 18.607888089536573,
+            "rotate": 0,
+            "scale": 1.285274069033403,
+            "marginRight": "0.0631535901047755rem",
+            "alignSelf": "flex-end",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-2.25",
+            "x": 18.607888089536573,
+            "y": -35.059857068176825,
+            "rotate": 0,
+            "scale": 0.8252614360419103,
+            "marginRight": "1.3422807065032885rem",
+            "alignSelf": "auto",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-2.25",
+            "x": -35.059857068176825,
+            "y": 37.05481380668061,
+            "rotate": 0,
+            "scale": 1.3369122826013156,
+            "marginRight": "0.023543928068193054rem",
+            "alignSelf": "flex-start",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-2.25",
+            "x": 37.05481380668061,
+            "y": -54.94771279161796,
+            "rotate": 0,
+            "scale": 0.8094175712272773,
+            "marginRight": "1.3800373310787108rem",
+            "alignSelf": "flex-end",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-end",
+          "alignItems": "items-center",
+          "perspective": 502.25
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 17.8,
+        "endTime": 19.8,
+        "fullText": "......",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 17.8,
+            "endTime": 18.133333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 18.133333333333333,
+            "endTime": 18.46666666666667
+          },
+          {
+            "text": "s",
+            "startTime": 18.46666666666667,
+            "endTime": 18.8
+          },
+          {
+            "text": "世界",
+            "startTime": 18.8,
+            "endTime": 19.133333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 19.133333333333333,
+            "endTime": 19.46666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "calm",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-17.8",
+            "x": 0,
+            "y": 3.560626065809629,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-17.8",
+            "x": 0,
+            "y": 6.785111586068524,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-17.8",
+            "x": 0,
+            "y": 5.50136931566044,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-17.8",
+            "x": 0,
+            "y": -6.713406636745276,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-17.8",
+            "x": 0,
+            "y": -7.266861579500983,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-center",
+          "alignItems": "items-center",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 17.8,
+        "endTime": 19.8,
+        "fullText": "......",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 17.8,
+            "endTime": 18.133333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 18.133333333333333,
+            "endTime": 18.46666666666667
+          },
+          {
+            "text": "s",
+            "startTime": 18.46666666666667,
+            "endTime": 18.8
+          },
+          {
+            "text": "世界",
+            "startTime": 18.8,
+            "endTime": 19.133333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 19.133333333333333,
+            "endTime": 19.46666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "calm",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-17.8",
+            "x": 0,
+            "y": 3.560626065809629,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-17.8",
+            "x": 0,
+            "y": 6.785111586068524,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-17.8",
+            "x": 0,
+            "y": 5.50136931566044,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-17.8",
+            "x": 0,
+            "y": -6.713406636745276,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-17.8",
+            "x": 0,
+            "y": -7.266861579500983,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-center",
+          "alignItems": "items-center",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 17.8,
+        "endTime": 19.8,
+        "fullText": "......",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 17.8,
+            "endTime": 18.133333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 18.133333333333333,
+            "endTime": 18.46666666666667
+          },
+          {
+            "text": "s",
+            "startTime": 18.46666666666667,
+            "endTime": 18.8
+          },
+          {
+            "text": "世界",
+            "startTime": 18.8,
+            "endTime": 19.133333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 19.133333333333333,
+            "endTime": 19.46666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "normal",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-17.8",
+            "x": 0,
+            "y": 3.560626065809629,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-17.8",
+            "x": 0,
+            "y": 6.785111586068524,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-17.8",
+            "x": 0,
+            "y": 5.50136931566044,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-17.8",
+            "x": 0,
+            "y": -6.713406636745276,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-17.8",
+            "x": 0,
+            "y": -7.266861579500983,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-center",
+          "alignItems": "items-end",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 17.8,
+        "endTime": 19.8,
+        "fullText": "......",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 17.8,
+            "endTime": 18.133333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 18.133333333333333,
+            "endTime": 18.46666666666667
+          },
+          {
+            "text": "s",
+            "startTime": 18.46666666666667,
+            "endTime": 18.8
+          },
+          {
+            "text": "世界",
+            "startTime": 18.8,
+            "endTime": 19.133333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 19.133333333333333,
+            "endTime": 19.46666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "normal",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-17.8",
+            "x": 0,
+            "y": 3.560626065809629,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-17.8",
+            "x": 0,
+            "y": 6.785111586068524,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-17.8",
+            "x": 0,
+            "y": 5.50136931566044,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-17.8",
+            "x": 0,
+            "y": -6.713406636745276,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-17.8",
+            "x": 0,
+            "y": -7.266861579500983,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-center",
+          "alignItems": "items-end",
+          "perspective": 1000
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 17.8,
+        "endTime": 19.8,
+        "fullText": "......",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 17.8,
+            "endTime": 18.133333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 18.133333333333333,
+            "endTime": 18.46666666666667
+          },
+          {
+            "text": "s",
+            "startTime": 18.46666666666667,
+            "endTime": 18.8
+          },
+          {
+            "text": "世界",
+            "startTime": 18.8,
+            "endTime": 19.133333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 19.133333333333333,
+            "endTime": 19.46666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": false,
+        "wordSpacing": 0.7
+      },
+      "intensity": "chaotic",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-17.8",
+            "x": 0,
+            "y": 3.560626065809629,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-17.8",
+            "x": 0,
+            "y": 6.785111586068524,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-17.8",
+            "x": 0,
+            "y": 5.50136931566044,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-17.8",
+            "x": 0,
+            "y": -6.713406636745276,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-17.8",
+            "x": 0,
+            "y": -7.266861579500983,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-center",
+          "alignItems": "items-end",
+          "perspective": 517.8
+        }
+      }
+    },
+    {
+      "line": {
+        "startTime": 17.8,
+        "endTime": 19.8,
+        "fullText": "......",
+        "words": [
+          {
+            "text": "It",
+            "startTime": 17.8,
+            "endTime": 18.133333333333333
+          },
+          {
+            "text": "’",
+            "startTime": 18.133333333333333,
+            "endTime": 18.46666666666667
+          },
+          {
+            "text": "s",
+            "startTime": 18.46666666666667,
+            "endTime": 18.8
+          },
+          {
+            "text": "世界",
+            "startTime": 18.8,
+            "endTime": 19.133333333333333
+          },
+          {
+            "text": "unbelievable",
+            "startTime": 19.133333333333333,
+            "endTime": 19.46666666666667
+          }
+        ]
+      },
+      "tuning": {
+        "enableWordRotation": true,
+        "breathingFloatMultiplier": 1,
+        "useLegacyLayout": true,
+        "wordSpacing": 0.7
+      },
+      "intensity": "chaotic",
+      "viewportWidth": 360,
+      "lyricsFontScale": 1.2,
+      "expected": {
+        "wordConfigs": [
+          {
+            "id": "It-0-17.8",
+            "x": 0,
+            "y": 3.560626065809629,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "’-1-17.8",
+            "x": 0,
+            "y": 6.785111586068524,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "s-2-17.8",
+            "x": 0,
+            "y": 5.50136931566044,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "世界-3-17.8",
+            "x": 0,
+            "y": -6.713406636745276,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          },
+          {
+            "id": "unbelievable-4-17.8",
+            "x": 0,
+            "y": -7.266861579500983,
+            "rotate": 0,
+            "scale": 1.5,
+            "marginRight": "3rem",
+            "alignSelf": "center",
+            "passedRotate": 0
+          }
+        ],
+        "lineConfig": {
+          "justifyContent": "justify-center",
+          "alignItems": "items-end",
+          "perspective": 517.8
+        }
+      }
+    }
+  ],
+  "variantCases": [
+    {
+      "intensity": "calm",
+      "rotation": true,
+      "reveal": "normal",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 13,
+        "scale": 1.19,
+        "passedRotate": 3.3
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 13,
+          "scale": 1.19,
+          "passedRotate": 3.3
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "normal"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 33,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 13,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 16.3,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.8,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.5
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "calm",
+      "rotation": true,
+      "reveal": "fast",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 13,
+        "scale": 1.19,
+        "passedRotate": 3.3
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 13,
+          "scale": 1.19,
+          "passedRotate": 3.3
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "fast"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 33,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 13,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 16.3,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.24,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "calm",
+      "rotation": true,
+      "reveal": "instant",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 13,
+        "scale": 1.19,
+        "passedRotate": 3.3
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 13,
+          "scale": 1.19,
+          "passedRotate": 3.3
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "instant"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 33,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 13,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.08
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 16.3,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.12,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "calm",
+      "rotation": false,
+      "reveal": "normal",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 0,
+        "scale": 1.19,
+        "passedRotate": 0
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 0,
+          "scale": 1.19,
+          "passedRotate": 0
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "normal"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.8,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.5
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "calm",
+      "rotation": false,
+      "reveal": "fast",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 0,
+        "scale": 1.19,
+        "passedRotate": 0
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 0,
+          "scale": 1.19,
+          "passedRotate": 0
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "fast"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.24,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "calm",
+      "rotation": false,
+      "reveal": "instant",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 0,
+        "scale": 1.19,
+        "passedRotate": 0
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 0,
+          "scale": 1.19,
+          "passedRotate": 0
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "instant"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.08
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.12,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "normal",
+      "rotation": true,
+      "reveal": "normal",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 13,
+        "scale": 1.19,
+        "passedRotate": 3.3
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 13,
+          "scale": 1.19,
+          "passedRotate": 3.3
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "normal"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 33,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 13,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 16.3,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.8,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.5
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "normal",
+      "rotation": true,
+      "reveal": "fast",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 13,
+        "scale": 1.19,
+        "passedRotate": 3.3
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 13,
+          "scale": 1.19,
+          "passedRotate": 3.3
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "fast"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 33,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 13,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 16.3,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.24,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "normal",
+      "rotation": true,
+      "reveal": "instant",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 13,
+        "scale": 1.19,
+        "passedRotate": 3.3
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 13,
+          "scale": 1.19,
+          "passedRotate": 3.3
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "instant"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 33,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 13,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.08
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 16.3,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.12,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "normal",
+      "rotation": false,
+      "reveal": "normal",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 0,
+        "scale": 1.19,
+        "passedRotate": 0
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 0,
+          "scale": 1.19,
+          "passedRotate": 0
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "normal"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.8,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.5
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "normal",
+      "rotation": false,
+      "reveal": "fast",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 0,
+        "scale": 1.19,
+        "passedRotate": 0
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 0,
+          "scale": 1.19,
+          "passedRotate": 0
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "fast"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.24,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "normal",
+      "rotation": false,
+      "reveal": "instant",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 0,
+        "scale": 1.19,
+        "passedRotate": 0
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 0,
+          "scale": 1.19,
+          "passedRotate": 0
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "instant"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.08
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.82,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.12,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "chaotic",
+      "rotation": true,
+      "reveal": "normal",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 13,
+        "scale": 1.19,
+        "passedRotate": 3.3
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 13,
+          "scale": 1.19,
+          "passedRotate": 3.3
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "normal"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 33,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 13,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.9,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 16.3,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.8,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.5
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "chaotic",
+      "rotation": true,
+      "reveal": "fast",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 13,
+        "scale": 1.19,
+        "passedRotate": 3.3
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 13,
+          "scale": 1.19,
+          "passedRotate": 3.3
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "fast"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 33,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 13,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.9,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 16.3,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.24,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "chaotic",
+      "rotation": true,
+      "reveal": "instant",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 13,
+        "scale": 1.19,
+        "passedRotate": 3.3
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 13,
+          "scale": 1.19,
+          "passedRotate": 3.3
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "instant"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 33,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 13,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.08
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.9,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 16.3,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.12,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "chaotic",
+      "rotation": false,
+      "reveal": "normal",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 0,
+        "scale": 1.19,
+        "passedRotate": 0
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 0,
+          "scale": 1.19,
+          "passedRotate": 0
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "normal"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.9,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.8,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.5
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "chaotic",
+      "rotation": false,
+      "reveal": "fast",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 0,
+        "scale": 1.19,
+        "passedRotate": 0
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 0,
+          "scale": 1.19,
+          "passedRotate": 0
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "fast"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.9,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.24,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.2
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "intensity": "chaotic",
+      "rotation": false,
+      "reveal": "instant",
+      "config": {
+        "x": 12.25,
+        "y": -5.7,
+        "rotate": 0,
+        "scale": 1.19,
+        "passedRotate": 0
+      },
+      "custom": {
+        "config": {
+          "x": 12.25,
+          "y": -5.7,
+          "rotate": 0,
+          "scale": 1.19,
+          "passedRotate": 0
+        },
+        "baseColor": "#123456",
+        "activeColor": "#fedcba",
+        "duration": 0.27,
+        "wordRevealMode": "instant"
+      },
+      "states": {
+        "waiting": {
+          "layout": {
+            "opacity": 0,
+            "scale": 0.5,
+            "x": 67.31855425976376,
+            "y": 41.81854235338367,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.4
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(10px)",
+            "transition": {
+              "duration": 0.4
+            }
+          }
+        },
+        "active": {
+          "layout": {
+            "opacity": 1,
+            "scale": 1.666,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "type": "spring",
+              "stiffness": 200,
+              "damping": 20,
+              "opacity": {
+                "duration": 0.1
+              }
+            }
+          },
+          "body": {
+            "color": "#fedcba",
+            "filter": "none",
+            "transition": {
+              "color": {
+                "duration": 0.27,
+                "ease": "linear"
+              },
+              "filter": {
+                "type": "tween",
+                "duration": 0.08
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        },
+        "passed": {
+          "layout": {
+            "opacity": 0.9,
+            "scale": 1.19,
+            "x": 12.25,
+            "y": -5.7,
+            "rotate": 0,
+            "transition": {
+              "duration": 0.5,
+              "rotate": {
+                "duration": 5,
+                "ease": "linear"
+              }
+            }
+          },
+          "body": {
+            "color": "#123456",
+            "filter": "blur(0px)",
+            "transition": {
+              "color": {
+                "duration": 0.12,
+                "ease": "easeInOut"
+              },
+              "filter": {
+                "duration": 0.12
+              }
+            },
+            "transitionEnd": {
+              "filter": "none"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "profiles": [
+    {
+      "line": {
+        "startTime": 4,
+        "endTime": 4.03,
+        "fullText": "word",
+        "words": [
+          {
+            "text": "word",
+            "startTime": 4,
+            "endTime": 4.015
+          }
+        ]
+      },
+      "expected": {
+        "renderHints": {
+          "rawDuration": 0.03000000000000025,
+          "timingClass": "micro",
+          "renderEndTime": 4.067,
+          "lineTransitionMode": "none",
+          "wordRevealMode": "instant"
+        },
+        "lineRenderEndTime": 4.067,
+        "lineTransitionMode": "none",
+        "wordRevealMode": "instant",
+        "wordLookahead": 0.03
+      },
+      "motion": {
+        "initial": {
+          "opacity": 1,
+          "scale": 1,
+          "filter": "blur(0px)"
+        },
+        "animate": {
+          "opacity": 1,
+          "scale": 1,
+          "filter": "blur(0px)",
+          "transitionEnd": {
+            "filter": "none"
+          }
+        },
+        "exit": {
+          "opacity": 0,
+          "scale": 1.02,
+          "filter": "blur(6px)",
+          "transition": {
+            "duration": 0.12,
+            "ease": "easeOut"
+          }
+        }
+      },
+      "words": [
+        {
+          "word": {
+            "text": "word",
+            "startTime": 4,
+            "endTime": 4.015
+          },
+          "end": 4.067,
+          "duration": 0.08
+        }
+      ]
+    },
+    {
+      "line": {
+        "startTime": 4,
+        "endTime": 4.12,
+        "fullText": "word",
+        "words": [
+          {
+            "text": "word",
+            "startTime": 4,
+            "endTime": 4.06
+          }
+        ]
+      },
+      "expected": {
+        "renderHints": {
+          "rawDuration": 0.1200000000000001,
+          "timingClass": "short",
+          "renderEndTime": 4.12,
+          "lineTransitionMode": "fast",
+          "wordRevealMode": "fast"
+        },
+        "lineRenderEndTime": 4.12,
+        "lineTransitionMode": "fast",
+        "wordRevealMode": "fast",
+        "wordLookahead": 0.08
+      },
+      "motion": {
+        "initial": {
+          "opacity": 0.35,
+          "scale": 0.96,
+          "filter": "blur(4px)"
+        },
+        "animate": {
+          "opacity": 1,
+          "scale": 1,
+          "filter": "blur(0px)",
+          "transition": {
+            "duration": 0.16,
+            "ease": "easeOut"
+          },
+          "transitionEnd": {
+            "filter": "none"
+          }
+        },
+        "exit": {
+          "opacity": 0,
+          "scale": 1.04,
+          "filter": "blur(10px)",
+          "transition": {
+            "duration": 0.16,
+            "ease": "easeInOut"
+          }
+        }
+      },
+      "words": [
+        {
+          "word": {
+            "text": "word",
+            "startTime": 4,
+            "endTime": 4.06
+          },
+          "end": 4.12,
+          "duration": 0.1200000000000001
+        }
+      ]
+    },
+    {
+      "line": {
+        "startTime": 4,
+        "endTime": 6,
+        "fullText": "word",
+        "words": [
+          {
+            "text": "word",
+            "startTime": 4,
+            "endTime": 5
+          }
+        ]
+      },
+      "expected": {
+        "renderHints": {
+          "rawDuration": 2,
+          "timingClass": "normal",
+          "renderEndTime": 6,
+          "lineTransitionMode": "normal",
+          "wordRevealMode": "normal"
+        },
+        "lineRenderEndTime": 6,
+        "lineTransitionMode": "normal",
+        "wordRevealMode": "normal",
+        "wordLookahead": 0.15
+      },
+      "motion": {
+        "initial": {
+          "opacity": 0,
+          "scale": 0.9,
+          "filter": "blur(10px)"
+        },
+        "animate": {
+          "opacity": 1,
+          "scale": 1,
+          "filter": "blur(0px)",
+          "transitionEnd": {
+            "filter": "none"
+          }
+        },
+        "exit": {
+          "opacity": 0,
+          "scale": 1.1,
+          "filter": "blur(20px)",
+          "transition": {
+            "duration": 0.3
+          }
+        }
+      },
+      "words": [
+        {
+          "word": {
+            "text": "word",
+            "startTime": 4,
+            "endTime": 5
+          },
+          "end": 5,
+          "duration": 1
+        }
+      ]
+    }
+  ],
+  "nullMotion": {
+    "initial": {
+      "opacity": 0,
+      "scale": 0.9,
+      "filter": "blur(10px)"
+    },
+    "animate": {
+      "opacity": 1,
+      "scale": 1,
+      "filter": "blur(0px)",
+      "transitionEnd": {
+        "filter": "none"
+      }
+    },
+    "exit": {
+      "opacity": 0,
+      "scale": 1.1,
+      "filter": "blur(20px)",
+      "transition": {
+        "duration": 0.3
+      }
+    }
+  }
+}

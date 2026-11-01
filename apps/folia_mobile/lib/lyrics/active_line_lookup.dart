@@ -14,7 +14,9 @@ class ActiveLineLookup {
       final line = lines[i],
           start = line.start,
           end = line.renderHints?.renderEndTime ?? line.end;
-      if (!start.isFinite || !end.isFinite || (i > 0 && start < _starts[i - 1])) {
+      if (!start.isFinite ||
+          !end.isFinite ||
+          (i > 0 && start < _starts[i - 1])) {
         _ordered = false;
       }
       _starts[i] = start;
