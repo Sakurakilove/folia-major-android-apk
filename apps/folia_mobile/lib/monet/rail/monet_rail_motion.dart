@@ -2,9 +2,9 @@ import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/animation.dart';
-import 'package:flutter/physics.dart';
 
 import 'monet_rail_layout.dart';
+import '../../visualizer/motion/physical_spring.dart';
 
 // The original entry/retarget/exit contract: two springs and independent opacity/blur easing, not one global fade.
 class MonetRailMotion {
@@ -15,7 +15,7 @@ class MonetRailMotion {
     bool suppressInitial = false,
   }) : start = now,
        subtitleStart = now - (suppressInitial ? .32 : 0),
-       _y = SpringSimulation(
+       _y = _spring(
          _scroll,
          entry.y +
              (manual || suppressInitial
@@ -26,7 +26,7 @@ class MonetRailMotion {
          entry.y,
          0,
        ),
-       _scale = SpringSimulation(
+       _scale = _spring(
          _scaleDescription,
          entry.tone.scale * (manual || suppressInitial ? 1 : .98),
          entry.tone.scale,
@@ -37,6 +37,19 @@ class MonetRailMotion {
        _chorusStart = now - (suppressInitial ? .45 : 0),
        _chorusTarget = entry.entry.status == 'active' ? 1 : 0,
        _chorusScaleTarget = entry.entry.status == 'active' ? 1.02 : .96;
+  static MotionPhysicalSpring _spring(
+    SpringDescription spec,
+    double from,
+    double target,
+    double velocity,
+  ) => MotionPhysicalSpring(
+    spec.stiffness,
+    spec.damping,
+    spec.mass,
+    from,
+    target,
+    velocity,
+  );
   static const _scroll = SpringDescription(
     mass: .82,
     stiffness: 142,
@@ -49,7 +62,7 @@ class MonetRailMotion {
   );
   static const _ease = Cubic(.32, .72, 0, 1);
   PositionedMonetLineEntry entry;
-  SpringSimulation _y, _scale;
+  MotionPhysicalSpring _y, _scale;
   double start, subtitleStart, _fromOpacity, _fromBlur;
   double? _exitStart;
   double _exitY = 0, _exitScale = 1, _exitOpacity = 0, _exitBlur = 0;
@@ -121,13 +134,8 @@ class MonetRailMotion {
         currentY = y(now),
         currentScale = scale(now);
     final opacityNow = opacity(now), blurNow = blur(now);
-    _y = SpringSimulation(
-      _scroll,
-      currentY,
-      next.y,
-      exiting ? 0 : _y.dx(elapsed),
-    );
-    _scale = SpringSimulation(
+    _y = _spring(_scroll, currentY, next.y, exiting ? 0 : _y.dx(elapsed));
+    _scale = _spring(
       _scaleDescription,
       currentScale,
       next.tone.scale,

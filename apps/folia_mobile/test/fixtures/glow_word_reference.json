@@ -1,6 +1,1088 @@
 {
   "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
   "scope": "Shared timing and Classic layout body with synthetic code-unit widths; no fonts, pixels, gestures or full animation acceptance.",
+  "physics": [
+    {
+      "config": {
+        "stiffness": 142,
+        "damping": 28,
+        "mass": 0.82
+      },
+      "from": 0,
+      "to": 100,
+      "velocity": 0,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 1.4210854715202004e-14,
+          "velocity": 0
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 0.008560696467327489,
+          "velocity": 17.024261146193894
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 1.8559234056675677,
+          "velocity": 211.90842628872565
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 6.600411934852232,
+          "velocity": 332.3437613502663
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 19.14340527295377,
+          "velocity": 403.0219912328459
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 32.595335596224444,
+          "velocity": 379.7484828895374
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": 72.72670133176707,
+          "velocity": 168.40138697430393
+        },
+        {
+          "ms": 500,
+          "done": false,
+          "value": 94.199305758843,
+          "velocity": 35.93801802694372
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": 100,
+          "velocity": 1.6226082452949853
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": 100,
+          "velocity": 0.000006742471401236531
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 142,
+        "damping": 28,
+        "mass": 0.82
+      },
+      "from": 1,
+      "to": 0.98,
+      "velocity": 0,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 1,
+          "velocity": 5.421010862427522e-17
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 0.9999982878607065,
+          "velocity": -0.0034048522292387277
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 0.9996288153188665,
+          "velocity": -0.042381685257745126
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 0.9986799176130295,
+          "velocity": -0.06646875227005329
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 0.9961713189454092,
+          "velocity": -0.08060439824656923
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 0.9934809328807551,
+          "velocity": -0.07594969657790752
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": 0.9854546597336465,
+          "velocity": -0.033680277394860805
+        },
+        {
+          "ms": 500,
+          "done": true,
+          "value": 0.98,
+          "velocity": -0.0071876036053887486
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": 0.98,
+          "velocity": -0.0003245216490589973
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": 0.98,
+          "velocity": -1.3484942802473072e-9
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 142,
+        "damping": 28,
+        "mass": 0.82
+      },
+      "from": 10,
+      "to": -13,
+      "velocity": 67,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 10.000000000000004,
+          "velocity": 67
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 10.06389814596546,
+          "velocity": 60.82956357183668
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 10.393014302633272,
+          "velocity": -10.978196004094936
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 9.767747948546216,
+          "velocity": -57.76816478952485
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 7.1563145476665895,
+          "velocity": -91.76545328775883
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 3.9723250417381806,
+          "velocity": -92.35061421693523
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": -6.075593968252325,
+          "velocity": -42.707166781148075
+        },
+        {
+          "ms": 500,
+          "done": false,
+          "value": -11.526795626618375,
+          "velocity": -9.127146738322313
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": -13,
+          "velocity": -0.412094962845306
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": -13,
+          "velocity": -0.0000017123902272548169
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 150,
+        "damping": 30,
+        "mass": 0.78
+      },
+      "from": 0,
+      "to": 100,
+      "velocity": 0,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 0,
+          "velocity": -2.220446049250313e-13
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 0.009493134978626472,
+          "velocity": 18.865038171053445
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 2.017687355497344,
+          "velocity": 227.91448651294368
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 7.040885741491991,
+          "velocity": 347.3794061233752
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 19.860998256265248,
+          "velocity": 404.4967345002521
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 33.18286610388779,
+          "velocity": 371.9277544652556
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": 72.10782761762668,
+          "velocity": 164.59494392570213
+        },
+        {
+          "ms": 500,
+          "done": false,
+          "value": 93.62902496734678,
+          "velocity": 37.63521985304498
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": 100,
+          "velocity": 1.962641373869226
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": 100,
+          "velocity": 0.000014515235228102512
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 150,
+        "damping": 30,
+        "mass": 0.78
+      },
+      "from": 1,
+      "to": 0.98,
+      "velocity": 0,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 1,
+          "velocity": 0
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 0.9999981013730043,
+          "velocity": -0.0037730076342107352
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 0.9995964625289006,
+          "velocity": -0.04558289730258879
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 0.9985918228517016,
+          "velocity": -0.0694758812246751
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 0.9960278003487469,
+          "velocity": -0.08089934690005049
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 0.9933634267792224,
+          "velocity": -0.07438555089305117
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": 0.9855784344764746,
+          "velocity": -0.032918988785140456
+        },
+        {
+          "ms": 500,
+          "done": true,
+          "value": 0.98,
+          "velocity": -0.007527043970609003
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": 0.98,
+          "velocity": -0.00039252827477384556
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": 0.98,
+          "velocity": -2.9030470456205048e-9
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 150,
+        "damping": 30,
+        "mass": 0.78
+      },
+      "from": 10,
+      "to": -13,
+      "velocity": 67,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 10,
+          "velocity": 67
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 10.063542371942862,
+          "velocity": 60.126765705300784
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 10.329985979246704,
+          "velocity": -17.31272361889478
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 9.59086613039068,
+          "velocity": -64.16349727570825
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 6.841237024057875,
+          "velocity": -93.54368018978948
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 3.663737092662757,
+          "velocity": -90.61422291495786
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": -6.011351567416993,
+          "velocity": -41.22480409276546
+        },
+        {
+          "ms": 500,
+          "done": false,
+          "value": -11.40355463652175,
+          "velocity": -9.430666754630714
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": -13,
+          "velocity": -0.49180071338637477
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": -13,
+          "velocity": -0.00000363724271545627
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 200,
+        "damping": 20,
+        "mass": 1
+      },
+      "from": 0,
+      "to": 100,
+      "velocity": 0,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 0,
+          "velocity": 0
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 0.009933499998879824,
+          "velocity": 19.800666660022188
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 2.297838193790838,
+          "velocity": 271.5240404711305
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 8.690548263965681,
+          "velocity": 465.92444753245275
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 27.480119777069262,
+          "velocity": 633.7805262836376
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 49.16740140004749,
+          "velocity": 619.1197513062242
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": 101.66362874545004,
+          "velocity": 98.25117025043008
+        },
+        {
+          "ms": 500,
+          "done": false,
+          "value": 100.45498801675207,
+          "velocity": -12.922361877633412
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": 100,
+          "velocity": -0.049397040447372816
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": 100,
+          "velocity": -1.849125483910371e-10
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 200,
+        "damping": 20,
+        "mass": 1
+      },
+      "from": 1,
+      "to": 0.98,
+      "velocity": 0,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 1,
+          "velocity": 0
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 0.9999980133000003,
+          "velocity": -0.003960133332004441
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 0.9995404323612418,
+          "velocity": -0.05430480809422615
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 0.9982618903472069,
+          "velocity": -0.09318488950649065
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 0.9945039760445862,
+          "velocity": -0.12675610525672765
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 0.9901665197199905,
+          "velocity": -0.12382395026124497
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": 0.9796672742509099,
+          "velocity": -0.01965023405008603
+        },
+        {
+          "ms": 500,
+          "done": true,
+          "value": 0.98,
+          "velocity": 0.002584472375526685
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": 0.98,
+          "velocity": 0.000009879408089474573
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": 0.98,
+          "velocity": 3.6982509678207456e-14
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 200,
+        "damping": 20,
+        "mass": 1
+      },
+      "from": 10,
+      "to": -13,
+      "velocity": 67,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 10,
+          "velocity": 66.99999999999997
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 10.064047528311331,
+          "velocity": 61.11254655697413
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 10.381102751006395,
+          "velocity": -15.182191609765649
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 9.562020798521612,
+          "velocity": -77.20222825399549
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 5.802737214324257,
+          "velocity": -139.6444965568768
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 0.765548844864929,
+          "velocity": -149.82072507598045
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": -13.053493191114567,
+          "velocity": -30.295228823829255
+        },
+        {
+          "ms": 500,
+          "done": false,
+          "value": -13.14793715614305,
+          "velocity": 3.533099506433234
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": -13,
+          "velocity": 0.010463836329336028
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": -13,
+          "velocity": 4.9691552531036404e-11
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 100,
+        "damping": 20,
+        "mass": 1
+      },
+      "from": 0,
+      "to": 100,
+      "velocity": 0,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 0,
+          "velocity": 0
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 0.004966791334027221,
+          "velocity": 9.900498337491682
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 1.151320479919491,
+          "velocity": 136.34300623459382
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 4.383143453553814,
+          "velocity": 237.24483203253567
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 14.202678474377933,
+          "velocity": 341.1218807645215
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 26.42411176571153,
+          "velocity": 367.87944117144235
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": 71.27025048163541,
+          "velocity": 205.212496559747
+        },
+        {
+          "ms": 500,
+          "done": false,
+          "value": 95.95723180054873,
+          "velocity": 33.68973499542734
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": 100,
+          "velocity": 0.4539992976248485
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": 100,
+          "velocity": 2.8072868906520526e-9
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 100,
+        "damping": 20,
+        "mass": 1
+      },
+      "from": 1,
+      "to": 0.98,
+      "velocity": 0,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 1,
+          "velocity": 0
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 0.9999990066417332,
+          "velocity": -0.0019800996674983378
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 0.9997697359040161,
+          "velocity": -0.027268601246918787
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 0.9991233713092892,
+          "velocity": -0.04744896640650717
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 0.9971594643051244,
+          "velocity": -0.06822437615290435
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 0.9947151776468577,
+          "velocity": -0.07357588823428853
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": 0.9857459499036729,
+          "velocity": -0.041042499311949435
+        },
+        {
+          "ms": 500,
+          "done": true,
+          "value": 0.98,
+          "velocity": -0.006737946999085472
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": 0.98,
+          "velocity": -0.00009079985952496978
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": 0.98,
+          "velocity": -5.614573781304109e-13
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 100,
+        "damping": 20,
+        "mass": 1
+      },
+      "from": 10,
+      "to": -13,
+      "velocity": 67,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 10,
+          "velocity": 67
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 10.065190976854371,
+          "velocity": 63.392890854959234
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 10.6486944313903,
+          "velocity": 16.599761009061794
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 10.58141738030061,
+          "velocity": -22.29382497372404
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 9.01890055201537,
+          "velocity": -66.68415917611904
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 6.387246549735011,
+          "velocity": -84.61227146943175
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": -5.01723388382584,
+          "velocity": -55.448416570443655
+        },
+        {
+          "ms": 500,
+          "done": false,
+          "value": -11.844442089656843,
+          "velocity": -9.554408844703195
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": -13,
+          "velocity": -0.13179599610049356
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": -13,
+          "velocity": -8.274945991345368e-10
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 500,
+        "damping": 25,
+        "mass": 1
+      },
+      "from": 0,
+      "to": 100,
+      "velocity": 0,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 0,
+          "velocity": 0
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 0.024791930968987685,
+          "velocity": 49.376061074409435
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 5.567491125950852,
+          "velocity": 645.4203415118701
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 20.17448108452996,
+          "velocity": 1025.404434955199
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 57.30795040327514,
+          "velocity": 1111.341694757567
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 89.460832557148,
+          "velocity": 741.8570311559328
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": 103.2925305234455,
+          "velocity": -118.13559215699443
+        },
+        {
+          "ms": 500,
+          "done": true,
+          "value": 100,
+          "velocity": 0.801291794502408
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": 100,
+          "velocity": -0.003056849430165597
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": 100,
+          "velocity": -1.1164974708463909e-13
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 500,
+        "damping": 25,
+        "mass": 1
+      },
+      "from": 1,
+      "to": 0.98,
+      "velocity": 0,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 1,
+          "velocity": 0
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 0.9999950416138061,
+          "velocity": -0.009875212214881893
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 0.9988865017748099,
+          "velocity": -0.12908406830237412
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 0.995965103783094,
+          "velocity": -0.20508088699104
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": 0.9885384099193449,
+          "velocity": -0.22226833895151357
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": 0.9821078334885703,
+          "velocity": -0.14837140623118666
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": 0.9793414938953109,
+          "velocity": 0.023627118431398902
+        },
+        {
+          "ms": 500,
+          "done": true,
+          "value": 0.98,
+          "velocity": -0.00016025835890048174
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": 0.98,
+          "velocity": 6.1136988603312e-7
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": 0.98,
+          "velocity": 2.2329949416927834e-17
+        }
+      ]
+    },
+    {
+      "config": {
+        "stiffness": 500,
+        "damping": 25,
+        "mass": 1
+      },
+      "from": 10,
+      "to": -13,
+      "velocity": 67,
+      "samples": [
+        {
+          "ms": 0,
+          "done": false,
+          "value": 10,
+          "velocity": 67
+        },
+        {
+          "ms": 1,
+          "done": false,
+          "value": 10.060461777716839,
+          "velocity": 53.97279731314389
+        },
+        {
+          "ms": 16,
+          "done": false,
+          "value": 9.58434029865721,
+          "velocity": -106.79847904276485
+        },
+        {
+          "ms": 33,
+          "done": false,
+          "value": 6.7339112933980765,
+          "velocity": -216.71097093733002
+        },
+        {
+          "ms": 66,
+          "done": false,
+          "value": -1.691630721778143,
+          "velocity": -264.23486333881317
+        },
+        {
+          "ms": 100,
+          "done": false,
+          "value": -9.581903066395089,
+          "velocity": -188.41808552287742
+        },
+        {
+          "ms": 250,
+          "done": false,
+          "value": -13.915583713882839,
+          "velocity": 28.922733082659544
+        },
+        {
+          "ms": 500,
+          "done": true,
+          "value": -13,
+          "velocity": -0.3255179572903902
+        },
+        {
+          "ms": 1000,
+          "done": true,
+          "value": -13,
+          "velocity": 0.000992133246574295
+        },
+        {
+          "ms": 3000,
+          "done": true,
+          "value": -13,
+          "velocity": 2.963047028247709e-14
+        }
+      ]
+    }
+  ],
   "layouts": [
     {
       "line": {

@@ -28,6 +28,7 @@ flutter:
     - shaders/liquid_glass.frag
 
   assets:
+    - assets/motion-dom-LICENSE.md
     - assets/AndroidLiquidGlass.txt
     - assets/LICENSE
     - assets/original/

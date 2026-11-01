@@ -102,6 +102,7 @@
     "app:shell-navigation-transitions": {
       "state": "in_progress",
       "nativeSources": [
+        "apps/folia_mobile/lib/visualizer/motion/physical_spring.dart",
         "apps/folia_mobile/lib/visualizer/scene_frame_clock.dart",
         "apps/folia_mobile/lib/visualizer/transitions/scene_first_frame.dart",
         "apps/folia_mobile/lib/visualizer/transitions/scene_layers.dart",
@@ -394,7 +395,8 @@
         "apps/folia_mobile/lib/classic/classic_layout.dart",
         "apps/folia_mobile/lib/classic/classic_tuning.dart",
         "apps/folia_mobile/lib/visualizer/glow_word/glow_word_timing.dart",
-        "apps/folia_mobile/lib/visualizer/glow_word/glow_word_variants.dart"
+        "apps/folia_mobile/lib/visualizer/glow_word/glow_word_variants.dart",
+        "apps/folia_mobile/lib/visualizer/motion/physical_spring.dart"
       ],
       "evidence": null
     },
@@ -449,6 +451,7 @@
         "apps/folia_mobile/lib/monet/rail/monet_rail_selection.dart",
         "apps/folia_mobile/lib/monet/rail/monet_rail_words.dart",
         "apps/folia_mobile/lib/monet/rail/monet_text_measurement.dart",
+        "apps/folia_mobile/lib/visualizer/motion/physical_spring.dart",
         "apps/folia_mobile/shaders/monet_token.frag"
       ],
       "evidence": null
@@ -457,7 +460,8 @@
       "state": "in_progress",
       "nativeSources": [
         "apps/folia_mobile/lib/visualizer/glow_word/glow_word_timing.dart",
-        "apps/folia_mobile/lib/visualizer/glow_word/glow_word_variants.dart"
+        "apps/folia_mobile/lib/visualizer/glow_word/glow_word_variants.dart",
+        "apps/folia_mobile/lib/visualizer/motion/physical_spring.dart"
       ],
       "evidence": null
     },

@@ -1,4 +1,5 @@
 const fs = require('node:fs');
+const { pathToFileURL } = require('node:url');
 const path = require('node:path');
 const vm = require('node:vm');
 const { stripTypeScriptTypes } = require('node:module');
@@ -40,7 +41,21 @@ for (const duration of [.03, .12, 2]) {
     profiles.push({ line, expected: profile, motion: timing.getGlowWordLineContainerMotion(profile),
         words: line.words.map(word => ({ word, end: timing.getGlowWordActiveEndTime(word, profile), duration: timing.getGlowWordDisplayDuration(word, profile) })) });
 }
+async function finish() {
+const installedVersion = JSON.parse(fs.readFileSync(path.resolve(path.dirname(require.resolve('motion-dom')), '../../package.json'), 'utf8')).version;
+const originalVersion = JSON.parse(sourceText('package-lock.json')).packages['node_modules/motion-dom'].version;
+if (installedVersion !== originalVersion) throw new Error('Motion dependency differs from the original lockfile');
+const { spring } = await import(pathToFileURL(require.resolve('motion-dom').replace(/dist\/cjs\/index\.js$/, 'dist/es/animation/generators/spring.mjs')).href);
+const physics = [];
+for (const config of [{stiffness:142,damping:28,mass:.82}, {stiffness:150,damping:30,mass:.78}, {stiffness:200,damping:20,mass:1},
+    {stiffness:100,damping:20,mass:1}, {stiffness:500,damping:25,mass:1}]) for (const [from,to,velocity] of [[0,100,0], [1,.98,0], [10,-13,67]]) {
+    const generator = spring({ ...config, keyframes: [from,to], velocity });
+    physics.push({config,from,to,velocity,samples:[0,1,16,33,66,100,250,500,1000,3000].map(ms=>({ms,...generator.next(ms),velocity:generator.velocity(ms)}))});
+}
 fs.writeFileSync(path.join(__dirname, '../test/fixtures/glow_word_reference.json'), JSON.stringify({ baseline,
     scope: 'Shared timing and Classic layout body with synthetic code-unit widths; no fonts, pixels, gestures or full animation acceptance.',
-    layouts, variantCases, profiles, nullMotion: timing.getGlowWordLineContainerMotion(null) }, null, 2) + '\n');
+    physics, layouts, variantCases, profiles, nullMotion: timing.getGlowWordLineContainerMotion(null) }, null, 2) + '\n');
 console.log(`${layouts.length} original Classic layouts and ${profiles.length} shared timing profiles generated.`);
+
+}
+finish().catch(error=>{console.error(error);process.exitCode=1;});

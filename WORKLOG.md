@@ -504,3 +504,6 @@
 - PARITY-16 继续 Classic/Partita：原 render profile、lookahead、active-end/display-duration、none/fast/normal 整行 motion，逐词 waiting/active/passed 的布局/正文参数、Classic 的稳定随机几何/缩放避让/设置边界/呼吸组件已有 Dart 实现。24 组原实际 useMemo 布局（含负时间和 interlude）、3 类时序、18 组词状态参数的最小对照通过；原 Framer 未指定的 transition 字段仍保留未指定，后续 motion adapter 不能用 Flutter 默认值替代。字体、glow/ripple 的实际绘制与整页仍未完成。
 - PARITY-17 保存/自动/普通分词优先级、边缘空白、UTF-16 偏移、语义映射、缩写/标点粘连和 displayWords 保留原规则，32 组语义/粘连布局对照通过。shared bottom subtitle 内容选择/marker 过滤/双轨回退和字号 clamp/缩放、播放条与字幕底部几何已移植，32 组原字幕内容对照通过。普通 ICU 分词在这次检查中是原函数提供的数据，不构成原生分词引擎已完成的证据；jieba/BudouX/ICU 引擎及原版字幕层 UI/让位弹簧仍待接入。
 - 台账当前 9 组进行中，0 组最终验证通过。所有页面/14 样式/6 背景/3 资料库/设置/弹窗的保真要求不变；不交付不合格的简化 root。前一批源码已推送 6862243，继续在同一独立分支，不改 main、不发布替换 APK。
+
+- ANIMATION-NATIVE-01 对照发现 Flutter SpringSimulation 的默认停止阈值并非原版 motion-dom。移植锁定的 13.4.2 物理弹簧分支（含欠阻尼/临界/过阻尼、解析速度、按位移粒度选择 rest 阈值和终点吸附），同时间戳采样复用结果，接入莫奈滚动/缩放，后续样式复用。15 组物理/初始速度组合 × 10 时刻的 150 个位置、速度、停止状态对照原库通过，附 MIT 许可证。duration/bounce 派生、WAAPI 采样、默认缓动及完整帧时序仍待 adapter/最终画面核对，不能把此数值检查写成全部动画已等价。
+- 本批 Dart analyzer 无错误；原布局/逐词时序/共享分词字幕最小检查通过。此前一批共享规则源码已提交 df134c4；本批继续保存到同一分支，不发 APK。全部页面和效果的最终门槛仍未满足。
