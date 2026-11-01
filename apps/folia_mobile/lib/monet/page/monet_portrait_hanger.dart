@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 import '../../rendering/css_shadows.dart';
+import '../../visualizer/motion/motion_curves.dart';
+import '../../visualizer/motion/keyframes.dart';
 
 // Source hanger pulse, hover/press scale and 200ms return, confined to this 12x56 surface.
 class MonetPortraitHanger extends StatefulWidget {
@@ -34,19 +36,21 @@ class _MonetPortraitHangerState extends State<MonetPortraitHanger>
   bool _hovered = false, _pressed = false;
   Color? _startBorder;
   double _startRadius = 0, _startAlpha = 0;
-  static const _ease = Cubic(.42, 0, .58, 1);
+  static const _returnEase = MotionBezierCurve(0, 0, .58, 1);
+  static final _borderPulse = MotionKeyframes([.3, 1, .3], duration: 1500),
+      _radiusPulse = MotionKeyframes([2, 10, 2], duration: 1500),
+      _alphaPulse = MotionKeyframes([.2, .65, .2], duration: 1500);
   ({Color border, double radius, double alpha}) _style(bool editing) {
     if (editing) {
-      final phase = _clock.value * 2;
-      final pulse = _ease.transform(phase <= 1 ? phase : 2 - phase);
+      final time = _clock.value * 1500;
       return (
-        border: widget.accent.withValues(alpha: .3 + .7 * pulse),
-        radius: 2 + 8 * pulse,
-        alpha: .2 + .45 * pulse,
+        border: widget.accent.withValues(alpha: _borderPulse.x(time)),
+        radius: _radiusPulse.x(time),
+        alpha: _alphaPulse.x(time),
       );
     }
     final end = widget.primary.withValues(alpha: _hovered ? .36 : 0),
-        t = _ease.transform(_clock.value);
+        t = _returnEase.transform(_clock.value);
     return (
       border: Color.lerp(_startBorder ?? end, end, t)!,
       radius: _startRadius * (1 - t),
@@ -138,7 +142,7 @@ class _MonetPortraitHangerState extends State<MonetPortraitHanger>
           duration: const Duration(milliseconds: 200),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
-            curve: const Cubic(.4, 0, .2, 1),
+            curve: const CssBezierCurve(.4, 0, .2, 1),
             transformAlignment: Alignment.center,
             transform: Matrix4.diagonal3Values(
               1,

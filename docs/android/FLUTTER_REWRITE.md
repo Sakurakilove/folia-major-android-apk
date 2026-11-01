@@ -71,3 +71,10 @@
 - 语义/粘连布局保留原词、不重写歌词文档，读取保存/自动/原生分词的优先级与 UTF-16 偏移保持原规则。32 组布局与 32 组共享字幕内容选择对照已纳入原规则检查；plain ICU 分词在检查中由原函数提供，原生 ICU/jieba/BudouX 引擎仍待迁移，不用字素拆分冒充语义分词。
 
 - 公共物理弹簧已按原锁定 motion-dom 13.4.2 的计算/速度/停止规则移植并接入歌词栏；150 个原库采样通过，许可证随资源保留。duration/bounce、默认缓动、WAAPI 轨迹取样、首帧/打断时序及实机画面仍未通过完整核对。
+
+- 共享 `visualizer/subtitles/visualizer_subtitle_overlay.dart` 内容/动画/光晕/跟随组件已加入；一个 headless 生命周期检查验证退场保留、底部信号直接跟随与 ticker 清理。完整宿主接入、外观和精确动画对照仍未完成。
+- `rendering/css_text.dart` / `css_case.dart` 保留 CSS 空白和 full uppercase 显示规则，Unicode 数据由 `tool/export_css_case.cjs` 生成，记录工具链版本和来源，附官方 Unicode 许可证；不改变存储的歌曲/主题数据。最终浏览器文字变换/字体兼容仍是交付门槛的一部分。
+
+- duration/bounce/visualDuration 派生 spring 及物理参数优先级已迁移，108 个原库选项采样通过；property/default-transition 完整适配和 WAAPI 取样未完成，仍无全部动画等价结论。
+
+- JS/WAAPI 分流按原库支持表和各组件直接 Element.animate 的实际分支迁移；numeric keyframes、命名 easing、逐段曲线/时间数组已有原库对照（209 个采样）。Classic 呼吸/立绘漂移/挂钩脉冲已接入，原生立绘的中断 900ms 淡变与退休/解码租约也有最小生命周期回归。完整宿主、WAAPI spring 曲线取样、逐帧时序、颜色/复杂 CSS 插值和最终像素仍未完成核对。

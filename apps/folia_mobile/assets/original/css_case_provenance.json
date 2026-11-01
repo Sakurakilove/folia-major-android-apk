@@ -1,0 +1,20 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "generator": "tool/export_css_case.cjs",
+  "node": "v24.19.0",
+  "unicode": "17.0",
+  "v8": "13.6.233.17-node.51",
+  "mappings": 1580,
+  "sha256": "32fd5a17d68b3d07f7cde29e6b7b05f33d7cc3fea0a844b169144f621e1deae3",
+  "source": [
+    {
+      "file": "src/components/visualizer/monet/VisualizerMonet.tsx",
+      "sha256": "6ff885ae955f13ab1141d3eb7b9ad829e9231e635d9fe6ceb868fefd4805f8df"
+    },
+    {
+      "file": "src/components/visualizer/VisualizerSubtitleOverlay.tsx",
+      "sha256": "b7cff006a5baff68360aa35af01d5f0982f1d022fd1eb9351314e2fcb81e6426"
+    }
+  ],
+  "note": "Default-case text transformation data, not browser text-transform/font/pixel acceptance. Locale-specific mod languages require their own CSS casing."
+}

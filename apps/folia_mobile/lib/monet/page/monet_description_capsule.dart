@@ -3,6 +3,8 @@ import 'dart:ui' as ui;
 import 'package:flutter/widgets.dart';
 
 import '../../rendering/folia_typography.dart';
+import '../../rendering/css_text.dart';
+import '../../rendering/css_case.dart';
 
 // Original bordered, blurred theme capsule; the 1px border participates in CSS box sizing.
 class MonetDescriptionCapsule extends StatelessWidget {
@@ -48,7 +50,7 @@ class MonetDescriptionCapsule extends StatelessWidget {
                   const SizedBox(width: 12),
                   Flexible(
                     child: Text(
-                      label.toUpperCase(),
+                      cssNormalText(cssUppercase(label)),
                       style: typography
                           .withHeight(16 / 12)
                           .style(12, color: primary.withValues(alpha: .9)),

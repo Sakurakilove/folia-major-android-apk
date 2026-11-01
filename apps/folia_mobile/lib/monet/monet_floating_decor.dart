@@ -2,6 +2,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/widgets.dart';
 
+import '../visualizer/motion/motion_curves.dart';
+
 import '../rendering/folia_icons.dart';
 
 // Complete MonetFloatingDecor.tsx tracks, including source-selected Lucide icons, petal veins and static mode.
@@ -151,7 +153,8 @@ class _DecorPainter extends CustomPainter {
     ..moveTo(12, 6)
     ..cubicTo(12, 6, 11.3, 10.5, 11.3, 14.5)
     ..cubicTo(11.3, 17.5, 12, 20, 12, 20);
-  static const _ease = Cubic(.42, 0, .58, 1), _alphas = [.6, 1.2, 1.0, 1.3, .7];
+  static const _ease = CssBezierCurve(.42, 0, .58, 1),
+      _alphas = [.6, 1.2, 1.0, 1.3, .7];
   static const _forwardX = [-15.0, 25.0, -10.0, 20.0, -15.0],
       _reverseX = [15.0, -25.0, 10.0, -20.0, 15.0];
   static const _forwardY = [40.0, -60.0, 20.0, -40.0, 40.0],

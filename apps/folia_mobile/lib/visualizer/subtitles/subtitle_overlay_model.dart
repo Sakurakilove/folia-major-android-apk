@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import '../../lyrics/lyric_types.dart';
 import '../../lyrics/subtitle_tracks.dart';
 
@@ -76,3 +78,24 @@ String scaleSubtitleFontSize(
   (match) =>
       '${(double.parse(match[1]!) * scale * factor).toStringAsFixed(3)}${match[2]}',
 );
+
+// Resolve the actual clamp after both source rounding stages; multiplying an already resolved px size can change a breakpoint.
+double resolveSubtitleClampPx(String css, double viewportWidth) {
+  final terms = RegExp(r'(-?\d*\.?\d+)(rem|vw|px)')
+      .allMatches(css)
+      .map((match) {
+        final value = double.parse(match[1]!);
+        return value *
+            (match[2] == 'rem'
+                ? 16
+                : match[2] == 'vw'
+                ? viewportWidth / 100
+                : 1);
+      })
+      .toList();
+  if (css.startsWith('clamp(') && terms.length == 3) {
+    return math.max(terms[0], math.min(terms[1], terms[2]));
+  }
+  if (terms.length == 1) return terms.single;
+  throw FormatException('Unsupported original subtitle font size: $css');
+}

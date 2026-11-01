@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 
+import '../visualizer/motion/keyframes.dart';
+
 // The original whole-line breathing track is independent of word events; child glyph/layout work stays out of its frame callback.
 class ClassicBreathing extends StatefulWidget {
   const ClassicBreathing({
@@ -18,8 +20,7 @@ class ClassicBreathing extends StatefulWidget {
 class _ClassicBreathingState extends State<ClassicBreathing>
     with SingleTickerProviderStateMixin {
   late final _clock = AnimationController(vsync: this);
-  static const _ease = Cubic(.42, 0, .58, 1);
-  late List<double> _offsets, _scales;
+  late MotionKeyframes _offsets, _scales;
   @override
   void initState() {
     super.initState();
@@ -42,14 +43,20 @@ class _ClassicBreathingState extends State<ClassicBreathing>
       _ => (14.0, 7000),
     };
     final span = distance * widget.multiplier;
-    _offsets = [0, -span, 0, span * .45, 0];
-    _scales = [
+    _offsets = MotionKeyframes([
+      0,
+      -span,
+      0,
+      span * .45,
+      0,
+    ], duration: milliseconds.toDouble());
+    _scales = MotionKeyframes([
       1,
       1 + .01 * widget.multiplier,
       1,
       1 - .005 * widget.multiplier,
       1,
-    ];
+    ], duration: milliseconds.toDouble());
     _clock.stop();
     _clock.duration = Duration(milliseconds: milliseconds);
     _clock.value = 0;
@@ -68,14 +75,8 @@ class _ClassicBreathingState extends State<ClassicBreathing>
     child: widget.child,
     builder: (context, child) {
       if (widget.multiplier <= 0) return child!;
-      final phase = _clock.value * 4,
-          segment = phase.floor().clamp(0, 3),
-          t = _ease.transform(phase - segment);
-      final offset =
-              _offsets[segment] +
-              (_offsets[segment + 1] - _offsets[segment]) * t,
-          size =
-              _scales[segment] + (_scales[segment + 1] - _scales[segment]) * t;
+      final time = _clock.value * _clock.duration!.inMilliseconds;
+      final offset = _offsets.x(time), size = _scales.x(time);
       return Transform.translate(
         offset: Offset(0, offset),
         child: Transform.scale(scale: size, child: child),

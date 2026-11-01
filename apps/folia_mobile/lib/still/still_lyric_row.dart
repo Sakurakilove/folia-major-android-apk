@@ -4,6 +4,7 @@ import '../lyrics/lyric_types.dart';
 import '../rendering/folia_typography.dart';
 import '../theme/folia_theme.dart';
 import 'still_text_shadow.dart';
+import '../rendering/css_text.dart';
 
 // Still's direct translation field is deliberate: unlike other styles it does not consume alternate subtitle mode.
 class StillLyricRow extends StatelessWidget {
@@ -56,7 +57,7 @@ class StillLyricRow extends StatelessWidget {
                 sigma: 3,
                 alpha: .12,
                 child: Text(
-                  line.text,
+                  cssNormalText(line.text),
                   textAlign: TextAlign.center,
                   style: lyric
                       .style(lyricPx, color: resolveColor(theme.primaryColor))
@@ -77,7 +78,7 @@ class StillLyricRow extends StatelessWidget {
                   sigma: 2,
                   alpha: .15,
                   child: Text(
-                    line.translation!,
+                    cssNormalText(line.translation!),
                     textAlign: TextAlign.center,
                     style: subtitle
                         .style(

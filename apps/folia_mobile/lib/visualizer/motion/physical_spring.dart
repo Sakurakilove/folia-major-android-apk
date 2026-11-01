@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
 // Physics branch of motion-dom 13.4.2 spring.mjs (MIT; assets/motion-dom-LICENSE.md), including analytical velocity and rest snapping.
-// Duration/bounce-derived springs are a separate unresolved adapter; this constructor only accepts physical parameters.
+// spring_options.dart resolves duration/bounce before constructing this physical kernel; its explicit stop time stays separate.
 class MotionPhysicalSpring {
   MotionPhysicalSpring(
     double stiffness,
@@ -12,6 +12,7 @@ class MotionPhysicalSpring {
     double velocity, {
     double? restSpeed,
     double? restDelta,
+    this.resolvedDurationMs,
   }) : _delta = target - from,
        _initialVelocity = -velocity / 1000,
        _ratio = damping / (2 * math.sqrt(stiffness * mass)),
@@ -26,6 +27,7 @@ class MotionPhysicalSpring {
                  ? .005
                  : .5
            : restDelta;
+  final double? resolvedDurationMs;
   final double target,
       _delta,
       _initialVelocity,
@@ -74,8 +76,10 @@ class MotionPhysicalSpring {
               (_decay * _delta - _a * _angular) * cosh) *
           1000;
     }
-    _done =
-        _speed.abs() <= _restSpeed && (target - _position).abs() <= _restDelta;
+    _done = resolvedDurationMs != null
+        ? t >= resolvedDurationMs!
+        : _speed.abs() <= _restSpeed &&
+              (target - _position).abs() <= _restDelta;
   }
 
   double x(double seconds) {

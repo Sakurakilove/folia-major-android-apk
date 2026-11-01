@@ -509,3 +509,17 @@
 - 本批 Dart analyzer 无错误；原布局/逐词时序/共享分词字幕最小检查通过。此前一批共享规则源码已提交 df134c4；本批继续保存到同一分支，不发 APK。全部页面和效果的最终门槛仍未满足。
 
 - CONTINUITY-01 用户要求明确写入“没完成全部任务不许停下”。已加入根和 Flutter 工程 AGENTS.md：阶段性模块/提交/推送/编译/检查/汇报都不是停止点，不等待用户重复“继续”；上下文压缩/环境恢复后接续同一全量任务，真实阻塞如实记录并继续独立工作，不虚称完成或后台运行。规则写入后继续推进公共动画运行时及完整页面迁移，不把本次规则修订作为全量任务结束。
+
+- PARITY-18 根/Flutter AGENTS 的持续执行条款写入后继续开发，没有将规则修订作为全量完成。共享底部字幕原生组件新增 .24s 显隐及退场内容保留、独立 bottom 信号、双轨字号/字重/间距、原局部 radial glow + 40px 模糊、翻译默认 opacity/y 动画、下一句预览 500ms 字体/颜色/模糊过渡。位移由原物理弹簧通过 Flutter vsync 驱动，空/退出的字幕解除 bottom 监听，不逐帧桥接。尚待完整 Classic 等宿主接入及最终画面/打断时序核对。
+- ANIMATION-NATIVE-02 将 Motion JS 的 12 次 cubic subdivision 与 compositor CSS cubic 求值分开，避免将 Flutter Cubic 的 .001 停止误差当作原库数值；40 个实际 motion-utils 样本与 Dart JS 曲线一致。完整 WAAPI 合成/精确帧时序与原版像素差仍未验收，不能由数学匹配推出全部动画已一致。
+- TEXT-NATIVE-01 发现 Dart 大写是 simple case mapping（Straße→STRAßE、ﬃ不展开），与原页面 CSS uppercase 的默认 full mapping 不同。新增 1580 个 Unicode 17.0 默认大写映射的生成器/常量/来源摘要并附 Unicode 官方许可证，用于专辑/主题胶囊；保留原数据，仅改变显示转换实现。CSS normal/nowrap 的 ASCII 空白折叠与 NBSP 保留也迁移到字幕/元数据/Still；浏览器 Unicode 版本、语言特例和最终排版仍须核对。
+- 本轮只增加一个 headless 字幕生命周期检查：bottom 直接跟随、退出内容保留到原时长、动画停止和销毁无遗留 ticker，通过；不是像素测试/模拟器/全套 UI。共享歌词规则与 24 组 Classic/150 弹簧/40 JS 曲线最小对照通过；Dart analyzer 已通过，最后文本数据/组件修订纳入后续必要复查。仍为 9 组进行中、0 组最终验证；未发布 APK、未量测实机功耗。
+
+- ANIMATION-NATIVE-03 duration/bounce/visualDuration 的原 spring 参数解算已实现，保留 stiffness/damping/mass 的优先级、派生时清零继承速度、Newton 迭代/边界、仅 duration 型按时长停止的区别。9 组原库选项组合 × 12 时刻的 108 个位置/速度/停止采样通过，原 150 物理样本仍通过。仅完成该解算边界，完整 property/default-transition adapter、WAAPI spring 取样和每种样式的接入仍未完成。
+- TEXT-NATIVE-02 full-uppercase 的 ß/ﬃ/希腊组合扩展与 CSS ASCII 空白/NBSP 最小回归通过；生成数据记录 Node/V8/Unicode 17.0。旧设备 WebView Unicode 版本差异与 mod 自定义语言的 CSS casing 仍需兼容，不把当前常量表当成所有浏览器已像素一致。该项继续受最终门槛约束。
+- ANIMATION-NATIVE-04 公共 property 选项解析按原 animateMotionValue/getValueTransition/getDefaultTransition 实现，保留属性级/default/root 选择、inherit、根 delay 回退、elapsed、from、多关键帧默认、位移/缩放/透明度不同默认值与秒→毫秒转换；96 组实际原库 options 构造体对照通过。共享字幕翻译入场已接入该解析器/原 spring 解算，不再散落另一套默认数值。完整 property 画帧后端、颜色/复杂 CSS 插值、WAAPI 采样及各页接入仍未全量完成。
+
+- ANIMATION-NATIVE-05 按实际 motion-dom 的 supportsBrowserAnimation 分流：独立 x/y/scale 等属性走 JS；opacity/filter 可走 WAAPI；softFocus 与原莫奈粒子另有直接 Element.animate，因此它们连 transform 也走 CSS 曲线。新内容组件已按各自路径区分求值，未盲目把所有位移都归 JS。挂钩退出编辑态的未指定 ease 保留原 easeOut，编辑态仍 easeInOut。浏览器/帧驱动全链路仍须最终对照。
+- ANIMATION-NATIVE-06 完整命名 easing 与 numeric keyframes/interpolate 的时间数组/逐段 easing/重复边界分支已迁移；19 组原库轨迹 × 11 时刻（209 个位置/结束采样）通过。Classic 呼吸、立绘漂移和挂钩脉冲已复用此轨迹核，而非各自简化 ease 算法；不削动画数量、刷新率或画质。
+- PORTRAIT-NATIVE-01 修正原生原型的中途淡变被 reverse() 按剩余比例缩短：改从当前透明度重新执行原 900ms，旧立绘保留。原版按 settling key/fadeMs 的单一退休时机迁移到父层，动图首解码仅接纳一次后交给 Image 继续播放；单层无需退休时省去无可见作用的 timer。一个 headless 中断清空回归通过（.5→.25→0，且保留图像/结束无 ticker），不构成立绘像素或全部快速切歌验收。
+- 最新共享字幕生命周期与文字转换最小检查通过；严格全量/外观/功耗门槛仍未满足。此次只是持续工作中的源码检查点，不结束任务、不等用户重复“继续”。

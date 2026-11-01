@@ -1,4 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
+
+import '../visualizer/motion/motion_curves.dart';
 
 import 'monet_portrait_layers.dart';
 
@@ -22,18 +26,22 @@ class _MonetPortraitImageState extends State<MonetPortraitImage> {
   final _images = <String, ImageProvider>{};
   ImageStream? _loading;
   ImageStreamListener? _listener;
+  Timer? _settleTimer;
+  String? _settlingKey;
   var _generation = 0, _key = 0;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _decode();
+    _scheduleSettle();
   }
 
   @override
   void didUpdateWidget(MonetPortraitImage old) {
     super.didUpdateWidget(old);
     if (old.image != widget.image || old.source != widget.source) _decode();
+    _scheduleSettle(force: old.fadeMs != widget.fadeMs);
   }
 
   void _cancelLoading() {
@@ -55,18 +63,21 @@ class _MonetPortraitImageState extends State<MonetPortraitImage> {
     final stream = provider.resolve(createLocalImageConfiguration(context));
     _loading = stream;
     late ImageStreamListener listener;
+    var accepted = false;
     listener = ImageStreamListener(
       (info, synchronous) {
-        if (!mounted || generation != _generation) {
+        if (accepted || !mounted || generation != _generation) {
           info.dispose();
           return;
         }
+        accepted = true;
         // The rendered Image takes over the decoded stream, including animated covers at full resolution.
         final key = 'monet-portrait-${++_key}';
         void accept() {
           _images[key] = provider;
           _layers = pushMonetPortraitLayer(_layers, source, key);
           _releaseUnused();
+          _scheduleSettle();
         }
 
         if (synchronous) {
@@ -100,6 +111,22 @@ class _MonetPortraitImageState extends State<MonetPortraitImage> {
     }
   }
 
+  void _scheduleSettle({bool force = false}) {
+    final key = widget.source?.isNotEmpty == true
+        ? _layers.lastOrNull?.key
+        : null;
+    if (!force && key == _settlingKey) return;
+    _settlingKey = key;
+    _settleTimer?.cancel();
+    _settleTimer = null;
+    if (key != null && _layers.length > 1) {
+      _settleTimer = Timer(
+        Duration(milliseconds: widget.fadeMs),
+        () => _settle(key),
+      );
+    }
+  }
+
   void _settle(String key) {
     if (!mounted ||
         _layers.lastOrNull?.key != key ||
@@ -116,6 +143,7 @@ class _MonetPortraitImageState extends State<MonetPortraitImage> {
   @override
   void dispose() {
     _generation++;
+    _settleTimer?.cancel();
     _cancelLoading();
     _images.clear();
     super.dispose();
@@ -131,7 +159,6 @@ class _MonetPortraitImageState extends State<MonetPortraitImage> {
           image: _images[layer.key]!,
           visible: widget.source != null && widget.source!.isNotEmpty,
           fadeMs: widget.fadeMs,
-          onSettled: () => _settle(layer.key),
         ),
     ],
   );
@@ -143,52 +170,53 @@ class _PortraitFade extends StatefulWidget {
     required this.image,
     required this.visible,
     required this.fadeMs,
-    required this.onSettled,
   });
   final ImageProvider image;
   final bool visible;
   final int fadeMs;
-  final VoidCallback onSettled;
   @override
   State<_PortraitFade> createState() => _PortraitFadeState();
 }
 
 class _PortraitFadeState extends State<_PortraitFade>
     with SingleTickerProviderStateMixin {
-  late final _fade =
-      AnimationController(
-        vsync: this,
-        duration: Duration(milliseconds: widget.fadeMs),
-      )..addStatusListener((status) {
-        if (status == AnimationStatus.completed) widget.onSettled();
-      });
-  // Framer's easeInOut uses this exact cubic curve.
-  late final _opacity = CurvedAnimation(
-    parent: _fade,
-    curve: const Cubic(.42, 0, .58, 1),
+  late final _fade = AnimationController(
+    vsync: this,
+    duration: Duration(milliseconds: widget.fadeMs),
   );
+  late final _curve = CurvedAnimation(
+    parent: _fade,
+    curve: const CssBezierCurve(.42, 0, .58, 1),
+  );
+  late Animation<double> _opacity = Tween<double>(
+    begin: 0,
+    end: 0,
+  ).animate(_curve);
+  void _retarget() {
+    final current = _opacity.value;
+    _opacity = Tween<double>(
+      begin: current,
+      end: widget.visible ? 1 : 0,
+    ).animate(_curve);
+    _fade.forward(from: 0);
+  }
+
   @override
   void initState() {
     super.initState();
-    if (widget.visible) _fade.forward();
+    if (widget.visible) _retarget();
   }
 
   @override
   void didUpdateWidget(_PortraitFade old) {
     super.didUpdateWidget(old);
     _fade.duration = Duration(milliseconds: widget.fadeMs);
-    if (widget.visible != old.visible) {
-      if (widget.visible) {
-        _fade.forward();
-      } else {
-        _fade.reverse();
-      }
-    }
+    if (widget.visible != old.visible) _retarget();
   }
 
   @override
   void dispose() {
-    _opacity.dispose();
+    _curve.dispose();
     _fade.dispose();
     super.dispose();
   }

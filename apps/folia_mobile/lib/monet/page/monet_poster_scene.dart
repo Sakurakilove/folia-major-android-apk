@@ -12,6 +12,7 @@ import '../monet_floating_decor.dart';
 import '../../rendering/folia_typography.dart';
 import '../rail/monet_rail.dart';
 import 'monet_entrance.dart';
+import '../../visualizer/motion/motion_curves.dart';
 import 'monet_description_capsule.dart';
 import 'monet_portrait.dart';
 import 'monet_poster_layout.dart';

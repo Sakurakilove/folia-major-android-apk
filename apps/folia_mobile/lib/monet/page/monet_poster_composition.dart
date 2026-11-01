@@ -47,7 +47,8 @@ extension _MonetPosterComposition on _MonetPosterSceneState {
                 clock: _intro,
                 duration: 2.2,
                 delay: 0,
-                curve: const Cubic(0, 0, .58, 1),
+                curve: const MotionBezierCurve(0, 0, .58, 1),
+                opacityCurve: const CssBezierCurve(0, 0, .58, 1),
                 child: MonetFloatingDecor(
                   key: ValueKey('decor-$_introKey'),
                   secondaryColor: secondary,

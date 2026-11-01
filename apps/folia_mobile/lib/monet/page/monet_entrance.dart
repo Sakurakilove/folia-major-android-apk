@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 
+import '../../visualizer/motion/motion_curves.dart';
+
 // Original per-element entrance tracks share a clock but retain their own delay, duration and transform origin.
 class MonetEntrance extends StatelessWidget {
   const MonetEntrance({
@@ -11,7 +13,8 @@ class MonetEntrance extends StatelessWidget {
     this.offset = Offset.zero,
     this.scale = 1,
     this.rotation = 0,
-    this.curve = const Cubic(.25, 1, .5, 1),
+    this.curve = const MotionBezierCurve(.25, 1, .5, 1),
+    this.opacityCurve = const CssBezierCurve(.25, 1, .5, 1),
     this.scaleYOnly = false,
     this.fade = true,
     this.origin = Alignment.center,
@@ -20,7 +23,7 @@ class MonetEntrance extends StatelessWidget {
   final double duration, delay, scale, rotation;
   final Offset offset;
   final Widget child;
-  final Curve curve;
+  final Curve curve, opacityCurve;
   final bool scaleYOnly, fade;
   final Alignment origin;
   @override
@@ -34,7 +37,11 @@ class MonetEntrance extends StatelessWidget {
       );
       final size = scale + (1 - scale) * progress;
       return Opacity(
-        opacity: fade ? progress : 1,
+        opacity: fade
+            ? opacityCurve.transform(
+                ((time - delay) / duration).clamp(0.0, 1.0),
+              )
+            : 1,
         child: Transform.translate(
           offset: offset * (1 - progress),
           child: Transform.rotate(

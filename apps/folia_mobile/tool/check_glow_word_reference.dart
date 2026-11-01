@@ -3,6 +3,10 @@ import 'dart:io';
 
 import 'package:folia_mobile/classic/classic_layout.dart';
 import 'package:folia_mobile/visualizer/motion/physical_spring.dart';
+import 'package:folia_mobile/visualizer/motion/bezier.dart';
+import 'package:folia_mobile/visualizer/motion/spring_options.dart';
+import 'package:folia_mobile/visualizer/motion/value_options.dart';
+import 'package:folia_mobile/visualizer/motion/keyframes.dart';
 import 'package:folia_mobile/classic/classic_tuning.dart';
 import 'package:folia_mobile/lyrics/lyric_types.dart';
 import 'package:folia_mobile/visualizer/glow_word/glow_word_timing.dart';
@@ -46,6 +50,66 @@ void main() {
     if (actual != expected) throw StateError('$path: $actual != $expected');
   }
 
+  for (final row in data['keyframeCases']) {
+    final options = row['options'];
+    final generator = MotionKeyframes(
+      (options['keyframes'] as List).map((n) => (n as num).toDouble()).toList(),
+      duration: (options['duration'] as num).toDouble(),
+      times: (options['times'] as List?)
+          ?.map((n) => (n as num).toDouble())
+          .toList(),
+      ease: options['ease'],
+    );
+    for (final sample in row['samples']) {
+      final ms = (sample['ms'] as num).toDouble();
+      equal(generator.x(ms), sample['value'], 'keyframes.position');
+      equal(generator.isDone(ms), sample['done'], 'keyframes.done');
+    }
+  }
+  for (final row in data['valueOptions']) {
+    final frames = (row['keyframes'] as List)
+        .map((value) => (value as num?)?.toDouble())
+        .toList();
+    equal(
+      resolveMotionValueOptions(
+        row['key'],
+        frames,
+        Map<String, dynamic>.from(row['transition']),
+        velocity: 17,
+      ),
+      row['expected'],
+      'motion.valueOptions',
+    );
+  }
+  for (final row in data['springOptions']) {
+    final options = resolveMotionSpring(
+      Map<String, dynamic>.from(row['options']),
+    );
+    equal(
+      options.resolvedDurationMs,
+      row['duration'],
+      'springOptions.duration',
+    );
+    final spring = options.between(7, 42);
+    for (final sample in row['samples']) {
+      final seconds = (sample['ms'] as num).toDouble() / 1000;
+      equal(spring.x(seconds), sample['value'], 'springOptions.position');
+      equal(spring.dx(seconds), sample['velocity'], 'springOptions.velocity');
+      equal(spring.isDone(seconds), sample['done'], 'springOptions.done');
+    }
+  }
+  for (final row in data['bezier']) {
+    final p = (row['points'] as List)
+        .map((v) => (v as num).toDouble())
+        .toList();
+    for (final sample in row['samples']) {
+      equal(
+        motionBezier(p[0], p[1], p[2], p[3], (sample['t'] as num).toDouble()),
+        sample['value'],
+        'motion.jsBezier',
+      );
+    }
+  }
   for (final row in data['physics']) {
     final config = row['config'];
     final spring = MotionPhysicalSpring(

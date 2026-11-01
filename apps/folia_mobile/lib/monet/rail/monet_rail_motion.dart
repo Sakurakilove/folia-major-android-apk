@@ -5,6 +5,7 @@ import 'package:flutter/animation.dart';
 
 import 'monet_rail_layout.dart';
 import '../../visualizer/motion/physical_spring.dart';
+import '../../visualizer/motion/motion_curves.dart';
 
 // The original entry/retarget/exit contract: two springs and independent opacity/blur easing, not one global fade.
 class MonetRailMotion {
@@ -60,7 +61,8 @@ class MonetRailMotion {
     stiffness: 150,
     damping: 30,
   );
-  static const _ease = Cubic(.32, .72, 0, 1);
+  static const _ease = CssBezierCurve(.32, .72, 0, 1),
+      _motionEase = MotionBezierCurve(.32, .72, 0, 1);
   PositionedMonetLineEntry entry;
   MotionPhysicalSpring _y, _scale;
   double start, subtitleStart, _fromOpacity, _fromBlur;
@@ -68,18 +70,26 @@ class MonetRailMotion {
   double _exitY = 0, _exitScale = 1, _exitOpacity = 0, _exitBlur = 0;
   double _chorusStart, _chorusTarget, _chorusScaleTarget;
   double _chorusFrom = 0, _chorusScaleFrom = 1;
-  static const _chorusEase = Cubic(0, 0, .58, 1);
-  double _chorusTime(double now) =>
-      _chorusEase.transform(((now - _chorusStart) / .45).clamp(0.0, 1.0));
+  static const _chorusEase = CssBezierCurve(0, 0, .58, 1),
+      _chorusMotionEase = MotionBezierCurve(0, 0, .58, 1);
+  double _chorusTime(double now, {bool motion = false}) =>
+      (motion ? _chorusMotionEase : _chorusEase).transform(
+        ((now - _chorusStart) / .45).clamp(0.0, 1.0),
+      );
   double chorusOpacity(double now) =>
       ui.lerpDouble(_chorusFrom, _chorusTarget, _chorusTime(now))!;
-  double chorusScale(double now) =>
-      ui.lerpDouble(_chorusScaleFrom, _chorusScaleTarget, _chorusTime(now))!;
+  double chorusScale(double now) => ui.lerpDouble(
+    _chorusScaleFrom,
+    _chorusScaleTarget,
+    _chorusTime(now, motion: true),
+  )!;
 
   double _easeTime(double now, double duration) =>
       _ease.transform(((now - start) / duration).clamp(0.0, 1.0));
-  double _exitTime(double now) =>
-      _ease.transform(((now - _exitStart!) / .2).clamp(0.0, 1.0));
+  double _exitTime(double now, {bool css = false}) =>
+      (css ? _ease : _motionEase).transform(
+        ((now - _exitStart!) / .2).clamp(0.0, 1.0),
+      );
   double y(double now) => _exitStart == null
       ? _y.x(math.max(0, now - start))
       : ui.lerpDouble(
@@ -95,10 +105,10 @@ class MonetRailMotion {
       : ui.lerpDouble(_exitScale, entry.tone.scale * .98, _exitTime(now))!;
   double opacity(double now) => _exitStart == null
       ? ui.lerpDouble(_fromOpacity, entry.tone.opacity, _easeTime(now, .28))!
-      : ui.lerpDouble(_exitOpacity, 0, _exitTime(now))!;
+      : ui.lerpDouble(_exitOpacity, 0, _exitTime(now, css: true))!;
   double blur(double now) => _exitStart == null
       ? ui.lerpDouble(_fromBlur, entry.tone.blur, _easeTime(now, .32))!
-      : ui.lerpDouble(_exitBlur, 6, _exitTime(now))!;
+      : ui.lerpDouble(_exitBlur, 6, _exitTime(now, css: true))!;
   bool get exiting => _exitStart != null;
   bool exited(double now) => _exitStart != null && now - _exitStart! >= .2;
   bool animating(double now) => _exitStart != null
@@ -162,6 +172,10 @@ class MonetRailMotion {
       ((now - subtitleStart - index * monetSubtitleTrackStaggerSeconds) / .28)
           .clamp(0.0, 1.0),
     );
-    return (opacity: progress, y: 8 * (1 - progress));
+    final yProgress = _motionEase.transform(
+      ((now - subtitleStart - index * monetSubtitleTrackStaggerSeconds) / .28)
+          .clamp(0.0, 1.0),
+    );
+    return (opacity: progress, y: 8 * (1 - yProgress));
   }
 }

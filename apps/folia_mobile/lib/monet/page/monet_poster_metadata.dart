@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 
 import '../../rendering/css_shadows.dart';
+import '../../rendering/css_text.dart';
+import '../../rendering/css_case.dart';
 import '../../rendering/folia_typography.dart';
 import 'monet_entrance.dart';
 import 'monet_poster_layout.dart';
@@ -38,7 +40,7 @@ class MonetPosterMetadata extends StatelessWidget {
           delay: .15,
           offset: const Offset(-30, -10),
           child: Text(
-            artist.trim().isEmpty ? 'Monet' : artist.trim(),
+            cssNormalText(artist.trim().isEmpty ? 'Monet' : artist.trim()),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: typography
@@ -86,7 +88,7 @@ class MonetPosterMetadata extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               _PaddedTitle(
-                text: title.isEmpty ? 'Monet' : title,
+                text: cssNormalText(title.isEmpty ? 'Monet' : title),
                 fontPx: layout.titleFontPx,
                 typography: FoliaTypography(
                   families: typography.families,
@@ -100,7 +102,7 @@ class MonetPosterMetadata extends StatelessWidget {
                 background: background,
               ),
               Text(
-                (album.trim().isEmpty ? 'Monet' : album.trim()).toUpperCase(),
+                cssUppercase(album.trim().isEmpty ? 'Monet' : album.trim()),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: typography
@@ -131,6 +133,7 @@ class _PaddedTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) => LayoutBuilder(
     builder: (context, constraints) {
+      if (text.isEmpty) return SizedBox(height: fontPx * .13);
       final style = typography
           .style(fontPx, color: primary)
           .copyWith(

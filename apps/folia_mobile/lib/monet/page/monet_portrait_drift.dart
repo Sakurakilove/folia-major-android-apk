@@ -3,6 +3,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/widgets.dart';
 
+import '../../visualizer/motion/motion_curves.dart';
+import '../../visualizer/motion/keyframes.dart';
+
 // Original continuous 9-second chaotic keyframes and 800ms return; a track change does not restart this widget.
 class MonetPortraitDrift extends StatefulWidget {
   const MonetPortraitDrift({
@@ -25,10 +28,10 @@ class _MonetPortraitDriftState extends State<MonetPortraitDrift>
   Timer? _delay;
   Offset _returnOffset = Offset.zero;
   double _returnAngle = 0;
-  static const _ease = Cubic(.42, 0, .58, 1), _out = Cubic(0, 0, .58, 1);
-  static const _x = [0.0, -9.0, 0.0, 9.0, 0.0],
-      _y = [0.0, -18.0, 0.0, 18.0, 0.0],
-      _turn = [0.0, 1.2, 0.0, -1.2, 0.0];
+  static const _out = MotionBezierCurve(0, 0, .58, 1);
+  static final _x = MotionKeyframes([0, -9, 0, 9, 0], duration: 9000),
+      _y = MotionKeyframes([0, -18, 0, 18, 0], duration: 9000),
+      _turn = MotionKeyframes([0, 1.2, 0, -1.2, 0], duration: 9000);
   ({Offset offset, double angle}) _pose(bool chaotic) {
     if (!chaotic) {
       final remaining = 1 - _out.transform(_clock.value);
@@ -37,14 +40,10 @@ class _MonetPortraitDriftState extends State<MonetPortraitDrift>
         angle: _returnAngle * remaining,
       );
     }
-    final phase = _clock.value * 4,
-        i = math.min(3, phase.floor()),
-        t = _ease.transform(phase - i);
-    double lerp(List<double> values) =>
-        values[i] + (values[i + 1] - values[i]) * t;
+    final time = _clock.value * 9000;
     return (
-      offset: Offset(lerp(_x), lerp(_y)),
-      angle: lerp(_turn) * math.pi / 180,
+      offset: Offset(_x.x(time), _y.x(time)),
+      angle: _turn.x(time) * math.pi / 180,
     );
   }
 

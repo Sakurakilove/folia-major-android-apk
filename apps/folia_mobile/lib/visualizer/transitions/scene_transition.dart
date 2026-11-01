@@ -1,5 +1,7 @@
 import 'package:flutter/animation.dart';
 
+import '../motion/motion_curves.dart';
+
 // softFocus.ts timings are shared by all styles; a leaving background remains opaque until the incoming surface covers it.
 class SceneTransition {
   const SceneTransition({required this.leave, required this.enter});
@@ -10,7 +12,7 @@ class SceneTransition {
       blur: 8,
       scale: 1.02,
       durationMs: 360,
-      curve: Cubic(.4, 0, 1, 1),
+      curve: CssBezierCurve(.4, 0, 1, 1),
     ),
     enter: SceneTransitionTrack(
       opacity: 0,
@@ -18,7 +20,7 @@ class SceneTransition {
       scale: 1.02,
       delayMs: 80,
       durationMs: 520,
-      curve: Cubic(.16, 1, .3, 1),
+      curve: CssBezierCurve(.16, 1, .3, 1),
     ),
   );
   SceneTransition underNext() => SceneTransition(
