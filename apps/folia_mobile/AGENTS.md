@@ -1,5 +1,6 @@
 # Flutter rewrite rules
 
+- **没完成全部任务不许停下。阶段性提交、推送、编译、检查通过或进度汇报均不是结束任务的理由；无需用户反复说“继续”。持续执行根 AGENTS.md 的完整迁移与最终保真检查要求，并在上下文压缩或环境恢复后按 WORKLOG.md / 迁移台账接续工作。不得隐瞒真实阻塞、未完成项或虚称后台运行。**
 - **用户硬性要求：功能、界面和动画全部保留，只改变底层实现。前端代码也必须完成重写，保证没有任何外观上的改变；全部重写迁移完成后，检查前端严格遵照原版，确认一致后才可交付。必须严格遵守根目录 AGENTS.md 顶部的全部迁移约束，本目录不得例外。**
 - This app is an internal Flutter/Dart + Kotlin architecture experiment. Alpha.1 fails the original client's feature and visual parity requirements; do not extend its simplified UI or deliver it as a migration candidate. Read root AGENTS.md, WORKLOG.md and docs/android/FLUTTER_REWRITE.md before continuing; root parity requirements supersede older preview plans.
 - Use official Dart naming: lower_snake_case files, UpperCamelCase types, lowerCamelCase members; Kotlin follows Kotlin conventions. Keep feature code together.
