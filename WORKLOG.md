@@ -565,3 +565,8 @@
 - WALL-ART-05 接续上一检查点，拼贴的两张背景图已改成两个 native image stream / 两个 shader sampler / 一次矩形绘制：先 SourceOver 合成 RGBA，再统一 grayscale/contrast/brightness 与 blend，修正前后各自滤镜在半透明图片上的差异，不增加中间位图或跨桥图片。两路 subscription 共用可见性/透明度判定，结束/隐藏移除帧回调并保留 completer；恢复不重新加载。Native image leaf 与 subscription 分开，URL/关闭时明确归还旧 UIImage/sampler 引用。
 - 本次仍复用 artwork 的 4 个定向用例：额外检查两张半透明白/黑图合成后再过滤的 RGBA（白色、alpha≈192，能区分先分别滤镜的错误结果），实际双流 leaf 在透明归零/TickerMode 关闭时两路 listener 都为 0，恢复两路各 1 且 loads 各仍 1，卸载归零；原 fd/GIF/共享取消也通过。最新 analyzer 仅有测试 helper 的多余 import，已移除并纳入后续增量复核。不是手机或完整墙页/字体像素验证。
 - 下一步继续专辑 mosaic/shard 实际组件、原 filter/blend-mode/伪元素生命周期与整卡皮肤组装。原缩减动态设置并未禁用 wall 的 shard filter/overlay transitions，不能擅自统一禁用；mode 改变时 filter 与新增/移除伪元素的时序要单独保留。全部页/14 样式/6 背景/3 库/全部数据及系统范围继续，无新 APK、无瓦数量测、无已 verified 组，不结束任务。
+
+- WALL-ART-06 专辑 mosaic/shard 已有实际组件，碎片切点未到时继续并行预载图像，放置可用才创建原图层；图像预载 owner 保留在外层，避免缺切点时重复解码/阻塞加载。260ms 的 filter/伪元素 opacity 各自保留，mix-blend-mode 即时切换；mode 变更时新建/删除伪元素不能从不存在的旧 opacity 过渡。还原碎片仅悬停/键盘焦点/当前播放豁免，不能照搬歌手的 linked/selected/expanded 豁免。
+- WALL-SKIN-01 原整卡原生材质与内容组装已写入：缩放、filter、box-shadow、透明度、叠色/熄灯、透明档 copy/badge、焦点 glint、当前描边与艺术封面/普通封面/徽标/管理/展开操作。保留独立 CSS 反向缩短、不同 transition-list 的时长、inset/outer 不兼容时直接切换、阴影列表末尾补透明占位、sRGB/modern Oklab 颜色路径；原 current ::before 阴影在 reduce lattice 时仍过渡。WAAPI transform/opacity 生效时替代底层 CSS 值，避免额外相乘悬停缩放或 dim 透明度。原 mosaic 不画底下整张普通封面，避免拼贴前闪一下；名字保留原两道文字阴影的 sigma。
+- 仅扩展既有一个卡片定向检查，已通过：原展开操作/菜单、实际皮肤无逐帧子树重建、四位小数放大目标、600ms 结束释放时钟、隐藏/按绝对时刻恢复无残余监听、碎片 mode 变更独立 filter/伪元素时序。最新 Flutter analyzer 无问题。没有增加模拟器/全 UI、完整构建或 APK；这些检查不证明最终手机字体、所有状态/光效或功耗一致。
+- 下一步接完整墙页：点击/控件排除/拖动吞点击/静止鼠标不误 hover、card flight/整墙入场实际宿主、探索形状与全部主页入口/账号/数据/缝/root。加载墙呼吸、真实标题断行/字体、局部 drop-shadow 等最终像素差异仍须补齐；其余所有页面/14 样式/6 背景/3 资料库及原平台/存储/系统范围继续。78 组仍 10 组进行中、68 组 pending、0 组 verified，不结束工作、不作交付声明。

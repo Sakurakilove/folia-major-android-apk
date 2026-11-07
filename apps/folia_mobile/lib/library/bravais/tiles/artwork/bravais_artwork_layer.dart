@@ -17,6 +17,7 @@ class BravaisArtworkLayer extends StatefulWidget {
     required this.style,
     required this.cover,
     required this.sizePx,
+    this.artwork,
     this.mosaic = false,
     this.active = true,
   });
@@ -25,6 +26,7 @@ class BravaisArtworkLayer extends StatefulWidget {
   final ValueListenable<BravaisArtStyle> style;
   final String? cover;
   final double sizePx;
+  final WallPosterArtwork? artwork;
   final bool mosaic, active;
   @override
   State<BravaisArtworkLayer> createState() => _BravaisArtworkLayerState();
@@ -32,9 +34,23 @@ class BravaisArtworkLayer extends StatefulWidget {
 
 class _BravaisArtworkLayerState extends State<BravaisArtworkLayer> {
   WallPosterArtwork? _artwork;
+  bool _ownsArtwork = false;
   late BravaisArtEffect _effect;
   bool _tickerEnabled = true;
   bool get _active => widget.active && _tickerEnabled;
+  void _adoptArtwork() {
+    _ownsArtwork = widget.artwork == null;
+    _artwork =
+        widget.artwork ??
+        WallPosterArtwork(
+          widget.store,
+          widget.cover,
+          widget.sizePx,
+          active: _active,
+        );
+    _artwork!.setActive(_active);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -45,26 +61,17 @@ class _BravaisArtworkLayerState extends State<BravaisArtworkLayer> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _tickerEnabled = TickerMode.valuesOf(context).enabled;
-    _artwork ??= WallPosterArtwork(
-      widget.store,
-      widget.cover,
-      widget.sizePx,
-      active: _active,
-    );
+    if (_artwork == null) _adoptArtwork();
     _artwork!.setActive(_active);
   }
 
   @override
   void didUpdateWidget(BravaisArtworkLayer old) {
     super.didUpdateWidget(old);
-    if (!identical(old.store, widget.store)) {
-      _artwork?.dispose();
-      _artwork = WallPosterArtwork(
-        widget.store,
-        widget.cover,
-        widget.sizePx,
-        active: _active,
-      );
+    if (!identical(old.store, widget.store) ||
+        !identical(old.artwork, widget.artwork)) {
+      if (_ownsArtwork) _artwork?.dispose();
+      _adoptArtwork();
     } else {
       _artwork?.setActive(_active);
       _artwork?.update(widget.cover, widget.sizePx);
@@ -103,7 +110,7 @@ class _BravaisArtworkLayerState extends State<BravaisArtworkLayer> {
   );
   @override
   void dispose() {
-    _artwork?.dispose();
+    if (_ownsArtwork) _artwork?.dispose();
     _effect.dispose();
     super.dispose();
   }

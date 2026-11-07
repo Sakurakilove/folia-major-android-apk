@@ -94,4 +94,4 @@ Bravais 卡片 flip/wave/entrance 的有限动画、固定 Ada WHATWG URL 适配
 
 ### 持续迁移：原艺术封面与 CSS 色彩路径（2026-11-07）
 
-已加入原 artist 的实际取色/状态回退/双层混色组件和有限 native shader/时钟，保留完整动图与显示分辨率；日/夜原 CSS 对照区分 legacy sRGB 与 ICC/D50 Oklab。专辑原切点、拼贴位置、碎片种子与坐标序列化对照通过。原 CORS/auth 可读性路由、拼贴双纹理合成后滤镜、全部皮肤/墙页/root 及最终手机外观/功耗仍未完成。详见 WORKLOG WALL-ART-01..04；源码检查点后继续，不视为交付物。
+已加入原 artist 的实际取色/状态回退/双层混色组件和有限 native shader/时钟，保留完整动图与显示分辨率；日/夜原 CSS 对照区分 legacy sRGB 与 ICC/D50 Oklab。专辑原切点、拼贴位置、碎片种子与坐标序列化对照通过。拼贴已改双纹理合成后统一滤镜；mosaic/shard、整卡有限 CSS 材质与实际卡片内容已有组件装配。原 CORS/auth 可读性路由、墙页交互/数据/缝/root、加载呼吸/文字与阴影细节及最终手机外观/功耗仍未完成。详见 WORKLOG WALL-ART-01..06 / WALL-SKIN-01；源码检查点后继续，不视为交付物。

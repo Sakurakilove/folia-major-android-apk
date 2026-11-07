@@ -9,6 +9,8 @@ import 'package:folia_mobile/library/wall/wall_typography.dart';
 import 'package:folia_mobile/rendering/folia_icons.dart';
 import 'package:folia_mobile/visualizer/motion/css_transition.dart';
 
+import 'wall_card_motion_contract.dart';
+
 // One focused native layout/action/lifecycle check. It does not certify Chromium font metrics, balanced line breaks or full wall pixels.
 void main() {
   testWidgets(
@@ -131,6 +133,7 @@ void main() {
       expect(clock.count, 0);
       clock.dispose();
       playing.dispose();
+      await checkWallCardMotion(tester);
     },
   );
 }

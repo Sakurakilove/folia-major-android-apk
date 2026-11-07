@@ -38,6 +38,7 @@ class BravaisFocusBody extends StatefulWidget {
     required this.isPlaying,
     required this.entersLattice,
     required this.reducedMotion,
+    this.glint,
   });
   final String slotKey;
   final BravaisItem item;
@@ -50,6 +51,7 @@ class BravaisFocusBody extends StatefulWidget {
   final Listenable frames;
   final double Function() nowMs;
   final ValueListenable<bool> isPlaying;
+  final Widget? glint;
   @override
   State<BravaisFocusBody> createState() => _BravaisFocusBodyState();
 }
@@ -95,15 +97,6 @@ class _BravaisFocusBodyState extends State<BravaisFocusBody> {
         menu = w.actions.menuFor(w.item.key);
     return Stack(
       children: [
-        if (menu.isNotEmpty)
-          _FocusMenu(
-            slotKey: w.slotKey,
-            entries: menu,
-            actions: w.actions,
-            strings: w.strings,
-            typography: w.typography,
-            accent: w.accent,
-          ),
         Positioned(
           left: 32,
           right: 32,
@@ -145,6 +138,16 @@ class _BravaisFocusBodyState extends State<BravaisFocusBody> {
             ],
           ),
         ),
+        if (w.glint != null) w.glint!,
+        if (menu.isNotEmpty)
+          _FocusMenu(
+            slotKey: w.slotKey,
+            entries: menu,
+            actions: w.actions,
+            strings: w.strings,
+            typography: w.typography,
+            accent: w.accent,
+          ),
       ],
     );
   }

@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/painting.dart';
 
 import '../../wall/wall_box_shadows.dart';
+import '../../wall/wall_css_filter.dart';
 import 'bravais_card_palette.dart';
 import 'bravais_item.dart';
 
@@ -38,14 +39,42 @@ class BravaisCardLook {
   bool get dimmed => (face.item?.dimmed ?? false) && !isExpanded;
   bool get stack => face.item?.form == BravaisTileForm.stack;
   bool get exempt => hovered || current || focused || linked || selected;
+  bool get portraitRestored => exempt || isExpanded;
+  bool get shardRestored => hovered || focused || current;
   bool get _pops =>
       (hovered || focused) &&
       !isExpanded &&
       face.kind != BravaisTileKind.wall &&
       face.kind != BravaisTileKind.window &&
       face.kind != BravaisTileKind.heading;
-  double get scaleX => _pops ? (width + 16) / math.max(width, 1) : 1;
-  double get scaleY => _pops ? (height + 16) / math.max(height, 1) : 1;
+  // Original inline custom properties are serialized with toFixed(4).
+  double _pop(double extent) =>
+      double.parse(((extent + 16) / math.max(extent, 1)).toStringAsFixed(4));
+  double get scaleX => _pops ? _pop(width) : 1;
+  double get scaleY => _pops ? _pop(height) : 1;
+  WallCssFilter get filter {
+    if (dimmed) {
+      return const WallCssFilter([WallFilterOp(WallFilterKind.grayscale, 1)]);
+    }
+    if (face.kind == BravaisTileKind.wall ||
+        face.kind == BravaisTileKind.window ||
+        isExpanded) {
+      return WallCssFilter.none;
+    }
+    if (face.item?.unavailable ?? false) {
+      return const WallCssFilter([
+        WallFilterOp(WallFilterKind.grayscale, .85),
+        WallFilterOp(WallFilterKind.brightness, .8),
+      ]);
+    }
+    return hovered
+        ? const WallCssFilter([
+            WallFilterOp(WallFilterKind.saturate, 1.08),
+            WallFilterOp(WallFilterKind.brightness, 1.05),
+          ])
+        : WallCssFilter.none;
+  }
+
   double get tint => tinted && !lightsOut && !exempt && !face.seeThrough
       ? palette.tintOpacity
       : 0;
@@ -70,9 +99,36 @@ class BravaisCardLook {
       ? 300
       : 600;
 
+  List<WallBoxShadow> get currentShadows => [
+    WallBoxShadow(
+      palette.shade.withValues(alpha: focused ? .62 : .52),
+      spread: 1,
+      inset: true,
+    ),
+    const WallBoxShadow(Color(0x00000000), spread: 3, inset: true),
+    WallBoxShadow(
+      palette.accent.withValues(
+        alpha: palette.accent.a * (focused ? .62 : .46),
+      ),
+      blur: focused ? 26 : 15,
+      spread: focused ? -6 : -7,
+      modern: true,
+      inset: true,
+    ),
+  ];
+
   List<WallBoxShadow> get shadows {
-    if (face.kind == BravaisTileKind.wall ||
-        face.kind == BravaisTileKind.window) {
+    if (face.kind == BravaisTileKind.wall) {
+      return [
+        WallBoxShadow(
+          palette.ink.withValues(alpha: palette.ink.a * .07),
+          spread: 1,
+          modern: true,
+          inset: true,
+        ),
+      ];
+    }
+    if (face.kind == BravaisTileKind.window) {
       return const [];
     }
     final p = palette;
@@ -93,19 +149,23 @@ class BravaisCardLook {
       elevation.addAll([
         WallBoxShadow(
           color(p.stackNear),
+          modern: true,
           offset: retract ? Offset.zero : const Offset(3, 3),
         ),
         WallBoxShadow(
           color(p.stackLine),
+          modern: true,
           offset: retract ? Offset.zero : const Offset(3, 3),
           spread: retract ? 0 : 1,
         ),
         WallBoxShadow(
           color(p.stackFar),
+          modern: true,
           offset: retract ? Offset.zero : const Offset(6, 6),
         ),
         WallBoxShadow(
           color(p.stackLine),
+          modern: true,
           offset: retract ? Offset.zero : const Offset(6, 6),
           spread: retract ? 0 : 1,
         ),
@@ -125,10 +185,10 @@ class BravaisCardLook {
               blur: 32,
             ),
     );
-    final placeholders = List.generate(
-      3,
-      (_) => const WallBoxShadow(Color(0x00000000)),
-    );
+    final placeholders = [
+      for (final spread in [1.0, 4.0, 5.0])
+        WallBoxShadow(const Color(0x00000000), spread: spread),
+    ];
     return [...(focused && !current ? ring : placeholders), ...elevation];
   }
 }
