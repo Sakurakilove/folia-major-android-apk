@@ -1,3 +1,5 @@
+import 'chromium_css_bezier.dart';
+
 // Motion's JS cubic subdivision is deliberately separate from compositor CSS cubic evaluation (Motion MIT attribution in assets).
 double _polynomial(double t, double a, double b) =>
     (((1 - 3 * b + 3 * a) * t + (3 * b - 6 * a)) * t + 3 * a) * t;
@@ -32,5 +34,14 @@ double motionBezier(
   double y2,
   double progress,
 ) => _bezier(x1, y1, x2, y2, progress, 12, .0000001);
-double cssBezier(double x1, double y1, double x2, double y2, double progress) =>
-    _bezier(x1, y1, x2, y2, progress, 52, 1e-12);
+final _cssCurves = <(double, double, double, double), ChromiumCssBezier>{};
+double cssBezier(double x1, double y1, double x2, double y2, double progress) {
+  final key = (x1, y1, x2, y2);
+  var curve = _cssCurves[key];
+  if (curve == null) {
+    curve = ChromiumCssBezier(x1, y1, x2, y2);
+    if (_cssCurves.length >= 128) _cssCurves.remove(_cssCurves.keys.first);
+    _cssCurves[key] = curve;
+  }
+  return curve.sample(progress);
+}

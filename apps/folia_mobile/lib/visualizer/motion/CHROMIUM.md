@@ -1,10 +1,11 @@
 # Chromium CSS timing facts
 
-`ChromiumCssBezier.sampleUnit` ports the original unit-interval algorithm from
+`ChromiumCssBezier` ports the original curve algorithm from
 Chromium `154.0.8037.57`, not an arbitrarily higher-precision Bézier solver.
 The source uses eleven spline samples, four Newton iterations, then bisection,
 with its original `1e-7` stopping criterion. Y overshoot is preserved; property
-clamps happen separately. Only unit-interval input is implemented here.
+clamps happen separately. `sample` also preserves the source endpoint-gradient
+extrapolation and finite saturation outside the unit interval.
 
 Pinned source files and SHA-256:
 
@@ -26,6 +27,9 @@ float32 before painting and computed-style serialization. Word em translations
 must resolve with the word's actual font size before that conversion.
 
 The current isolated album observations use six-significant-digit CSS computed
-style, not a full visual/device acceptance result. Existing generic `cssBezier`
-callers have not all been audited or switched; Motion's JS curve solver remains
-separate. Preserve the full original animation paths while continuing that audit.
+style, not a full visual/device acceptance result. The shared `cssBezier` now uses the pinned solver and a bounded cache of
+prepared curves for existing CSS/compositor callers. Motion's JS solver remains
+separate. `tool/generate_chromium_bezier_reference.py` compiles the pinned
+original C++ files with export/assert stubs; twenty curves and 420 raw samples
+(including endpoint extrapolation) are checked in the existing wall case.
+This improves the numeric comparison, not the pending full-device acceptance.

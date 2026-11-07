@@ -1,4 +1,4 @@
-import '../../../../visualizer/motion/chromium_css_bezier.dart';
+import '../../../../visualizer/motion/bezier.dart';
 import '../../../../rendering/css_numeric.dart';
 
 // CSS animation-timing-function applies between each property's keyframes. It is not WAAPI's effect-wide easing, and unspecified properties do not acquire the opacity's 60%/70% stops.
@@ -47,13 +47,8 @@ const _out = (x1: 0.0, y1: 0.0, x2: .58, y2: 1.0),
     _cover = (x1: .2, y1: .9, x2: .3, y2: 1.08),
     _word = (x1: .2, y1: .9, x2: .3, y2: 1.1),
     _tape = (x1: .3, y1: .7, x2: .3, y2: 1.2);
-final _curves = <_Curve, ChromiumCssBezier>{};
-double _ease(_Curve curve, double value) => _curves
-    .putIfAbsent(
-      curve,
-      () => ChromiumCssBezier(curve.x1, curve.y1, curve.x2, curve.y2),
-    )
-    .sampleUnit(value.clamp(0.0, 1.0));
+double _ease(_Curve curve, double value) =>
+    cssBezier(curve.x1, curve.y1, curve.x2, curve.y2, value.clamp(0.0, 1.0));
 double _phase(double elapsed, double delay, double duration) =>
     ((elapsed - delay) / duration).clamp(0.0, 1.0);
 double _opacity(double value) => value.clamp(0.0, 1.0);

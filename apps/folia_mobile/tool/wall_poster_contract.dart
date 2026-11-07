@@ -7,11 +7,32 @@ import 'package:folia_mobile/library/bravais/poster/bravais_poster_composition.d
 import 'package:folia_mobile/library/bravais/poster/bravais_poster_palette.dart';
 import 'package:folia_mobile/library/bravais/poster/bravais_poster_random.dart';
 import 'package:folia_mobile/rendering/visualizer_color_mix.dart';
+import 'package:folia_mobile/visualizer/motion/bezier.dart';
 import 'package:folia_mobile/tempera/tempera_palette.dart';
 import 'package:folia_mobile/theme/folia_theme.dart';
 
 // Extend the existing wall case with original pure geometry/palette observations; this is not a visual or complete-mode acceptance gate.
 void checkWallPosters() {
+  final curves = jsonDecode(
+    File('test/fixtures/chromium_bezier_reference.json').readAsStringSync(),
+  );
+  for (final row in curves['cases']) {
+    final c = List<num>.from(row['curve']);
+    for (final sample in row['samples']) {
+      expect(
+        cssBezier(
+          c[0].toDouble(),
+          c[1].toDouble(),
+          c[2].toDouble(),
+          c[3].toDouble(),
+          (sample['at'] as num).toDouble(),
+        ),
+        closeTo(sample['value'], 1e-13),
+        reason: 'Original Chromium C++ $c at ${sample['at']}',
+      );
+    }
+  }
+
   final reference = jsonDecode(
     File('test/fixtures/poster_reference.json').readAsStringSync(),
   );

@@ -24,7 +24,8 @@ void main() {
       final transition = CssNumericTransition(.45);
       transition.setTarget(.7, 0, const CssTransitionSpec(140));
       transition.advance(70);
-      expect(transition.value, closeTo(.6506008468962143, 1e-10));
+      // Raw interpolation from the pinned original Chromium C++ solver fixture.
+      expect(transition.value, closeTo(.650600847764961, 1e-13));
       transition.setTarget(.45, 70, const CssTransitionSpec(140));
       transition.advance(182.337);
       expect(transition.value, .45);
