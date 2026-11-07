@@ -2,7 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../wall/wall_paint_boundary.dart';
+import '../../wall/wall_opacity.dart';
 import '../bravais_frame.dart';
+import 'appearance/bravais_seam_appearance.dart';
 import 'bravais_seam_bottom_padding.dart';
 import 'bravais_seam_content_motion.dart';
 import 'bravais_seam_flight.dart';
@@ -21,9 +23,11 @@ class BravaisSeamScene<T> extends StatelessWidget {
     required this.bottom,
     required this.surfaceFor,
     required this.contentBuilder,
+    this.appearance,
     this.axis = BravaisSeamFlipAxis.y,
   });
   final BravaisSeamContentMotion<T> motion;
+  final BravaisSeamAppearance? appearance;
   final ValueListenable<BravaisFrame> frame;
   final double viewportWidth;
   final ValueListenable<double> bottom;
@@ -38,15 +42,23 @@ class BravaisSeamScene<T> extends StatelessWidget {
       frame: frame,
       contentWidth: resolveSeamVariantWidth(rendered.variant, viewportWidth),
       surface: surfaceFor(rendered),
+      underlay: appearance?.underlay,
+      overlay: appearance?.overlay,
       poster: rendered.variant == BravaisSeamVariant.poster,
       child: BravaisSeamMotionLayer(
         motion: motion,
         axis: axis,
-        child: BravaisSeamBottomPadding(
-          bottom: bottom,
-          child: WallPaintBoundary(child: contentBuilder(context, rendered)),
-        ),
+        child: _body(contentBuilder(context, rendered)),
       ),
     ),
   );
+
+  Widget _body(Widget content) {
+    final body = BravaisSeamBottomPadding(
+          bottom: bottom,
+          child: WallPaintBoundary(child: content),
+        ),
+        alpha = appearance?.bodyOpacity;
+    return alpha == null ? body : WallOpacity(opacity: alpha, child: body);
+  }
 }

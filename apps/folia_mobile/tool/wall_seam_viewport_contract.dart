@@ -5,6 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:folia_mobile/library/bravais/bravais_frame.dart';
 import 'package:folia_mobile/library/bravais/seam/bravais_poster_safe_layer.dart';
+import 'package:folia_mobile/library/bravais/seam/appearance/bravais_seam_appearance.dart';
+import 'package:folia_mobile/library/bravais/seam/appearance/bravais_seam_look.dart';
+import 'package:folia_mobile/rendering/gradients/css_gradient_program.dart';
 import 'package:folia_mobile/library/bravais/seam/bravais_seam_content_motion.dart';
 import 'package:folia_mobile/library/bravais/seam/bravais_seam_level.dart';
 import 'package:folia_mobile/library/bravais/seam/bravais_seam_paper.dart';
@@ -18,11 +21,31 @@ import 'package:folia_mobile/library/wall/wall_types.dart';
 Future<void> checkWallSeamViewport(
   WidgetTester tester, {
   required BravaisSeamContentMotion<Map<String, Object>> motion,
+  required Listenable frames,
+  required double Function() nowMs,
   required VoidCallback tick,
   required void Function(double) setNow,
   required int Function() listeners,
 }) async {
   var builds = 0, presses = 0;
+  final gradients = (await tester.runAsync(CssGradientProgram.load))!;
+  const palette = BravaisCardPalette(
+    background: Color(0xff070707),
+    ink: Color(0xfff7f4ee),
+    accent: Color(0xfffd5c47),
+    secondary: Color(0xff6a48ff),
+    daylight: false,
+  );
+  final appearance = BravaisSeamAppearance(
+    look: const BravaisSeamLook(
+      palette: palette,
+      variant: BravaisSeamVariant.full,
+      tinted: true,
+    ),
+    frames: frames,
+    nowMs: nowMs,
+    gradients: gradients,
+  );
   BravaisFrame frameAt({
     double width = 300,
     bool poster = false,
@@ -58,6 +81,7 @@ Future<void> checkWallSeamViewport(
           height: 844,
           child: BravaisSeamScene(
             motion: motion,
+            appearance: appearance,
             frame: frame,
             viewportWidth: 800,
             bottom: bottom,
@@ -159,7 +183,29 @@ Future<void> checkWallSeamViewport(
   tick();
   await tester.pump();
   expect(listeners(), 0);
+  appearance.update(
+    const BravaisSeamLook(
+      palette: palette,
+      variant: BravaisSeamVariant.full,
+      clearSeam: true,
+      lightsOut: true,
+    ),
+    reducedMotion: false,
+  );
+  expect(listeners(), greaterThan(0));
+  appearance.setActive(false);
+  expect(listeners(), 0);
+  setNow(2500);
+  appearance.setActive(true);
+  await tester.pump();
+  expect(appearance.bodyOpacity.value, .4);
+  expect(appearance.paperTint.value, 0);
+  expect(appearance.textTint.value, 0);
+  expect(listeners(), 0);
   await tester.pumpWidget(const SizedBox());
+  expect(listeners(), 0);
+  appearance.dispose();
+  gradients.dispose();
   frame.dispose();
   bottom.dispose();
   paper.dispose();

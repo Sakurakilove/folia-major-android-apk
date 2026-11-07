@@ -603,3 +603,7 @@
 - SEAM-NATIVE-04（2026-11-07）新增真正 BravaisSeamScene/Viewport：正文只按 rendered variant 的固定宽度布局，开口/相机/倾斜更新只改原生绘制、裁剪、透明度与命中；翻牌包在正文而不包纸。artist/album poster 缝上下40vh出血、内容保持视口高度，UI单独按 targetOpenWidth/viewHeight 求安全区并保留原toFixed(4)/toFixed(1)，相机平移不重复计算安全区。body底部边距直接监听播放条signal并更新RenderPadding，不逐帧重建正文；隐藏与leaving的命中/焦点/语义路径接原控制器。常规theme paper/透明纱与原内外阴影有实际 painter；印刷/磨砂/图案、海报材料及缝叠色/熄灯仍待接原样，不用普通纸冒充它们。
 - 只把既有card单例的seam部分改为真实viewport装配，没有增加整页/模拟器套件：转出/转入时正文不逐帧build、开口300→180正文仍300、裁剪外点击不落入正文、bottom40→80直接更新实际高度、海报40vh与安全区原fixture/拖动复用矩阵、结束0帧监听和卸载通过；analyzer无问题。此例用theme paper验证布局，不宣称海报材质/真实字体/全部控件/焦点恢复/像素已完成。另移除 BravaisViewport.reflow setter 中无关的重复 plate listener，避免切换reflow源重复订阅。
 - 下一步继续缝叠色/熄灯/内容控件、原8种材质/海报/焦点恢复，再推进主页全部入口/平台数据/导航/封面飞行及其他全部范围。仍10组进行中、68待迁移、0最终验收，不交付中间APK，源码保存后继续工作。
+
+
+- SEAM-NATIVE-05（2026-11-07）缝原::before/::after/body三个260ms CSS透明度通路接入实际 BravaisSeamScene：纸补齐全强度叠色、内容上方封顶.35、实色熄灯.6、clear/seamClear只淡正文.4；hover/focus-visible/menu/keyboard-window/form/search豁免目标保留，颜色/日夜/自定义色立即切换而透明度单独过渡。离屏解时钟、恢复按绝对时间采样；无逐帧widget/channel，Oklab gradient shader按live owner持有。实际hover/focus/menu源仍须随完整控件/Stage接入，不把有样式模型当成控件全部已迁移。
+- 只扩展既有极小CSS诊断和两个native定向例：14组原CSS computed style（含daylight、form/search、poster、clear与menu/keyboard）匹配，实际两层tint/body装配/隐藏恢复0监听通过，analyzer无问题。源poster注释说不受叠色/熄灯影响，但实际bravaisAppearance.css无poster豁免；按真实computed style迁移，没有照注释擅自改观感。完整原8种材质/海报底、各正文/竖排/字体/焦点恢复与整页最终对照仍待完成；无新APK或手机功耗结论。继续修正原墙命中/hover边界并接其余页面，不结束任务。

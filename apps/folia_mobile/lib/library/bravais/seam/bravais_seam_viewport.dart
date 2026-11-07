@@ -15,21 +15,38 @@ class BravaisSeamViewport extends SingleChildRenderObjectWidget {
     required this.frame,
     required this.contentWidth,
     required this.surface,
+    this.underlay,
+    this.overlay,
     this.poster = false,
     super.child,
   });
   final ValueListenable<BravaisFrame> frame;
   final double contentWidth;
   final CustomPainter surface;
+  final CustomPainter? underlay, overlay;
   final bool poster;
   @override
   RenderBravaisSeamViewport createRenderObject(BuildContext context) =>
-      RenderBravaisSeamViewport(frame, contentWidth, surface, poster);
+      RenderBravaisSeamViewport(
+        frame,
+        contentWidth,
+        surface,
+        poster,
+        underlay: underlay,
+        overlay: overlay,
+      );
   @override
   void updateRenderObject(
     BuildContext context,
     RenderBravaisSeamViewport renderObject,
-  ) => renderObject.update(frame, contentWidth, surface, poster);
+  ) => renderObject.update(
+    frame,
+    contentWidth,
+    surface,
+    poster,
+    underlay: underlay,
+    overlay: overlay,
+  );
 }
 
 class RenderBravaisSeamViewport extends RenderProxyBox {
@@ -37,11 +54,14 @@ class RenderBravaisSeamViewport extends RenderProxyBox {
     this._frame,
     this._contentWidth,
     this._surface,
-    this._poster,
-  );
+    this._poster, {
+    this._underlay,
+    this._overlay,
+  });
   ValueListenable<BravaisFrame> _frame;
   double _contentWidth;
   CustomPainter _surface;
+  CustomPainter? _underlay, _overlay;
   bool _poster;
   Matrix4? _tilt;
   final _outerClip = LayerHandle<ClipRectLayer>(),
@@ -52,8 +72,10 @@ class RenderBravaisSeamViewport extends RenderProxyBox {
     ValueListenable<BravaisFrame> frame,
     double contentWidth,
     CustomPainter surface,
-    bool poster,
-  ) {
+    bool poster, {
+    CustomPainter? underlay,
+    CustomPainter? overlay,
+  }) {
     if (!identical(frame, _frame)) {
       if (attached) _frame.removeListener(_changed);
       _frame = frame;
@@ -68,6 +90,19 @@ class RenderBravaisSeamViewport extends RenderProxyBox {
       if (attached) _surface.removeListener(markNeedsPaint);
       _surface = surface;
       if (attached) _surface.addListener(markNeedsPaint);
+      markNeedsPaint();
+    }
+    if (!identical(underlay, _underlay) || !identical(overlay, _overlay)) {
+      if (attached) {
+        _underlay?.removeListener(markNeedsPaint);
+        _overlay?.removeListener(markNeedsPaint);
+      }
+      _underlay = underlay;
+      _overlay = overlay;
+      if (attached) {
+        _underlay?.addListener(markNeedsPaint);
+        _overlay?.addListener(markNeedsPaint);
+      }
       markNeedsPaint();
     }
     if (_poster != poster) {
@@ -123,6 +158,8 @@ class RenderBravaisSeamViewport extends RenderProxyBox {
     super.attach(owner);
     _frame.addListener(_changed);
     _surface.addListener(markNeedsPaint);
+    _underlay?.addListener(markNeedsPaint);
+    _overlay?.addListener(markNeedsPaint);
     _changed();
   }
 
@@ -130,6 +167,8 @@ class RenderBravaisSeamViewport extends RenderProxyBox {
   void detach() {
     _frame.removeListener(_changed);
     _surface.removeListener(markNeedsPaint);
+    _underlay?.removeListener(markNeedsPaint);
+    _overlay?.removeListener(markNeedsPaint);
     super.detach();
   }
 

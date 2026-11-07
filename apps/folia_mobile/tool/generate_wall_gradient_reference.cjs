@@ -34,8 +34,31 @@ const { baseline, sourceText } = require('./original_source.cjs');
                 return {flags,filter:style.filter,inset:parseFloat(style.left),tint:Number(getComputedStyle(tile,'::after').opacity)};
             });
         });
-        fs.writeFileSync(path.join(__dirname,'../test/fixtures/wall_gradient_reference.json'),JSON.stringify({baseline,engine:await browser.version(),source,sourceHash:crypto.createHash('sha256').update(css).digest('hex'),computed,pixels,posterCases,
-            styleHashes:Object.fromEntries(styles.map(s=>[s,crypto.createHash('sha256').update(sourceText(s)).digest('hex')]))},null,2)+'\n');
+        const seamStyles=['src/library/suites/bravais/bravais.css','src/library/suites/bravais/bravaisAppearance.css'];
+        await page.setContent('<style>'+css+seamStyles.map(sourceText).join('\n')+'</style><div id="root"></div>');
+        const seamCases=await page.evaluate(()=>{
+            const cases=[{}, {tintIntensity:1}, {daylight:true}, {tinted:false}, {lightsOut:true},
+                {lightsOut:true,wallClear:true}, {lightsOut:true,clearSeam:true}, {clearSeam:true},
+                {wallClear:true}, {menuOpen:true}, {keyboardWindow:true}, {variant:'form'},
+                {variant:'search'}, {variant:'poster'}];
+            return cases.map(flags=>{
+                root.className='lattice-root bravais-root'+(flags.daylight?' is-daylight':'')+
+                    (flags.tinted===false?'':' has-poster-tint')+(flags.lightsOut?' is-lights-out':'')+
+                    (flags.clearSeam?' has-clear-seam':'');
+                root.dataset.bravaisLook=flags.wallClear?'clear':'solid';
+                root.style.setProperty('--lattice-poster-tint-intensity',String(flags.tintIntensity??.5));
+                const seam=document.createElement('div'),body=document.createElement('div');
+                seam.className='bravais-seam';seam.dataset.bravaisSeam=flags.variant??'full';
+                if(flags.keyboardWindow) seam.dataset.foliaKeyboardWindow='';
+                body.className='bravais-seam-body';seam.append(body);
+                if(flags.menuOpen) body.innerHTML='<span data-bravais-seam-menu></span>';
+                root.replaceChildren(seam);
+                return {flags,paperTint:Number(getComputedStyle(seam,'::before').opacity),
+                    textTint:Number(getComputedStyle(seam,'::after').opacity),bodyOpacity:Number(getComputedStyle(body).opacity)};
+            });
+        });
+        fs.writeFileSync(path.join(__dirname,'../test/fixtures/wall_gradient_reference.json'),JSON.stringify({baseline,engine:await browser.version(),source,sourceHash:crypto.createHash('sha256').update(css).digest('hex'),computed,pixels,posterCases,seamCases,
+            styleHashes:Object.fromEntries([...new Set([...styles,...seamStyles])].map(s=>[s,crypto.createHash('sha256').update(sourceText(s)).digest('hex')]))},null,2)+'\n');
         console.log('Exported five isolated original CSS gradient/alpha center pixels.');
     } finally { await browser.close();fs.rmSync(temp,{recursive:true,force:true}); }
 })().catch(error=>{console.error(error);process.exitCode=1;});

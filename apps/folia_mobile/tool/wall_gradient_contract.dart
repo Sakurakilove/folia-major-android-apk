@@ -7,6 +7,8 @@ import 'package:folia_mobile/library/bravais/tiles/artwork/bravais_art_program.d
 import 'package:folia_mobile/library/bravais/tiles/bravais_card_palette.dart';
 import 'package:folia_mobile/library/bravais/tiles/bravais_card_look.dart';
 import 'package:folia_mobile/library/bravais/tiles/bravais_item.dart';
+import 'package:folia_mobile/library/bravais/seam/appearance/bravais_seam_look.dart';
+import 'package:folia_mobile/library/bravais/seam/bravais_seam_level.dart';
 
 // One existing shader check samples modern interpolation, premultiplied fade and the actual original wall tint. This is not full gradient/gamut/device pixel acceptance.
 Future<void> checkWallGradient(BravaisArtProgram program) async {
@@ -58,6 +60,34 @@ Future<void> checkWallGradient(BravaisArtProgram program) async {
     );
     expect(look.faceInset, row['inset']);
     expect(look.posterTintOpacity, row['tint']);
+  }
+  for (final row in reference['seamCases']) {
+    final f = row['flags'],
+        p = BravaisCardPalette(
+          background: palette.background,
+          ink: palette.ink,
+          accent: palette.accent,
+          secondary: palette.secondary,
+          daylight: f['daylight'] ?? false,
+          tintIntensity: (f['tintIntensity'] as num?)?.toDouble() ?? .5,
+        ),
+        look = BravaisSeamLook(
+          palette: p,
+          variant: BravaisSeamVariant.values.byName(f['variant'] ?? 'full'),
+          tinted: f['tinted'] ?? true,
+          lightsOut: f['lightsOut'] ?? false,
+          wallClear: f['wallClear'] ?? false,
+          clearSeam: f['clearSeam'] ?? false,
+          menuOpen: f['menuOpen'] ?? false,
+          keyboardWindow: f['keyboardWindow'] ?? false,
+        );
+    expect(look.paperTint, closeTo(row['paperTint'], 1e-6), reason: '$f paper');
+    expect(
+      look.textTint,
+      closeTo(row['textTint'], 1e-6),
+      reason: '$f foreground',
+    );
+    expect(look.bodyOpacity, row['bodyOpacity'], reason: '$f body');
   }
   final gradient = program.gradients.createLinear();
   Future<List<int>> sample(List<ui.Color> colors, double degrees) async {

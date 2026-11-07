@@ -72,7 +72,23 @@ extension _BravaisSeamViewportPaint on RenderBravaisSeamViewport {
               needsCompositing,
               offset,
               paper,
-              _paintContent,
+              (context, offset) {
+                void overlay(CustomPainter? painter) {
+                  if (painter == null) return;
+                  final canvas = context.canvas;
+                  canvas.save();
+                  canvas.translate(
+                    offset.dx + paper.left,
+                    offset.dy + paper.top,
+                  );
+                  painter.paint(canvas, paper.size);
+                  canvas.restore();
+                }
+
+                overlay(_underlay);
+                _paintContent(context, offset);
+                overlay(_overlay);
+              },
               clipBehavior: Clip.hardEdge,
               oldLayer: _paperClip.layer,
             );

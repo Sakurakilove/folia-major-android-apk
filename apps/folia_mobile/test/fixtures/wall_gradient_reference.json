@@ -130,10 +130,125 @@
       "tint": 0.3
     }
   ],
+  "seamCases": [
+    {
+      "flags": {},
+      "paperTint": 0.230769,
+      "textTint": 0.35,
+      "bodyOpacity": 1
+    },
+    {
+      "flags": {
+        "tintIntensity": 1
+      },
+      "paperTint": 1,
+      "textTint": 0.35,
+      "bodyOpacity": 1
+    },
+    {
+      "flags": {
+        "daylight": true
+      },
+      "paperTint": 0.0153846,
+      "textTint": 0.35,
+      "bodyOpacity": 1
+    },
+    {
+      "flags": {
+        "tinted": false
+      },
+      "paperTint": 0,
+      "textTint": 0,
+      "bodyOpacity": 1
+    },
+    {
+      "flags": {
+        "lightsOut": true
+      },
+      "paperTint": 0,
+      "textTint": 0.6,
+      "bodyOpacity": 1
+    },
+    {
+      "flags": {
+        "lightsOut": true,
+        "wallClear": true
+      },
+      "paperTint": 0,
+      "textTint": 0,
+      "bodyOpacity": 0.4
+    },
+    {
+      "flags": {
+        "lightsOut": true,
+        "clearSeam": true
+      },
+      "paperTint": 0,
+      "textTint": 0,
+      "bodyOpacity": 0.4
+    },
+    {
+      "flags": {
+        "clearSeam": true
+      },
+      "paperTint": 0,
+      "textTint": 0,
+      "bodyOpacity": 1
+    },
+    {
+      "flags": {
+        "wallClear": true
+      },
+      "paperTint": 0,
+      "textTint": 0,
+      "bodyOpacity": 1
+    },
+    {
+      "flags": {
+        "menuOpen": true
+      },
+      "paperTint": 0,
+      "textTint": 0,
+      "bodyOpacity": 1
+    },
+    {
+      "flags": {
+        "keyboardWindow": true
+      },
+      "paperTint": 0,
+      "textTint": 0,
+      "bodyOpacity": 1
+    },
+    {
+      "flags": {
+        "variant": "form"
+      },
+      "paperTint": 0,
+      "textTint": 0,
+      "bodyOpacity": 1
+    },
+    {
+      "flags": {
+        "variant": "search"
+      },
+      "paperTint": 0,
+      "textTint": 0,
+      "bodyOpacity": 1
+    },
+    {
+      "flags": {
+        "variant": "poster"
+      },
+      "paperTint": 0.230769,
+      "textTint": 0.35,
+      "bodyOpacity": 1
+    }
+  ],
   "styleHashes": {
     "src/library/suites/bravais/bravais.css": "bf68087290e6f218351a445c50a59899aa1cf0bcf80840306ede50d828bcdacd",
     "src/library/suites/bravais/bravaisTileKinds.css": "e05df18bfa92486c218839ac29bc8cf45c8c37c684f0ad7bd31620c82b14d293",
     "src/library/suites/bravais/bravaisHome.css": "e5c8051deeb04d6a7cecf2d44ef2045cdc94e4fa762221cc4bdf90dc0817e211",
-    "src/library/suites/bravais/bravaisPoster.css": "0989b2b1e1058b9cd9ec7c3f0ead7dddf7920ee07d5a849b6cfa21572628ceb6"
+    "src/library/suites/bravais/bravaisPoster.css": "0989b2b1e1058b9cd9ec7c3f0ead7dddf7920ee07d5a849b6cfa21572628ceb6",
+    "src/library/suites/bravais/bravaisAppearance.css": "a026d7c8653ce4cb83c4d79638cc9a608eee69157e7e04ae7973a922904e2523"
   }
 }

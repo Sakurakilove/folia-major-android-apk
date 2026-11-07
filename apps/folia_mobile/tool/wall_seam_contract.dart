@@ -109,6 +109,8 @@ Future<void> checkWallSeam(WidgetTester tester) async {
   await checkWallSeamViewport(
     tester,
     motion: motion,
+    frames: clock,
+    nowMs: () => now,
     tick: clock.tick,
     setNow: (value) => now = value,
     listeners: () => clock.count,
