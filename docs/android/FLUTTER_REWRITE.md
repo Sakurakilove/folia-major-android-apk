@@ -91,3 +91,7 @@ Bravais 卡片 flip/wave/entrance 的有限动画、固定 Ada WHATWG URL 适配
 ### 持续迁移：真实卡片内容与样式目标（2026-11-07）
 
 原 Bravais compact/heading/expanded 内容、徽标、管理隐藏与队列/链接/菜单动作已加入实际 native 组件；控件 reveal 和快速 hover 反向使用有限 native 绘制轨迹。新增 source selector 样式目标、渐变/scrim/内外阴影组件。整卡图层及艺术封面、整页数据/入口仍未组装，标题 native 断行、字体、阴影及色彩空间尚未严格比较，不能称主页或前端已完成。详见 WORKLOG WALL-NATIVE-05..07 / TEXT-WALL-01；不发布简化界面，不缩小全部 14 样式/6 背景/3 资料库的范围。
+
+### 持续迁移：原艺术封面与 CSS 色彩路径（2026-11-07）
+
+已加入原 artist 的实际取色/状态回退/双层混色组件和有限 native shader/时钟，保留完整动图与显示分辨率；日/夜原 CSS 对照区分 legacy sRGB 与 ICC/D50 Oklab。专辑原切点、拼贴位置、碎片种子与坐标序列化对照通过。原 CORS/auth 可读性路由、拼贴双纹理合成后滤镜、全部皮肤/墙页/root 及最终手机外观/功耗仍未完成。详见 WORKLOG WALL-ART-01..04；源码检查点后继续，不视为交付物。

@@ -8,11 +8,15 @@ import 'wall_artwork_image.dart';
 
 // Original poster variant handoff: keep decoded lower gear while upgrading, wait one second before Android downsizing, and never fade or replay the card.
 class WallPosterArtwork extends ValueNotifier<String> {
-  WallPosterArtwork(this.store, String? cover, double sizePx)
-    : _source = cover ?? '',
-      _step = wallArtworkStep(sizePx),
-      _ready = store.pickDisplay(cover ?? '', wallArtworkStep(sizePx)),
-      super('') {
+  WallPosterArtwork(
+    this.store,
+    String? cover,
+    double sizePx, {
+    this._active = true,
+  }) : _source = cover ?? '',
+       _step = wallArtworkStep(sizePx),
+       _ready = store.pickDisplay(cover ?? '', wallArtworkStep(sizePx)),
+       super('') {
     _effect();
   }
   final WallArtworkStore store;
@@ -22,7 +26,8 @@ class WallPosterArtwork extends ValueNotifier<String> {
   ArtworkCancellation? _cancel;
   Timer? _downgrade;
   int _generation = 0;
-  bool _closed = false, _active = true;
+  bool _closed = false;
+  bool _active;
   void update(String? cover, double sizePx) {
     if (_closed) return;
     final source = cover ?? '', step = wallArtworkStep(sizePx);

@@ -3,6 +3,8 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/painting.dart';
 
+import '../../rendering/css_color.dart';
+
 // CSS gradient angles depend on the box aspect ratio. Canvas endpoints keep the original 145-degree geometry on every poster shape.
 ui.Shader wallLinearGradient(
   Rect bounds,
@@ -25,16 +27,7 @@ ui.Shader wallLinearGradient(
 
 // Theme color-mix(in srgb,...) is premultiplied by alpha. No early integer-channel rounding or perceptual color interpolation is introduced.
 Color wallSrgbMix(Color first, Color second, double secondPart) {
-  final p = secondPart, alpha = first.a * (1 - p) + second.a * p;
-  if (alpha == 0) return const Color(0x00000000);
-  double mix(double a, double b) =>
-      (a * first.a * (1 - p) + b * second.a * p) / alpha;
-  return Color.from(
-    alpha: alpha,
-    red: mix(first.r, second.r),
-    green: mix(first.g, second.g),
-    blue: mix(first.b, second.b),
-  );
+  return cssSrgbMix(first, second, secondPart);
 }
 
 Color wallCssHsl(double hue, double saturation, double lightness) {

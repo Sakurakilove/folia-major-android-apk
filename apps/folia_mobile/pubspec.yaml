@@ -26,6 +26,7 @@ flutter:
     - shaders/monet_word.frag
     - shaders/monet_token.frag
     - shaders/liquid_glass.frag
+    - shaders/wall_artwork.frag
 
   assets:
     - assets/ada_url/
