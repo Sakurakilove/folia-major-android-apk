@@ -575,3 +575,9 @@
 - WALL-HOST-02 retained viewport 增加原 hover=3/focus=4/expanded=20 的稳定层叠与逆序命中，仅座位物化/换序/状态变更时重排，平移/重排帧复用缓存。加载空框保留原 2.4s .55→1→.55 ease-in-out，reduce lattice 按原规则移除，场景隐藏解除 clock、恢复按绝对相位继续。没有删掉呼吸来换待机数字。
 - 本批仅运行既有一个卡片检查和原 4 个 wall_input 定向用例，共 5 个通过；卡片原操作检查额外确认禁用的队列按钮不冒泡成 activate、空白卡点击仍 activate、拖动残余点击被消费一次，呼吸隐藏/恢复/停止后监听归零。原相机不增加子布局/绘制、reflow 打断和原输入/tile 时序仍通过。最新 analyzer 无问题；未跑模拟器/完整 UI/新 APK。
 - 全页宿主、数据入口、缝/海报/封面飞行、探索形状、native trackpad/跨缝滚轮及整页验收继续；放大到原框外的额外 hover/hit 范围、浏览器/字体/阴影精确对照还须检查。当前 source 卡片组件已组装，不能描述成整页已可替换或功耗已通过。保持全部迁移门槛，保存后继续探索形状与页宿主。
+
+- WALL-SHAPE-01 原 exploreLayout / lotTables / lotSeats / bravaisWallShape 已迁移：section 均匀分段、稳定 kind 排序、按 code point 的 FNV 镜像、原 heading/座位/半格街、stride 1/2/3 周期与最近副本、400 合并预算、形状身份/起点迁移/增量前缀与 kept/remounted 分流。224 套 cutLot 和 1456 套精确 grown assignment 从固定原函数预生成 59136 字节惰性表，避免手机展开时重复执行指数分配；不更换原手绘版式。
+- WALL-DISPLAY-01 加入原 wall-only 数据投影与显示模型，源无限周期/起点偏移、部分透明保留位、有限 rank、探索 heading 与内容、hiddenKeys 删除第一段、换面身份、display diff/flip/wave/reflow 和局部最近副本查找；finite 计划沿用与相机范围、同层 refresh/filter/removal/update 的源规则已迁移。此 wall-only projection 不等于 seam/provider/navigation 全模型已完成，不能省略剩余宿主范围。
+- WALL-HOST-03 BravaisWallView 已实际组装双半 retained viewport / 原卡片 / 形状块 key / 重排 / 焦点 / linked / queued / loading / 材质与手势入口。封面档位按已提交缩放与原 Android min(DPR,1.5) 计算，连续相机帧不触发 Widget 重建或反复更新图片档位，实际绘制保持完整 DPR。区分 lattice 材质/相机降级与 lattice||collectionMorph 的换层降级，不能用后者关闭本应保留的 CSS 特效。
+- 本批检查保持定向：五组原 explore 布局与五组 lot/Unicode、十二组 display/透光/finite/heading 投影与四组 removal 对照通过；不是动画/像素最终验收。复用原 artwork 四用例，首例扩展实际 BravaisWallView 三卡组装（普通/集合/歌手）、parent data、资源 owner，确认静止零 clock、改相机后卡片 widget 身份保持、卸载零监听且无意外图片/取色 IO。原 fd/GIF/取消/共享帧也通过；最新 analyzer 无问题。未跑模拟器/全 UI/新 APK，无手机瓦数/像素证据。
+- 继续下一项：让块底板缓存、裁剪、当前显示与 raw camera 在完整 scene host 接线；随后完整 seam/各入口/导航/记忆/keyboard/list/海报及封面飞行。根界面仍未替换为完整原版，全量 78 组仍 10 in_progress / 68 pending / 0 verified；不交付、不结束工作，原 src/public/shared/electron 保持对照。

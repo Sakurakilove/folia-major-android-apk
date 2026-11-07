@@ -33,6 +33,7 @@ class BravaisTileView extends StatefulWidget {
     this.step,
     this.entrance,
     this.reducedMotion = false,
+    this.reducedTransitions = false,
     this.managingHidden = false,
     this.active = true,
     this.loading = false,
@@ -52,6 +53,7 @@ class BravaisTileView extends StatefulWidget {
   final bool queued,
       entersLattice,
       reducedMotion,
+      reducedTransitions,
       managingHidden,
       active,
       loading;
@@ -93,7 +95,7 @@ class _BravaisTileViewState extends State<BravaisTileView> {
     _motion.setTarget(
       _target,
       step: widget.step,
-      reducedMotion: widget.reducedMotion,
+      reducedMotion: widget.reducedTransitions,
     );
     _motion.setEntrance(widget.entrance, widget.rect);
   }

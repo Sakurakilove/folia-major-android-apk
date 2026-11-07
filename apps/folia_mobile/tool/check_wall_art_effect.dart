@@ -12,6 +12,7 @@ import 'package:folia_mobile/library/bravais/tiles/artwork/bravais_art_style.dar
 import 'wall_art_math_contract.dart';
 import 'wall_art_motion_contract.dart';
 import 'wall_art_leaf_contract.dart';
+import 'wall_scene_contract.dart';
 
 // Native shader/owner/metadata check only; GPU/browser final pixel equality is a separate migration gate.
 Future<void> checkWallArtEffect(WidgetTester tester) async {
@@ -166,6 +167,7 @@ Future<void> checkWallArtEffect(WidgetTester tester) async {
   owned.style.dispose();
   owned.image.dispose();
   owned.tiled.dispose();
+  await checkWallSceneContract(tester);
 }
 
 class _SampleImage extends ImageProvider<int> {

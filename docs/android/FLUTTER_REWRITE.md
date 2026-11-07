@@ -95,3 +95,7 @@ Bravais 卡片 flip/wave/entrance 的有限动画、固定 Ada WHATWG URL 适配
 ### 持续迁移：原艺术封面与 CSS 色彩路径（2026-11-07）
 
 已加入原 artist 的实际取色/状态回退/双层混色组件和有限 native shader/时钟，保留完整动图与显示分辨率；日/夜原 CSS 对照区分 legacy sRGB 与 ICC/D50 Oklab。专辑原切点、拼贴位置、碎片种子与坐标序列化对照通过。拼贴已改双纹理合成后统一滤镜；mosaic/shard、整卡有限 CSS 材质与实际卡片内容已有组件装配。原 CORS/auth 可读性路由、墙页交互/数据/缝/root、加载呼吸/文字与阴影细节及最终手机外观/功耗仍未完成。详见 WORKLOG WALL-ART-01..06 / WALL-SKIN-01；源码检查点后继续，不视为交付物。
+
+### 持续迁移：探索形状、显示与 retained 墙体（2026-11-07）
+
+探索页原 lot/heading/周期/最近副本/让位和 display/透光/finite/删除投影已加入；双半 BravaisWallView 现可组装完整卡片，实际小范围宿主检查通过，camera 更新不重建卡片。全部 seam/入口/导航/记忆/keyboard/list/海报/封面飞行、原生 scene/root、其余页面/样式/背景/平台与最终像素/功耗验收仍未完成。参见 WORKLOG WALL-SHAPE-01 / WALL-DISPLAY-01 / WALL-HOST-03；这些组件不是可交付整页。
