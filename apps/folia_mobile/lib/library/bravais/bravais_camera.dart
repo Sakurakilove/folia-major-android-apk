@@ -26,6 +26,7 @@ class BravaisCamera {
     this.overscan = 300,
     ValueChanged<double>? onScaleCommit,
   }) {
+    anchorSignal.value = anchorX;
     frame = ValueNotifier(_computeFrame());
     pointer = WallPointerPan(
       frames: frames,
@@ -56,6 +57,7 @@ class BravaisCamera {
   bool hidden, poster, reducedMotion;
   late final ValueNotifier<BravaisFrame> frame;
   final cull = ValueNotifier<WallBounds?>(null);
+  final anchorSignal = ValueNotifier<double?>(null);
   late final WallPointerPan pointer;
   WallCameraRange? range;
   bool _dragging = false,
@@ -105,6 +107,11 @@ class BravaisCamera {
   void renderFrame({bool forceCull = false}) {
     if (_closed) return;
     checkCull(force: forceCull);
+    _publishFrame();
+  }
+
+  void _publishFrame() {
+    anchorSignal.value = anchorX;
     frame.value = _computeFrame();
   }
 
@@ -128,7 +135,7 @@ class BravaisCamera {
       // Flutter builds the published seat set before painting the newly invalidated native camera layer.
       _publish(bounds);
     }
-    frame.value = _computeFrame();
+    _publishFrame();
   }
 
   void _applyCamera(WallCamera camera, bool updateBounds) {
@@ -258,5 +265,6 @@ class BravaisCamera {
     _closed = true;
     frame.dispose();
     cull.dispose();
+    anchorSignal.dispose();
   }
 }

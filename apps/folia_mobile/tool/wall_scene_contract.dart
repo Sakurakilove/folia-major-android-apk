@@ -24,8 +24,11 @@ import 'package:folia_mobile/library/wall/wall_slots.dart';
 import 'package:folia_mobile/library/wall/wall_types.dart';
 import 'package:folia_mobile/library/wall/wall_typography.dart';
 
+import 'wall_scene_plane_contract.dart';
+
 // Extend the existing small artwork check with real wall assembly/parent data/resource cleanup; no full app or screenshot suite.
 Future<void> checkWallSceneContract(WidgetTester tester) async {
+  var now = 0.0;
   final owned = await tester.runAsync(
     () async => (
       program: await BravaisArtProgram.load(),
@@ -62,7 +65,7 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
         samples: samples,
         program: owned!.program,
         frames: clock,
-        nowMs: () => 0,
+        nowMs: () => now,
         isPlaying: playing,
         typography: const WallTypography(),
         strings: owned.strings,
@@ -177,6 +180,14 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
   expect(tester.takeException(), isNull);
   await tester.pumpWidget(const SizedBox());
   expect(clock.count, 0);
+  await checkWallScenePlane(
+    tester,
+    resources: resources,
+    actions: actions,
+    palette: palette,
+    listeners: () => clock.count,
+    setNow: (value) => now = value,
+  );
   pointer.dispose();
   samples.dispose();
   store.dispose();

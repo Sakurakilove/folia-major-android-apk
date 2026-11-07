@@ -581,3 +581,8 @@
 - WALL-HOST-03 BravaisWallView 已实际组装双半 retained viewport / 原卡片 / 形状块 key / 重排 / 焦点 / linked / queued / loading / 材质与手势入口。封面档位按已提交缩放与原 Android min(DPR,1.5) 计算，连续相机帧不触发 Widget 重建或反复更新图片档位，实际绘制保持完整 DPR。区分 lattice 材质/相机降级与 lattice||collectionMorph 的换层降级，不能用后者关闭本应保留的 CSS 特效。
 - 本批检查保持定向：五组原 explore 布局与五组 lot/Unicode、十二组 display/透光/finite/heading 投影与四组 removal 对照通过；不是动画/像素最终验收。复用原 artwork 四用例，首例扩展实际 BravaisWallView 三卡组装（普通/集合/歌手）、parent data、资源 owner，确认静止零 clock、改相机后卡片 widget 身份保持、卸载零监听且无意外图片/取色 IO。原 fd/GIF/取消/共享帧也通过；最新 analyzer 无问题。未跑模拟器/全 UI/新 APK，无手机瓦数/像素证据。
 - 继续下一项：让块底板缓存、裁剪、当前显示与 raw camera 在完整 scene host 接线；随后完整 seam/各入口/导航/记忆/keyboard/list/海报及封面飞行。根界面仍未替换为完整原版，全量 78 组仍 10 in_progress / 68 pending / 0 verified；不交付、不结束工作，原 src/public/shared/electron 保持对照。
+
+- WALL-SCENE-01 已加入真实墙面 plane 宿主，接 raw camera、source visible-first 有界裁剪、几何相同的 slot 列表身份复用、display/selection、target reflow 与 retained viewport。部件每帧只听 native camera/reflow 层；场景 widget 只听 cull/display/focus/离散 seam anchor。块底板按当前 shape/frame/洞/展开卡/缝锚点缓存，mounted 块以外删除，左右分类与原版一致，移动中不重建路径。root 的纸/噪点/缝/chrome/navigation 并未由这个 plane 替代，完整 stage 仍须迁移。
+- WALL-SCENE-02 墙面独立 SceneFrameDomain 阻断隐藏场景所有上游帧订阅；修正展开操作 reveal 原来没有读 TickerMode 的隐患，叶子也在隐藏时解除监听、恢复按绝对时间采样。区分 pointer 是否可交互与场景动画是否可见，避免交接时禁止触摸也误关可见动画。原相机额外公布仅 anchor 变更才通知的 signal，避免为了底板边界而按 camera frame 重建整墙。
+- 最新定向检查仍复用既有 artwork 四例 + card 一例，共 5 个通过；首例扩展实际 bounded scene：静止 0 clock、移动相机不重建 tile widget、强制 recull 的共同 key 保留同一 Element、展开启动有限动画、隐藏 clock=0、5000ms 恢复已结束且 clock=0、卸载=0。partial/clear 底板与卡片同一 scene 装配无异常。最新 analyzer 无问题；不是手机像素/瓦数、完整导航或 UI 验收，不构建 APK。
+- 接下来继续完整 seam 的等级/目标/开合/内容/各表单与海报，以及焦点/键盘/入口/导航/布局记忆/封面飞行；其他全量迁移范围继续保留。原始完整前端不改动，78 组仍无 verified，不把实际 wall plane 误报成完整首页完成。源码保存后继续。

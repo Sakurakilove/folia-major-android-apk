@@ -15,6 +15,7 @@ class BravaisFocusReveal extends ChangeNotifier {
   double Function() nowMs;
   final double startedAt;
   bool reducedMotion, _attached = false, _closed = false;
+  bool _active = true;
   double? _progress;
   double get progress => _progress ??= _sample();
   double _sample() => reducedMotion
@@ -27,6 +28,14 @@ class BravaisFocusReveal extends ChangeNotifier {
           ((nowMs() - startedAt - 140) / 240).clamp(0.0, 1.0),
         );
   bool get _running => progress < 1;
+  void setActive(bool value) {
+    if (_closed || _active == value) return;
+    _active = value;
+    if (value) _progress = _sample();
+    _sync();
+    if (value) notifyListeners();
+  }
+
   void setReduced(bool value) {
     if (value == reducedMotion) return;
     reducedMotion = value;
@@ -49,7 +58,7 @@ class BravaisFocusReveal extends ChangeNotifier {
   }
 
   void _sync() {
-    final wanted = !_closed && hasListeners && _running;
+    final wanted = !_closed && _active && hasListeners && _running;
     if (wanted == _attached) return;
     _attached = wanted;
     if (wanted) {
@@ -60,6 +69,7 @@ class BravaisFocusReveal extends ChangeNotifier {
   }
 
   void _frame() {
+    if (_closed || !_active) return;
     _progress = _sample();
     _sync();
     notifyListeners();

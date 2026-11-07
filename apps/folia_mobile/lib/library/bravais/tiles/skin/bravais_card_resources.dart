@@ -30,4 +30,16 @@ class BravaisCardResources {
   final WallTypography typography;
   final FoliaStrings strings;
   final Color albumAccent, albumBlock;
+  BravaisCardResources withFrames(Listenable frames) => BravaisCardResources(
+    store: store,
+    samples: samples,
+    program: program,
+    frames: frames,
+    nowMs: nowMs,
+    isPlaying: isPlaying,
+    typography: typography,
+    strings: strings,
+    albumAccent: albumAccent,
+    albumBlock: albumBlock,
+  );
 }

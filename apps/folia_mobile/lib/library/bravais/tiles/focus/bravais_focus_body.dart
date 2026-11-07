@@ -58,6 +58,7 @@ class BravaisFocusBody extends StatefulWidget {
 
 class _BravaisFocusBodyState extends State<BravaisFocusBody> {
   late BravaisFocusReveal _reveal;
+  bool _tickerEnabled = true;
   @override
   void initState() {
     super.initState();
@@ -71,6 +72,13 @@ class _BravaisFocusBodyState extends State<BravaisFocusBody> {
     reducedMotion: widget.reducedMotion,
   );
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _tickerEnabled = TickerMode.valuesOf(context).enabled;
+    _reveal.setActive(_tickerEnabled);
+  }
+
+  @override
   void didUpdateWidget(BravaisFocusBody old) {
     super.didUpdateWidget(old);
     if (!identical(old.frames, widget.frames)) {
@@ -81,7 +89,7 @@ class _BravaisFocusBodyState extends State<BravaisFocusBody> {
         nowMs: widget.nowMs,
         startedAt: widget.nowMs() - elapsed,
         reducedMotion: widget.reducedMotion,
-      );
+      )..setActive(_tickerEnabled);
     } else {
       _reveal.nowMs = widget.nowMs;
       _reveal.setReduced(widget.reducedMotion);

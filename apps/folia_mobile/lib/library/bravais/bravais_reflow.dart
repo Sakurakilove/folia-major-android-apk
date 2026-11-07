@@ -50,13 +50,21 @@ class BravaisReflow extends ValueNotifier<Map<String, WallRect>> {
     Map<String, WallRect> initial = const {},
   }) : _targets = initial,
        super(Map.unmodifiable(initial));
-  final Listenable frames;
+  Listenable frames;
   final double Function() nowMs;
   final WallRect? Function(String) resting;
   Map<String, WallRect> _targets;
   Map<String, BravaisReflowTrack> _tracks = {};
   bool _attached = false, _closed = false, _active = true;
   bool get animating => _tracks.isNotEmpty;
+  void rebindFrames(Listenable next) {
+    if (_closed || identical(frames, next)) return;
+    if (_attached) frames.removeListener(_frame);
+    _attached = false;
+    frames = next;
+    _sync();
+  }
+
   void updateTargets(Map<String, WallRect> next, {bool enabled = true}) {
     if (_closed || identical(next, _targets)) return;
     final previous = _targets;
