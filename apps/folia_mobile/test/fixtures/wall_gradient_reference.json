@@ -244,6 +244,24 @@
       "bodyOpacity": 1
     }
   ],
+  "hitCases": [
+    {
+      "poster": false,
+      "point": [
+        132,
+        64
+      ],
+      "onFace": true
+    },
+    {
+      "poster": true,
+      "point": [
+        2,
+        64
+      ],
+      "onFace": false
+    }
+  ],
   "styleHashes": {
     "src/library/suites/bravais/bravais.css": "bf68087290e6f218351a445c50a59899aa1cf0bcf80840306ede50d828bcdacd",
     "src/library/suites/bravais/bravaisTileKinds.css": "e05df18bfa92486c218839ac29bc8cf45c8c37c684f0ad7bd31620c82b14d293",

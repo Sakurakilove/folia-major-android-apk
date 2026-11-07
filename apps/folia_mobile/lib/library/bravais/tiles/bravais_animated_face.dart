@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'bravais_tile_motion.dart';
 import 'bravais_tile_types.dart';
 import '../../wall/wall_paint_boundary.dart';
+import '../../wall/wall_overflow_hit_test.dart';
 
 // Only a source face commit rebuilds card content. Transform/opacity frames update this native proxy over the retained full-resolution child.
 class BravaisAnimatedFace<T> extends StatelessWidget {
@@ -40,7 +41,7 @@ class BravaisFaceLayer extends SingleChildRenderObjectWidget {
   ) => renderObject.motion = motion;
 }
 
-class RenderBravaisFace extends RenderProxyBox {
+class RenderBravaisFace extends RenderProxyBox with WallOverflowHitTest {
   RenderBravaisFace(this._motion);
   BravaisTileMotion<dynamic> _motion;
   Matrix4? _matrix;

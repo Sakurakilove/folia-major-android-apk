@@ -1,9 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 import '../../wall/input/wall_input_region.dart';
 import 'bravais_item.dart';
 import 'focus/bravais_focus_actions.dart';
+
+part 'input/bravais_tile_input_layer.dart';
 
 // One history belongs to the complete wall host. Mouse annotation updates precede pointer routing, so a stationary camera-induced enter sees the previous actual position.
 class BravaisPointerHistory {
@@ -79,8 +83,7 @@ class _BravaisTileInputState extends State<BravaisTileInput> {
     final w = widget,
         item = w.face.item,
         actionable = item != null && w.face.kind != BravaisTileKind.heading;
-    return MouseRegion(
-      cursor: actionable ? SystemMouseCursors.click : SystemMouseCursors.basic,
+    return _BravaisInputLayer(
       onEnter: (event) {
         w.onHover(true);
         if (!w.pointerHistory.stayed(event.position)) {
@@ -91,21 +94,14 @@ class _BravaisTileInputState extends State<BravaisTileInput> {
         w.onHover(false);
         w.actions.hover(null);
       },
-      child: Listener(
-        onPointerDown: (event) => _control = wallInputControlOf(event) != null,
-        child: Semantics(
-          button: actionable && !w.expanded,
-          expanded: item?.kind == BravaisItemKind.track ? w.expanded : null,
-          label: item?.accessibleName,
-          onTap: actionable ? _semanticActivate : null,
-          child: GestureDetector(
-            behavior: HitTestBehavior.opaque,
-            excludeFromSemantics: true,
-            onTap: _activate,
-            child: w.child,
-          ),
-        ),
-      ),
+      onDown: (event) => _control = wallInputControlOf(event) != null,
+      onTap: _activate,
+      semanticTap: actionable ? _semanticActivate : null,
+      label: item?.accessibleName,
+      button: actionable && !w.expanded,
+      expanded: item?.kind == BravaisItemKind.track ? w.expanded : null,
+      textDirection: Directionality.maybeOf(context),
+      child: w.child,
     );
   }
 }

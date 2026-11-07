@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../../../visualizer/motion/css_transition.dart';
 import '../bravais_card_look.dart';
+import '../../../wall/wall_overflow_hit_test.dart';
 
 // The artist-wall ::after belongs to the fixed outer tile, above the rotating face. Its 260ms color-blend opacity is not disabled by lattice's reduction selectors.
 class BravaisPosterCardSurface extends StatefulWidget {
@@ -96,7 +97,7 @@ class _PosterTintLayer extends SingleChildRenderObjectWidget {
   ) => renderObject.update(opacity, color, enabled);
 }
 
-class RenderBravaisPosterTint extends RenderProxyBox {
+class RenderBravaisPosterTint extends RenderProxyBox with WallOverflowHitTest {
   RenderBravaisPosterTint(this._opacity, this._color, this._enabled);
   ValueListenable<double> _opacity;
   Color _color;

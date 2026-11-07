@@ -2,8 +2,11 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 
 import '../../../wall/wall_css_filter.dart';
+import '../../../wall/wall_overflow_hit_test.dart';
+import '../bravais_item.dart';
 import 'bravais_card_motion.dart';
 import '../bravais_tile_motion.dart';
 
@@ -27,7 +30,9 @@ class BravaisCardLayer extends SingleChildRenderObjectWidget {
   ) => renderObject.update(motion, flight);
 }
 
-class RenderBravaisCard extends RenderProxyBox {
+class RenderBravaisCard extends RenderProxyBox
+    with WallOverflowHitTest
+    implements MouseTrackerAnnotation {
   RenderBravaisCard(this._motion, this._flight);
   BravaisCardMotion _motion;
   BravaisTileMotion<dynamic>? _flight;
@@ -37,6 +42,18 @@ class RenderBravaisCard extends RenderProxyBox {
   WallCssFilter? _lastFilter;
   double? _lastAlpha;
   ui.ImageFilter? _nativeFilter;
+  @override
+  PointerEnterEventListener? get onEnter => null;
+  @override
+  PointerExitEventListener? get onExit => null;
+  @override
+  bool get validForMouseTracker => attached;
+  @override
+  MouseCursor get cursor =>
+      _motion.look.face.kind == BravaisTileKind.wall ||
+          _motion.look.face.kind == BravaisTileKind.heading
+      ? SystemMouseCursors.basic
+      : SystemMouseCursors.click;
   void update(BravaisCardMotion motion, BravaisTileMotion<dynamic>? flight) {
     if (identical(motion, _motion) && identical(flight, _flight)) return;
     if (attached) _listen(false);

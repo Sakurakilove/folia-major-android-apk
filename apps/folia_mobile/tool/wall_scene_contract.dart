@@ -25,10 +25,12 @@ import 'package:folia_mobile/library/wall/wall_types.dart';
 import 'package:folia_mobile/library/wall/wall_typography.dart';
 
 import 'wall_scene_plane_contract.dart';
+import 'wall_tile_input_contract.dart';
 
 // Extend the existing small artwork check with real wall assembly/parent data/resource cleanup; no full app or screenshot suite.
 Future<void> checkWallSceneContract(WidgetTester tester) async {
   var now = 0.0;
+  final activations = <String>[];
   final owned = await tester.runAsync(
     () async => (
       program: await BravaisArtProgram.load(),
@@ -73,7 +75,7 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
         albumBlock: palette.background,
       ),
       actions = BravaisCardActions(
-        activate: (_) {},
+        activate: activations.add,
         play: (_) {},
         enqueue: (_) {},
         canOpenAlbum: (_) => false,
@@ -126,7 +128,7 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
         ),
         null,
       );
-  await tester.pumpWidget(
+  Future<void> mount({bool poster = false}) => tester.pumpWidget(
     Directionality(
       textDirection: TextDirection.ltr,
       child: Align(
@@ -152,11 +154,13 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
             noteAlbumSource: (_, _) {},
             palette: palette,
             tinted: true,
+            posterWall: poster,
           ),
         ),
       ),
     ),
   );
+  await mount();
   expect(tester.takeException(), isNull);
   expect(find.byType(BravaisTileView), findsNWidgets(3));
   final before = tester
@@ -179,6 +183,14 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
     expect(identical(before[i], after[i]), true);
   }
   expect(tester.takeException(), isNull);
+  await checkWallTileInput(
+    tester,
+    activations: activations,
+    slotKey: before.first.slot.key,
+    mount: (poster) => mount(poster: poster),
+    setNow: (value) => now = value,
+    tick: clock.tick,
+  );
   await tester.pumpWidget(const SizedBox());
   expect(clock.count, 0);
   await checkWallScenePlane(

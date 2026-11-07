@@ -34,6 +34,14 @@ const { baseline, sourceText } = require('./original_source.cjs');
                 return {flags,filter:style.filter,inset:parseFloat(style.left),tint:Number(getComputedStyle(tile,'::after').opacity)};
             });
         });
+        await page.setViewportSize({width:500,height:400});
+        const hitCases=await page.evaluate(()=>[false,true].map(poster=>{
+            const root=document.querySelector('#poster');
+            root.className='lattice-root bravais-root'+(poster?' has-poster-wall':'');
+            root.innerHTML='<div class="bravais-tile is-focused" style="transform:translate3d(100px,100px,0);width:128px;height:128px;--bravais-pop-x:1.125;--bravais-pop-y:1.125"><article class="lattice-poster bravais-tile-face"></article></div>';
+            const point=poster?[2,64]:[132,64];
+            return {poster,point,onFace:document.elementFromPoint(100+point[0],100+point[1])===root.querySelector('article')};
+        }));
         const seamStyles=['src/library/suites/bravais/bravais.css','src/library/suites/bravais/bravaisAppearance.css'];
         await page.setContent('<style>'+css+seamStyles.map(sourceText).join('\n')+'</style><div id="root"></div>');
         const seamCases=await page.evaluate(()=>{
@@ -57,7 +65,7 @@ const { baseline, sourceText } = require('./original_source.cjs');
                     textTint:Number(getComputedStyle(seam,'::after').opacity),bodyOpacity:Number(getComputedStyle(body).opacity)};
             });
         });
-        fs.writeFileSync(path.join(__dirname,'../test/fixtures/wall_gradient_reference.json'),JSON.stringify({baseline,engine:await browser.version(),source,sourceHash:crypto.createHash('sha256').update(css).digest('hex'),computed,pixels,posterCases,seamCases,
+        fs.writeFileSync(path.join(__dirname,'../test/fixtures/wall_gradient_reference.json'),JSON.stringify({baseline,engine:await browser.version(),source,sourceHash:crypto.createHash('sha256').update(css).digest('hex'),computed,pixels,posterCases,seamCases,hitCases,
             styleHashes:Object.fromEntries([...new Set([...styles,...seamStyles])].map(s=>[s,crypto.createHash('sha256').update(sourceText(s)).digest('hex')]))},null,2)+'\n');
         console.log('Exported five isolated original CSS gradient/alpha center pixels.');
     } finally { await browser.close();fs.rmSync(temp,{recursive:true,force:true}); }

@@ -1,6 +1,8 @@
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
+import 'wall_overflow_hit_test.dart';
+
 // Retained wall faces include CSS shadows beyond their layout box. Flutter's default boundary reports only its own size, which is not the original poster's paint extent.
 class WallPaintBoundary extends SingleChildRenderObjectWidget {
   const WallPaintBoundary({super.key, super.child});
@@ -9,7 +11,7 @@ class WallPaintBoundary extends SingleChildRenderObjectWidget {
       RenderWallPaintBoundary();
 }
 
-class RenderWallPaintBoundary extends RenderProxyBox {
+class RenderWallPaintBoundary extends RenderProxyBox with WallOverflowHitTest {
   @override
   bool get isRepaintBoundary => true;
   @override
@@ -29,7 +31,7 @@ class WallFaceInset extends SingleChildRenderObjectWidget {
   ) => renderObject.padding = EdgeInsets.all(inset);
 }
 
-class RenderWallFaceInset extends RenderPadding {
+class RenderWallFaceInset extends RenderPadding with WallOverflowHitTest {
   RenderWallFaceInset(double inset) : super(padding: EdgeInsets.all(inset));
   @override
   Rect get paintBounds {

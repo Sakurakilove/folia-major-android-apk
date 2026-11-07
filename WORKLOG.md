@@ -607,3 +607,8 @@
 
 - SEAM-NATIVE-05（2026-11-07）缝原::before/::after/body三个260ms CSS透明度通路接入实际 BravaisSeamScene：纸补齐全强度叠色、内容上方封顶.35、实色熄灯.6、clear/seamClear只淡正文.4；hover/focus-visible/menu/keyboard-window/form/search豁免目标保留，颜色/日夜/自定义色立即切换而透明度单独过渡。离屏解时钟、恢复按绝对时间采样；无逐帧widget/channel，Oklab gradient shader按live owner持有。实际hover/focus/menu源仍须随完整控件/Stage接入，不把有样式模型当成控件全部已迁移。
 - 只扩展既有极小CSS诊断和两个native定向例：14组原CSS computed style（含daylight、form/search、poster、clear与menu/keyboard）匹配，实际两层tint/body装配/隐藏恢复0监听通过，analyzer无问题。源poster注释说不受叠色/熄灯影响，但实际bravaisAppearance.css无poster豁免；按真实computed style迁移，没有照注释擅自改观感。完整原8种材质/海报底、各正文/竖排/字体/焦点恢复与整页最终对照仍待完成；无新APK或手机功耗结论。继续修正原墙命中/hover边界并接其余页面，不结束任务。
+
+
+- WALL-INPUT-02（2026-11-07）修正真实 BravaisTileView 的原 CSS 可命中范围：固定外座位接 hover，只有变换后的 article 接 click。native input 合并原先 Mouse/Listener/Semantics/Gesture 的多个 box 截断节点；保留 TapGestureRecognizer、leaf control先标记后判定、按钮不吞 residual drag、普通/语义激活区别及 cover-flight source callback。可溢出的 Face/Boundary/Inset/Card/Tint 代理转发真实 child hit，不把阴影当交互区；远处候选先用保守绘制范围排除，避免对全部400座位都遍历/反算卡面。光标归实际卡面而非10px空边，完整键盘/a11y/焦点与其他宿主命中仍待最终核对。
+- 既有极小浏览器诊断补2个原CSS elementFromPoint：普通128px卡pop后的[132,64]仍在article，artist poster inset后的[2,64]只在外座位。真实native墙按这两个实际结果核对通过；既有expanded card单例的按钮/菜单优先、drag吞点击和0时钟也通过，analyzer无问题。其controls-only夹具补透明article box，让测试有原版实际存在的完整article命中面；不是放宽原点击断言。没有增加模拟器/全页套件，也没有实机功耗或全部保真结论。
+- 原8种缝材质、真实海报/竖排正文/所有首页入口与数据导航/封面飞行、其他3套资料库/全部样式/背景/平台/系统及最终验收继续待迁移。78组仍10进行中、68pending、0verified，不交付中间APK、不把阶段提交作为停止点。
