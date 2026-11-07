@@ -37,6 +37,7 @@ flutter:
     - assets/Unicode-LICENSE.txt
     - assets/motion-dom-LICENSE.md
     - assets/Skia-LICENSE.txt
+    - assets/Chromium-LICENSE.txt
     - assets/AndroidLiquidGlass.txt
     - assets/LICENSE
     - assets/original/
