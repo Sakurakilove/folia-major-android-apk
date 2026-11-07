@@ -617,3 +617,8 @@
 - WALL-MATERIAL-01（2026-11-07）原静态SVG纸纹/颗粒转为按实际尺寸和DPR一次准备的native纹理。新增独立按需C++ folia_rendering/FFI所有权和UI-isolate外生成；无逐帧Channel/纹理拷贝。保留Skia seed0→1随机流、置换/uint16规范梯度、两octave、stitch频率及原SVG120%默认filter区；源码锁定Chromium154.0.8037.57的Skia2466dcf，记录摘要并把BSD许可证入包。rawRGBA8中间层与后续色彩矩阵/linear→sRGB/rect opacity分开；直接合并gamma与opacity出现差异，已改成原先颜色转换后的独立透明度合成，静态准备完释放中间图。
 - 本轮仅扩展既有native artwork单例：四种真实原SVG（wall、poster、黑墨grain、白墨grain）×DPR1/2的40个像素观察严格相同；native像素长度/关闭后读取/重复dispose/非法DPR检查通过，analyzer无问题，新增C++ARM64 release模块增量编译通过。临时诊断的多次runAsync曾挂起，已取消并修正为整个诊断在单一runAsync中执行；临时文件删除，不把诊断运行完成误写成完整材质通过。
 - CSS背景的具体尺寸/定位（尤其只有viewBox的wall SVG不能直接假定180CSSpx）、其他DPR/全纹理/设备与材质叠加仍待核对。native当前对超过8192像素的单边请求显式失败，绝不缩小；完整设备边界尚需验证。8种材质的实际painter/缓存、完整海报/墙ground/正文与导航尚未全接，40点检查不是整页像素验收，无新APK或实机瓦数结论。继续材质接入及其余全量迁移。
+
+
+- WALL-COVER-FLIGHT-01（2026-11-07）继续原封面墙 → 专辑海报的实际 native 飞行路径：保留三个变换后角点、最近角度插值、CSS background-size/position 与 focus-pop 几何；session source 消费/1500ms TTL/同封面身份、同层 parked return 已加入。去程640ms/回程560ms、实时重新读取终点、目标丢失150ms淡出、回程200ms淡出、同帧onLand+下一帧撤飞行图、900ms磁贴等待和实际源码的duration+600ms ready等待保留（原注释写400但执行代码是600）。单一 scene frame 订阅只在飞行/有界等待存在时运行，不逐帧走Platform Channel。
+- 覆盖层使用原生 retained image leaf，宽高变化只重排该图片，cover裁切不把起终点不同的比例拉伸；浮起软阴影、切换颜色的硬阴影与原round/toFixed保留，透明度复用浮点WallOpacity。隐藏解除飞行时钟并通过TickerMode停止图片帧订阅；恢复按原绝对时间继续。五条直接执行固定原函数的离散RAF轨迹、16组size、30组position以及实际child保留/隐藏恢复/落地下一帧/无目标返回等待0监听的既有card单例通过；未扩大为模拟器/整页UI。完整poster/tile锚点注册、skin全部有限动画finish、原专辑海报正文/字体/图片首帧和最终像素仍未接通，不称封面墙或专辑页已完成。
+- 同时在做的 SEAM-MATERIAL-01 还未通过严格比较：原8种材质的当前84个小样本已对齐82个，透明缝左上阴影叠加的2处蓝色通道仍差1byte，断言保留失败。磨砂差异已由源Skia Bayer dither修正，纸纹必须在纸面合成时保留颜色矩阵透明度而非先压成另一张8位图；点阵/格纹按原小纹理栅格化再采样。简单颜色量化/替换filter的实验均已回退，不能用容差通过或称最终保真。继续材料差异及真正主页/海报/导航/所有其余迁移范围，不在提交处停止。台账78组仍10进行中、68pending、0verified；无替换APK和实机功耗证据。
