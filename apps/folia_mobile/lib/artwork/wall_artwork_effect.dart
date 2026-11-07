@@ -6,5 +6,6 @@ import 'package:flutter/foundation.dart';
 abstract class WallArtworkEffect extends ChangeNotifier {
   bool get needsImage => true;
   void imageChanged(ui.Image? image) {}
+  void underlayChanged(ui.Image? image) {}
   void paint(ui.Canvas canvas, ui.Offset offset, ui.Size size, ui.Image? image);
 }

@@ -23,7 +23,7 @@ class BravaisArtEffect extends WallArtworkEffect {
   ui.Rect? _placementRect;
   final ui.Image _empty;
   final _paint = ui.Paint();
-  ui.Image? _bound;
+  ui.Image? _bound, _underBound;
   bool _listening = false, _closed = false;
   @override
   bool get needsImage => style.value.opacity > 0;
@@ -33,6 +33,17 @@ class BravaisArtEffect extends WallArtworkEffect {
     _bound = image;
     _shader.setImageSampler(
       0,
+      image ?? _empty,
+      filterQuality: ui.FilterQuality.low,
+    );
+  }
+
+  @override
+  void underlayChanged(ui.Image? image) {
+    if (_closed || identical(image, _underBound)) return;
+    _underBound = image;
+    _shader.setImageSampler(
+      1,
       image ?? _empty,
       filterQuality: ui.FilterQuality.low,
     );
@@ -139,6 +150,10 @@ class BravaisArtEffect extends WallArtworkEffect {
       ..setFloat(34, image?.width.toDouble() ?? 1)
       ..setFloat(35, image?.height.toDouble() ?? 1)
       ..setFloat(36, s.mode.index.toDouble());
+    _uniforms
+      ..setFloat(37, _underBound?.width.toDouble() ?? 1)
+      ..setFloat(38, _underBound?.height.toDouble() ?? 1)
+      ..setFloat(39, _underBound == null ? 0 : 1);
     canvas.save();
     canvas.translate(offset.dx, offset.dy);
     canvas.drawRect(ui.Offset.zero & size, _paint);
@@ -152,6 +167,7 @@ class BravaisArtEffect extends WallArtworkEffect {
     if (_listening) style.removeListener(_changed);
     _listening = false;
     _bound = null;
+    _underBound = null;
     _paint.shader = null;
     _program.releaseShader(_shader);
     super.dispose();
@@ -162,7 +178,7 @@ class BravaisArtEffect extends WallArtworkEffect {
 class _ArtUniforms {
   _ArtUniforms(this.shader);
   final ui.FragmentShader shader;
-  final _values = List<double>.filled(37, double.nan);
+  final _values = List<double>.filled(40, double.nan);
   void setFloat(int index, double value) {
     if (_values[index] == value) return;
     _values[index] = value;

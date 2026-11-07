@@ -11,7 +11,10 @@ uniform vec4 uFallbackA;
 uniform vec4 uFallbackB;
 uniform vec2 uImageSize;
 uniform float uMode; // 0 mosaic, 1 artist, 2 shard
+uniform vec2 uUnderSize;
+uniform float uHasUnder;
 uniform sampler2D uImage;
+uniform sampler2D uUnder;
 out vec4 fragColor;
 
 // Isolated CSS background/filter/multiply/lighten composition at source DPR, without multiple offscreen filter passes per poster.
@@ -22,17 +25,20 @@ vec4 blend(vec4 s,vec4 b,bool lighten) {
     vec3 mixed=lighten?max(sc,bc):sc*bc;
     return vec4((1.0-b.a)*s.rgb+(1.0-s.a)*b.rgb+s.a*b.a*mixed,s.a+b.a-s.a*b.a);
 }
-vec4 sourceImage(vec2 p) {
-    if(uLayers.x>1.5) {
+vec4 texel(vec2 uv,bool under) { return under?texture(uUnder,uv):texture(uImage,uv); }
+vec4 repeatedImage(vec2 p,bool under) {
+        vec2 imageSize=under?uUnderSize:uImageSize;
         vec2 uv=fract((p-uImageRect.xy)/max(uImageRect.zw,vec2(.00001)));
-        vec2 halfTexel=.5/uImageSize;
-        if(all(greaterThanEqual(uv,halfTexel))&&all(lessThanEqual(uv,1.0-halfTexel))) return texture(uImage,uv);
+        vec2 halfTexel=.5/imageSize;
+        if(all(greaterThanEqual(uv,halfTexel))&&all(lessThanEqual(uv,1.0-halfTexel))) return texel(uv,under);
         // FragmentShader's sampler clamps at its image edge. A CSS repeated background filters across adjacent copies instead.
-        vec2 coordinate=uv*uImageSize-.5, low=floor(coordinate), weight=fract(coordinate);
-        vec2 a=(mod(low,uImageSize)+.5)/uImageSize, b=(mod(low+1.0,uImageSize)+.5)/uImageSize;
-        return mix(mix(texture(uImage,a),texture(uImage,vec2(b.x,a.y)),weight.x),
-                   mix(texture(uImage,vec2(a.x,b.y)),texture(uImage,b),weight.x),weight.y);
-    }
+        vec2 coordinate=uv*imageSize-.5, low=floor(coordinate), weight=fract(coordinate);
+        vec2 a=(mod(low,imageSize)+.5)/imageSize, b=(mod(low+1.0,imageSize)+.5)/imageSize;
+        return mix(mix(texel(a,under),texel(vec2(b.x,a.y),under),weight.x),
+                   mix(texel(vec2(a.x,b.y),under),texel(b,under),weight.x),weight.y);
+}
+vec4 sourceImage(vec2 p) {
+    if(uLayers.x>1.5) return repeatedImage(p,false);
     if(uLayers.x>.5) {
         vec2 direction=vec2(.573576436351046,.819152044288992); // CSS 145deg: sin(theta), -cos(theta)
         float length=dot(uSize,abs(direction));
@@ -52,6 +58,8 @@ vec4 filtered(vec4 c) {
 void main() {
     vec2 p=FlutterFragCoord().xy;
     vec4 image=sourceImage(p);
+    // Both CSS background images are composited before the element's filter/mix-blend-mode, including semi-transparent artwork during a mode change.
+    if(uHasUnder>.5) image=over(image,repeatedImage(p,true));
     if(uMode>.5&&uMode<1.5) image=over(image,premul(uBase));
     image=filtered(image);
     vec4 layer=uLayers.y>.5?blend(image,premul(uLight),false):over(image,premul(uLight));

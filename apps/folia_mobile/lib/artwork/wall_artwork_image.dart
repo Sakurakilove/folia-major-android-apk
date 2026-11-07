@@ -1,12 +1,20 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import 'wall_artwork_effect.dart';
+import 'wall_image_subscription.dart';
 
-// Animated image streams update RenderImage directly, not a widget subtree per frame. Hidden retained scenes keep their image without scheduling image frames.
+// Image frames update a retained native leaf. Optional background layers share one effect, preserving filter-after-composition semantics without bitmap/widget/channel copies.
 class WallArtworkImage extends LeafRenderObjectWidget {
-  const WallArtworkImage({super.key, required this.provider, this.effect});
-  final ImageProvider<String>? provider;
+  const WallArtworkImage({
+    super.key,
+    required this.provider,
+    this.underlay,
+    this.effect,
+  });
+  final ImageProvider<String>? provider, underlay;
   final WallArtworkEffect? effect;
   @override
   RenderObject createRenderObject(BuildContext context) =>
@@ -15,19 +23,19 @@ class WallArtworkImage extends LeafRenderObjectWidget {
         createLocalImageConfiguration(context),
         TickerMode.valuesOf(context).enabled,
         effect,
+        underlay,
       );
   @override
   void updateRenderObject(
     BuildContext context,
     covariant RenderWallArtworkImage renderObject,
-  ) {
-    renderObject.update(
-      provider,
-      createLocalImageConfiguration(context),
-      TickerMode.valuesOf(context).enabled,
-      effect,
-    );
-  }
+  ) => renderObject.update(
+    provider,
+    createLocalImageConfiguration(context),
+    TickerMode.valuesOf(context).enabled,
+    effect,
+    underlay,
+  );
 }
 
 class RenderWallArtworkImage extends RenderImage {
@@ -36,58 +44,72 @@ class RenderWallArtworkImage extends RenderImage {
     this._configuration,
     this._active, [
     this._effect,
+    this._underlay,
   ]) : super(
          fit: BoxFit.cover,
          alignment: Alignment.center,
          filterQuality: FilterQuality.low,
        );
-  ImageProvider<String>? _provider;
+  ImageProvider<String>? _provider, _underlay;
   ImageConfiguration _configuration;
-  bool _active, _listening = false;
+  bool _active, _effectListening = false;
   WallArtworkEffect? _effect;
-  bool _effectListening = false;
-  ImageStream? _stream;
-  ImageStreamCompleterHandle? _keepAlive;
-  late final _listener = ImageStreamListener(
-    _imageReady,
-    onError: _imageFailed,
-  );
+  ui.Image? _underlayImage;
+  late final _primary = WallImageSubscription(
+        onImage: _imageReady,
+        onClear: _clearImage,
+      ),
+      _background = WallImageSubscription(
+        onImage: _underlayReady,
+        onClear: _clearUnderlay,
+      );
   void update(
     ImageProvider<String>? provider,
     ImageConfiguration configuration,
     bool active,
-    WallArtworkEffect? effect,
-  ) {
+    WallArtworkEffect? effect, [
+    ImageProvider<String>? underlay,
+  ]) {
     if (!identical(effect, _effect)) {
       if (_effectListening) _effect?.removeListener(_effectChanged);
       _effectListening = false;
       _effect = effect;
       _effect?.imageChanged(image);
+      _effect?.underlayChanged(_underlayImage);
       markNeedsPaint();
     }
-    final changed = provider != _provider || configuration != _configuration;
     _provider = provider;
+    _underlay = underlay;
     _configuration = configuration;
     _active = active;
-    if (changed) {
-      _forget();
-      image = null;
-      _effect?.imageChanged(null);
-    }
     _sync();
   }
 
-  void _imageReady(ImageInfo info, bool synchronous) {
-    // RenderImage owns this clone; the stream callback's ImageInfo is always released separately.
+  void _imageReady(ImageInfo info) {
     image = info.image.clone();
-    _effect?.imageChanged(image);
     scale = info.scale;
+    _effect?.imageChanged(image);
     info.dispose();
   }
 
-  void _imageFailed(Object error, StackTrace? stack) {
+  void _clearImage() {
     image = null;
     _effect?.imageChanged(null);
+  }
+
+  void _underlayReady(ImageInfo info) {
+    _underlayImage?.dispose();
+    _underlayImage = info.image.clone();
+    info.dispose();
+    _effect?.underlayChanged(_underlayImage);
+    markNeedsPaint();
+  }
+
+  void _clearUnderlay() {
+    _underlayImage?.dispose();
+    _underlayImage = null;
+    _effect?.underlayChanged(null);
+    markNeedsPaint();
   }
 
   void _effectChanged() {
@@ -105,35 +127,16 @@ class RenderWallArtworkImage extends RenderImage {
         _effect?.removeListener(_effectChanged);
       }
     }
-    if (!attached || !_active || !(_effect?.needsImage ?? true)) {
-      if (_listening) {
-        _keepAlive = _stream!.completer?.keepAlive();
-        _stream!.removeListener(_listener);
-        _listening = false;
-      }
-      return;
-    }
-    if (_provider == null) return;
-    _stream ??= _provider!.resolve(_configuration);
-    if (!_listening) {
-      _listening = true;
-      _stream!.addListener(_listener);
-      _keepAlive?.dispose();
-      _keepAlive = null;
-    }
-  }
-
-  void _forget() {
-    if (_listening) _stream?.removeListener(_listener);
-    _listening = false;
-    _keepAlive?.dispose();
-    _keepAlive = null;
-    _stream = null;
+    final enabled = _active && (_effect?.needsImage ?? true);
+    _primary.update(_provider, _configuration, enabled: enabled);
+    _background.update(_underlay, _configuration, enabled: enabled);
   }
 
   @override
   void attach(PipelineOwner owner) {
     super.attach(owner);
+    _primary.setAttached(true);
+    _background.setAttached(true);
     _sync();
   }
 
@@ -141,11 +144,8 @@ class RenderWallArtworkImage extends RenderImage {
   void detach() {
     if (_effectListening) _effect?.removeListener(_effectChanged);
     _effectListening = false;
-    if (_listening) {
-      _keepAlive = _stream!.completer?.keepAlive();
-      _stream!.removeListener(_listener);
-      _listening = false;
-    }
+    _primary.setAttached(false);
+    _background.setAttached(false);
     super.detach();
   }
 
@@ -162,7 +162,12 @@ class RenderWallArtworkImage extends RenderImage {
   void dispose() {
     if (_effectListening) _effect?.removeListener(_effectChanged);
     _effectListening = false;
-    _forget();
+    _primary.dispose();
+    _background.dispose();
+    _effect?.imageChanged(null);
+    _effect?.underlayChanged(null);
+    _underlayImage?.dispose();
+    _underlayImage = null;
     super.dispose();
   }
 }

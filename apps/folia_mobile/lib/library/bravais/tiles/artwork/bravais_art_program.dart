@@ -23,7 +23,9 @@ class BravaisArtProgram {
 
   ui.FragmentShader createShader() {
     if (_closed) throw StateError('Artwork program is closed');
-    final shader = program.fragmentShader()..setImageSampler(0, empty);
+    final shader = program.fragmentShader()
+      ..setImageSampler(0, empty)
+      ..setImageSampler(1, empty);
     _shaders.add(shader);
     return shader;
   }

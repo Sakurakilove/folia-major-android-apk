@@ -33,7 +33,6 @@ class BravaisArtworkLayer extends StatefulWidget {
 class _BravaisArtworkLayerState extends State<BravaisArtworkLayer> {
   WallPosterArtwork? _artwork;
   late BravaisArtEffect _effect;
-  BravaisArtEffect? _standInEffect;
   bool _tickerEnabled = true;
   bool get _active => widget.active && _tickerEnabled;
   @override
@@ -73,8 +72,6 @@ class _BravaisArtworkLayerState extends State<BravaisArtworkLayer> {
     if (!identical(old.program, widget.program) ||
         !identical(old.style, widget.style)) {
       _effect.dispose();
-      _standInEffect?.dispose();
-      _standInEffect = null;
       _effect = BravaisArtEffect(widget.program, widget.style);
     }
   }
@@ -90,24 +87,14 @@ class _BravaisArtworkLayerState extends State<BravaisArtworkLayer> {
             : '';
         final hasStandIn =
             standIn.isNotEmpty && standIn != url && url.isNotEmpty;
-        if (hasStandIn) {
-          _standInEffect ??= BravaisArtEffect(widget.program, widget.style);
-        } else {
-          _standInEffect?.dispose();
-          _standInEffect = null;
-        }
-        Widget layer(String url, BravaisArtEffect effect) => WallArtworkImage(
-          provider: url.isEmpty ? null : widget.store.provider(url),
-          effect: effect,
-        );
-        return ClipRect(
-          child: RepaintBoundary(
-            child: Stack(
-              fit: StackFit.expand,
-              children: [
-                if (hasStandIn) layer(standIn, _standInEffect!),
-                layer(url, _effect),
-              ],
+        return SizedBox.expand(
+          child: ClipRect(
+            child: RepaintBoundary(
+              child: WallArtworkImage(
+                provider: url.isEmpty ? null : widget.store.provider(url),
+                underlay: hasStandIn ? widget.store.provider(standIn) : null,
+                effect: _effect,
+              ),
             ),
           ),
         );
@@ -118,7 +105,6 @@ class _BravaisArtworkLayerState extends State<BravaisArtworkLayer> {
   void dispose() {
     _artwork?.dispose();
     _effect.dispose();
-    _standInEffect?.dispose();
     super.dispose();
   }
 }

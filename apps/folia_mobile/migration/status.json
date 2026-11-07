@@ -327,6 +327,7 @@
         "apps/folia_mobile/lib/artwork/wall_artwork_queue.dart",
         "apps/folia_mobile/lib/artwork/wall_artwork_store.dart",
         "apps/folia_mobile/lib/artwork/wall_image_pixels.dart",
+        "apps/folia_mobile/lib/artwork/wall_image_subscription.dart",
         "apps/folia_mobile/lib/artwork/wall_poster_artwork.dart",
         "apps/folia_mobile/lib/library/bravais/bravais_camera.dart",
         "apps/folia_mobile/lib/library/bravais/bravais_frame.dart",

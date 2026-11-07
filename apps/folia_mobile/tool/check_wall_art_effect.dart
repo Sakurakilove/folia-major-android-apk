@@ -11,10 +11,11 @@ import 'package:folia_mobile/library/bravais/tiles/artwork/bravais_art_style.dar
 
 import 'wall_art_math_contract.dart';
 import 'wall_art_motion_contract.dart';
+import 'wall_art_leaf_contract.dart';
 
 // Native shader/owner/metadata check only; GPU/browser final pixel equality is a separate migration gate.
 Future<void> checkWallArtEffect(WidgetTester tester) async {
-  await tester.runAsync(() async {
+  final owned = await tester.runAsync(() async {
     await checkWallArtMath();
     checkWallArtMotion();
     final program = await BravaisArtProgram.load(),
@@ -108,6 +109,34 @@ Future<void> checkWallArtEffect(WidgetTester tester) async {
         (i) => i.isEven ? [255, 0, 0, 255] : [0, 0, 255, 255],
       ).expand((e) => e).toList(),
     );
+    Future<ui.Image> half(bool white) async {
+      final recorder = ui.PictureRecorder();
+      ui.Canvas(recorder).drawColor(
+        white ? const ui.Color(0x80ffffff) : const ui.Color(0x80000000),
+        ui.BlendMode.src,
+      );
+      final picture = recorder.endRecording();
+      try {
+        return await picture.toImage(1, 1);
+      } finally {
+        picture.dispose();
+      }
+    }
+
+    final white = await half(true), black = await half(false);
+    effect.underlayChanged(black);
+    style.value = const BravaisArtStyle(
+      mode: BravaisArtShaderMode.mosaic,
+      grayscale: 1,
+      contrast: 2.2,
+      brightness: 1.3,
+    );
+    final composited = await draw(white, 1);
+    expect(composited.take(3), [255, 255, 255]);
+    expect(composited[3], closeTo(192, 1));
+    effect.underlayChanged(null);
+    white.dispose();
+    black.dispose();
     // Closing the host does not invalidate a still-retained shader's sampler fallback.
     program.dispose();
     style.value = const BravaisArtStyle(
@@ -123,11 +152,20 @@ Future<void> checkWallArtEffect(WidgetTester tester) async {
       null,
     );
     fallbackRecorder.endRecording().dispose();
-    effect.dispose();
-    style.dispose();
-    image.dispose();
-    tiled.dispose();
+    return (effect: effect, style: style, image: image, tiled: tiled);
   });
+  if (owned == null) return;
+  await checkWallArtLeaf(
+    tester,
+    foreground: owned.image,
+    background: owned.tiled,
+    effect: owned.effect,
+    style: owned.style,
+  );
+  owned.effect.dispose();
+  owned.style.dispose();
+  owned.image.dispose();
+  owned.tiled.dispose();
 }
 
 class _SampleImage extends ImageProvider<int> {
