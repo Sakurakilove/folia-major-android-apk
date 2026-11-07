@@ -7,11 +7,12 @@ import 'package:folia_mobile/library/bravais/bravais_camera.dart';
 import 'package:folia_mobile/library/bravais/display/bravais_wall_data.dart';
 import 'package:folia_mobile/library/bravais/seam/bravais_seam_content_motion.dart';
 import 'package:folia_mobile/library/bravais/seam/bravais_seam_level.dart';
-import 'package:folia_mobile/library/bravais/seam/bravais_seam_motion_layer.dart';
 import 'package:folia_mobile/library/bravais/seam/bravais_seam_opening.dart';
 import 'package:folia_mobile/library/bravais/seam/bravais_seam_target.dart';
 import 'package:folia_mobile/library/bravais/shape/bravais_wall_shape.dart';
 import 'package:folia_mobile/library/wall/wall_types.dart';
+
+import 'wall_seam_viewport_contract.dart';
 
 // Extend one existing card check with actual original seam effect traces, finite opening ownership and one retained native layer; not a UI/focus/pixel suite.
 Future<void> checkWallSeam(WidgetTester tester) async {
@@ -55,7 +56,7 @@ Future<void> checkWallSeam(WidgetTester tester) async {
     }, data['states'][i]);
   }
   final clock = _Frames();
-  var now = 0.0, builds = 0;
+  var now = 0.0;
   final motion = BravaisSeamContentMotion<Map<String, Object>>(
     frames: clock,
     nowMs: () => now,
@@ -105,40 +106,13 @@ Future<void> checkWallSeam(WidgetTester tester) async {
     reducedTransitions: false,
     hasElement: true,
   );
-  await tester.pumpWidget(
-    Directionality(
-      textDirection: TextDirection.ltr,
-      child: SizedBox(
-        width: 300,
-        height: 600,
-        child: BravaisSeamMotionLayer(
-          motion: motion,
-          child: ValueListenableBuilder(
-            valueListenable: motion.content,
-            builder: (_, value, _) {
-              builds++;
-              return Text(value.layerKey ?? '');
-            },
-          ),
-        ),
-      ),
-    ),
+  await checkWallSeamViewport(
+    tester,
+    motion: motion,
+    tick: clock.tick,
+    setNow: (value) => now = value,
+    listeners: () => clock.count,
   );
-  expect(tester.takeException(), isNull);
-  final built = builds;
-  now = 1100;
-  clock.tick();
-  await tester.pump();
-  expect(builds, built);
-  now = 1210;
-  clock.tick();
-  await tester.pump();
-  expect(builds, built + 1);
-  now = 1450;
-  clock.tick();
-  await tester.pump();
-  expect(clock.count, 0);
-  await tester.pumpWidget(const SizedBox());
   motion.dispose();
 
   now = 0;

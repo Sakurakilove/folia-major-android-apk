@@ -598,3 +598,8 @@
 - WALL-COLOR-01 原 color-mix 渐变默认现代 Oklab，而 ui.Gradient.linear 的普通混色不同；已添加预加载的 native 双停点 Oklab shader，接真正卡片 tint，复用原 Chromium ICC/D50 色彩矩阵，每帧仅改透明度 uniform。极小3×5浏览器样本保存5个颜色参考（含真正原 wall.css145deg tint）和11组实际 poster selector computed style；现 native3个中心像素在1byte内、11组目标一致。这只是定向诊断，不是全色域/所有渐变/所有设备/前端像素分毫不差的最终验收，继续审查其余路径。
 - POWER-NATIVE-08 海报切换最小检查发现有限 CSS 动画结束仍挂 parent tick。定位为 ChangeNotifier 在通知期间延迟移除，SceneFrameDomain.removeListener当时仍见hasListeners=true。已在父帧分派和恢复通知结束后再次同步，保留全部动画原时长而解除最后一个消费者离开后的时钟。扩展既有单例检查的原失败0/1现通过：真实poster场景静止=0监听、隐藏/恢复/卸载=0，原卡片Element保留/展开范围/真实tint shader一起覆盖；最新 analyzer 无问题。没有扩大为全套UI/模拟器、没有实机瓦数数据或新APK。
 - 当前进度仍为78组：10 in_progress、68 pending、0 verified。已向用户说明87.2%尚待迁移、100%尚待最终验收；各组大小不同，不能当作按工作量估算的87.2%剩余，也不能以底层函数进度替代整页验收。下一步继续 seam 的真正 retained 布局/材料/正文、全部主页入口/海报/封面飞行/导航与其余全量范围；阶段提交不结束工作。
+
+
+- SEAM-NATIVE-04（2026-11-07）新增真正 BravaisSeamScene/Viewport：正文只按 rendered variant 的固定宽度布局，开口/相机/倾斜更新只改原生绘制、裁剪、透明度与命中；翻牌包在正文而不包纸。artist/album poster 缝上下40vh出血、内容保持视口高度，UI单独按 targetOpenWidth/viewHeight 求安全区并保留原toFixed(4)/toFixed(1)，相机平移不重复计算安全区。body底部边距直接监听播放条signal并更新RenderPadding，不逐帧重建正文；隐藏与leaving的命中/焦点/语义路径接原控制器。常规theme paper/透明纱与原内外阴影有实际 painter；印刷/磨砂/图案、海报材料及缝叠色/熄灯仍待接原样，不用普通纸冒充它们。
+- 只把既有card单例的seam部分改为真实viewport装配，没有增加整页/模拟器套件：转出/转入时正文不逐帧build、开口300→180正文仍300、裁剪外点击不落入正文、bottom40→80直接更新实际高度、海报40vh与安全区原fixture/拖动复用矩阵、结束0帧监听和卸载通过；analyzer无问题。此例用theme paper验证布局，不宣称海报材质/真实字体/全部控件/焦点恢复/像素已完成。另移除 BravaisViewport.reflow setter 中无关的重复 plate listener，避免切换reflow源重复订阅。
+- 下一步继续缝叠色/熄灯/内容控件、原8种材质/海报/焦点恢复，再推进主页全部入口/平台数据/导航/封面飞行及其他全部范围。仍10组进行中、68待迁移、0最终验收，不交付中间APK，源码保存后继续工作。

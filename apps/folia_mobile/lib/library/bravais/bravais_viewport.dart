@@ -61,7 +61,6 @@ class RenderBravaisViewport extends RenderBox
     if (attached) _reflow?.removeListener(_reflowChanged);
     _reflow = value;
     if (attached) _reflow?.addListener(_reflowChanged);
-    _plates?.addListener(markNeedsPaint);
     _reflowChanged();
   }
 
