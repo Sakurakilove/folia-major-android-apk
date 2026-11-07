@@ -20,7 +20,7 @@ import 'package:folia_mobile/artwork/wall_artwork_store.dart';
 import 'check_wall_art_effect.dart';
 
 // Focused native lifecycle check, explicitly run with host libraries; not part of a full UI suite or browser image/pixel acceptance.
-// FOLIA_URL_LIBRARY=/tmp/libfolia_url.so FOLIA_ARTWORK_LIBRARY=/tmp/libfolia_artwork.so flutter test tool/check_artwork_images.dart
+// FOLIA_URL_LIBRARY=/tmp/libfolia_url.so FOLIA_ARTWORK_LIBRARY=/tmp/libfolia_artwork.so FOLIA_RENDERING_LIBRARY=/tmp/libfolia_rendering.so flutter test tool/check_artwork_images.dart
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   testWidgets(

@@ -612,3 +612,8 @@
 - WALL-INPUT-02（2026-11-07）修正真实 BravaisTileView 的原 CSS 可命中范围：固定外座位接 hover，只有变换后的 article 接 click。native input 合并原先 Mouse/Listener/Semantics/Gesture 的多个 box 截断节点；保留 TapGestureRecognizer、leaf control先标记后判定、按钮不吞 residual drag、普通/语义激活区别及 cover-flight source callback。可溢出的 Face/Boundary/Inset/Card/Tint 代理转发真实 child hit，不把阴影当交互区；远处候选先用保守绘制范围排除，避免对全部400座位都遍历/反算卡面。光标归实际卡面而非10px空边，完整键盘/a11y/焦点与其他宿主命中仍待最终核对。
 - 既有极小浏览器诊断补2个原CSS elementFromPoint：普通128px卡pop后的[132,64]仍在article，artist poster inset后的[2,64]只在外座位。真实native墙按这两个实际结果核对通过；既有expanded card单例的按钮/菜单优先、drag吞点击和0时钟也通过，analyzer无问题。其controls-only夹具补透明article box，让测试有原版实际存在的完整article命中面；不是放宽原点击断言。没有增加模拟器/全页套件，也没有实机功耗或全部保真结论。
 - 原8种缝材质、真实海报/竖排正文/所有首页入口与数据导航/封面飞行、其他3套资料库/全部样式/背景/平台/系统及最终验收继续待迁移。78组仍10进行中、68pending、0verified，不交付中间APK、不把阶段提交作为停止点。
+
+
+- WALL-MATERIAL-01（2026-11-07）原静态SVG纸纹/颗粒转为按实际尺寸和DPR一次准备的native纹理。新增独立按需C++ folia_rendering/FFI所有权和UI-isolate外生成；无逐帧Channel/纹理拷贝。保留Skia seed0→1随机流、置换/uint16规范梯度、两octave、stitch频率及原SVG120%默认filter区；源码锁定Chromium154.0.8037.57的Skia2466dcf，记录摘要并把BSD许可证入包。rawRGBA8中间层与后续色彩矩阵/linear→sRGB/rect opacity分开；直接合并gamma与opacity出现差异，已改成原先颜色转换后的独立透明度合成，静态准备完释放中间图。
+- 本轮仅扩展既有native artwork单例：四种真实原SVG（wall、poster、黑墨grain、白墨grain）×DPR1/2的40个像素观察严格相同；native像素长度/关闭后读取/重复dispose/非法DPR检查通过，analyzer无问题，新增C++ARM64 release模块增量编译通过。临时诊断的多次runAsync曾挂起，已取消并修正为整个诊断在单一runAsync中执行；临时文件删除，不把诊断运行完成误写成完整材质通过。
+- CSS背景的具体尺寸/定位（尤其只有viewBox的wall SVG不能直接假定180CSSpx）、其他DPR/全纹理/设备与材质叠加仍待核对。native当前对超过8192像素的单边请求显式失败，绝不缩小；完整设备边界尚需验证。8种材质的实际painter/缓存、完整海报/墙ground/正文与导航尚未全接，40点检查不是整页像素验收，无新APK或实机瓦数结论。继续材质接入及其余全量迁移。

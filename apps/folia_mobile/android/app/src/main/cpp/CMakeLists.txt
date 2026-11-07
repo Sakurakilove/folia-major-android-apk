@@ -18,3 +18,8 @@ add_library(folia_artwork SHARED artwork/artwork_fd.cpp artwork/artwork_data.cpp
 target_compile_features(folia_artwork PRIVATE cxx_std_17)
 target_compile_options(folia_artwork PRIVATE -Wall -Wextra -Werror -O3)
 target_link_options(folia_artwork PRIVATE -Wl,-z,max-page-size=16384)
+
+add_library(folia_rendering SHARED rendering/svg_noise.cpp)
+target_compile_features(folia_rendering PRIVATE cxx_std_17)
+target_compile_options(folia_rendering PRIVATE -Wall -Wextra -Werror -O3)
+target_link_options(folia_rendering PRIVATE -Wl,-z,max-page-size=16384)
