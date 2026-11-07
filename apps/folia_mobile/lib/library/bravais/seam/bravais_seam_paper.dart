@@ -12,15 +12,19 @@ class BravaisSeamPaper extends CustomPainter {
     bool seeThrough = false,
     this.clear = false,
     bool backdropBlur = false,
+    Color? customPaper,
+    this.paintClearEdge = true,
+    this.includeInsetShadows = true,
   }) : paper = clear
            ? palette.background.withValues(
                alpha: palette.background.a * (backdropBlur ? .5 : .64),
              )
-           : wallSrgbMix(palette.background, palette.ink, .1).withValues(
-               alpha:
-                   wallSrgbMix(palette.background, palette.ink, .1).a *
-                   (seeThrough ? .8 : 1),
-             ),
+           : customPaper ??
+                 wallSrgbMix(palette.background, palette.ink, .1).withValues(
+                   alpha:
+                       wallSrgbMix(palette.background, palette.ink, .1).a *
+                       (seeThrough ? .8 : 1),
+                 ),
        edge = palette.ink.withValues(alpha: palette.ink.a * .06),
        shadows = [
          if (clear) ...[
@@ -51,7 +55,7 @@ class BravaisSeamPaper extends CustomPainter {
          ),
        ];
   final Color paper, edge;
-  final bool clear;
+  final bool clear, paintClearEdge, includeInsetShadows;
   final List<WallBoxShadow> shadows;
   final _fill = Paint(), _edge = Paint();
   Size? _size;
@@ -67,7 +71,7 @@ class BravaisSeamPaper extends CustomPainter {
       ..addRect(bounds);
     _edge.shader = null;
     _edgeGradient?.dispose();
-    _edgeGradient = clear
+    _edgeGradient = clear && paintClearEdge
         ? wallLinearGradient(
             bounds,
             180,
@@ -93,6 +97,11 @@ class BravaisSeamPaper extends CustomPainter {
     if (edgeGradient != null) {
       canvas.drawRect(bounds, _edge);
     }
+    if (includeInsetShadows) paintInsets(canvas, size);
+  }
+
+  void paintInsets(Canvas canvas, Size size) {
+    final bounds = Offset.zero & size;
     for (final shadow in shadows.reversed) {
       if (shadow.inset) shadow.paint(canvas, bounds);
     }
@@ -103,6 +112,8 @@ class BravaisSeamPaper extends CustomPainter {
       paper != oldDelegate.paper ||
       edge != oldDelegate.edge ||
       clear != oldDelegate.clear ||
+      paintClearEdge != oldDelegate.paintClearEdge ||
+      includeInsetShadows != oldDelegate.includeInsetShadows ||
       !listEquals(shadows, oldDelegate.shadows);
 
   void dispose() {

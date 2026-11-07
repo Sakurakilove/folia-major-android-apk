@@ -10,6 +10,7 @@ class CssLinearGradientEffect {
   ui.Color? _first, _last;
   (double, double, double)? _geometry;
   double? _opacity;
+  (bool, double)? _dither;
   bool _closed = false;
   void paint(
     ui.Canvas canvas,
@@ -17,6 +18,8 @@ class CssLinearGradientEffect {
     double degrees,
     List<ui.Color> colors, {
     double opacity = 1,
+    bool dither = false,
+    double dpr = 1,
   }) {
     if (_closed || bounds.isEmpty || opacity <= 0) return;
     assert(colors.length == 2);
@@ -59,6 +62,12 @@ class CssLinearGradientEffect {
     if (_opacity != opacity) {
       _opacity = opacity;
       shader.setFloat(12, opacity);
+    }
+    if (_dither != (dither, dpr)) {
+      _dither = (dither, dpr);
+      shader
+        ..setFloat(31, dither ? 1 : 0)
+        ..setFloat(32, dpr);
     }
     canvas.save();
     canvas.translate(bounds.left, bounds.top);

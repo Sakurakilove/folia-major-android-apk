@@ -27,3 +27,15 @@ Native composition now keeps the RGBA8 intermediate and a separate opacity
 layer; forty source samples at DPR 1/2 are checked. Concrete CSS background
 sizing, all DPR values and actual material/device composition still require
 comparison before use in a delivery build.
+
+
+Seam material composition retains the raw paper-noise intermediate through the
+final paper draw: flattening its color-matrix alpha to a second RGBA8 image first
+changes compositing. The eight presets and clear mode now have native painters;
+`seam_material_reference.json` records the reference raster backend explicitly.
+Its strict check currently fails two clear-edge blue channels by one byte.
+Pinned `src/core/SkColorPriv.h` contains an integer source-over path consistent
+with those values; that does not establish the original Android GPU result.
+Do not loosen the assertion or treat software-raster observations as device
+acceptance. Full original typography, material sizing, shadows, all DPR values
+and GPU composition are still pending.

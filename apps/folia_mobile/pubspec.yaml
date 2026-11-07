@@ -28,6 +28,8 @@ flutter:
     - shaders/liquid_glass.frag
     - shaders/wall_artwork.frag
     - shaders/css_gradient.frag
+    - shaders/seam_dots.frag
+    - shaders/seam_pattern.frag
 
   assets:
     - assets/ada_url/
