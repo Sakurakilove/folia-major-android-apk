@@ -62,6 +62,10 @@ class RenderBravaisFace extends RenderProxyBox {
   @override
   bool get alwaysNeedsCompositing => child != null;
   @override
+  Rect get paintBounds => child == null
+      ? Offset.zero & size
+      : MatrixUtils.transformRect(transform, child!.paintBounds);
+  @override
   void attach(PipelineOwner owner) {
     super.attach(owner);
     _matrix = null;

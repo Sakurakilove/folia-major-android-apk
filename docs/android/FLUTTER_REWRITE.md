@@ -87,3 +87,7 @@
 ### 持续迁移：封面墙卡片与原生封面（2026-11-01）
 
 Bravais 卡片 flip/wave/entrance 的有限动画、固定 Ada WHATWG URL 适配和 Kotlin/FFI 描述符封面读取已加入；动图流直接更新 retained RenderImage，内联图片本地 FFI 解码。保留原图像尺寸规则与动图帧序，后台 HTTP 缓存遵守响应缓存策略。当前 HTTP/content 新加载和取消仍用稀疏 channel 元数据；完整卡片与所有主页/数据/root 未接入，不能由模块检查推出整页等价或功耗下降。必要检查和未完成项详见根 WORKLOG 的 WALL-NATIVE-04 / ARTWORK-NATIVE-01..03。当前 10 组进行中、0 组最终验证，继续全量迁移，不发布简化 APK。
+
+### 持续迁移：真实卡片内容与样式目标（2026-11-07）
+
+原 Bravais compact/heading/expanded 内容、徽标、管理隐藏与队列/链接/菜单动作已加入实际 native 组件；控件 reveal 和快速 hover 反向使用有限 native 绘制轨迹。新增 source selector 样式目标、渐变/scrim/内外阴影组件。整卡图层及艺术封面、整页数据/入口仍未组装，标题 native 断行、字体、阴影及色彩空间尚未严格比较，不能称主页或前端已完成。详见 WORKLOG WALL-NATIVE-05..07 / TEXT-WALL-01；不发布简化界面，不缩小全部 14 样式/6 背景/3 资料库的范围。

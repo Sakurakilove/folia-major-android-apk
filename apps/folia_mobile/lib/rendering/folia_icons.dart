@@ -92,6 +92,7 @@ class FoliaIconData {
     Color color, {
     double strokeWidth = 2,
     bool absoluteStrokeWidth = false,
+    bool filled = false,
   }) {
     if (pixels <= 0 || size <= 0) return;
     final scale = pixels / size;
@@ -107,8 +108,9 @@ class FoliaIconData {
     canvas.save();
     canvas.scale(scale);
     for (final node in _nodes) {
-      if (node.fill != null && node.fill != 'none') {
-        if (node.fill != 'currentColor') {
+      final nodeFill = node.fill ?? (filled ? 'currentColor' : null);
+      if (nodeFill != null && nodeFill != 'none') {
+        if (nodeFill != 'currentColor') {
           throw FormatException('Unsupported Lucide fill: ${node.fill}');
         }
         canvas.drawPath(node.path, fill);
@@ -206,12 +208,13 @@ class FoliaIcon extends StatefulWidget {
     this.size = 24,
     this.strokeWidth = 2,
     this.absoluteStrokeWidth = false,
+    this.filled = false,
     this.semanticLabel,
   });
   final String name;
   final Color color;
   final double size, strokeWidth;
-  final bool absoluteStrokeWidth;
+  final bool absoluteStrokeWidth, filled;
   final String? semanticLabel;
   @override
   State<FoliaIcon> createState() => _FoliaIconState();
@@ -250,6 +253,7 @@ class _FoliaIconState extends State<FoliaIcon> {
                   widget.size,
                   widget.strokeWidth,
                   widget.absoluteStrokeWidth,
+                  widget.filled,
                 ),
               ),
       ),
@@ -264,11 +268,12 @@ class _IconPainter extends CustomPainter {
     this.pixels,
     this.stroke,
     this.absolute,
+    this.filled,
   );
   final FoliaIconData icon;
   final Color color;
   final double pixels, stroke;
-  final bool absolute;
+  final bool absolute, filled;
   @override
   void paint(Canvas canvas, Size size) => icon.paint(
     canvas,
@@ -276,6 +281,7 @@ class _IconPainter extends CustomPainter {
     color,
     strokeWidth: stroke,
     absoluteStrokeWidth: absolute,
+    filled: filled,
   );
   @override
   bool shouldRepaint(_IconPainter old) =>
@@ -283,5 +289,6 @@ class _IconPainter extends CustomPainter {
       old.color != color ||
       old.pixels != pixels ||
       old.stroke != stroke ||
-      old.absolute != absolute;
+      old.absolute != absolute ||
+      old.filled != filled;
 }

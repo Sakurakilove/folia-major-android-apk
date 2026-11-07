@@ -547,3 +547,11 @@
 - ARTWORK-NATIVE-02 封面 HTTP/ContentProvider/file URI 的读取移入 Kotlin 后台有界队列；图片只以 native fd ticket 交接给 Flutter 解码器，不经 Platform Channel 复制图片。已领取描述符的生命周期独立于 Activity，优先匿名 RAM 文件，失败回退私有已 unlink 临时文件。inline data 图经本地 FFI 解码，不走 channel。HTTP 重定向永久移除跨源敏感头，加入遵守 Cache-Control/ETag/Vary 的 Android 32MiB 磁盘缓存。当前 HTTP/content 仍有每次加载/取消的稀疏 MethodChannel 元数据，不能称整条图片通路已无 channel；旧 folia-cover/blob/auth 路由仍待接入。
 - ARTWORK-NATIVE-03 原版两并发/有界等待、尺寸档位/Android 1024 上限、已解码低档垫图/升级首帧交接/降档 1 秒等待、共享消费者取消和失败退避已迁移。decoded cache 24MiB 仅限无引用缓存，不能当成全应用图片内存上限；可见/保留图片仍完整持有。实际动图由 retained RenderImage 接流，不按帧重建 widget；隐藏场景解除图像帧监听，恢复保留图像。3 个定向 native buffer/两帧 GIF/共享解码/取消用例通过，包括首帧、80/120ms 时长、循环数及帧间卡片不重建。原生 fd 所有权检查通过；最新 ARM64 C++ 和 Kotlin release 增量编译通过，未重建 APK。
 - 以上仍是源码检查点：完整卡片内容、外观 CSS 动画、探索形状、所有主页/缝/面板/账号数据和 root 尚未组装，grid/tui 以及其余全量范围继续执行。台账仍 10 组进行中、0 组最终验证；没有功耗读数、手机像素验收或新 APK，不结束任务、不等用户继续。
+
+## 2026-11-07 — 恢复工作区后继续封面墙卡片迁移
+
+- WALL-NATIVE-05 compact/heading 标题、副标题、原正文独立字体栈、徽标/特殊集合图标、管理隐藏眼睛与批量勾选已有实际 Flutter 内容组件；展开歌曲卡的播放/暂停、进入视图、加入/重插队列、按能力开放歌手/专辑链接和原菜单已加入。仅当前展开卡订阅离散播放状态，禁用项保留原当前歌曲例外；原卡片按钮与墙手势的控制区域分开，未用 Material 新控件替代。
+- WALL-NATIVE-06 展开控件行保留 140ms 延迟、240ms/12px 的 CSS 曲线 native layer 入场，内容不逐帧重建，结束解除共享时钟。修正 nowMs 回调身份变化不应重播挂载动画、每帧只取一次相位；来源时钟替换保留已过时长。CSS transition 的 reversing-adjusted start/shortening factor 单独实现；眼睛按钮的 140ms 背景过渡改用局部 painter 和有限时钟，快速反向不错误地重启完整时长。
+- WALL-NATIVE-07 原卡片 145 度渐变按实际长宽求端点、HSL/主题 srgb alpha 混色不提前取整；普通/展开/专辑拼贴 scrim、current 内向边框/发光、集合页边/焦点/选中/联动的原 selector 目标已加入。外阴影按 CSS blur/2 标准差、反向孔绘制 inset shadow，透明卡片的外阴影不填进内部；面层 paintBounds 纳入子层阴影。这里只是绘制组件和状态投影，尚未完成整卡所有图层与 CSS 动画组装，不是外观验收。
+- TEXT-WALL-01 标题用目标列宽与 512 项共享缓存，保留完整语义文本、grapheme 前缀/省略号和上下 paint padding；色彩/阴影不污染字体测量缓存。当前 native corrector/均衡断行仍未完成与 Chromium/pretext 的严格对照，尤其长不可断词、CJK 标点、真实字体与 text-wrap:balance；不得将这个初步 native fitter 当成已保证原版断行。链接 flex-wrap 新增真实 baseline 布局，避免多行名字把相邻元信息错误地垂直居中；下划线精确位置、局部 drop-shadow 和全部字体仍须补齐。
+- 实际检查：一个针对展开卡的 headless 布局/操作/菜单/禁用例外/有限时钟检查通过，附带 CSS ease 中点及缩短反向的数值检查；不是 UI 全套或像素验收。原完整前端保持作对照，没有新 APK 或实机功耗结果。最新 analyzer 结果随源码检查点核对；之后继续整卡皮肤/图片艺术层、探索墙、全部入口/数据/缝/面板和 root 装配。全量 78 组范围不变，仍 10 组进行中、0 组最终验证，阶段提交后继续工作。
