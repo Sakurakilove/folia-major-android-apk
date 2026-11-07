@@ -3,6 +3,8 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/widgets.dart';
 
+import '../../../../rendering/gradients/css_gradient_program.dart';
+
 import '../../../wall/wall_css_paint.dart';
 import '../bravais_card_look.dart';
 import '../bravais_item.dart';
@@ -52,7 +54,7 @@ class BravaisCardPaper extends CustomPainter {
             rx,
             [
               p.accent.withValues(alpha: p.accent.a * .09),
-              const Color(0x00000000),
+              p.accent.withValues(alpha: 0),
             ],
             [0, .7],
             TileMode.clamp,
@@ -70,9 +72,11 @@ class BravaisCardPaper extends CustomPainter {
 }
 
 class BravaisCardOverlay extends CustomPainter {
-  BravaisCardOverlay(this.motion, this.phase) : super(repaint: motion);
+  BravaisCardOverlay(this.motion, this.phase, {this.tintGradient})
+    : super(repaint: motion);
   final BravaisCardMotion motion;
   final BravaisCardPhase phase;
+  final CssLinearGradientEffect Function()? tintGradient;
   @override
   void paint(Canvas canvas, Size size) {
     final alpha = motion.value(phase);
@@ -80,23 +84,29 @@ class BravaisCardOverlay extends CustomPainter {
     final p = motion.look.palette, rect = Offset.zero & size;
     if (phase == BravaisCardPhase.dim) {
       canvas.drawRect(rect, Paint()..color = p.shade.withValues(alpha: alpha));
+    } else if (phase == BravaisCardPhase.tint) {
+      if (p.customTint != null) {
+        final color = p.customTint!;
+        canvas.drawRect(
+          rect,
+          Paint()..color = color.withValues(alpha: color.a * alpha),
+        );
+      } else {
+        tintGradient!().paint(canvas, rect, 145, p.tintColors, opacity: alpha);
+      }
     } else {
-      final glint = phase == BravaisCardPhase.glint;
+      assert(phase == BravaisCardPhase.glint);
       canvas.drawRect(
         rect,
         Paint()
           ..shader = wallLinearGradient(
             rect,
-            glint ? 180 : 145,
-            glint
-                ? [
-                    Color.from(alpha: .1 * alpha, red: 1, green: 1, blue: 1),
-                    const Color(0x00000000),
-                  ]
-                : p.tintColors
-                      .map((c) => c.withValues(alpha: c.a * alpha))
-                      .toList(growable: false),
-            stops: glint ? [0, .6] : null,
+            180,
+            [
+              Color.from(alpha: .1 * alpha, red: 1, green: 1, blue: 1),
+              const Color.from(alpha: 0, red: 1, green: 1, blue: 1),
+            ],
+            stops: [0, .6],
           ),
       );
     }

@@ -107,12 +107,29 @@ class CssNumericSignal extends ChangeNotifier
     implements ValueListenable<double> {
   CssNumericSignal(double initial, {required this.frames, required this.nowMs})
     : _transition = CssNumericTransition(initial);
-  final Listenable frames;
+  Listenable frames;
   double Function() nowMs;
   final CssNumericTransition _transition;
-  bool _attached = false, _closed = false;
+  bool _attached = false, _closed = false, _active = true;
   @override
   double get value => _transition.value;
+  void rebindFrames(Listenable next) {
+    if (_closed || identical(next, frames)) return;
+    if (_attached) frames.removeListener(_frame);
+    _attached = false;
+    frames = next;
+    _sync();
+  }
+
+  void setActive(bool next) {
+    if (_closed || _active == next) return;
+    _active = next;
+    final previous = value;
+    if (next) _transition.advance(nowMs());
+    _sync();
+    if (previous != value) notifyListeners();
+  }
+
   void setTarget(double next, CssTransitionSpec spec, {bool enabled = true}) {
     if (_closed) return;
     final previous = value;
@@ -122,7 +139,7 @@ class CssNumericSignal extends ChangeNotifier
   }
 
   void _frame() {
-    if (_closed) return;
+    if (_closed || !_active) return;
     final previous = value;
     _transition.advance(nowMs());
     _sync();
@@ -130,7 +147,8 @@ class CssNumericSignal extends ChangeNotifier
   }
 
   void _sync() {
-    final wanted = !_closed && hasListeners && _transition.isAnimating;
+    final wanted =
+        !_closed && _active && hasListeners && _transition.isAnimating;
     if (wanted == _attached) return;
     _attached = wanted;
     if (wanted) {

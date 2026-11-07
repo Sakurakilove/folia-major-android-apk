@@ -53,7 +53,10 @@ class SceneFrameDomain extends ChangeNotifier {
     if (_closed || _active == value) return;
     _active = value;
     _sync();
-    if (value) notifyListeners();
+    if (value) {
+      notifyListeners();
+      _sync();
+    }
   }
 
   @override
@@ -70,6 +73,9 @@ class SceneFrameDomain extends ChangeNotifier {
 
   void _frame() {
     if (!_closed && _active) notifyListeners();
+    // ChangeNotifier defers removals made during notification. Reconcile after
+    // dispatch so the final finite animation cannot leave an idle parent tick.
+    _sync();
   }
 
   void _sync() {

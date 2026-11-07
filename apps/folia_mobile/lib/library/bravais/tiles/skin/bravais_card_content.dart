@@ -124,6 +124,7 @@ class _BravaisCardContentState extends State<BravaisCardContent> {
       reducedMotion: w.reducedMotion,
       active: _active,
       loading: w.loading,
+      gradients: r.program.gradients,
       mosaic: art?.mode == BravaisArtMode.mosaic,
       cover: item == null || art?.mode == BravaisArtMode.mosaic
           ? null

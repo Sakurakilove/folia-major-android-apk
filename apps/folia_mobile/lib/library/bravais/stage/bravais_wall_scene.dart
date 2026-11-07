@@ -44,6 +44,8 @@ class BravaisWallScene extends StatefulWidget {
     this.lightsOut = false,
     this.tinted = false,
     this.stackEdges = true,
+    this.posterWall = false,
+    this.posterTint = const Color(0x00000000),
     this.reducedMotion = false,
     this.reducedTransitions = false,
     this.managingHidden = false,
@@ -59,6 +61,8 @@ class BravaisWallScene extends StatefulWidget {
   final BravaisCardActions actions;
   final void Function(BuildContext tile, BravaisItem item) noteAlbumSource;
   final BravaisCardPalette palette;
+  final bool posterWall;
+  final Color posterTint;
   final double dpr, committedScale;
   final bool backdropOpen,
       lightsOut,
@@ -154,49 +158,7 @@ class _BravaisWallSceneState extends State<BravaisWallScene>
 
   @override
   Widget build(BuildContext context) {
-    final w = widget, display = w.display.value, selection = w.selection.value;
-    _prepare(display, selection);
-    return IgnorePointer(
-      ignoring: !_active || !w.interactive,
-      child: WallInputRegion(
-        pan: w.camera.pointer,
-        active: _active && w.interactive,
-        onDown: w.camera.pointerDown,
-        onMove: w.camera.pointerMove,
-        onUp: w.camera.pointerUp,
-        onCancel: w.camera.pointerCancel,
-        child: BravaisWallView(
-          slots: _slots,
-          display: display,
-          frame: w.camera.frame,
-          dpr: w.dpr,
-          committedScale: w.committedScale,
-          viewportWidth: w.camera.view.width,
-          resources: _cardResources,
-          actions: w.actions,
-          pointerHistory: _pointerHistory,
-          consumeDrag: () => w.camera.pointer.consumeClick(),
-          noteAlbumSource: w.noteAlbumSource,
-          palette: w.palette,
-          plates: w.backdropOpen ? _platePainter : null,
-          reflow: _reflow,
-          targetReflow: _targetReflow,
-          expandedSlotKey: selection.expandedSlotKey,
-          focusedSlotKey: selection.focusedSlotKey,
-          linkedKey: selection.linkedKey,
-          lightsOut: w.lightsOut,
-          tinted: w.tinted,
-          stackEdges: w.stackEdges,
-          reducedMotion: w.reducedMotion,
-          reducedTransitions: w.reducedTransitions,
-          managingHidden: w.managingHidden,
-          entersLattice: w.entersLattice,
-          active: _active,
-          interactive: w.interactive,
-          android: w.android,
-        ),
-      ),
-    );
+    return _buildPlane();
   }
 
   void _changed() {

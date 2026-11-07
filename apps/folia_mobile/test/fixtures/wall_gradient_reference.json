@@ -1,0 +1,139 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "engine": "154.0.8037.57",
+  "source": "src/components/wall/wall.css",
+  "sourceHash": "1f76d3c582079f65cc62a2b3f589d4ef6037e5fd66dc736a323e9fcdcb9b83d2",
+  "computed": [
+    "linear-gradient(90deg, rgb(255, 0, 0), rgb(0, 0, 255))",
+    "linear-gradient(90deg, color(srgb 1 0 0), color(srgb 0 0 1))",
+    "linear-gradient(90deg, rgb(255, 0, 0), rgba(0, 0, 0, 0))",
+    "linear-gradient(90deg, color(srgb 1 0 0), rgba(0, 0, 0, 0))",
+    "linear-gradient(145deg, color(srgb 0.239686 0.100784 0.0826667), color(srgb 0.0895686 0.0682353 0.183059))"
+  ],
+  "pixels": [
+    [
+      128,
+      0,
+      128,
+      255
+    ],
+    [
+      140,
+      83,
+      162,
+      255
+    ],
+    [
+      255,
+      0,
+      0,
+      128
+    ],
+    [
+      253,
+      0,
+      0,
+      128
+    ],
+    [
+      42,
+      24,
+      36,
+      255
+    ]
+  ],
+  "posterCases": [
+    {
+      "flags": {},
+      "filter": "saturate(0.6)",
+      "inset": 10,
+      "tint": 0.3
+    },
+    {
+      "flags": {
+        "dimmed": true
+      },
+      "filter": "saturate(0.6)",
+      "inset": 10,
+      "tint": 0.3
+    },
+    {
+      "flags": {
+        "unavailable": true
+      },
+      "filter": "saturate(0.6)",
+      "inset": 10,
+      "tint": 0.3
+    },
+    {
+      "flags": {
+        "selected": true
+      },
+      "filter": "saturate(0.6)",
+      "inset": 10,
+      "tint": 0.3
+    },
+    {
+      "flags": {
+        "focused": true
+      },
+      "filter": "saturate(0.6)",
+      "inset": 10,
+      "tint": 0
+    },
+    {
+      "flags": {
+        "current": true
+      },
+      "filter": "saturate(0.6)",
+      "inset": 10,
+      "tint": 0
+    },
+    {
+      "flags": {
+        "kind": "heading"
+      },
+      "filter": "saturate(0.6)",
+      "inset": 10,
+      "tint": 0.3
+    },
+    {
+      "flags": {
+        "kind": "wall"
+      },
+      "filter": "none",
+      "inset": 10,
+      "tint": 0
+    },
+    {
+      "flags": {
+        "kind": "window"
+      },
+      "filter": "none",
+      "inset": 10,
+      "tint": 0
+    },
+    {
+      "flags": {
+        "expanded": true
+      },
+      "filter": "none",
+      "inset": 0,
+      "tint": 0
+    },
+    {
+      "flags": {
+        "linked": true
+      },
+      "filter": "saturate(0.6)",
+      "inset": 10,
+      "tint": 0.3
+    }
+  ],
+  "styleHashes": {
+    "src/library/suites/bravais/bravais.css": "bf68087290e6f218351a445c50a59899aa1cf0bcf80840306ede50d828bcdacd",
+    "src/library/suites/bravais/bravaisTileKinds.css": "e05df18bfa92486c218839ac29bc8cf45c8c37c684f0ad7bd31620c82b14d293",
+    "src/library/suites/bravais/bravaisHome.css": "e5c8051deeb04d6a7cecf2d44ef2045cdc94e4fa762221cc4bdf90dc0817e211",
+    "src/library/suites/bravais/bravaisPoster.css": "0989b2b1e1058b9cd9ec7c3f0ead7dddf7920ee07d5a849b6cfa21572628ceb6"
+  }
+}

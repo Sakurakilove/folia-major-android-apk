@@ -592,3 +592,9 @@
 - SEAM-NATIVE-03 泛型内容控制器与 retained native x/y flip 层保留原160/240ms、1400px perspective、半程90ms淡出/淡入、侧立才换最新内容、A→B→C不重启转出、同key更新、折叠边界直接swap/保留已有in动画的源规则。转出内容 inert/无障碍隐藏与 focus exclusion 按离散 leaving 更新；逐帧不重建正文。真实控件 focus ticket/按原 selected/pressed/toggle 优先恢复仍需接实际 seam UI，不将 mock 无焦点时序当作已验证焦点行为。
 - 此前 BravaisCamera.setActive(false) 直接清了目标，已修正为只解除补间帧监听、保留目标，恢复按绝对时间采样；源 useBravaisCamera 只在真正卸载/显式停止时取消目标。最小定向检查只扩展既有 card 一例：源目标/等级矩阵、19步实际原hook/WAAPI effect trace、native flip 正文不逐帧重建、开口中点/完成、倾斜延迟与隐藏/恢复后0监听通过；最新 analyzer 无问题。不是完整浏览器焦点/动画像素、stage/主页、实机功耗或发布验收，没有新 APK。
 - 继续缝的实际布局/内容/材料/安全区、焦点恢复、首页入口和导航/记忆/keyboard/list/海报与封面飞行；再接其他全部页面/样式/背景/平台/系统。78 组仍 10 in_progress、68 pending、0 verified，保留原完整前端作固定对照，阶段提交不是停止点。
+
+
+- WALL-POSTER-01（2026-11-07）原 artist poster 墙非展开面的 inset10（包括 window/wall/heading）、高优先级 saturate(.6)、固定外 tile 的 ::after color-blend/.3 与260ms透明度已接实际 native TileView/WallScene。hover/focused/current 只去外叠色，linked/selected不去叠色；album poster不能误用此 artist 标志。真实 Stage 的原 palette/海报宿主仍未迁移。阴影边界改用真实 child paintBounds 的 retained repaint boundary，避免原普通 RepaintBoundary 把展开/阴影范围报成卡片尺寸；未借此缩小画质/效果。
+- WALL-COLOR-01 原 color-mix 渐变默认现代 Oklab，而 ui.Gradient.linear 的普通混色不同；已添加预加载的 native 双停点 Oklab shader，接真正卡片 tint，复用原 Chromium ICC/D50 色彩矩阵，每帧仅改透明度 uniform。极小3×5浏览器样本保存5个颜色参考（含真正原 wall.css145deg tint）和11组实际 poster selector computed style；现 native3个中心像素在1byte内、11组目标一致。这只是定向诊断，不是全色域/所有渐变/所有设备/前端像素分毫不差的最终验收，继续审查其余路径。
+- POWER-NATIVE-08 海报切换最小检查发现有限 CSS 动画结束仍挂 parent tick。定位为 ChangeNotifier 在通知期间延迟移除，SceneFrameDomain.removeListener当时仍见hasListeners=true。已在父帧分派和恢复通知结束后再次同步，保留全部动画原时长而解除最后一个消费者离开后的时钟。扩展既有单例检查的原失败0/1现通过：真实poster场景静止=0监听、隐藏/恢复/卸载=0，原卡片Element保留/展开范围/真实tint shader一起覆盖；最新 analyzer 无问题。没有扩大为全套UI/模拟器、没有实机瓦数数据或新APK。
+- 当前进度仍为78组：10 in_progress、68 pending、0 verified。已向用户说明87.2%尚待迁移、100%尚待最终验收；各组大小不同，不能当作按工作量估算的87.2%剩余，也不能以底层函数进度替代整页验收。下一步继续 seam 的真正 retained 布局/材料/正文、全部主页入口/海报/封面飞行/导航与其余全量范围；阶段提交不结束工作。

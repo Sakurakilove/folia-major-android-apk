@@ -151,6 +151,7 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
             consumeDrag: () => false,
             noteAlbumSource: (_, _) {},
             palette: palette,
+            tinted: true,
           ),
         ),
       ),
@@ -187,6 +188,7 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
     palette: palette,
     listeners: () => clock.count,
     setNow: (value) => now = value,
+    tick: clock.tick,
   );
   pointer.dispose();
   samples.dispose();
@@ -210,4 +212,6 @@ class _Frames extends ChangeNotifier {
     count--;
     super.removeListener(listener);
   }
+
+  void tick() => notifyListeners();
 }

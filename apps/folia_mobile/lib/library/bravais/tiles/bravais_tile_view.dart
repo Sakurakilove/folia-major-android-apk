@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 
 import '../../wall/wall_slots.dart';
 import '../../wall/wall_types.dart';
+import '../../wall/wall_paint_boundary.dart';
 import '../bravais_viewport.dart';
 import 'bravais_animated_face.dart';
 import 'bravais_card_look.dart';
@@ -12,6 +13,7 @@ import 'bravais_tile_types.dart';
 import 'focus/bravais_focus_actions.dart';
 import 'skin/bravais_card_content.dart';
 import 'skin/bravais_card_resources.dart';
+import 'skin/bravais_poster_card_surface.dart';
 
 // The retained original tile host: fixed outer seat/hover target, animated face, source face commits, full card content and discrete CSS stacking priority.
 class BravaisTileView extends StatefulWidget {
@@ -37,6 +39,7 @@ class BravaisTileView extends StatefulWidget {
     this.managingHidden = false,
     this.active = true,
     this.loading = false,
+    this.posterTint = const Color(0x00000000),
   });
   final WallSlot slot;
   final WallRect rect;
@@ -47,6 +50,7 @@ class BravaisTileView extends StatefulWidget {
   final bool Function() consumeDrag;
   final void Function(BuildContext tile, BravaisItem item) noteAlbumSource;
   final double pixelScale, viewportWidth;
+  final Color posterTint;
   final String? nowPlayingKey;
   final BravaisFlipStep? step;
   final BravaisEntrance? entrance;
@@ -131,24 +135,34 @@ class _BravaisTileViewState extends State<BravaisTileView> {
           onHover: (value) {
             if (mounted && _hover != value) setState(() => _hover = value);
           },
-          child: BravaisFaceLayer(
-            motion: _motion,
-            child: RepaintBoundary(
-              child: BravaisCardContent(
-                slotKey: w.slot.key,
-                look: look,
-                rect: w.rect,
-                pixelScale: w.pixelScale,
-                viewportWidth: w.viewportWidth,
-                resources: w.resources,
-                actions: w.actions,
-                queued: w.queued,
-                entersLattice: w.entersLattice,
-                flight: _motion,
-                reducedMotion: w.reducedMotion,
-                active: w.active,
-                managingHidden: w.managingHidden,
-                loading: w.loading,
+          child: BravaisPosterCardSurface(
+            look: look,
+            tint: w.posterTint,
+            frames: w.resources.frames,
+            nowMs: w.resources.nowMs,
+            active: w.active,
+            child: BravaisFaceLayer(
+              motion: _motion,
+              child: WallPaintBoundary(
+                child: WallFaceInset(
+                  inset: look.faceInset,
+                  child: BravaisCardContent(
+                    slotKey: w.slot.key,
+                    look: look,
+                    rect: w.rect,
+                    pixelScale: w.pixelScale,
+                    viewportWidth: w.viewportWidth,
+                    resources: w.resources,
+                    actions: w.actions,
+                    queued: w.queued,
+                    entersLattice: w.entersLattice,
+                    flight: _motion,
+                    reducedMotion: w.reducedMotion,
+                    active: w.active,
+                    managingHidden: w.managingHidden,
+                    loading: w.loading,
+                  ),
+                ),
               ),
             ),
           ),

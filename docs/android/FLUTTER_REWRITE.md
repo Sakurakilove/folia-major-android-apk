@@ -99,3 +99,8 @@ Bravais 卡片 flip/wave/entrance 的有限动画、固定 Ada WHATWG URL 适配
 ### 持续迁移：探索形状、显示与 retained 墙体（2026-11-07）
 
 探索页原 lot/heading/周期/最近副本/让位和 display/透光/finite/删除投影已加入；双半 BravaisWallView 现可组装完整卡片，实际小范围宿主检查通过，camera 更新不重建卡片。全部 seam/入口/导航/记忆/keyboard/list/海报/封面飞行、原生 scene/root、其余页面/样式/背景/平台与最终像素/功耗验收仍未完成。参见 WORKLOG WALL-SHAPE-01 / WALL-DISPLAY-01 / WALL-HOST-03；这些组件不是可交付整页。
+
+
+### 持续迁移：墙体宿主、缝动画与海报材质（2026-11-07）
+
+实际 BravaisWallScene 已组装 camera/cull/plate/reflow/card 和隐藏场景时钟域；seam 等级、宽度目标与开合/倾斜/正文翻面已有 native 控制器。artist poster 卡片的10px内缩、外叠色、原 selector filter 优先级及卡片现代Oklab渐变接入实际绘制。修复最后一个有限动画注销时因延迟移除而留下的 parent tick；既有小例的静止/隐藏/恢复/卸载0监听与 analyzer 通过，不代表实机功耗或完整页面等价。缝真实布局/材质/全部正文、导航入口/原海报/封面飞行、全局字体/最终像素及其余全部迁移尚未完成。78组仍10进行中、68待迁移、0最终验证；原完整前端保持对照，继续工作，不发布阶段性APK。

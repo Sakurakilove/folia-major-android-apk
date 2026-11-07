@@ -12,6 +12,7 @@ import 'package:folia_mobile/library/bravais/tiles/bravais_tile_view.dart';
 import 'package:folia_mobile/library/bravais/tiles/focus/bravais_focus_actions.dart';
 import 'package:folia_mobile/library/bravais/tiles/skin/bravais_card_resources.dart';
 import 'package:folia_mobile/library/wall/wall_types.dart';
+import 'package:folia_mobile/library/wall/wall_paint_boundary.dart';
 
 // One real bounded scene checks cull retention, reflow and hidden clock ownership inside the existing artwork case; no app/emulator/pixel suite.
 Future<void> checkWallScenePlane(
@@ -21,6 +22,7 @@ Future<void> checkWallScenePlane(
   required BravaisCardPalette palette,
   required int Function() listeners,
   required void Function(double) setNow,
+  required VoidCallback tick,
 }) async {
   final camera = BravaisCamera(
         frames: resources.frames,
@@ -49,7 +51,7 @@ Future<void> checkWallScenePlane(
         ),
       ),
       selection = ValueNotifier(const BravaisWallSelection());
-  Future<void> mount(bool active) => tester.pumpWidget(
+  Future<void> mount(bool active, {bool poster = false}) => tester.pumpWidget(
     Directionality(
       textDirection: TextDirection.ltr,
       child: Align(
@@ -69,6 +71,8 @@ Future<void> checkWallScenePlane(
             committedScale: 1,
             active: active,
             backdropOpen: true,
+            posterWall: poster,
+            posterTint: const Color(0xffff0000),
           ),
         ),
       ),
@@ -120,6 +124,25 @@ Future<void> checkWallScenePlane(
   expect(listeners(), 0);
   setNow(5000);
   await mount(true);
+  expect(tester.takeException(), isNull);
+  expect(listeners(), 0);
+  expect(
+    tester
+        .renderObjectList<RenderWallPaintBoundary>(
+          find.byType(WallPaintBoundary),
+        )
+        .any((box) => box.paintBounds.left < 0),
+    true,
+  );
+  await mount(true, poster: true);
+  expect(tester.takeException(), isNull);
+  final inset = tester.renderObject<RenderWallFaceInset>(
+    find.byWidgetPredicate((w) => w is WallFaceInset && w.inset == 10).first,
+  );
+  expect(inset.child!.size.width, inset.size.width - 20);
+  setNow(6000);
+  tick();
+  await tester.pump();
   expect(tester.takeException(), isNull);
   expect(listeners(), 0);
   await tester.pumpWidget(const SizedBox());

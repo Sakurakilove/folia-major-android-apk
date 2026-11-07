@@ -43,6 +43,8 @@ class BravaisWallView extends StatelessWidget {
     this.lightsOut = false,
     this.tinted = false,
     this.stackEdges = true,
+    this.posterWall = false,
+    this.posterTint = const Color(0x00000000),
     this.reducedMotion = false,
     this.reducedTransitions = false,
     this.managingHidden = false,
@@ -61,6 +63,8 @@ class BravaisWallView extends StatelessWidget {
   final bool Function() consumeDrag;
   final void Function(BuildContext tile, BravaisItem item) noteAlbumSource;
   final BravaisCardPalette palette;
+  final bool posterWall;
+  final Color posterTint;
   final BravaisPlatePainter? plates;
   final ValueListenable<Map<String, WallRect>>? reflow;
   final Map<String, WallRect> targetReflow;
@@ -128,8 +132,10 @@ class BravaisWallView extends StatelessWidget {
         lightsOut: lightsOut,
         tinted: tinted,
         stackEdges: stackEdges,
+        posterWall: posterWall,
       ),
       resources: resources,
+      posterTint: posterTint,
       actions: actions,
       pointerHistory: pointerHistory,
       consumeDrag: consumeDrag,

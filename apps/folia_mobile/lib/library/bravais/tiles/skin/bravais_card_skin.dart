@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
 
+import '../../../../rendering/gradients/css_gradient_program.dart';
+
 import '../../../wall/wall_box_shadows.dart';
 import '../../../wall/wall_opacity.dart';
 import '../bravais_card_look.dart';
@@ -29,6 +31,7 @@ class BravaisCardSkin extends StatefulWidget {
     this.reducedMotion = false,
     this.active = true,
     this.loading = false,
+    this.gradients,
   });
   final BravaisCardLook look;
   final Listenable frames;
@@ -38,12 +41,24 @@ class BravaisCardSkin extends StatefulWidget {
   final List<Widget> artwork;
   final Widget Function(Widget glint)? expandedBody;
   final bool mosaic, reducedMotion, active, loading;
+  final CssGradientProgram? gradients;
   @override
   State<BravaisCardSkin> createState() => _BravaisCardSkinState();
 }
 
 class _BravaisCardSkinState extends State<BravaisCardSkin> {
   late final BravaisCardMotion _motion;
+  CssLinearGradientEffect? _tintGradient;
+  CssLinearGradientEffect _gradient() {
+    final program = widget.gradients;
+    if (program == null) {
+      throw StateError(
+        'Original CSS gradient program must be prepared before showing wall tint',
+      );
+    }
+    return _tintGradient ??= program.createLinear();
+  }
+
   bool _tickerEnabled = true;
   @override
   void initState() {
@@ -68,6 +83,10 @@ class _BravaisCardSkinState extends State<BravaisCardSkin> {
   @override
   void didUpdateWidget(BravaisCardSkin old) {
     super.didUpdateWidget(old);
+    if (!identical(old.gradients, widget.gradients)) {
+      _tintGradient?.dispose();
+      _tintGradient = null;
+    }
     _motion.rebind(widget.frames, widget.nowMs);
     _motion.reducedMotion = widget.reducedMotion;
     _motion.loading = widget.loading;
@@ -77,7 +96,9 @@ class _BravaisCardSkinState extends State<BravaisCardSkin> {
 
   Widget _overlay(BravaisCardPhase phase) => Positioned.fill(
     child: IgnorePointer(
-      child: CustomPaint(painter: BravaisCardOverlay(_motion, phase)),
+      child: CustomPaint(
+        painter: BravaisCardOverlay(_motion, phase, tintGradient: _gradient),
+      ),
     ),
   );
   @override
@@ -152,6 +173,7 @@ class _BravaisCardSkinState extends State<BravaisCardSkin> {
   @override
   void dispose() {
     _motion.dispose();
+    _tintGradient?.dispose();
     super.dispose();
   }
 }

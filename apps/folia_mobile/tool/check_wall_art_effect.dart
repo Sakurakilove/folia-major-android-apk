@@ -13,6 +13,7 @@ import 'wall_art_math_contract.dart';
 import 'wall_art_motion_contract.dart';
 import 'wall_art_leaf_contract.dart';
 import 'wall_scene_contract.dart';
+import 'wall_gradient_contract.dart';
 
 // Native shader/owner/metadata check only; GPU/browser final pixel equality is a separate migration gate.
 Future<void> checkWallArtEffect(WidgetTester tester) async {
@@ -33,6 +34,7 @@ Future<void> checkWallArtEffect(WidgetTester tester) async {
           ),
         ),
         effect = BravaisArtEffect(program, style);
+    await checkWallGradient(program);
     final recorder = ui.PictureRecorder();
     ui.Canvas(
       recorder,

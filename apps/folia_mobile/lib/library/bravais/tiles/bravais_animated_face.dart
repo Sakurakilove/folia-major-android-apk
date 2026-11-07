@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 
 import 'bravais_tile_motion.dart';
 import 'bravais_tile_types.dart';
+import '../../wall/wall_paint_boundary.dart';
 
 // Only a source face commit rebuilds card content. Transform/opacity frames update this native proxy over the retained full-resolution child.
 class BravaisAnimatedFace<T> extends StatelessWidget {
@@ -21,7 +22,7 @@ class BravaisAnimatedFace<T> extends StatelessWidget {
     child: ValueListenableBuilder(
       valueListenable: motion.face,
       builder: (context, face, _) =>
-          RepaintBoundary(child: builder(context, face)),
+          WallPaintBoundary(child: builder(context, face)),
     ),
   );
 }
