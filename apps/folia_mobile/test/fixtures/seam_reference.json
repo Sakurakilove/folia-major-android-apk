@@ -1,0 +1,1031 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "targets": [
+    {
+      "input": {
+        "surface": "home",
+        "level": "hidden",
+        "viewportWidth": 390
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "filterOpen": true
+      },
+      "target": {
+        "width": 120,
+        "variant": "home"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "panelOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "formOpen": true,
+        "panelOpen": true
+      },
+      "target": {
+        "width": 120,
+        "variant": "home"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "searchOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "poster": true
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "spine",
+        "viewportWidth": 390
+      },
+      "target": {
+        "width": 64,
+        "variant": "home-spine"
+      },
+      "effective": "spine"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "spine",
+        "viewportWidth": 390,
+        "filterOpen": true
+      },
+      "target": {
+        "width": 120,
+        "variant": "home"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "spine",
+        "viewportWidth": 390,
+        "panelOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 338,
+        "variant": "panel"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "spine",
+        "viewportWidth": 390,
+        "formOpen": true,
+        "panelOpen": true
+      },
+      "target": {
+        "width": 338,
+        "variant": "panel"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "spine",
+        "viewportWidth": 390,
+        "searchOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "search"
+      },
+      "effective": "spine"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "spine",
+        "viewportWidth": 390,
+        "poster": true
+      },
+      "target": {
+        "width": 64,
+        "variant": "home-spine"
+      },
+      "effective": "spine"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "full",
+        "viewportWidth": 390
+      },
+      "target": {
+        "width": 120,
+        "variant": "home"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "full",
+        "viewportWidth": 390,
+        "filterOpen": true
+      },
+      "target": {
+        "width": 120,
+        "variant": "home"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "full",
+        "viewportWidth": 390,
+        "panelOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 338,
+        "variant": "panel"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "full",
+        "viewportWidth": 390,
+        "formOpen": true,
+        "panelOpen": true
+      },
+      "target": {
+        "width": 338,
+        "variant": "panel"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "full",
+        "viewportWidth": 390,
+        "searchOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "search"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "home",
+        "level": "full",
+        "viewportWidth": 390,
+        "poster": true
+      },
+      "target": {
+        "width": 520,
+        "variant": "poster"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "hidden",
+        "viewportWidth": 390
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "filterOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "full"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "panelOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "formOpen": true,
+        "panelOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "form"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "searchOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "poster": true
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "spine",
+        "viewportWidth": 390
+      },
+      "target": {
+        "width": 64,
+        "variant": "spine"
+      },
+      "effective": "spine"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "spine",
+        "viewportWidth": 390,
+        "filterOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "full"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "spine",
+        "viewportWidth": 390,
+        "panelOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 338,
+        "variant": "panel"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "spine",
+        "viewportWidth": 390,
+        "formOpen": true,
+        "panelOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "form"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "spine",
+        "viewportWidth": 390,
+        "searchOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 64,
+        "variant": "spine"
+      },
+      "effective": "spine"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "spine",
+        "viewportWidth": 390,
+        "poster": true
+      },
+      "target": {
+        "width": 64,
+        "variant": "spine"
+      },
+      "effective": "spine"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "full",
+        "viewportWidth": 390
+      },
+      "target": {
+        "width": 300,
+        "variant": "full"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "full",
+        "viewportWidth": 390,
+        "filterOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "full"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "full",
+        "viewportWidth": 390,
+        "panelOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 338,
+        "variant": "panel"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "full",
+        "viewportWidth": 390,
+        "formOpen": true,
+        "panelOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "form"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "full",
+        "viewportWidth": 390,
+        "searchOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 520,
+        "variant": "poster"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "collection",
+        "level": "full",
+        "viewportWidth": 390,
+        "poster": true
+      },
+      "target": {
+        "width": 520,
+        "variant": "poster"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "hidden",
+        "viewportWidth": 390
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "filterOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "full"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "panelOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "formOpen": true,
+        "panelOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "form"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "searchOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "hidden",
+        "viewportWidth": 390,
+        "poster": true
+      },
+      "target": {
+        "width": 0,
+        "variant": "none"
+      },
+      "effective": "hidden"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "spine",
+        "viewportWidth": 390
+      },
+      "target": {
+        "width": 64,
+        "variant": "spine"
+      },
+      "effective": "spine"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "spine",
+        "viewportWidth": 390,
+        "filterOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "full"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "spine",
+        "viewportWidth": 390,
+        "panelOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 338,
+        "variant": "panel"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "spine",
+        "viewportWidth": 390,
+        "formOpen": true,
+        "panelOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "form"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "spine",
+        "viewportWidth": 390,
+        "searchOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 64,
+        "variant": "spine"
+      },
+      "effective": "spine"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "spine",
+        "viewportWidth": 390,
+        "poster": true
+      },
+      "target": {
+        "width": 64,
+        "variant": "spine"
+      },
+      "effective": "spine"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "full",
+        "viewportWidth": 390
+      },
+      "target": {
+        "width": 300,
+        "variant": "full"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "full",
+        "viewportWidth": 390,
+        "filterOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "full"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "full",
+        "viewportWidth": 390,
+        "panelOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 338,
+        "variant": "panel"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "full",
+        "viewportWidth": 390,
+        "formOpen": true,
+        "panelOpen": true
+      },
+      "target": {
+        "width": 300,
+        "variant": "form"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "full",
+        "viewportWidth": 390,
+        "searchOpen": true,
+        "poster": true
+      },
+      "target": {
+        "width": 520,
+        "variant": "poster"
+      },
+      "effective": "full"
+    },
+    {
+      "input": {
+        "surface": "artist",
+        "level": "full",
+        "viewportWidth": 390,
+        "poster": true
+      },
+      "target": {
+        "width": 520,
+        "variant": "poster"
+      },
+      "effective": "full"
+    }
+  ],
+  "operations": [
+    {
+      "kind": "apply",
+      "value": "hidden"
+    },
+    {
+      "kind": "resize",
+      "from": 1280,
+      "to": 390
+    },
+    {
+      "kind": "restore"
+    },
+    {
+      "kind": "apply",
+      "value": "full"
+    },
+    {
+      "kind": "resize",
+      "from": 390,
+      "to": 899
+    },
+    {
+      "kind": "resize",
+      "from": 899,
+      "to": 900
+    },
+    {
+      "kind": "apply",
+      "value": "spine"
+    },
+    {
+      "kind": "apply",
+      "value": "hidden"
+    },
+    {
+      "kind": "restore"
+    }
+  ],
+  "states": [
+    {
+      "level": "hidden",
+      "restoreLevel": "full"
+    },
+    {
+      "level": "hidden",
+      "restoreLevel": "spine"
+    },
+    {
+      "level": "spine",
+      "restoreLevel": "spine"
+    },
+    {
+      "level": "full",
+      "restoreLevel": "full"
+    },
+    {
+      "level": "full",
+      "restoreLevel": "full"
+    },
+    {
+      "level": "full",
+      "restoreLevel": "full"
+    },
+    {
+      "level": "spine",
+      "restoreLevel": "spine"
+    },
+    {
+      "level": "hidden",
+      "restoreLevel": "spine"
+    },
+    {
+      "level": "spine",
+      "restoreLevel": "spine"
+    }
+  ],
+  "motions": {
+    "operations": [
+      {
+        "time": 0,
+        "key": "B",
+        "variant": "full"
+      },
+      {
+        "time": 80,
+        "key": "C",
+        "variant": "panel"
+      },
+      {
+        "time": 160
+      },
+      {
+        "time": 180,
+        "key": "C",
+        "variant": "panel",
+        "revision": 2
+      },
+      {
+        "time": 220,
+        "key": "D",
+        "variant": "form"
+      },
+      {
+        "time": 250,
+        "key": "C",
+        "variant": "panel",
+        "revision": 3
+      },
+      {
+        "time": 300,
+        "key": null,
+        "variant": "none"
+      },
+      {
+        "time": 320,
+        "key": "E",
+        "variant": "full",
+        "reduced": true
+      },
+      {
+        "time": 410
+      },
+      {
+        "time": 430,
+        "key": "F",
+        "variant": "form",
+        "reduced": true
+      },
+      {
+        "time": 460,
+        "key": "G",
+        "variant": "panel",
+        "reduced": true
+      },
+      {
+        "time": 520
+      },
+      {
+        "time": 550,
+        "key": null,
+        "variant": "none",
+        "reduced": true
+      },
+      {
+        "time": 560,
+        "key": "H",
+        "variant": "home"
+      },
+      {
+        "time": 610
+      },
+      {
+        "time": 630,
+        "key": "I",
+        "variant": "spine",
+        "hasElement": false
+      },
+      {
+        "time": 650,
+        "key": "J",
+        "variant": "full"
+      },
+      {
+        "time": 810
+      },
+      {
+        "time": 1050
+      }
+    ],
+    "states": [
+      {
+        "key": "A",
+        "revision": 1,
+        "variant": "home",
+        "leaving": true,
+        "phase": "flipOut"
+      },
+      {
+        "key": "A",
+        "revision": 1,
+        "variant": "home",
+        "leaving": true,
+        "phase": "flipOut"
+      },
+      {
+        "key": "C",
+        "revision": 1,
+        "variant": "panel",
+        "leaving": false,
+        "phase": "flipIn"
+      },
+      {
+        "key": "C",
+        "revision": 2,
+        "variant": "panel",
+        "leaving": false,
+        "phase": "flipIn"
+      },
+      {
+        "key": "C",
+        "revision": 1,
+        "variant": "panel",
+        "leaving": true,
+        "phase": "flipOut"
+      },
+      {
+        "key": "C",
+        "revision": 3,
+        "variant": "panel",
+        "leaving": false,
+        "phase": null
+      },
+      {
+        "key": null,
+        "revision": null,
+        "variant": "none",
+        "leaving": false,
+        "phase": null
+      },
+      {
+        "key": "E",
+        "revision": 1,
+        "variant": "full",
+        "leaving": false,
+        "phase": "fadeIn"
+      },
+      {
+        "key": "E",
+        "revision": 1,
+        "variant": "full",
+        "leaving": false,
+        "phase": null
+      },
+      {
+        "key": "E",
+        "revision": 1,
+        "variant": "full",
+        "leaving": true,
+        "phase": "fadeOut"
+      },
+      {
+        "key": "E",
+        "revision": 1,
+        "variant": "full",
+        "leaving": true,
+        "phase": "fadeOut"
+      },
+      {
+        "key": "G",
+        "revision": 1,
+        "variant": "panel",
+        "leaving": false,
+        "phase": "fadeIn"
+      },
+      {
+        "key": null,
+        "revision": null,
+        "variant": "none",
+        "leaving": false,
+        "phase": "fadeIn"
+      },
+      {
+        "key": "H",
+        "revision": 1,
+        "variant": "home",
+        "leaving": false,
+        "phase": "fadeIn"
+      },
+      {
+        "key": "H",
+        "revision": 1,
+        "variant": "home",
+        "leaving": false,
+        "phase": null
+      },
+      {
+        "key": "I",
+        "revision": 1,
+        "variant": "spine",
+        "leaving": false,
+        "phase": null
+      },
+      {
+        "key": "I",
+        "revision": 1,
+        "variant": "spine",
+        "leaving": true,
+        "phase": "flipOut"
+      },
+      {
+        "key": "J",
+        "revision": 1,
+        "variant": "full",
+        "leaving": false,
+        "phase": "flipIn"
+      },
+      {
+        "key": "J",
+        "revision": 1,
+        "variant": "full",
+        "leaving": false,
+        "phase": null
+      }
+    ]
+  }
+}

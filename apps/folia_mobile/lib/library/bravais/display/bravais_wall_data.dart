@@ -2,6 +2,8 @@ import '../../wall/explore/explore_lots.dart';
 import '../tiles/bravais_item.dart';
 import 'bravais_wall_look.dart';
 
+enum BravaisLayerSurface { home, collection, artist }
+
 // The wall-only projection of the original layer. Seam models, provider actions and navigation stay with their host; display data cannot invent those operations.
 class BravaisWallData {
   const BravaisWallData({

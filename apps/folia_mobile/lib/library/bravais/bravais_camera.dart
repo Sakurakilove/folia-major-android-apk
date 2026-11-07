@@ -200,7 +200,7 @@ class BravaisCamera {
 
   void _tickTween() {
     final tween = _tween;
-    if (_closed || tween == null) return;
+    if (_closed || !_active || tween == null) return;
     final time = (nowMs() - tween.start).roundToDouble(),
         p = (time / tween.duration).clamp(0.0, 1.0),
         value = motionBezier(.22, 1, .36, 1, p);
@@ -254,7 +254,16 @@ class BravaisCamera {
     pointer.setActive(active);
     if (!active) {
       _dragging = false;
-      _stopTween();
+      if (_tweenAttached) {
+        _tweenAttached = false;
+        frames.removeListener(_tickTween);
+      }
+    } else if (_tween != null) {
+      _tickTween();
+      if (_tween != null && !_tweenAttached) {
+        _tweenAttached = true;
+        frames.addListener(_tickTween);
+      }
     }
   }
 
