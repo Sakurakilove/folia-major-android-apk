@@ -16,6 +16,7 @@ class BravaisSeamMaterialProgram {
   final CssGradientProgram gradients;
   final NativeSvgNoise noise;
   bool _closed = false;
+  bool get isClosed => _closed;
   final _shaders = <ui.FragmentShader>{};
   static Future<BravaisSeamMaterialProgram> load({
     required CssGradientProgram gradients,

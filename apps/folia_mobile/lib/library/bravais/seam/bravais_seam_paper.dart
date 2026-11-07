@@ -4,9 +4,11 @@ import 'package:flutter/rendering.dart';
 import '../../wall/wall_box_shadows.dart';
 import '../../wall/wall_css_paint.dart';
 import '../tiles/bravais_card_palette.dart';
+import 'bravais_seam_surface_cache.dart';
 
 // Default theme paper and the mutually exclusive clear-seam veil. Print/frost/pattern/poster surfaces are separate source materials, not silently replaced with this paper.
-class BravaisSeamPaper extends CustomPainter {
+class BravaisSeamPaper extends CustomPainter
+    implements BravaisStaticSeamSurface {
   BravaisSeamPaper({
     required BravaisCardPalette palette,
     bool seeThrough = false,
@@ -58,6 +60,8 @@ class BravaisSeamPaper extends CustomPainter {
   final bool clear, paintClearEdge, includeInsetShadows;
   final List<WallBoxShadow> shadows;
   final _fill = Paint(), _edge = Paint();
+  @override
+  Rect cacheBounds(Size size) => (Offset.zero & size).inflate(122);
   Size? _size;
   Path? _shadowClip;
   Shader? _edgeGradient;

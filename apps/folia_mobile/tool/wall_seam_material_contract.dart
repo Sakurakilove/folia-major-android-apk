@@ -95,6 +95,32 @@ Future<void> checkWallSeamMaterials(CssGradientProgram gradients) async {
         painter.dispose();
       }
     }
+    final retained = BravaisSeamMaterialPainter(
+      look: const BravaisSeamMaterialLook(
+        palette: palette,
+        style: BravaisSeamStyle.contour,
+      ),
+      program: program,
+      dpr: 1,
+    );
+    try {
+      program.dispose();
+      for (final width in [120.0, 180.0]) {
+        final recorder = ui.PictureRecorder();
+        retained.paint(ui.Canvas(recorder), ui.Size(width, 80));
+        recorder.endRecording().dispose();
+      }
+      expect(
+        () => BravaisSeamMaterialPainter(
+          look: const BravaisSeamMaterialLook(palette: palette),
+          program: program,
+          dpr: 1,
+        ),
+        throwsStateError,
+      );
+    } finally {
+      retained.dispose();
+    }
     expect(differences, isEmpty);
   } finally {
     program.dispose();

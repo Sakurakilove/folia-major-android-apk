@@ -376,6 +376,7 @@
         "apps/folia_mobile/lib/library/bravais/seam/bravais_seam_opening_plan.dart",
         "apps/folia_mobile/lib/library/bravais/seam/bravais_seam_paper.dart",
         "apps/folia_mobile/lib/library/bravais/seam/bravais_seam_scene.dart",
+        "apps/folia_mobile/lib/library/bravais/seam/bravais_seam_surface_cache.dart",
         "apps/folia_mobile/lib/library/bravais/seam/bravais_seam_target.dart",
         "apps/folia_mobile/lib/library/bravais/seam/bravais_seam_viewport.dart",
         "apps/folia_mobile/lib/library/bravais/seam/bravais_seam_viewport_paint.dart",

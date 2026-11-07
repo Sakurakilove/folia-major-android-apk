@@ -62,7 +62,7 @@ Future<void> checkWallSeamViewport(
   );
   final frame = ValueNotifier(frameAt()),
       bottom = ValueNotifier(40.0),
-      paper = BravaisSeamPaper(
+      paper = _CountingPaper(
         palette: const BravaisCardPalette(
           background: Color(0xff070707),
           ink: Color(0xfff7f4ee),
@@ -105,6 +105,7 @@ Future<void> checkWallSeamViewport(
     ),
   );
   expect(tester.takeException(), isNull);
+  expect(paper.records, 1);
   final built = builds,
       viewport = tester.renderObject<RenderBravaisSeamViewport>(
         find.byType(BravaisSeamViewport),
@@ -120,6 +121,7 @@ Future<void> checkWallSeamViewport(
   expect(builds, built);
   expect(body.size, const Size(300, 804));
   expect(viewport.paperBounds, const Rect.fromLTWH(310, 0, 180, 844));
+  expect(paper.records, 2);
   expect(viewport.contentOffset, const Offset(250, 0));
   setNow(1210);
   tick();
@@ -129,15 +131,18 @@ Future<void> checkWallSeamViewport(
   tick();
   await tester.pump();
   expect(listeners(), 0);
+  expect(paper.records, 2);
   await tester.tapAt(const Offset(260, 100));
   expect(presses, 0);
   await tester.tapAt(const Offset(400, 100));
   expect(presses, 1);
   final retainedBuilds = builds;
+  final paperRecords = paper.records;
   bottom.value = 80;
   await tester.pump();
   expect(body.size, const Size(300, 764));
   expect(builds, retainedBuilds);
+  expect(paper.records, paperRecords);
   setNow(1500);
   motion.update(
     const BravaisRenderedSeam(BravaisSeamVariant.poster, 'K', {'key': 'K'}),
@@ -176,9 +181,14 @@ Future<void> checkWallSeamViewport(
     MatrixUtils.transformPoint(matrix, Offset.zero).dx,
     closeTo(520 * (1 - scale), 1e-10),
   );
+  final posterPaperRecords = paper.records;
   frame.value = frameAt(width: 520, poster: true, x: 20);
   await tester.pump();
   expect(identical(matrix, safe.transform), true);
+  expect(paper.records, posterPaperRecords);
+  paper.changed();
+  await tester.pump();
+  expect(paper.records, posterPaperRecords + 1);
   setNow(1900);
   tick();
   await tester.pump();
@@ -209,4 +219,27 @@ Future<void> checkWallSeamViewport(
   frame.dispose();
   bottom.dispose();
   paper.dispose();
+}
+
+class _CountingPaper extends BravaisSeamPaper {
+  _CountingPaper({required super.palette});
+  final _changes = ValueNotifier(0);
+  int records = 0;
+  void changed() => _changes.value++;
+  @override
+  void addListener(VoidCallback listener) => _changes.addListener(listener);
+  @override
+  void removeListener(VoidCallback listener) =>
+      _changes.removeListener(listener);
+  @override
+  void paint(Canvas canvas, Size size) {
+    records++;
+    super.paint(canvas, size);
+  }
+
+  @override
+  void dispose() {
+    _changes.dispose();
+    super.dispose();
+  }
 }

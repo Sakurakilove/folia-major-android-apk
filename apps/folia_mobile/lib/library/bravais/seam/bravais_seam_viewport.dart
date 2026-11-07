@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import '../bravais_frame.dart';
+import 'bravais_seam_surface_cache.dart';
 
 part 'bravais_seam_viewport_paint.dart';
 
@@ -64,6 +65,7 @@ class RenderBravaisSeamViewport extends RenderProxyBox {
   CustomPainter? _underlay, _overlay;
   bool _poster;
   Matrix4? _tilt;
+  final _surfaceCache = BravaisSeamSurfaceCache();
   final _outerClip = LayerHandle<ClipRectLayer>(),
       _paperClip = LayerHandle<ClipRectLayer>(),
       _transform = LayerHandle<TransformLayer>(),
@@ -87,10 +89,10 @@ class RenderBravaisSeamViewport extends RenderProxyBox {
       markNeedsLayout();
     }
     if (!identical(surface, _surface)) {
-      if (attached) _surface.removeListener(markNeedsPaint);
+      if (attached) _surface.removeListener(_surfaceChanged);
       _surface = surface;
-      if (attached) _surface.addListener(markNeedsPaint);
-      markNeedsPaint();
+      if (attached) _surface.addListener(_surfaceChanged);
+      _surfaceChanged();
     }
     if (!identical(underlay, _underlay) || !identical(overlay, _overlay)) {
       if (attached) {
@@ -115,6 +117,11 @@ class RenderBravaisSeamViewport extends RenderProxyBox {
     _tilt = null;
     markNeedsPaint();
     markNeedsSemanticsUpdate();
+  }
+
+  void _surfaceChanged() {
+    _surfaceCache.invalidate();
+    markNeedsPaint();
   }
 
   Rect get paperBounds {
@@ -157,7 +164,8 @@ class RenderBravaisSeamViewport extends RenderProxyBox {
   void attach(PipelineOwner owner) {
     super.attach(owner);
     _frame.addListener(_changed);
-    _surface.addListener(markNeedsPaint);
+    _surface.addListener(_surfaceChanged);
+    _surfaceChanged();
     _underlay?.addListener(markNeedsPaint);
     _overlay?.addListener(markNeedsPaint);
     _changed();
@@ -166,7 +174,7 @@ class RenderBravaisSeamViewport extends RenderProxyBox {
   @override
   void detach() {
     _frame.removeListener(_changed);
-    _surface.removeListener(markNeedsPaint);
+    _surface.removeListener(_surfaceChanged);
     _underlay?.removeListener(markNeedsPaint);
     _overlay?.removeListener(markNeedsPaint);
     super.detach();
@@ -212,6 +220,7 @@ class RenderBravaisSeamViewport extends RenderProxyBox {
 
   @override
   void dispose() {
+    _surfaceCache.clear();
     _outerClip.layer = null;
     _paperClip.layer = null;
     _transform.layer = null;

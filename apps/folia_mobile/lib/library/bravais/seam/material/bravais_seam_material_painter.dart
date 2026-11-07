@@ -8,18 +8,21 @@ import '../../../../rendering/noise/native_svg_noise.dart';
 import '../../../../rendering/noise/svg_noise_provider.dart';
 import '../../../../rendering/noise/svg_noise_texture.dart';
 import '../bravais_seam_paper.dart';
+import '../bravais_seam_surface_cache.dart';
 import 'bravais_seam_material_look.dart';
 import 'bravais_seam_material_program.dart';
 
 part 'bravais_seam_material_patterns.dart';
 
 // All eight source surfaces share their original paper/shadows. Grain appears on its real image-ready event; source gradients remain separate draws, without replacing any animated scene with a static image.
-class BravaisSeamMaterialPainter extends CustomPainter {
+class BravaisSeamMaterialPainter extends CustomPainter
+    implements BravaisStaticSeamSurface {
   factory BravaisSeamMaterialPainter({
     required BravaisSeamMaterialLook look,
     required BravaisSeamMaterialProgram program,
     required double dpr,
   }) {
+    if (program.isClosed) throw StateError('Seam material program is closed');
     final grain = look.needsGrain
         ? SvgNoiseImageLease(
             SvgNoiseProvider(
@@ -72,6 +75,9 @@ class BravaisSeamMaterialPainter extends CustomPainter {
       palette.accent.withValues(alpha: palette.accent.a * .14),
       palette.secondary.withValues(alpha: palette.secondary.a * .12),
     ];
+    // Prime the immutable recipe once; resizing updates existing uniforms and
+    // image anchors, including after the factory has stopped accepting owners.
+    _prepare(Size.zero);
   }
   final BravaisSeamMaterialLook look;
   final BravaisSeamMaterialProgram program;
@@ -79,6 +85,8 @@ class BravaisSeamMaterialPainter extends CustomPainter {
   final double dpr;
   final BravaisSeamPaper _paper;
   final _patterns = <Paint>[], _shaders = <ui.Shader>[];
+  final _fragments = <ui.FragmentShader>[];
+  int _fragmentIndex = 0;
   final _tiles = <String, ui.Image>{};
   ui.Image? _dotTile;
   final _grainPaint = Paint(), _dotsPaint = Paint();
@@ -89,18 +97,17 @@ class BravaisSeamMaterialPainter extends CustomPainter {
   late final List<Color> _frostColors;
   Size? _size;
   bool _closed = false;
+  @override
+  Rect cacheBounds(Size size) => _paper.cacheBounds(size);
   void _prepare(Size size) {
     if (_size == size) return;
     _size = size;
     for (final shader in _shaders) {
-      if (shader is ui.FragmentShader) {
-        program.releaseShader(shader);
-      } else {
-        shader.dispose();
-      }
+      if (shader is! ui.FragmentShader) shader.dispose();
     }
     _shaders.clear();
     _patterns.clear();
+    _fragmentIndex = 0;
     final dots = _dotTile;
     if (dots != null) {
       final shader = ui.ImageShader(
@@ -182,14 +189,14 @@ class BravaisSeamMaterialPainter extends CustomPainter {
     _frost?.dispose();
     _frost = null;
     for (final shader in _shaders) {
-      if (shader is ui.FragmentShader) {
-        program.releaseShader(shader);
-      } else {
-        shader.dispose();
-      }
+      if (shader is! ui.FragmentShader) shader.dispose();
     }
     _shaders.clear();
     _patterns.clear();
+    for (final shader in _fragments) {
+      program.releaseShader(shader);
+    }
+    _fragments.clear();
     _dotTile?.dispose();
     _dotTile = null;
     for (final image in _tiles.values) {

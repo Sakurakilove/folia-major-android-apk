@@ -11,9 +11,18 @@ extension _BravaisSeamMaterialPatterns on BravaisSeamMaterialPainter {
       Offset from,
       Offset to,
       Color color,
-      double edge,
-    ) {
-      final shader = program.createPattern();
+      double edge, {
+      bool transient = false,
+    }) {
+      final ui.FragmentShader shader;
+      if (transient) {
+        shader = program.createPattern();
+      } else {
+        if (_fragmentIndex >= _fragments.length) {
+          _fragments.add(program.createPattern());
+        }
+        shader = _fragments[_fragmentIndex++];
+      }
       shader
         ..setFloat(0, kind)
         ..setFloat(1, from.dx)
@@ -55,6 +64,7 @@ extension _BravaisSeamMaterialPatterns on BravaisSeamMaterialPainter {
               vertical ? Offset(0, extent) : Offset(extent, 0),
               color,
               edge,
+              transient: true,
             );
         shader
           ..setFloat(11, pixels / extent)

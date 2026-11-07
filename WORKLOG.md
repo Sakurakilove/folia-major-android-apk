@@ -634,3 +634,6 @@
 
 - CSS-NATIVE-03（2026-11-07）完成上一条指出的现有调用审查：wall翻牌/wave/呼吸/展开、seam flip、controls/artist/shard有限CSS过渡、封面WAAPI淡出与CssBezierCurve/CSS keyframe adapter均明确走CSS/compositor路径。通用cssBezier已切到固定Chromium求值，128项有界曲线cache复用11点预计算；保留源端点gradient外推与有限饱和，Motion JS的12次/1e-7算法保持独立。减少逐帧52次上限二分工作，同时保留原浏览器数值；不据此声称瓦数降幅。
 - 原始Chromium cubic_bezier.cc/.h SHA核对后直接编译为临时C++oracle（只有export/assert头stub，未复制公式作参考），20条曲线420个原输出含越界端点外推通过1e-13数值检查。原card最小单例的旧手算中点被真实C++输出.650600847764961替换；反向缩短、实际保留层、seam及4种专辑CSS variant一起通过，analyzer无问题。之前“通用CSS尚未切换”的记录已被本条接续；所有源动画/页面/字体/设备像素与已有2个clear边缘差异仍受全量最终保真门槛约束。继续海报背景等剩余任务，不在提交处结束。
+
+- POWER-SEAM-01（2026-11-07）发现原生seam宿主每次相机frame都会重新执行静态纸面shader绘制。增加显式BravaisStaticSeamSurface opt-in与保留PictureLayer/OffsetLayer：只复用原静态纸面display list，实际开口尺寸/材料身份/主题或grain就绪通知才更新；DPR、全部阴影范围保留，离屏不绘制，重新attach作失效以补齐离屏期间变更，dispose释放layer/picture。动态underlay/overlay/body仍按原曲线独立更新，未把运行中的动画替成图或降低分辨率，普通非静态surface不走此缓存。native compositor可据complex hint按实际设备DPR缓存，无CPU截图/readback/跨桥图片。
+- POWER-SEAM-02 静态材质在尺寸变化时复用已创建FragmentShader，仅更新uniform/image anchor；原所有recipe在constructor准备，已保留owner在factory关闭后仍可改尺寸，新owner在关闭前置拒绝，不启动泄漏的grain lease。原极小材质检查额外确认保留contour owner在关闭factory后120→180可画并释放；其原84点比较仍仅2个clear蓝色通道失败。当前analyzer无问题，既有card/seam/封面/专辑单例通过，包括真实paper记录计数：初始1、改尺寸2、相机平移不增加、material通知只增加一次；字幕安全区和其余动画继续不重建正文。没有模拟器/全UI/APK/实机瓦数结论，完整海报背景/字体/正文/首页/导航和所有剩余范围继续执行，台账仍0verified。

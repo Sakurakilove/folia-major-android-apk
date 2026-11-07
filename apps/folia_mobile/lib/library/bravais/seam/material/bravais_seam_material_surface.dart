@@ -4,9 +4,11 @@ import 'package:flutter/rendering.dart';
 import 'bravais_seam_material_look.dart';
 import 'bravais_seam_material_painter.dart';
 import 'bravais_seam_material_program.dart';
+import '../bravais_seam_surface_cache.dart';
 
 // A stable surfaceFor handle for BravaisSeamScene. Preset/theme/DPR changes replace only the material; opening/camera/tilt never recreate grain jobs or shaders.
-class BravaisSeamMaterialSurface extends CustomPainter {
+class BravaisSeamMaterialSurface extends CustomPainter
+    implements BravaisStaticSeamSurface {
   factory BravaisSeamMaterialSurface({
     required ValueListenable<BravaisSeamMaterialLook> look,
     required BravaisSeamMaterialProgram program,
@@ -14,6 +16,8 @@ class BravaisSeamMaterialSurface extends CustomPainter {
   }) => BravaisSeamMaterialSurface._(_SeamMaterialState(look, program, dpr));
   BravaisSeamMaterialSurface._(this._state) : super(repaint: _state);
   final _SeamMaterialState _state;
+  @override
+  Rect cacheBounds(Size size) => (Offset.zero & size).inflate(122);
   set dpr(double value) => _state.dpr = value;
   @override
   void paint(Canvas canvas, Size size) {

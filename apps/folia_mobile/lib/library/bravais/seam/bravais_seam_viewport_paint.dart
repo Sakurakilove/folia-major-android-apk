@@ -63,11 +63,13 @@ extension _BravaisSeamViewportPaint on RenderBravaisSeamViewport {
           offset,
           tiltTransform,
           (context, offset) {
-            final paper = paperBounds, canvas = context.canvas;
-            canvas.save();
-            canvas.translate(offset.dx + paper.left, offset.dy + paper.top);
-            _surface.paint(canvas, paper.size);
-            canvas.restore();
+            final paper = paperBounds;
+            _surfaceCache.paint(
+              context,
+              offset + paper.topLeft,
+              _surface,
+              paper.size,
+            );
             _paperClip.layer = context.pushClipRect(
               needsCompositing,
               offset,
