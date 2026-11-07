@@ -24,7 +24,7 @@ class BravaisTileMotion<T> extends ChangeNotifier {
     _animationKey = _key(null, initial.key);
     setEntrance(entrance, rect);
   }
-  final Listenable frames;
+  Listenable frames;
   final double Function() nowMs;
   final ValueNotifier<BravaisTileFace<T>> face;
   final int? _mountEntranceToken;
@@ -37,6 +37,14 @@ class BravaisTileMotion<T> extends ChangeNotifier {
   bool _attached = false, _active = true, _closed = false, _reduced = false;
   BravaisTileSample sample = const BravaisTileSample();
   bool get animating => _flight != null;
+  void rebindFrames(Listenable next) {
+    if (_closed || identical(frames, next)) return;
+    if (_attached) frames.removeListener(_frame);
+    _attached = false;
+    frames = next;
+    _sync();
+  }
+
   BravaisTileFlightKind? get flightKind => _flight?.kind;
   String _key(BravaisFlipStep? step, String? target) =>
       step?.waveInDelay != null

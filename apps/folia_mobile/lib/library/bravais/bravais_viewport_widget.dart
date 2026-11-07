@@ -33,14 +33,24 @@ class BravaisViewport extends MultiChildRenderObjectWidget {
 }
 
 class BravaisSeat extends ParentDataWidget<BravaisSeatData> {
-  const BravaisSeat({super.key, required this.slot, required super.child});
+  const BravaisSeat({
+    super.key,
+    required this.slot,
+    this.zIndex = 0,
+    required super.child,
+  });
   final WallSlot slot;
+  final int zIndex;
   @override
   Type get debugTypicalAncestorWidgetClass => BravaisViewport;
   @override
   void applyParentData(RenderObject renderObject) {
     final data = renderObject.parentData! as BravaisSeatData, old = data.slot;
     data.slot = slot;
+    if (data.zIndex != zIndex) {
+      data.zIndex = zIndex;
+      (renderObject.parent as RenderBravaisViewport?)?.invalidateOrder();
+    }
     if (old?.width != slot.width || old?.height != slot.height) {
       renderObject.parent?.markNeedsLayout();
     } else if (old?.x != slot.x || old?.y != slot.y) {
@@ -53,4 +63,5 @@ class BravaisSeat extends ParentDataWidget<BravaisSeatData> {
 class BravaisSeatData extends ContainerBoxParentData<RenderBox> {
   WallSlot? slot;
   WallRect? rect;
+  int zIndex = 0;
 }

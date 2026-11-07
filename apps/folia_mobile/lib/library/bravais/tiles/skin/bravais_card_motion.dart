@@ -1,9 +1,13 @@
 import 'package:flutter/foundation.dart';
 
 import '../../../../visualizer/motion/css_transition.dart';
+import '../../../../visualizer/motion/bezier.dart';
 import '../../../wall/wall_box_shadows.dart';
 import '../../../wall/wall_css_filter.dart';
 import '../bravais_card_look.dart';
+import '../bravais_item.dart';
+
+part 'bravais_card_breathe.dart';
 
 // Independent CSS properties retain their own reversal state; one finite scene subscription drives the visible native card.
 enum BravaisCardPhase { x, y, opacity, tint, dim, copy, glint, currentFocus }
@@ -15,6 +19,7 @@ class BravaisCardMotion extends ChangeNotifier {
     required this.nowMs,
     this.reducedMotion = false,
     this._active = true,
+    this.loading = false,
   }) : _look = look,
        _filter = CssValueTransition(look.filter, WallCssFilter.interpolate),
        _currentShadows = CssValueTransition(
@@ -31,11 +36,15 @@ class BravaisCardMotion extends ChangeNotifier {
     }
     shadows = _CardValue(this, () => _shadows.value.shadows);
     currentShadows = _CardValue(this, () => _currentShadows.value.shadows);
+    _syncBreathe();
   }
   BravaisCardLook _look;
   Listenable _frames;
   double Function() nowMs;
   bool reducedMotion;
+  bool loading;
+  double? _breatheStarted;
+  double _breatheOpacity = 1;
   bool _active, _attached = false, _closed = false;
   final _tracks = <BravaisCardPhase, CssNumericTransition>{};
   final _signals = <BravaisCardPhase, ValueListenable<double>>{};
@@ -46,6 +55,9 @@ class BravaisCardMotion extends ChangeNotifier {
   late final ValueListenable<List<WallBoxShadow>> currentShadows;
   WallCssFilter get filter => _filter.value;
   BravaisCardLook get look => _look;
+  double get opacity => _breatheStarted == null
+      ? value(BravaisCardPhase.opacity)
+      : _breatheOpacity;
   double value(BravaisCardPhase phase) => _tracks[phase]!.value;
   ValueListenable<double> signal(BravaisCardPhase phase) => _signals[phase]!;
   bool get active => _active;
@@ -87,6 +99,7 @@ class BravaisCardMotion extends ChangeNotifier {
     if (_closed) return;
     final now = nowMs(), old = _look;
     _look = next;
+    _syncBreathe();
     for (final phase in BravaisCardPhase.values) {
       final track = _tracks[phase]!, target = _target(phase, next);
       // A newly inserted ::before has no previous computed style from which to transition.
@@ -140,6 +153,7 @@ class BravaisCardMotion extends ChangeNotifier {
 
   void _advance() {
     final now = nowMs();
+    _advanceBreathe(now);
     for (final track in _tracks.values) {
       track.advance(now);
     }
@@ -156,7 +170,8 @@ class BravaisCardMotion extends ChangeNotifier {
         (_tracks.values.any((track) => track.isAnimating) ||
             _filter.isAnimating ||
             _shadows.isAnimating ||
-            _currentShadows.isAnimating);
+            _currentShadows.isAnimating ||
+            _breatheStarted != null);
     if (wanted == _attached) return;
     _attached = wanted;
     if (wanted) {

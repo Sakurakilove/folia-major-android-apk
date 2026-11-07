@@ -5,6 +5,7 @@ import 'package:folia_mobile/library/bravais/tiles/bravais_control.dart';
 import 'package:folia_mobile/library/bravais/tiles/focus/bravais_focus_actions.dart';
 import 'package:folia_mobile/library/bravais/tiles/focus/bravais_focus_body.dart';
 import 'package:folia_mobile/library/bravais/tiles/bravais_item.dart';
+import 'package:folia_mobile/library/bravais/tiles/bravais_tile_input.dart';
 import 'package:folia_mobile/library/wall/wall_typography.dart';
 import 'package:folia_mobile/rendering/folia_icons.dart';
 import 'package:folia_mobile/visualizer/motion/css_transition.dart';
@@ -29,6 +30,8 @@ void main() {
           playing = ValueNotifier(false),
           calls = <String>[];
       var now = 0.0;
+      var dragged = false;
+      final pointerHistory = BravaisPointerHistory()..attach();
       final actions = BravaisCardActions(
         activate: (s) => calls.add('activate:$s'),
         play: (s) => calls.add('play:$s'),
@@ -57,33 +60,47 @@ void main() {
             child: SizedBox(
               width: 816,
               height: 816,
-              child: BravaisFocusBody(
+              child: BravaisTileInput(
                 slotKey: 'a',
-                item: const BravaisItem(
-                  key: 'song',
-                  kind: BravaisItemKind.track,
-                  title: 'Source title',
-                  subtitle: 'Artist',
-                  badge: '01',
-                  album: 'Album',
-                  artists: ['Artist', 'Other'],
-                  durationLabel: '3:15',
-                  unavailable: true,
-                ),
-                queued: true,
-                current: true,
-                titleWidth: 816,
-                viewportWidth: 1400,
+                face: const BravaisCardFace(null, BravaisTileKind.content),
+                expanded: true,
                 actions: actions,
-                typography: const WallTypography(),
-                strings: strings,
-                ink: const Color(0xffffffff),
-                accent: const Color(0xffff0000),
-                frames: clock,
-                nowMs: () => now,
-                isPlaying: playing,
-                entersLattice: false,
-                reducedMotion: false,
+                pointerHistory: pointerHistory,
+                consumeDrag: () {
+                  final value = dragged;
+                  dragged = false;
+                  return value;
+                },
+                noteAlbumSource: (_, _) {},
+                onHover: (_) {},
+                child: BravaisFocusBody(
+                  slotKey: 'a',
+                  item: const BravaisItem(
+                    key: 'song',
+                    kind: BravaisItemKind.track,
+                    title: 'Source title',
+                    subtitle: 'Artist',
+                    badge: '01',
+                    album: 'Album',
+                    artists: ['Artist', 'Other'],
+                    durationLabel: '3:15',
+                    unavailable: true,
+                  ),
+                  queued: true,
+                  current: true,
+                  titleWidth: 816,
+                  viewportWidth: 1400,
+                  actions: actions,
+                  typography: const WallTypography(),
+                  strings: strings,
+                  ink: const Color(0xffffffff),
+                  accent: const Color(0xffff0000),
+                  frames: clock,
+                  nowMs: () => now,
+                  isPlaying: playing,
+                  entersLattice: false,
+                  reducedMotion: false,
+                ),
               ),
             ),
           ),
@@ -114,6 +131,8 @@ void main() {
           .where((w) => w.label == 'In queue')
           .single;
       expect(queue.onPressed, isNull);
+      await tester.tap(find.text('In queue'));
+      expect(calls, ['play:a']);
       await tester.tap(find.text('Artist'));
       expect(calls.last, 'artist:a:0');
       await tester.tap(find.text('Album'));
@@ -129,10 +148,18 @@ void main() {
       await tester.pump();
       expect(calls.last, 'menu:a:remove');
       expect(find.text('Remove'), findsNothing);
+      await tester.tapAt(const Offset(500, 400));
+      expect(calls.last, 'activate:a');
+      final count = calls.length;
+      dragged = true;
+      await tester.tapAt(const Offset(500, 400));
+      expect(calls.length, count);
+      expect(dragged, false);
       await tester.pumpWidget(const SizedBox());
       expect(clock.count, 0);
       clock.dispose();
       playing.dispose();
+      pointerHistory.dispose();
       await checkWallCardMotion(tester);
     },
   );

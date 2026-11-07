@@ -5,6 +5,7 @@ import 'package:folia_mobile/library/bravais/tiles/bravais_card_palette.dart';
 import 'package:folia_mobile/library/bravais/tiles/bravais_item.dart';
 import 'package:folia_mobile/library/bravais/tiles/skin/bravais_card_layer.dart';
 import 'package:folia_mobile/library/bravais/tiles/skin/bravais_card_skin.dart';
+import 'package:folia_mobile/library/bravais/tiles/skin/bravais_card_motion.dart';
 import 'package:folia_mobile/library/bravais/tiles/artwork/bravais_album_art_motion.dart';
 import 'package:folia_mobile/library/bravais/bravais_album_art.dart';
 import 'package:folia_mobile/library/wall/wall_css_filter.dart';
@@ -135,6 +136,36 @@ Future<void> checkWallCardMotion(WidgetTester tester) async {
   expect(artClock.count, 0);
   art.dispose();
   artClock.dispose();
+  final breatheClock = _Frames();
+  now = 0;
+  final breathe = BravaisCardMotion(
+    frames: breatheClock,
+    nowMs: () => now,
+    look: const BravaisCardLook(
+      face: BravaisCardFace(null, BravaisTileKind.wall),
+      palette: palette,
+      width: 128,
+      height: 128,
+    ),
+    loading: true,
+  );
+  breathe.addListener(listener);
+  expect(breathe.opacity, .55);
+  expect(breatheClock.count, 1);
+  now = 1200;
+  breatheClock.tick();
+  expect(breathe.opacity, 1);
+  breathe.active = false;
+  expect(breatheClock.count, 0);
+  now = 2400;
+  breathe.active = true;
+  expect(breathe.opacity, .55);
+  breathe.loading = false;
+  breathe.update(breathe.look);
+  expect(breathe.opacity, 1);
+  expect(breatheClock.count, 0);
+  breathe.dispose();
+  breatheClock.dispose();
   expect(
     const WallCssFilter([WallFilterOp(WallFilterKind.saturate, 1.08)])
         .compatible(

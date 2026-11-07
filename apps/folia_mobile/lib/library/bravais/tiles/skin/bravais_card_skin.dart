@@ -28,6 +28,7 @@ class BravaisCardSkin extends StatefulWidget {
     this.mosaic = false,
     this.reducedMotion = false,
     this.active = true,
+    this.loading = false,
   });
   final BravaisCardLook look;
   final Listenable frames;
@@ -36,7 +37,7 @@ class BravaisCardSkin extends StatefulWidget {
   final Widget? cover, badge, copy, marks;
   final List<Widget> artwork;
   final Widget Function(Widget glint)? expandedBody;
-  final bool mosaic, reducedMotion, active;
+  final bool mosaic, reducedMotion, active, loading;
   @override
   State<BravaisCardSkin> createState() => _BravaisCardSkinState();
 }
@@ -53,6 +54,7 @@ class _BravaisCardSkinState extends State<BravaisCardSkin> {
       nowMs: widget.nowMs,
       reducedMotion: widget.reducedMotion,
       active: false,
+      loading: widget.loading,
     );
   }
 
@@ -68,6 +70,7 @@ class _BravaisCardSkinState extends State<BravaisCardSkin> {
     super.didUpdateWidget(old);
     _motion.rebind(widget.frames, widget.nowMs);
     _motion.reducedMotion = widget.reducedMotion;
+    _motion.loading = widget.loading;
     _motion.active = widget.active && _tickerEnabled;
     _motion.update(widget.look);
   }

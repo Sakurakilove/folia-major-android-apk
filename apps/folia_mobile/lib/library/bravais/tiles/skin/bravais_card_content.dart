@@ -37,6 +37,7 @@ class BravaisCardContent extends StatefulWidget {
     this.reducedMotion = false,
     this.active = true,
     this.managingHidden = false,
+    this.loading = false,
   });
   final String slotKey;
   final BravaisCardLook look;
@@ -45,7 +46,12 @@ class BravaisCardContent extends StatefulWidget {
   final BravaisCardResources resources;
   final BravaisCardActions actions;
   final BravaisTileMotion<dynamic>? flight;
-  final bool queued, entersLattice, reducedMotion, active, managingHidden;
+  final bool queued,
+      entersLattice,
+      reducedMotion,
+      active,
+      managingHidden,
+      loading;
   @override
   State<BravaisCardContent> createState() => _BravaisCardContentState();
 }
@@ -117,6 +123,7 @@ class _BravaisCardContentState extends State<BravaisCardContent> {
       flight: w.flight,
       reducedMotion: w.reducedMotion,
       active: _active,
+      loading: w.loading,
       mosaic: art?.mode == BravaisArtMode.mosaic,
       cover: item == null || art?.mode == BravaisArtMode.mosaic
           ? null

@@ -80,7 +80,7 @@ class RenderBravaisCard extends RenderProxyBox {
     final filter = _motion.filter,
         alpha = (_flight?.sample.opacityEffect ?? false)
             ? 1.0
-            : _motion.value(BravaisCardPhase.opacity);
+            : _motion.opacity;
     if (filter == _lastFilter && alpha == _lastAlpha) return _nativeFilter;
     _lastFilter = filter;
     _lastAlpha = alpha;

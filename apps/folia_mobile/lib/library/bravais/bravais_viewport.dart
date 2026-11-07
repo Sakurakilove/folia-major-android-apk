@@ -11,6 +11,7 @@ import 'bravais_frame.dart';
 import 'bravais_plate_painter.dart';
 
 part 'bravais_viewport_widget.dart';
+part 'bravais_viewport_order.dart';
 
 // Native camera invalidation changes paint only; finite focus reflows relayout just the children whose sizes changed.
 class RenderBravaisViewport extends RenderBox
@@ -19,6 +20,31 @@ class RenderBravaisViewport extends RenderBox
         RenderBoxContainerDefaultsMixin<RenderBox, BravaisSeatData> {
   RenderBravaisViewport(this._frame, this._dpr);
   ValueListenable<BravaisFrame> _frame;
+  List<RenderBox>? _ordered;
+  void invalidateOrder() {
+    _ordered = null;
+    markNeedsPaint();
+    markNeedsSemanticsUpdate();
+  }
+
+  @override
+  void adoptChild(RenderObject child) {
+    _ordered = null;
+    super.adoptChild(child);
+  }
+
+  @override
+  void dropChild(RenderObject child) {
+    _ordered = null;
+    super.dropChild(child);
+  }
+
+  @override
+  void move(RenderBox child, {RenderBox? after}) {
+    _ordered = null;
+    super.move(child, after: after);
+  }
+
   double _dpr;
   BravaisPlatePainter? _plates;
   set plates(BravaisPlatePainter? value) {
@@ -167,8 +193,7 @@ class RenderBravaisViewport extends RenderBox
                 plates.paint(canvas, left, _reflow?.value ?? const {});
                 canvas.restore();
               }
-              var child = firstChild;
-              while (child != null) {
+              for (final child in _paintOrder) {
                 final data = child.parentData! as BravaisSeatData;
                 if (_onLeft(data) == left) {
                   context.paintChild(
@@ -176,7 +201,6 @@ class RenderBravaisViewport extends RenderBox
                     offset + Offset(data.rect!.x, data.rect!.y),
                   );
                 }
-                child = data.nextSibling;
               }
             },
             oldLayer: owner.layer,
@@ -191,8 +215,7 @@ class RenderBravaisViewport extends RenderBox
   @override
   bool hitTestChildren(BoxHitTestResult result, {required Offset position}) {
     for (final left in [false, true]) {
-      var child = lastChild;
-      while (child != null) {
+      for (final child in _paintOrder.reversed) {
         final target = child, data = target.parentData! as BravaisSeatData;
         if (_onLeft(data) == left &&
             result.addWithPaintTransform(
@@ -203,7 +226,6 @@ class RenderBravaisViewport extends RenderBox
             )) {
           return true;
         }
-        child = data.previousSibling;
       }
     }
     return false;

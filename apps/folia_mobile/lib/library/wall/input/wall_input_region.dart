@@ -191,6 +191,9 @@ enum WallInputControl { control, editable }
 // Event-keyed weak storage exists only during pointer dispatch; leaf controls mark the same event before the wall ancestor sees it.
 final _wallControls = Expando<WallInputControl>();
 
+WallInputControl? wallInputControlOf(PointerEvent event) =>
+    _wallControls[event.original ?? event];
+
 class WallControlRegion extends StatelessWidget {
   const WallControlRegion({
     super.key,

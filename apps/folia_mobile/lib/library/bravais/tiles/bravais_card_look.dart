@@ -34,6 +34,24 @@ class BravaisCardLook {
       lightsOut,
       tinted,
       stackEdges;
+  BravaisCardLook showing(
+    BravaisCardFace shown, {
+    required bool current,
+    required bool hovered,
+  }) => BravaisCardLook(
+    face: shown,
+    palette: palette,
+    width: width,
+    height: height,
+    current: current,
+    expanded: expanded,
+    focused: focused,
+    hovered: hovered,
+    linked: linked,
+    lightsOut: lightsOut,
+    tinted: tinted,
+    stackEdges: stackEdges,
+  );
   bool get isExpanded => expanded && face.item?.kind == BravaisItemKind.track;
   bool get selected => face.item?.selected ?? false;
   bool get dimmed => (face.item?.dimmed ?? false) && !isExpanded;
