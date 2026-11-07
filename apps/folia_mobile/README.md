@@ -34,3 +34,10 @@ Shared native subtitles now include the original exit retention, two tracks, loc
 
 
 The existing small wall artwork check also samples original SVG noise and native ownership. Its host libraries are selected by `FOLIA_URL_LIBRARY`, `FOLIA_ARTWORK_LIBRARY` and `FOLIA_RENDERING_LIBRARY`; the last is built from `android/app/src/main/cpp/rendering/svg_noise.cpp` (C++17). `tool/generate_wall_noise_reference.cjs` reads the fixed original SVG recipes. [Noise provenance](lib/rendering/noise/UPSTREAM.md) distinguishes these small observations from pending CSS background sizing/material/device acceptance. Native static textures preserve the requested DPR; no running animation is replaced with a static texture.
+
+The original Bravais poster seeds, bleed paths and artist/album palette rules
+now live in `lib/library/bravais/poster`, sharing the original discrete color
+helpers and Tempera palette. The focused wall-card check includes their pure
+source observations; it does not certify complete poster pages, native color
+extraction, fonts, entrances or the full Tempera lyric mode. Seam material
+comparison still has two strict unresolved clear-edge observations.

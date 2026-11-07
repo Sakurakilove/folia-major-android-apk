@@ -1,4 +1,13 @@
 // JavaScript Number.toString's decimal/exponent cutoffs and -0 spelling are part of original persisted/cache/layout keys.
+double jsRound(double value) {
+  if (!value.isFinite || value == 0 || value.abs() >= 4503599627370496) {
+    return value;
+  }
+  if (value < 0 && value >= -.5) return -0.0;
+  final lower = value.floorToDouble();
+  return value - lower < .5 ? lower : lower + 1;
+}
+
 String jsNumberString(double value) {
   if (value.isNaN) return 'NaN';
   if (value == double.infinity) return 'Infinity';
