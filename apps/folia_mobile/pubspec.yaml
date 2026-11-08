@@ -40,6 +40,7 @@ flutter:
     - assets/motion-dom-LICENSE.md
     - assets/Skia-LICENSE.txt
     - assets/Chromium-LICENSE.txt
+    - assets/Blink-LICENSE.txt
     - assets/AndroidLiquidGlass.txt
     - assets/LICENSE
     - assets/original/

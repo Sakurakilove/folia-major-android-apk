@@ -368,6 +368,8 @@
         "apps/folia_mobile/lib/library/bravais/poster/album/bravais_album_ground_painter.dart",
         "apps/folia_mobile/lib/library/bravais/poster/album/bravais_album_ground_patterns.dart",
         "apps/folia_mobile/lib/library/bravais/poster/album/bravais_album_ground_program.dart",
+        "apps/folia_mobile/lib/library/bravais/poster/album/bravais_album_layout.dart",
+        "apps/folia_mobile/lib/library/bravais/poster/album/bravais_album_layout_box.dart",
         "apps/folia_mobile/lib/library/bravais/poster/album/bravais_album_motion.dart",
         "apps/folia_mobile/lib/library/bravais/poster/album/bravais_album_signal.dart",
         "apps/folia_mobile/lib/library/bravais/poster/bravais_album_composition.dart",

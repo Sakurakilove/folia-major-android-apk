@@ -1,0 +1,340 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "engine": "154.0.8037.57",
+  "scope": "Fixed content boxes with animations/rotations disabled, retaining tape half-width translation, to isolate CSS layout; real fonts and complete device pages remain pending.",
+  "seed": "album:source",
+  "composition": {
+    "coverDeg": 4.179279323667288,
+    "tape": {
+      "x": 54.78548605646938,
+      "deg": 3.083063866943121
+    },
+    "divider": {
+      "left": 56.53661979548633,
+      "right": 46.14115301752463
+    },
+    "underline": 59.46309697069228,
+    "hero": {
+      "x": 0.09055149607360363,
+      "y": 0.186234462428838,
+      "deg": -6.919358507031575
+    },
+    "ghostSide": "right"
+  },
+  "sourceHashes": {
+    "src/library/suites/bravais/bravaisPoster.css": "0989b2b1e1058b9cd9ec7c3f0ead7dddf7920ee07d5a849b6cfa21572628ceb6",
+    "src/library/suites/bravais/bravaisAlbumPoster.css": "11e06d7d6fe90fb7c3043496e2c6fbdf09a9424a95dfb2785431bb7b8b54a3df",
+    "src/library/suites/bravais/bravaisPosterComposition.ts": "c44ebbe880845601b5c5e08d1c6f3eb5c6633fe2eb622afaa184348b1701ae11"
+  },
+  "cases": [
+    {
+      "input": {
+        "width": 520,
+        "height": 844,
+        "top": 36,
+        "title": 200,
+        "bottom": [
+          20,
+          40
+        ]
+      },
+      "boxes": {
+        "top": {
+          "x": 20,
+          "y": 18,
+          "width": 460,
+          "height": 36
+        },
+        "stage": {
+          "x": 0,
+          "y": 54,
+          "width": 520,
+          "height": 430
+        },
+        "cover": {
+          "x": 58,
+          "y": 138.734375,
+          "width": 278.515625,
+          "height": 278.515625
+        },
+        "tape": {
+          "x": 168.8046875,
+          "y": 126.734375,
+          "width": 83.546875,
+          "height": 24
+        },
+        "scrap": {
+          "x": 470,
+          "y": 78,
+          "width": 20,
+          "height": 100
+        },
+        "title": {
+          "x": 40,
+          "y": 512,
+          "width": 440,
+          "height": 200
+        },
+        "bottom0": {
+          "x": 40,
+          "y": 732,
+          "width": 440,
+          "height": 20
+        },
+        "bottom1": {
+          "x": 40,
+          "y": 764,
+          "width": 440,
+          "height": 40
+        }
+      }
+    },
+    {
+      "input": {
+        "width": 680,
+        "height": 360,
+        "top": 60,
+        "title": 190,
+        "bottom": [
+          30,
+          40,
+          20
+        ]
+      },
+      "boxes": {
+        "top": {
+          "x": 20,
+          "y": 18,
+          "width": 620,
+          "height": 60
+        },
+        "stage": {
+          "x": 0,
+          "y": 78,
+          "width": 680,
+          "height": 18
+        },
+        "cover": {
+          "x": 58,
+          "y": 36.609375,
+          "width": 118.796875,
+          "height": 118.796875
+        },
+        "tape": {
+          "x": 105.265625,
+          "y": 24.609375,
+          "width": 35.625,
+          "height": 24
+        },
+        "scrap": {
+          "x": 630,
+          "y": 102,
+          "width": 20,
+          "height": 12.59375
+        },
+        "title": {
+          "x": 40,
+          "y": 124,
+          "width": 600,
+          "height": 190
+        },
+        "bottom0": {
+          "x": 40,
+          "y": 334,
+          "width": 600,
+          "height": 30
+        },
+        "bottom1": {
+          "x": 40,
+          "y": 376,
+          "width": 600,
+          "height": 40
+        },
+        "bottom2": {
+          "x": 40,
+          "y": 428,
+          "width": 600,
+          "height": 20
+        }
+      }
+    },
+    {
+      "input": {
+        "width": 121,
+        "height": 123,
+        "top": 0,
+        "title": 0,
+        "bottom": []
+      },
+      "boxes": {
+        "top": {
+          "x": 20,
+          "y": 18,
+          "width": 61,
+          "height": 0
+        },
+        "stage": {
+          "x": 0,
+          "y": 18,
+          "width": 121,
+          "height": 18
+        },
+        "cover": {
+          "x": 58,
+          "y": 15.71875,
+          "width": 40.578125,
+          "height": 40.578125
+        },
+        "tape": {
+          "x": 74.1328125,
+          "y": 3.71875,
+          "width": 12.171875,
+          "height": 24
+        },
+        "scrap": {
+          "x": 71,
+          "y": 42,
+          "width": 20,
+          "height": 12.59375
+        },
+        "title": {
+          "x": 40,
+          "y": 64,
+          "width": 41,
+          "height": 0
+        }
+      }
+    },
+    {
+      "input": {
+        "width": 520,
+        "height": 1200,
+        "top": 36,
+        "title": 420,
+        "bottom": [
+          20,
+          20,
+          60,
+          30
+        ]
+      },
+      "boxes": {
+        "top": {
+          "x": 20,
+          "y": 18,
+          "width": 460,
+          "height": 36
+        },
+        "stage": {
+          "x": 0,
+          "y": 54,
+          "width": 520,
+          "height": 472
+        },
+        "cover": {
+          "x": 58,
+          "y": 153.40625,
+          "width": 291.1875,
+          "height": 291.1875
+        },
+        "tape": {
+          "x": 173.84375,
+          "y": 141.40625,
+          "width": 87.34375,
+          "height": 24
+        },
+        "scrap": {
+          "x": 470,
+          "y": 78,
+          "width": 20,
+          "height": 100
+        },
+        "title": {
+          "x": 40,
+          "y": 554,
+          "width": 440,
+          "height": 420
+        },
+        "bottom0": {
+          "x": 40,
+          "y": 994,
+          "width": 440,
+          "height": 20
+        },
+        "bottom1": {
+          "x": 40,
+          "y": 1026,
+          "width": 440,
+          "height": 20
+        },
+        "bottom2": {
+          "x": 40,
+          "y": 1058,
+          "width": 440,
+          "height": 60
+        },
+        "bottom3": {
+          "x": 40,
+          "y": 1130,
+          "width": 440,
+          "height": 30
+        }
+      }
+    },
+    {
+      "input": {
+        "width": 400,
+        "height": 600,
+        "top": 36,
+        "title": 100,
+        "bottom": [
+          20
+        ]
+      },
+      "boxes": {
+        "top": {
+          "x": 20,
+          "y": 18,
+          "width": 340,
+          "height": 36
+        },
+        "stage": {
+          "x": 0,
+          "y": 54,
+          "width": 400,
+          "height": 338
+        },
+        "cover": {
+          "x": 58,
+          "y": 133,
+          "width": 198,
+          "height": 198
+        },
+        "tape": {
+          "x": 136.7734375,
+          "y": 121,
+          "width": 59.390625,
+          "height": 24
+        },
+        "scrap": {
+          "x": 350,
+          "y": 78,
+          "width": 20,
+          "height": 100
+        },
+        "title": {
+          "x": 40,
+          "y": 420,
+          "width": 320,
+          "height": 100
+        },
+        "bottom0": {
+          "x": 40,
+          "y": 540,
+          "width": 320,
+          "height": 20
+        }
+      }
+    }
+  ]
+}

@@ -4,6 +4,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import '../../../../artwork/wall_artwork_image.dart';
+import '../../../../rendering/css_numeric.dart';
 import '../../../wall/wall_box_shadows.dart';
 import '../bravais_album_composition.dart';
 import 'bravais_album_entrance.dart';
@@ -35,7 +36,10 @@ class BravaisAlbumCover extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final side = math.min(posterSize.width * .56, posterSize.height * .33);
+    final side = math.min(
+      cssLayoutPercent(posterSize.width, 56),
+      cssLayoutPercent(posterSize.height, 33),
+    );
     return SizedBox.square(
       dimension: side,
       child: BravaisAlbumEntranceLayer(
@@ -46,7 +50,7 @@ class BravaisAlbumCover extends StatelessWidget {
             key: anchor,
             onLayout: onLayout,
             hasImage: provider != null,
-            tapeX: composition.tape.x / 100,
+            tapeX: composition.tape.x,
             ink: ink,
             block: block,
             image: WallArtworkImage(provider: provider),

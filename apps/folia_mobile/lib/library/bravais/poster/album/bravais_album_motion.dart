@@ -114,8 +114,8 @@ BravaisAlbumMotion sampleBravaisAlbumMotion({
       return _frame(
         opacity: opacity,
         y: -28 * (1 - p),
-        scaleX: 1.14 - .14 * p,
-        scaleY: 1.14 - .14 * p,
+        scaleX: 1.14 + (1 - 1.14) * p,
+        scaleY: 1.14 + (1 - 1.14) * p,
       );
     case BravaisAlbumPart.tape:
       final t = _phase(elapsed, 820, 300),

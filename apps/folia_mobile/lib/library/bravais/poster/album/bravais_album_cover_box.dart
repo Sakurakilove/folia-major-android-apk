@@ -62,10 +62,10 @@ class RenderBravaisAlbumCoverBox extends RenderBox
     final image = firstChild!, tape = childAfter(image)!;
     image.layout(BoxConstraints.tight(size));
     (image.parentData! as _AlbumCoverParentData).offset = Offset.zero;
-    final tapeWidth = size.width * .3;
+    final tapeWidth = cssLayoutPercent(size.width, 30);
     tape.layout(BoxConstraints.tight(Size(tapeWidth, 24)));
     (tape.parentData! as _AlbumCoverParentData).offset = Offset(
-      size.width * _tapeX - tapeWidth / 2,
+      cssLayoutPercent(size.width, _tapeX) - tapeWidth / 2,
       -12,
     );
     _onLayout?.call();
