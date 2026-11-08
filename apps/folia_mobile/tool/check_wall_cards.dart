@@ -18,6 +18,7 @@ import 'wall_album_motion_contract.dart';
 import 'wall_poster_text_contract.dart';
 import 'wall_album_layout_contract.dart';
 import 'wall_poster_control_contract.dart';
+import 'wall_navigation_contract.dart';
 
 // One focused native layout/action/lifecycle check. It does not certify Chromium font metrics, balanced line breaks or full wall pixels.
 void main() {
@@ -182,6 +183,7 @@ void main() {
       await checkWallSeam(tester);
       await checkWallCoverFlights(tester);
       checkWallPosters();
+      checkWallNavigation();
       await checkWallAlbumMotion(tester);
       await checkWallPosterText();
       await checkWallAlbumLayout(tester);

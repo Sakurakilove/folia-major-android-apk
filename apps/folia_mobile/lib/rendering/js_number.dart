@@ -1,4 +1,36 @@
-// JavaScript Number.toString's decimal/exponent cutoffs and -0 spelling are part of original persisted/cache/layout keys.
+import 'js_text.dart';
+
+// JavaScript numeric text/coercion and -0 spelling are part of original persisted/cache/layout keys.
+final _decimalNumber = RegExp(r'^[+-]?(?:\d+\.?\d*|\.\d+)(?:[eE][+-]?\d+)?$'),
+    _hexNumber = RegExp(r'^0[xX][0-9a-fA-F]+$'),
+    _octalNumber = RegExp(r'^0[oO][0-7]+$'),
+    _binaryNumber = RegExp(r'^0[bB][01]+$');
+double jsNumberFromString(String input) {
+  final text = jsTrim(input);
+  if (text.isEmpty) return 0;
+  if (text == 'Infinity' || text == '+Infinity') return double.infinity;
+  if (text == '-Infinity') return double.negativeInfinity;
+  final radix = _hexNumber.hasMatch(text)
+      ? 16
+      : _octalNumber.hasMatch(text)
+      ? 8
+      : _binaryNumber.hasMatch(text)
+      ? 2
+      : null;
+  if (radix != null) {
+    var start = 2;
+    while (start < text.length && text.codeUnitAt(start) == 48) {
+      start++;
+    }
+    if (start == text.length) return 0;
+    if (text.length - start > 1024) return double.infinity;
+    return BigInt.parse(text.substring(start), radix: radix).toDouble();
+  }
+  return _decimalNumber.hasMatch(text)
+      ? double.tryParse(text) ?? double.nan
+      : double.nan;
+}
+
 double jsRound(double value) {
   if (!value.isFinite || value == 0 || value.abs() >= 4503599627370496) {
     return value;

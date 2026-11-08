@@ -1,5 +1,6 @@
 import 'block_templates.dart';
 import 'wall_types.dart';
+import '../../rendering/js_number.dart';
 
 // A home wall seat is a world identity, independent of content/filter/reflow; only its rectangle changes on expansion.
 class WallSlot {
@@ -79,19 +80,15 @@ WallSlot? wallSlot(int column, int row, int slotIndex, WallMetrics metrics) =>
 ({int column, int row, int slotIndex})? parseWallSlotKey(String key) {
   final parts = key.split(',');
   if (parts.length != 3) return null;
-  // Source Number() accepts surrounding whitespace, empty strings and integral decimal/exponent forms.
-  final values = parts
-      .map((part) => part.trim().isEmpty ? 0.0 : double.tryParse(part.trim()))
-      .toList(growable: false);
-  if (values.any(
-    (v) => v == null || !v.isFinite || v != v.truncateToDouble(),
-  )) {
+  // Source Number() also accepts radix prefixes and precisely ECMAScript whitespace.
+  final values = parts.map(jsNumberFromString).toList(growable: false);
+  if (values.any((v) => !v.isFinite || v != v.truncateToDouble())) {
     return null;
   }
   return (
-    column: values[0]!.toInt(),
-    row: values[1]!.toInt(),
-    slotIndex: values[2]!.toInt(),
+    column: values[0].toInt(),
+    row: values[1].toInt(),
+    slotIndex: values[2].toInt(),
   );
 }
 
