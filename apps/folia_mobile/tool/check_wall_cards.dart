@@ -17,6 +17,7 @@ import 'wall_poster_contract.dart';
 import 'wall_album_motion_contract.dart';
 import 'wall_poster_text_contract.dart';
 import 'wall_album_layout_contract.dart';
+import 'wall_poster_control_contract.dart';
 
 // One focused native layout/action/lifecycle check. It does not certify Chromium font metrics, balanced line breaks or full wall pixels.
 void main() {
@@ -32,7 +33,13 @@ void main() {
       transition.advance(182.337);
       expect(transition.value, .45);
       expect(transition.isAnimating, false);
-      final strings = (await tester.runAsync(() => FoliaStrings.load('en')))!,
+      final prepared = (await tester.runAsync(
+            () async => (
+              icon: (await FoliaIconRepository.shared.load('Play'))!,
+              strings: await FoliaStrings.load('en'),
+            ),
+          ))!,
+          strings = prepared.strings,
           clock = _Frames(),
           playing = ValueNotifier(false),
           calls = <String>[];
@@ -178,6 +185,7 @@ void main() {
       await checkWallAlbumMotion(tester);
       await checkWallPosterText();
       await checkWallAlbumLayout(tester);
+      await checkWallPosterControl(tester, prepared.icon);
     },
   );
 }

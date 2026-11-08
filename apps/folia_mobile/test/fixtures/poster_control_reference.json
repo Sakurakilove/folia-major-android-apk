@@ -1,0 +1,361 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "engine": "154.0.8037.57",
+  "scope": "Original computed-style targets and no-transform minimum height; real glyphs, backdrop compositing, focus pixels/full pages/devices remain pending.",
+  "sourceHashes": {
+    "src/library/suites/bravais/bravaisPoster.css": "0989b2b1e1058b9cd9ec7c3f0ead7dddf7920ee07d5a849b6cfa21572628ceb6",
+    "src/library/suites/bravais/bravaisAlbumPoster.css": "11e06d7d6fe90fb7c3043496e2c6fbdf09a9424a95dfb2785431bb7b8b54a3df"
+  },
+  "cases": [
+    {
+      "input": {
+        "album": false,
+        "primary": false,
+        "hovered": false,
+        "dpr": 1
+      },
+      "style": {
+        "background": [
+          0.0784313725490196,
+          0.0784313725490196,
+          0.08627450980392157,
+          0.3
+        ],
+        "border": [
+          1,
+          1,
+          1,
+          0.85
+        ],
+        "ink": [
+          0.9647058823529412,
+          0.9647058823529412,
+          0.9647058823529412,
+          1
+        ],
+        "borderWidth": 1,
+        "weight": 800,
+        "shadow": null,
+        "height": 46
+      }
+    },
+    {
+      "input": {
+        "album": false,
+        "primary": false,
+        "hovered": true,
+        "dpr": 1
+      },
+      "style": {
+        "background": [
+          1,
+          1,
+          1,
+          0.16
+        ],
+        "border": [
+          1,
+          1,
+          1,
+          0.85
+        ],
+        "ink": [
+          0.9647058823529412,
+          0.9647058823529412,
+          0.9647058823529412,
+          1
+        ],
+        "borderWidth": 1,
+        "weight": 800,
+        "shadow": null,
+        "height": 46
+      }
+    },
+    {
+      "input": {
+        "album": false,
+        "primary": true,
+        "hovered": false,
+        "dpr": 1
+      },
+      "style": {
+        "background": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "border": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "ink": [
+          0.16470588235294117,
+          0.16470588235294117,
+          0.17254901960784313,
+          1
+        ],
+        "borderWidth": 1,
+        "weight": 900,
+        "shadow": [
+          0.22745098039215686,
+          0.22745098039215686,
+          0.23921568627450981,
+          1
+        ],
+        "height": 46
+      }
+    },
+    {
+      "input": {
+        "album": false,
+        "primary": true,
+        "hovered": true,
+        "dpr": 1
+      },
+      "style": {
+        "background": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "border": [
+          1,
+          1,
+          1,
+          1
+        ],
+        "ink": [
+          0.16470588235294117,
+          0.16470588235294117,
+          0.17254901960784313,
+          1
+        ],
+        "borderWidth": 1,
+        "weight": 900,
+        "shadow": [
+          0.22745098039215686,
+          0.22745098039215686,
+          0.23921568627450981,
+          1
+        ],
+        "height": 46
+      }
+    },
+    {
+      "input": {
+        "album": true,
+        "primary": false,
+        "hovered": false,
+        "dpr": 1
+      },
+      "style": {
+        "background": [
+          0.9372549019607843,
+          0.9137254901960784,
+          0.8627450980392157,
+          1
+        ],
+        "border": [
+          0.0784313725490196,
+          0.07058823529411765,
+          0.06274509803921569,
+          1
+        ],
+        "ink": [
+          0.0784313725490196,
+          0.07058823529411765,
+          0.06274509803921569,
+          1
+        ],
+        "borderWidth": 2,
+        "weight": 800,
+        "shadow": [
+          0.0784313725490196,
+          0.07058823529411765,
+          0.06274509803921569,
+          1
+        ],
+        "height": 46
+      }
+    },
+    {
+      "input": {
+        "album": true,
+        "primary": false,
+        "hovered": true,
+        "dpr": 1
+      },
+      "style": {
+        "background": [
+          0.81702,
+          0.795686,
+          0.750745,
+          1
+        ],
+        "border": [
+          0.0784313725490196,
+          0.07058823529411765,
+          0.06274509803921569,
+          1
+        ],
+        "ink": [
+          0.0784313725490196,
+          0.07058823529411765,
+          0.06274509803921569,
+          1
+        ],
+        "borderWidth": 2,
+        "weight": 800,
+        "shadow": [
+          0.0784313725490196,
+          0.07058823529411765,
+          0.06274509803921569,
+          1
+        ],
+        "height": 46
+      }
+    },
+    {
+      "input": {
+        "album": true,
+        "primary": true,
+        "hovered": false,
+        "dpr": 1
+      },
+      "style": {
+        "background": [
+          0.8941176470588236,
+          0.27450980392156865,
+          0.16862745098039217,
+          1
+        ],
+        "border": [
+          0.0784313725490196,
+          0.07058823529411765,
+          0.06274509803921569,
+          1
+        ],
+        "ink": [
+          0.9372549019607843,
+          0.9137254901960784,
+          0.8627450980392157,
+          1
+        ],
+        "borderWidth": 2,
+        "weight": 900,
+        "shadow": [
+          0.0784313725490196,
+          0.07058823529411765,
+          0.06274509803921569,
+          1
+        ],
+        "height": 46
+      }
+    },
+    {
+      "input": {
+        "album": true,
+        "primary": true,
+        "hovered": true,
+        "dpr": 1
+      },
+      "style": {
+        "background": [
+          0.8941176470588236,
+          0.27450980392156865,
+          0.16862745098039217,
+          1
+        ],
+        "border": [
+          0.0784313725490196,
+          0.07058823529411765,
+          0.06274509803921569,
+          1
+        ],
+        "ink": [
+          0.9372549019607843,
+          0.9137254901960784,
+          0.8627450980392157,
+          1
+        ],
+        "borderWidth": 2,
+        "weight": 900,
+        "shadow": [
+          0.0784313725490196,
+          0.07058823529411765,
+          0.06274509803921569,
+          1
+        ],
+        "height": 46
+      }
+    },
+    {
+      "input": {
+        "album": false,
+        "primary": false,
+        "hovered": false,
+        "dpr": 2
+      },
+      "style": {
+        "background": [
+          0.0784313725490196,
+          0.0784313725490196,
+          0.08627450980392157,
+          0.3
+        ],
+        "border": [
+          1,
+          1,
+          1,
+          0.85
+        ],
+        "ink": [
+          0.9647058823529412,
+          0.9647058823529412,
+          0.9647058823529412,
+          1
+        ],
+        "borderWidth": 1,
+        "weight": 800,
+        "shadow": null,
+        "height": 46
+      }
+    },
+    {
+      "input": {
+        "album": false,
+        "primary": false,
+        "hovered": false,
+        "dpr": 3.5
+      },
+      "style": {
+        "background": [
+          0.0784313725490196,
+          0.0784313725490196,
+          0.08627450980392157,
+          0.3
+        ],
+        "border": [
+          1,
+          1,
+          1,
+          0.85
+        ],
+        "ink": [
+          0.9647058823529412,
+          0.9647058823529412,
+          0.9647058823529412,
+          1
+        ],
+        "borderWidth": 1,
+        "weight": 800,
+        "shadow": null,
+        "height": 46
+      }
+    }
+  ]
+}

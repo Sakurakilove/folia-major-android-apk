@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:path_drawing/path_drawing.dart';
 
+part 'folia_prepared_icon.dart';
+
 // Exact Lucide node data is exported at build time; SVG paths are parsed once, then painted natively.
 class FoliaIconData {
   FoliaIconData.fromJson(Map<String, dynamic> data)
