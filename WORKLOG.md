@@ -670,3 +670,6 @@
 
 - WALL-FOCUS-02（2026-11-08）迁入原普通/主页键模型、Escape逐层优先级、Process/Unidentified输入法入口与code point文字键规则；39键输入、8个Escape状态、24文字键、24普通/12海报可见区域原输出通过。这里只完成模型，真实全局输入/defaultPrevented/IME/Tab station与完整action路由仍待装配，不能说完整键盘已迁完。普通rect揭示保留seam边界/播放器底部安全区/大rect fallback；海报保留四角变换、八次迭代和完全展开限制。WallSlot/WallRect共享只读WallGeometry接口，方向寻位直接读slot，不逐候选新建rect。
 - WALL-FOCUS-03 实际BravaisFocusModel与BravaisWallScene接通：事件期ref焦点/展开立即变化，绘制rect保留上次build commit的reflow，expand用新展开geometry揭示。生成器直接执行原useBravaisFocus hook并分开event/render commit，21步trace通过，不把规则复制进参考实现。真实wall实例焦点/展开/隐藏恢复复核通过；首次检查误认为目标slot必须变宽，改选实际发生geometry变化的slot并严格比较源目标rect，而非放宽断言。有限动画结束/隐藏/卸载保持0帧监听，没有给focus增加ticker或channel。既有card单例通过，artwork首例先通过本次真实scene/flight/lifecycle检查后仍在已知ground 65/72严格色值差异失败，后续seam未执行；不重复跑未变化的门槛。最新analyzer无问题，原完整前端对照不改，78组10迁移中/68待迁移/0最终验收不变，继续浏览会话与完整页面装配，不交付替换APK。
+
+- WALL-SESSION-02（2026-11-08）原跨suite内存query/focus会话与BravaisSessionFocus实际生命周期迁入native，容量32按原写入顺序淘汰；相同值不通知、不挪最近顺序，清不存在会话也换代。离散note不写store，persist区分省略/显式null且不受换代拦截，flush只在touched/非空/同代时写；重复flush不清touched，旧surface注销不会清新owner。dispose先注销再flush，清会话后旧surface不会在卸载写回，保留原返回按钮与Esc差别。此store必须由app跨stage卸载持有，仅内存，不额外落盘/无ticker/无平台桥接；最终surface/导航仍须接线。
+- 最小既有card单例通过原实际store的45步操作与原实际hook的32步挂载/交接/清会话/返回写回trace（含32容量淘汰、no-op通知、覆盖注销顺序与空字符串/null差别）；参考只stub React挂载/cleanup，不复制业务规则。最新analyzer无问题，未跑模拟器/全UI/重复已知ground失败；整组最终验收仍0/78，继续所有剩余迁移，不作为交付完成。

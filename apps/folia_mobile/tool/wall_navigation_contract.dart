@@ -13,6 +13,7 @@ import 'package:folia_mobile/library/bravais/stage/bravais_stage_store.dart';
 
 import 'wall_key_reveal_contract.dart';
 import 'wall_focus_contract.dart';
+import 'wall_session_contract.dart';
 
 // Existing card case only: original pure focus/layout/session/store observations. No global key routing, persistent Android storage or complete-stage acceptance is implied.
 void checkWallNavigation() {
@@ -40,6 +41,7 @@ void checkWallNavigation() {
   expect(bravaisLayoutStoragePrefix, data['prefix']);
   checkWallKeysAndReveal(data);
   checkWallFocus(data['focus']);
+  checkWallSessions(data['sessions']);
   for (final row in data['moves']) {
     final shape = shapes[row['shape']],
         c = row['column'] as int,

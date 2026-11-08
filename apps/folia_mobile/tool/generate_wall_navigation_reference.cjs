@@ -95,5 +95,6 @@ for(const base of revealInputs)for(const bottomInset of [24,180]) {
 }
 fs.writeFileSync(path.join(__dirname,'../test/fixtures/wall_navigation_reference.json'),JSON.stringify({baseline,scope:'Original pure selection/session/store outputs; keyboard routing, complete stage and device acceptance remain pending.',
     sourceHashes:Object.fromEntries(paths.map(p=>[p,crypto.createHash('sha256').update(sourceText(p)).digest('hex')])),prefix,shapeInput,moves,nearest,parsed,fits,stage,current,keys,escapes,typing,ordinaryReveal,posters,focus:require('./original_focus_reference.cjs')(),
+    sessions:require('./original_session_reference.cjs')(),
     tokens:[store.takeBravaisLayerToken(),store.takeBravaisLayerToken(),store.takeBravaisLayerToken()]},null,2)+'\n');
 console.log(`Exported ${moves.length} directional, ${parsed.length} parser, ${stage.length} stage and ${current.length} current-layer observations.`);
