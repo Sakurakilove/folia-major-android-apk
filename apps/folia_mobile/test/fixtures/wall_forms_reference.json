@@ -1,0 +1,4141 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "scope": "Original reducer, mutation labels and async executor only. Complete forms, provider mutations and device/visual acceptance remain pending.",
+  "sourceHashes": {
+    "src/library/suites/bravais/bravaisFormModel.ts": "b212656f54a8111aa9e9d796f63ef9696a6d0941e05abcda74037c18d0394b40",
+    "src/library/suites/bravais/useBravaisCollectionForms.ts": "cfc23f40bf3a967df707f26ea7e0bb178b761a7789f5709b279a7c9e6160ff6d",
+    "src/library/suites/bravais/bravaisCollectionStatus.ts": "0761bc7c51c0d0528fade76037f8f88a2127ae378fcb161ccba34277709a1af3"
+  },
+  "labels": {
+    "limitReached": "limit",
+    "dislikeFailed": "dislike",
+    "failed": "failed",
+    "stale": "stale",
+    "unsupported": "unsupported"
+  },
+  "notices": [
+    {
+      "result": {
+        "ok": true
+      },
+      "isDailyRemoval": false,
+      "described": null
+    },
+    {
+      "result": {
+        "ok": true
+      },
+      "isDailyRemoval": true,
+      "described": null
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "busy"
+      },
+      "isDailyRemoval": false,
+      "described": null
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "busy"
+      },
+      "isDailyRemoval": true,
+      "described": null
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "stale"
+      },
+      "isDailyRemoval": false,
+      "described": {
+        "text": "stale",
+        "tone": "info"
+      }
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "stale"
+      },
+      "isDailyRemoval": true,
+      "described": {
+        "text": "stale",
+        "tone": "info"
+      }
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "unsupported"
+      },
+      "isDailyRemoval": false,
+      "described": {
+        "text": "unsupported",
+        "tone": "info"
+      }
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "unsupported"
+      },
+      "isDailyRemoval": true,
+      "described": {
+        "text": "unsupported",
+        "tone": "info"
+      }
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "limit-reached"
+      },
+      "isDailyRemoval": false,
+      "described": {
+        "text": "limit",
+        "tone": "info"
+      }
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "limit-reached"
+      },
+      "isDailyRemoval": true,
+      "described": {
+        "text": "limit",
+        "tone": "info"
+      }
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "failed"
+      },
+      "isDailyRemoval": false,
+      "described": {
+        "text": "failed",
+        "tone": "error"
+      }
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "failed"
+      },
+      "isDailyRemoval": true,
+      "described": {
+        "text": "dislike",
+        "tone": "error"
+      }
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "failed",
+        "message": ""
+      },
+      "isDailyRemoval": false,
+      "described": {
+        "text": "failed",
+        "tone": "error"
+      }
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "failed",
+        "message": ""
+      },
+      "isDailyRemoval": true,
+      "described": {
+        "text": "dislike",
+        "tone": "error"
+      }
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "failed",
+        "message": "upstream"
+      },
+      "isDailyRemoval": false,
+      "described": {
+        "text": "failed · upstream",
+        "tone": "error"
+      }
+    },
+    {
+      "result": {
+        "ok": false,
+        "reason": "failed",
+        "message": "upstream"
+      },
+      "isDailyRemoval": true,
+      "described": {
+        "text": "dislike",
+        "tone": "error"
+      }
+    }
+  ],
+  "reducer": [
+    {
+      "event": {
+        "type": "start-create"
+      },
+      "state": null,
+      "same": true,
+      "open": false
+    },
+    {
+      "event": {
+        "type": "open-rename",
+        "initial": "Name"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Name",
+        "error": null
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "start-create"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Name",
+        "error": null
+      },
+      "same": true,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "result",
+        "result": {
+          "ok": false,
+          "reason": "failed",
+          "message": "raw"
+        }
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Name",
+        "error": "raw"
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "result",
+        "result": {
+          "ok": false,
+          "reason": "busy"
+        },
+        "errorText": "ignored"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Name",
+        "error": "raw"
+      },
+      "same": true,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "result",
+        "result": {
+          "ok": false,
+          "reason": "failed",
+          "message": "raw"
+        },
+        "errorText": ""
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Name",
+        "error": ""
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "result",
+        "result": {
+          "ok": false,
+          "reason": "failed",
+          "message": "raw"
+        },
+        "errorText": "translated"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Name",
+        "error": "translated"
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "result",
+        "result": {
+          "ok": true
+        }
+      },
+      "state": null,
+      "same": false,
+      "open": false
+    },
+    {
+      "event": {
+        "type": "open-delete"
+      },
+      "state": {
+        "kind": "confirm-delete",
+        "error": null
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "result",
+        "result": {
+          "ok": false,
+          "reason": "unsupported"
+        }
+      },
+      "state": {
+        "kind": "confirm-delete",
+        "error": null
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "cancel"
+      },
+      "state": null,
+      "same": false,
+      "open": false
+    },
+    {
+      "event": {
+        "type": "open-pick",
+        "scope": {
+          "kind": "entry",
+          "entryKey": "track:1"
+        }
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "entry",
+          "entryKey": "track:1"
+        },
+        "creating": false,
+        "error": null
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "start-create"
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "entry",
+          "entryKey": "track:1"
+        },
+        "creating": true,
+        "error": null
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "result",
+        "result": {
+          "ok": false,
+          "reason": "stale"
+        },
+        "errorText": "gone"
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "entry",
+          "entryKey": "track:1"
+        },
+        "creating": true,
+        "error": "gone"
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "start-create"
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "entry",
+          "entryKey": "track:1"
+        },
+        "creating": true,
+        "error": null
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "cancel"
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "entry",
+          "entryKey": "track:1"
+        },
+        "creating": false,
+        "error": null
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "cancel"
+      },
+      "state": null,
+      "same": false,
+      "open": false
+    },
+    {
+      "event": {
+        "type": "result",
+        "result": {
+          "ok": false,
+          "reason": "failed"
+        }
+      },
+      "state": null,
+      "same": true,
+      "open": false
+    },
+    {
+      "event": {
+        "type": "open-pick",
+        "scope": {
+          "kind": "collection"
+        }
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": false,
+        "error": null
+      },
+      "same": false,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "result",
+        "result": {
+          "ok": false,
+          "reason": "busy"
+        }
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": false,
+        "error": null
+      },
+      "same": true,
+      "open": true
+    },
+    {
+      "event": {
+        "type": "cancel"
+      },
+      "state": null,
+      "same": false,
+      "open": false
+    }
+  ],
+  "execution": [
+    {
+      "input": {
+        "op": "submit",
+        "text": "no form"
+      },
+      "state": null,
+      "calls": []
+    },
+    {
+      "input": {
+        "op": "rename"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 0",
+        "error": null
+      },
+      "calls": []
+    },
+    {
+      "input": {
+        "op": "begin-submit",
+        "text": "new title"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 0",
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "update",
+        "version": 1
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 0",
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "complete",
+        "result": {
+          "ok": false,
+          "reason": "failed",
+          "message": "denied"
+        }
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 0",
+        "error": "v1:failed"
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "begin-submit",
+        "text": "retry"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 0",
+        "error": "v1:failed"
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "complete",
+        "result": {
+          "ok": false,
+          "reason": "busy"
+        }
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 0",
+        "error": "v1:failed"
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "begin-submit",
+        "text": "done"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 0",
+        "error": "v1:failed"
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "complete",
+        "result": {
+          "ok": true
+        }
+      },
+      "state": null,
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "delete"
+      },
+      "state": {
+        "kind": "confirm-delete",
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "begin-submit",
+        "text": ""
+      },
+      "state": {
+        "kind": "confirm-delete",
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "update",
+        "version": 2
+      },
+      "state": {
+        "kind": "confirm-delete",
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "complete",
+        "result": {
+          "ok": true
+        }
+      },
+      "state": null,
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "open-pick",
+        "scope": {
+          "kind": "entry",
+          "entryKey": "track:1"
+        }
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "entry",
+          "entryKey": "track:1"
+        },
+        "creating": false,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "begin-pick",
+        "playlistId": 12
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "entry",
+          "entryKey": "track:1"
+        },
+        "creating": false,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "cancel"
+      },
+      "state": null,
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "complete",
+        "result": {
+          "ok": false,
+          "reason": "failed"
+        }
+      },
+      "state": null,
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "open-pick",
+        "scope": {
+          "kind": "collection"
+        }
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": false,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "submit",
+        "text": "not creating"
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": false,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "start-create"
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": true,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "begin-submit",
+        "text": "New playlist"
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": true,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "update",
+        "version": 3,
+        "available": false
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": true,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "complete",
+        "result": {
+          "ok": false,
+          "reason": "unsupported"
+        }
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": true,
+        "error": "v3:unsupported"
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "cancel"
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": false,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "pick",
+        "playlistId": "without controller"
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": false,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "rename"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 3",
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "submit",
+        "text": "without controller"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 3",
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "update",
+        "version": 4,
+        "runNull": true
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 3",
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "submit",
+        "text": "null result"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 3",
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        },
+        {
+          "op": "run",
+          "version": 4
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "cancel"
+      },
+      "state": null,
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        },
+        {
+          "op": "run",
+          "version": 4
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "update",
+        "version": 5
+      },
+      "state": null,
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        },
+        {
+          "op": "run",
+          "version": 4
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "open-pick",
+        "scope": {
+          "kind": "collection"
+        }
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": false,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        },
+        {
+          "op": "run",
+          "version": 4
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "start-create"
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": true,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        },
+        {
+          "op": "run",
+          "version": 4
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "begin-pick",
+        "playlistId": "while creating"
+      },
+      "state": {
+        "kind": "pick-playlist",
+        "scope": {
+          "kind": "collection"
+        },
+        "creating": true,
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        },
+        {
+          "op": "run",
+          "version": 4
+        },
+        {
+          "op": "run",
+          "version": 5
+        },
+        {
+          "op": "tracks",
+          "version": 5,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "add",
+          "version": 5,
+          "playlistId": "while creating",
+          "tracks": [
+            "v5:all"
+          ]
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "rename"
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 5",
+        "error": null
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        },
+        {
+          "op": "run",
+          "version": 4
+        },
+        {
+          "op": "run",
+          "version": 5
+        },
+        {
+          "op": "tracks",
+          "version": 5,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "add",
+          "version": 5,
+          "playlistId": "while creating",
+          "tracks": [
+            "v5:all"
+          ]
+        }
+      ]
+    },
+    {
+      "input": {
+        "op": "complete",
+        "result": {
+          "ok": false,
+          "reason": "stale"
+        }
+      },
+      "state": {
+        "kind": "rename",
+        "initial": "Title 5",
+        "error": "v5:stale"
+      },
+      "calls": [
+        {
+          "op": "run",
+          "version": 0
+        },
+        {
+          "op": "rename",
+          "version": 0,
+          "text": "new title"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "failed",
+            "message": "denied"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "retry"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": false,
+            "reason": "busy"
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "rename",
+          "version": 1,
+          "text": "done"
+        },
+        {
+          "op": "describe",
+          "version": 1,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "run",
+          "version": 1
+        },
+        {
+          "op": "delete",
+          "version": 1
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": true
+          }
+        },
+        {
+          "op": "back",
+          "version": 2
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "entry",
+            "entryKey": "track:1"
+          }
+        },
+        {
+          "op": "add",
+          "version": 2,
+          "playlistId": 12,
+          "tracks": [
+            "v2:track:1"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 2,
+          "result": {
+            "ok": false,
+            "reason": "failed"
+          }
+        },
+        {
+          "op": "run",
+          "version": 2
+        },
+        {
+          "op": "tracks",
+          "version": 2,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "create",
+          "version": 2,
+          "text": "New playlist",
+          "tracks": [
+            "v2:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 3,
+          "result": {
+            "ok": false,
+            "reason": "unsupported"
+          }
+        },
+        {
+          "op": "run",
+          "version": 4
+        },
+        {
+          "op": "run",
+          "version": 5
+        },
+        {
+          "op": "tracks",
+          "version": 5,
+          "scope": {
+            "kind": "collection"
+          }
+        },
+        {
+          "op": "add",
+          "version": 5,
+          "playlistId": "while creating",
+          "tracks": [
+            "v5:all"
+          ]
+        },
+        {
+          "op": "describe",
+          "version": 5,
+          "result": {
+            "ok": false,
+            "reason": "stale"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -673,3 +673,6 @@
 
 - WALL-SESSION-02（2026-11-08）原跨suite内存query/focus会话与BravaisSessionFocus实际生命周期迁入native，容量32按原写入顺序淘汰；相同值不通知、不挪最近顺序，清不存在会话也换代。离散note不写store，persist区分省略/显式null且不受换代拦截，flush只在touched/非空/同代时写；重复flush不清touched，旧surface注销不会清新owner。dispose先注销再flush，清会话后旧surface不会在卸载写回，保留原返回按钮与Esc差别。此store必须由app跨stage卸载持有，仅内存，不额外落盘/无ticker/无平台桥接；最终surface/导航仍须接线。
 - 最小既有card单例通过原实际store的45步操作与原实际hook的32步挂载/交接/清会话/返回写回trace（含32容量淘汰、no-op通知、覆盖注销顺序与空字符串/null差别）；参考只stub React挂载/cleanup，不复制业务规则。最新analyzer无问题，未跑模拟器/全UI/重复已知ground失败；整组最终验收仍0/78，继续所有剩余迁移，不作为交付完成。
+
+- COLLECTION-FORM-01（2026-11-08）原改名/删除确认/选择歌单三态与新建输入子态、busy原对象不更新、错误文案空字符串优先和两级取消迁入native reducer；实际BravaisCollectionForms异步执行端经surface的完整track/mutation端口操作，不从卡片文字造曲目。提交捕获当时controller/run/tracksFor，返回用最新describe/当前form，删除成功走最新onBack；取消/换表单时返回如何处理沿用原hook，没有擅加请求nonce改变行为。原完整mutation控制器/provider与表单实际UI/翻牌/字体仍待接齐，不能称功能页已验收。
+- COLLECTION-NOTICE-01 原结果判别式、每日不喜欢文案/次数用尽语气与4200ms序号提示迁入native；新提示撤销旧一次Timer，隐藏/卸载清理，无常驻ticker/逐帧channel。异步异常把原error+stack交app logger，卸载后结果返回null不再提示/结束form；locale文案从原资产注入且请求返回读取最新labels。既有card单例扩展21条原reducer、16种原notice、36步原实际hook异步请求/取消/更新controller/文案/回调trace，以及同文案重复seq/旧timer取消/到期/卸载后返回；全例约1秒通过。最新analyzer无问题，未跑模拟器/全UI/未变像素门槛，78组10迁移中68待迁移0最终验收不变，继续完整主页/集合装配和所有迁移。
