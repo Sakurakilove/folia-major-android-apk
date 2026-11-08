@@ -32,11 +32,11 @@ class NativeWordSegmentation(messenger: BinaryMessenger) : AutoCloseable {
     private fun handle(call: MethodCall, result: MethodChannel.Result) {
         if (closed) { result.error("closed", "Word preparation host closed", null); return }
         if (call.method == "getInfo") { result.success(info()); return }
-        if (call.method != "segmentBatch") { result.notImplemented(); return }
+        if (call.method != "segmentBatch" && call.method != "lowerBatch") { result.notImplemented(); return }
         val texts = call.argument<List<*>>("texts")
         val localeTag = call.argument<String>("locale")
-        if (texts == null || texts.size > 128 || texts.any { it !is String }
-            || (texts.size > 1 && texts.sumOf { (it as String).length.toLong() } > 65_536)
+        if (texts == null || texts.size > 128 || texts.any { NativeWordText.units(it) == null }
+            || (texts.size > 1 && texts.sumOf { NativeWordText.units(it)!!.toLong() } > 65_536)
             || localeTag.isNullOrEmpty() || localeTag.length > 128) {
             result.error("arguments", "Expected a bounded text batch and an explicit locale", null); return
         }
@@ -46,15 +46,23 @@ class NativeWordSegmentation(messenger: BinaryMessenger) : AutoCloseable {
         worker.execute {
             try {
                 val locale = ULocale.Builder().setLanguageTag(localeTag).build()
-                val iterator = iterators.getOrPut(localeTag) {
-                    if (iterators.size >= 4) iterators.remove(iterators.keys.first())
-                    BreakIterator.getWordInstance(locale)
+                val input = texts.map(NativeWordText::decode)
+                val payload = if (call.method == "lowerBatch") {
+                    mapOf("lowercase" to input.map { text ->
+                        if (closed || Thread.currentThread().isInterrupted) throw InterruptedException("Word preparation cancelled")
+                        NativeWordText.encode(UCharacter.toLowerCase(locale, text))
+                    })
+                } else {
+                    val iterator = iterators.getOrPut(localeTag) {
+                        if (iterators.size >= 4) iterators.remove(iterators.keys.first())
+                        BreakIterator.getWordInstance(locale)
+                    }
+                    mapOf("segments" to input.map { text ->
+                        if (closed || Thread.currentThread().isInterrupted) throw InterruptedException("Word preparation cancelled")
+                        cut(iterator, text)
+                    })
                 }
-                val segments = texts.map { text ->
-                    if (closed || Thread.currentThread().isInterrupted) throw InterruptedException("Word preparation cancelled")
-                    cut(iterator, text as String)
-                }
-                val response = info() + mapOf("locale" to locale.toLanguageTag(), "segments" to segments)
+                val response = info() + mapOf("locale" to locale.toLanguageTag()) + payload
                 main.post { pending.remove(id)?.success(response) }
             } catch (failure: Exception) {
                 main.post { pending.remove(id)?.error("segmentation", failure.message, mapOf("type" to failure.javaClass.name)) }

@@ -1,0 +1,1959 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "node": "v24.19.0",
+  "icu": "78.3",
+  "unicode": "17.0",
+  "locale": "en-US",
+  "scope": "Original helper/Intl observations only; device ICU version, glyphs and complete poster acceptance remain pending.",
+  "sourceHashes": {
+    "src/library/suites/bravais/BravaisSeamPoster.tsx": "e57a6249e71ce4a025ad2df147357f31934639ccc259584c8fca995b64799d79",
+    "src/library/suites/bravais/BravaisSeamAlbumPoster.tsx": "e48a86f85f6cf3cc744e7912b3d7a94cbf2951d3835fbe7a9c020c6191a7fdab"
+  },
+  "cases": [
+    {
+      "title": "",
+      "parts": [],
+      "words": [],
+      "ghost": "",
+      "nameColumns": 2,
+      "albumColumns": 2
+    },
+    {
+      "title": "Ignition",
+      "parts": [
+        {
+          "text": "Ignition",
+          "index": 0,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "Ignition",
+          "hero": false
+        }
+      ],
+      "ghost": "n",
+      "nameColumns": 4.96,
+      "albumColumns": 4.96
+    },
+    {
+      "title": "Hello Beautiful World",
+      "parts": [
+        {
+          "text": "Hello",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "Beautiful",
+          "index": 6,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 15,
+          "wordLike": false
+        },
+        {
+          "text": "World",
+          "index": 16,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "Hello",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "Beautiful",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "World",
+          "hero": false
+        }
+      ],
+      "ghost": "l",
+      "nameColumns": 13.02,
+      "albumColumns": 5.58
+    },
+    {
+      "title": "hello hello",
+      "parts": [
+        {
+          "text": "hello",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "hello",
+          "index": 6,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "hello",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "hello",
+          "hero": false
+        }
+      ],
+      "ghost": "o",
+      "nameColumns": 6.82,
+      "albumColumns": 3.1
+    },
+    {
+      "title": "你好 世界",
+      "parts": [
+        {
+          "text": "你好",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 2,
+          "wordLike": false
+        },
+        {
+          "text": "世界",
+          "index": 3,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "你好",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "世界",
+          "hero": false
+        }
+      ],
+      "ghost": "好",
+      "nameColumns": 4.7,
+      "albumColumns": 2
+    },
+    {
+      "title": "イグニッション",
+      "parts": [
+        {
+          "text": "イグニッション",
+          "index": 0,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "イグニッション",
+          "hero": false
+        }
+      ],
+      "ghost": "ン",
+      "nameColumns": 7.140000000000001,
+      "albumColumns": 2.3799999999999994
+    },
+    {
+      "title": "안녕하세요 세계",
+      "parts": [
+        {
+          "text": "안녕하세요",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "세계",
+          "index": 6,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "안녕하세요",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "세계",
+          "hero": false
+        }
+      ],
+      "ghost": "요",
+      "nameColumns": 7.760000000000001,
+      "albumColumns": 2.5866666666666664
+    },
+    {
+      "title": "火🔥と 水",
+      "parts": [
+        {
+          "text": "火",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": "🔥",
+          "index": 1,
+          "wordLike": false
+        },
+        {
+          "text": "と",
+          "index": 3,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 4,
+          "wordLike": false
+        },
+        {
+          "text": "水",
+          "index": 5,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "火",
+          "hero": true
+        },
+        {
+          "text": "🔥",
+          "hero": false
+        },
+        {
+          "text": "と",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "水",
+          "hero": false
+        }
+      ],
+      "ghost": "火",
+      "nameColumns": 4.3,
+      "albumColumns": 2
+    },
+    {
+      "title": "é égalité café",
+      "parts": [
+        {
+          "text": "é",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 2,
+          "wordLike": false
+        },
+        {
+          "text": "égalité",
+          "index": 3,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 10,
+          "wordLike": false
+        },
+        {
+          "text": "café",
+          "index": 11,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "é",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "égalité",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "café",
+          "hero": false
+        }
+      ],
+      "ghost": "é",
+      "nameColumns": 9.3,
+      "albumColumns": 4.34
+    },
+    {
+      "title": "👩‍👩‍👧‍👦 day night",
+      "parts": [
+        {
+          "text": "👩‍👩‍👧‍👦",
+          "index": 0,
+          "wordLike": false
+        },
+        {
+          "text": " ",
+          "index": 11,
+          "wordLike": false
+        },
+        {
+          "text": "day",
+          "index": 12,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 15,
+          "wordLike": false
+        },
+        {
+          "text": "night",
+          "index": 16,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "👩‍👩‍👧‍👦",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "day",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "night",
+          "hero": true
+        }
+      ],
+      "ghost": "t",
+      "nameColumns": 10.54,
+      "albumColumns": 4.34
+    },
+    {
+      "title": "𠀀 𠀁 hello",
+      "parts": [
+        {
+          "text": "𠀀",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 2,
+          "wordLike": false
+        },
+        {
+          "text": "𠀁",
+          "index": 3,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "hello",
+          "index": 6,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "𠀀",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "𠀁",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "hello",
+          "hero": true
+        }
+      ],
+      "ghost": "o",
+      "nameColumns": 6.38,
+      "albumColumns": 3.1
+    },
+    {
+      "title": "𑼄 long word",
+      "parts": [
+        {
+          "text": "𑼄",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 2,
+          "wordLike": false
+        },
+        {
+          "text": "long",
+          "index": 3,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 7,
+          "wordLike": false
+        },
+        {
+          "text": "word",
+          "index": 8,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "𑼄",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "long",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "word",
+          "hero": false
+        }
+      ],
+      "ghost": "g",
+      "nameColumns": 6.82,
+      "albumColumns": 2.48
+    },
+    {
+      "title": "﻿  Alpha Beta ﻿",
+      "parts": [
+        {
+          "text": "﻿",
+          "index": 0,
+          "wordLike": false
+        },
+        {
+          "text": "  ",
+          "index": 1,
+          "wordLike": false
+        },
+        {
+          "text": "Alpha",
+          "index": 3,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 8,
+          "wordLike": false
+        },
+        {
+          "text": "Beta",
+          "index": 9,
+          "wordLike": true
+        },
+        {
+          "text": " ﻿",
+          "index": 13,
+          "wordLike": false
+        }
+      ],
+      "words": [
+        {
+          "text": "﻿",
+          "hero": false
+        },
+        {
+          "text": "  ",
+          "hero": false
+        },
+        {
+          "text": "Alpha",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "Beta",
+          "hero": false
+        },
+        {
+          "text": " ﻿",
+          "hero": false
+        }
+      ],
+      "ghost": "a",
+      "nameColumns": 9.3,
+      "albumColumns": 3.1
+    },
+    {
+      "title": "Alpha Beta",
+      "parts": [
+        {
+          "text": "",
+          "index": 0,
+          "wordLike": false
+        },
+        {
+          "text": "Alpha",
+          "index": 1,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 6,
+          "wordLike": false
+        },
+        {
+          "text": "Beta",
+          "index": 7,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "",
+          "hero": false
+        },
+        {
+          "text": "Alpha",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "Beta",
+          "hero": false
+        }
+      ],
+      "ghost": "a",
+      "nameColumns": 6.82,
+      "albumColumns": 3.72
+    },
+    {
+      "title": "İSTANBUL ΣΟΣ ΟΣ",
+      "parts": [
+        {
+          "text": "İSTANBUL",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 8,
+          "wordLike": false
+        },
+        {
+          "text": "ΣΟΣ",
+          "index": 9,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 12,
+          "wordLike": false
+        },
+        {
+          "text": "ΟΣ",
+          "index": 13,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "İSTANBUL",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "ΣΟΣ",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "ΟΣ",
+          "hero": false
+        }
+      ],
+      "ghost": "L",
+      "nameColumns": 9.3,
+      "albumColumns": 4.96
+    },
+    {
+      "title": "123 4567 89",
+      "parts": [
+        {
+          "text": "123",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 3,
+          "wordLike": false
+        },
+        {
+          "text": "4567",
+          "index": 4,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 8,
+          "wordLike": false
+        },
+        {
+          "text": "89",
+          "index": 9,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "123",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "4567",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "89",
+          "hero": false
+        }
+      ],
+      "ghost": "7",
+      "nameColumns": 6.82,
+      "albumColumns": 2.48
+    },
+    {
+      "title": "a-b-c def",
+      "parts": [
+        {
+          "text": "a",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": "-",
+          "index": 1,
+          "wordLike": false
+        },
+        {
+          "text": "b",
+          "index": 2,
+          "wordLike": true
+        },
+        {
+          "text": "-",
+          "index": 3,
+          "wordLike": false
+        },
+        {
+          "text": "c",
+          "index": 4,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "def",
+          "index": 6,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "a",
+          "hero": false
+        },
+        {
+          "text": "-",
+          "hero": false
+        },
+        {
+          "text": "b",
+          "hero": false
+        },
+        {
+          "text": "-",
+          "hero": false
+        },
+        {
+          "text": "c",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "def",
+          "hero": true
+        }
+      ],
+      "ghost": "f",
+      "nameColumns": 5.58,
+      "albumColumns": 3.1
+    },
+    {
+      "title": "Rock ’n’ Roll",
+      "parts": [
+        {
+          "text": "Rock",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 4,
+          "wordLike": false
+        },
+        {
+          "text": "’",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "n",
+          "index": 6,
+          "wordLike": true
+        },
+        {
+          "text": "’",
+          "index": 7,
+          "wordLike": false
+        },
+        {
+          "text": " ",
+          "index": 8,
+          "wordLike": false
+        },
+        {
+          "text": "Roll",
+          "index": 9,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "Rock",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "’",
+          "hero": false
+        },
+        {
+          "text": "n",
+          "hero": false
+        },
+        {
+          "text": "’",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "Roll",
+          "hero": false
+        }
+      ],
+      "ghost": "k",
+      "nameColumns": 8.06,
+      "albumColumns": 2.686666666666667
+    },
+    {
+      "title": "love LOVE Love",
+      "parts": [
+        {
+          "text": "love",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 4,
+          "wordLike": false
+        },
+        {
+          "text": "LOVE",
+          "index": 5,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 9,
+          "wordLike": false
+        },
+        {
+          "text": "Love",
+          "index": 10,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "love",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "LOVE",
+          "hero": false
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "Love",
+          "hero": false
+        }
+      ],
+      "ghost": "e",
+      "nameColumns": 8.68,
+      "albumColumns": 2.893333333333333
+    },
+    {
+      "title": "　　",
+      "parts": [
+        {
+          "text": "　　",
+          "index": 0,
+          "wordLike": false
+        }
+      ],
+      "words": [
+        {
+          "text": "　　",
+          "hero": false
+        }
+      ],
+      "ghost": "　",
+      "nameColumns": 2,
+      "albumColumns": 2
+    },
+    {
+      "title": "\ud800test end",
+      "parts": [
+        {
+          "text": "\ud800",
+          "index": 0,
+          "wordLike": false
+        },
+        {
+          "text": "test",
+          "index": 1,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "end",
+          "index": 6,
+          "wordLike": true
+        }
+      ],
+      "words": [
+        {
+          "text": "\ud800",
+          "hero": false
+        },
+        {
+          "text": "test",
+          "hero": true
+        },
+        {
+          "text": " ",
+          "hero": false
+        },
+        {
+          "text": "end",
+          "hero": false
+        }
+      ],
+      "ghost": "t",
+      "nameColumns": 5.58,
+      "albumColumns": 3.1
+    }
+  ],
+  "groups": [
+    {
+      "titles": [
+        "Hello Beautiful World",
+        "World Beautiful Hello",
+        "Beautiful Hello"
+      ],
+      "expected": [
+        "Beautiful",
+        "World"
+      ]
+    },
+    {
+      "titles": [
+        "love LOVE Love",
+        "LOVE forever",
+        "love forever"
+      ],
+      "expected": [
+        "love",
+        "forever"
+      ]
+    },
+    {
+      "titles": [
+        "İSTANBUL ΣΟΣ",
+        "istanbul ΟΣ",
+        "ΣΟΣ ΟΣ"
+      ],
+      "expected": [
+        "İSTANBUL",
+        "istanbul"
+      ]
+    },
+    {
+      "titles": [
+        " ignition ",
+        "ignition",
+        "👩‍👩‍👧‍👦"
+      ],
+      "expected": [
+        "ig",
+        "👩‍"
+      ]
+    },
+    {
+      "titles": [
+        "你好 世界",
+        "世界 你好",
+        "你好世界"
+      ],
+      "expected": [
+        "你好",
+        "世界"
+      ]
+    },
+    {
+      "titles": [
+        "",
+        "",
+        "a"
+      ],
+      "expected": [
+        "a"
+      ]
+    },
+    {
+      "titles": [
+        "𠀀 𠀁 hello",
+        "hello 𠀀",
+        "𠀀𠀁"
+      ],
+      "expected": [
+        "hello",
+        "𠀀"
+      ]
+    }
+  ],
+  "prepared": [
+    {
+      "title": "",
+      "parts": []
+    },
+    {
+      "title": "Ignition",
+      "parts": [
+        {
+          "text": "Ignition",
+          "index": 0,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "Hello Beautiful World",
+      "parts": [
+        {
+          "text": "Hello",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "Beautiful",
+          "index": 6,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 15,
+          "wordLike": false
+        },
+        {
+          "text": "World",
+          "index": 16,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "hello hello",
+      "parts": [
+        {
+          "text": "hello",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "hello",
+          "index": 6,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "你好 世界",
+      "parts": [
+        {
+          "text": "你好",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 2,
+          "wordLike": false
+        },
+        {
+          "text": "世界",
+          "index": 3,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "イグニッション",
+      "parts": [
+        {
+          "text": "イグニッション",
+          "index": 0,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "안녕하세요 세계",
+      "parts": [
+        {
+          "text": "안녕하세요",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "세계",
+          "index": 6,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "火🔥と 水",
+      "parts": [
+        {
+          "text": "火",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": "🔥",
+          "index": 1,
+          "wordLike": false
+        },
+        {
+          "text": "と",
+          "index": 3,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 4,
+          "wordLike": false
+        },
+        {
+          "text": "水",
+          "index": 5,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "é égalité café",
+      "parts": [
+        {
+          "text": "é",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 2,
+          "wordLike": false
+        },
+        {
+          "text": "égalité",
+          "index": 3,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 10,
+          "wordLike": false
+        },
+        {
+          "text": "café",
+          "index": 11,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "👩‍👩‍👧‍👦 day night",
+      "parts": [
+        {
+          "text": "👩‍👩‍👧‍👦",
+          "index": 0,
+          "wordLike": false
+        },
+        {
+          "text": " ",
+          "index": 11,
+          "wordLike": false
+        },
+        {
+          "text": "day",
+          "index": 12,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 15,
+          "wordLike": false
+        },
+        {
+          "text": "night",
+          "index": 16,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "𠀀 𠀁 hello",
+      "parts": [
+        {
+          "text": "𠀀",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 2,
+          "wordLike": false
+        },
+        {
+          "text": "𠀁",
+          "index": 3,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "hello",
+          "index": 6,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "𑼄 long word",
+      "parts": [
+        {
+          "text": "𑼄",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 2,
+          "wordLike": false
+        },
+        {
+          "text": "long",
+          "index": 3,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 7,
+          "wordLike": false
+        },
+        {
+          "text": "word",
+          "index": 8,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "﻿  Alpha Beta ﻿",
+      "parts": [
+        {
+          "text": "﻿",
+          "index": 0,
+          "wordLike": false
+        },
+        {
+          "text": "  ",
+          "index": 1,
+          "wordLike": false
+        },
+        {
+          "text": "Alpha",
+          "index": 3,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 8,
+          "wordLike": false
+        },
+        {
+          "text": "Beta",
+          "index": 9,
+          "wordLike": true
+        },
+        {
+          "text": " ﻿",
+          "index": 13,
+          "wordLike": false
+        }
+      ]
+    },
+    {
+      "title": "Alpha Beta",
+      "parts": [
+        {
+          "text": "Alpha",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "Beta",
+          "index": 6,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "Alpha Beta",
+      "parts": [
+        {
+          "text": "",
+          "index": 0,
+          "wordLike": false
+        },
+        {
+          "text": "Alpha",
+          "index": 1,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 6,
+          "wordLike": false
+        },
+        {
+          "text": "Beta",
+          "index": 7,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "İSTANBUL ΣΟΣ ΟΣ",
+      "parts": [
+        {
+          "text": "İSTANBUL",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 8,
+          "wordLike": false
+        },
+        {
+          "text": "ΣΟΣ",
+          "index": 9,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 12,
+          "wordLike": false
+        },
+        {
+          "text": "ΟΣ",
+          "index": 13,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "123 4567 89",
+      "parts": [
+        {
+          "text": "123",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 3,
+          "wordLike": false
+        },
+        {
+          "text": "4567",
+          "index": 4,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 8,
+          "wordLike": false
+        },
+        {
+          "text": "89",
+          "index": 9,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "a-b-c def",
+      "parts": [
+        {
+          "text": "a",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": "-",
+          "index": 1,
+          "wordLike": false
+        },
+        {
+          "text": "b",
+          "index": 2,
+          "wordLike": true
+        },
+        {
+          "text": "-",
+          "index": 3,
+          "wordLike": false
+        },
+        {
+          "text": "c",
+          "index": 4,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "def",
+          "index": 6,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "Rock ’n’ Roll",
+      "parts": [
+        {
+          "text": "Rock",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 4,
+          "wordLike": false
+        },
+        {
+          "text": "’",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "n",
+          "index": 6,
+          "wordLike": true
+        },
+        {
+          "text": "’",
+          "index": 7,
+          "wordLike": false
+        },
+        {
+          "text": " ",
+          "index": 8,
+          "wordLike": false
+        },
+        {
+          "text": "Roll",
+          "index": 9,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "love LOVE Love",
+      "parts": [
+        {
+          "text": "love",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 4,
+          "wordLike": false
+        },
+        {
+          "text": "LOVE",
+          "index": 5,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 9,
+          "wordLike": false
+        },
+        {
+          "text": "Love",
+          "index": 10,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "　　",
+      "parts": [
+        {
+          "text": "　　",
+          "index": 0,
+          "wordLike": false
+        }
+      ]
+    },
+    {
+      "title": "\ud800test end",
+      "parts": [
+        {
+          "text": "\ud800",
+          "index": 0,
+          "wordLike": false
+        },
+        {
+          "text": "test",
+          "index": 1,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "end",
+          "index": 6,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "World Beautiful Hello",
+      "parts": [
+        {
+          "text": "World",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "Beautiful",
+          "index": 6,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 15,
+          "wordLike": false
+        },
+        {
+          "text": "Hello",
+          "index": 16,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "Beautiful Hello",
+      "parts": [
+        {
+          "text": "Beautiful",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 9,
+          "wordLike": false
+        },
+        {
+          "text": "Hello",
+          "index": 10,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "LOVE forever",
+      "parts": [
+        {
+          "text": "LOVE",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 4,
+          "wordLike": false
+        },
+        {
+          "text": "forever",
+          "index": 5,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "love forever",
+      "parts": [
+        {
+          "text": "love",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 4,
+          "wordLike": false
+        },
+        {
+          "text": "forever",
+          "index": 5,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "İSTANBUL ΣΟΣ",
+      "parts": [
+        {
+          "text": "İSTANBUL",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 8,
+          "wordLike": false
+        },
+        {
+          "text": "ΣΟΣ",
+          "index": 9,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "istanbul ΟΣ",
+      "parts": [
+        {
+          "text": "istanbul",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 8,
+          "wordLike": false
+        },
+        {
+          "text": "ΟΣ",
+          "index": 9,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "ΣΟΣ ΟΣ",
+      "parts": [
+        {
+          "text": "ΣΟΣ",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 3,
+          "wordLike": false
+        },
+        {
+          "text": "ΟΣ",
+          "index": 4,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": " ignition ",
+      "parts": [
+        {
+          "text": " ",
+          "index": 0,
+          "wordLike": false
+        },
+        {
+          "text": "ignition",
+          "index": 1,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 9,
+          "wordLike": false
+        }
+      ]
+    },
+    {
+      "title": "ignition",
+      "parts": [
+        {
+          "text": "ignition",
+          "index": 0,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "👩‍👩‍👧‍👦",
+      "parts": [
+        {
+          "text": "👩‍👩‍👧‍👦",
+          "index": 0,
+          "wordLike": false
+        }
+      ]
+    },
+    {
+      "title": "世界 你好",
+      "parts": [
+        {
+          "text": "世界",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 2,
+          "wordLike": false
+        },
+        {
+          "text": "你好",
+          "index": 3,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "你好世界",
+      "parts": [
+        {
+          "text": "你好",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": "世界",
+          "index": 2,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "a",
+      "parts": [
+        {
+          "text": "a",
+          "index": 0,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "hello 𠀀",
+      "parts": [
+        {
+          "text": "hello",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": " ",
+          "index": 5,
+          "wordLike": false
+        },
+        {
+          "text": "𠀀",
+          "index": 6,
+          "wordLike": true
+        }
+      ]
+    },
+    {
+      "title": "𠀀𠀁",
+      "parts": [
+        {
+          "text": "𠀀",
+          "index": 0,
+          "wordLike": true
+        },
+        {
+          "text": "𠀁",
+          "index": 2,
+          "wordLike": true
+        }
+      ]
+    }
+  ],
+  "lowercase": {
+    "12": "12",
+    "89": "89",
+    "123": "123",
+    "4567": "4567",
+    "": "",
+    "Ignition": "ignition",
+    "Ig": "ig",
+    "Hello": "hello",
+    "Beautiful": "beautiful",
+    "World": "world",
+    "He": "he",
+    "hello": "hello",
+    "he": "he",
+    "你好": "你好",
+    "世界": "世界",
+    "イグニッション": "イグニッション",
+    "イグ": "イグ",
+    "안녕하세요": "안녕하세요",
+    "세계": "세계",
+    "안녕": "안녕",
+    "火": "火",
+    "と": "と",
+    "水": "水",
+    "火🔥": "火🔥",
+    "é": "é",
+    "égalité": "égalité",
+    "café": "café",
+    "day": "day",
+    "night": "night",
+    "👩‍": "👩‍",
+    "𠀀": "𠀀",
+    "𠀁": "𠀁",
+    "𠀀 ": "𠀀 ",
+    "𑼄": "𑼄",
+    "long": "long",
+    "word": "word",
+    "𑼄 ": "𑼄 ",
+    "Alpha": "alpha",
+    "Beta": "beta",
+    "Al": "al",
+    "A": "a",
+    "İSTANBUL": "i̇stanbul",
+    "ΣΟΣ": "σος",
+    "ΟΣ": "ος",
+    "İS": "i̇s",
+    "a": "a",
+    "b": "b",
+    "c": "c",
+    "def": "def",
+    "a-": "a-",
+    "Rock": "rock",
+    "n": "n",
+    "Roll": "roll",
+    "Ro": "ro",
+    "love": "love",
+    "LOVE": "love",
+    "Love": "love",
+    "lo": "lo",
+    "test": "test",
+    "end": "end",
+    "\ud800t": "\ud800t",
+    "Wo": "wo",
+    "Be": "be",
+    "forever": "forever",
+    "LO": "lo",
+    "istanbul": "istanbul",
+    "is": "is",
+    "ΣΟ": "σο",
+    "ignition": "ignition",
+    "ig": "ig",
+    "𠀀𠀁": "𠀀𠀁"
+  }
+}

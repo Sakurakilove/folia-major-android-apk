@@ -1,8 +1,10 @@
 import 'package:flutter/services.dart';
 
 import 'word_segmentation.dart';
+import 'native_word_text.dart';
 
 part 'native_word_segmentation_batch.dart';
+part 'native_word_case.dart';
 
 // Android ICU is called in bounded document-preparation batches; layout reads immutable UTF-16 pieces synchronously without any channel call.
 class NativeIcuInfo {
@@ -84,13 +86,16 @@ class NativeWordSegmenter {
     return PreparedPlainSegmentation(parts, _info);
   }
 
-  Future<Map<String, dynamic>> _request(List<String> texts) {
+  Future<Map<String, dynamic>> _request(
+    List<String> texts, {
+    String method = 'segmentBatch',
+  }) {
     final task = _tail.then((_) async {
       if (_closed) throw const WordPreparationCancelled();
-      final response = await _channel.invokeMapMethod<String, dynamic>(
-        'segmentBatch',
-        {'texts': texts, 'locale': localeTag},
-      );
+      final response = await _channel.invokeMapMethod<String, dynamic>(method, {
+        'texts': texts.map(NativeWordText.encode).toList(),
+        'locale': localeTag,
+      });
       if (_closed) throw const WordPreparationCancelled();
       if (response == null) {
         throw const FormatException('Missing native word batch');
