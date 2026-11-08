@@ -53,6 +53,7 @@ class BravaisWallScene extends StatefulWidget {
     this.active = true,
     this.interactive = true,
     this.android = true,
+    this.focusReflow,
   });
   final BravaisCamera camera;
   final ValueListenable<BravaisDisplay?> display;
@@ -63,6 +64,11 @@ class BravaisWallScene extends StatefulWidget {
   final BravaisCardPalette palette;
   final bool posterWall;
   final Color posterTint;
+  final Map<String, WallSlot> Function(
+    String? expanded,
+    BravaisWallShape shape,
+  )?
+  focusReflow;
   final double dpr, committedScale;
   final bool backdropOpen,
       lightsOut,
@@ -146,6 +152,7 @@ class _BravaisWallSceneState extends State<BravaisWallScene>
     }
     _cardResources = widget.resources.withFrames(_clockDomain);
     if (old.reducedMotion != widget.reducedMotion) _reflowShape = null;
+    if (old.focusReflow != widget.focusReflow) _reflowShape = null;
     _syncActive();
   }
 

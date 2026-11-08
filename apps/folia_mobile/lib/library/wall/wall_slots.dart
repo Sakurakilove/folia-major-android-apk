@@ -3,7 +3,7 @@ import 'wall_types.dart';
 import '../../rendering/js_number.dart';
 
 // A home wall seat is a world identity, independent of content/filter/reflow; only its rectangle changes on expansion.
-class WallSlot {
+class WallSlot implements WallGeometry {
   const WallSlot(
     this.column,
     this.row,
@@ -34,6 +34,7 @@ class WallSlot {
     );
   }
   final int column, row, slotIndex, area;
+  @override
   final double x, y, width, height;
   String get key => '$column,$row,$slotIndex';
   double get centerX => x + width / 2;

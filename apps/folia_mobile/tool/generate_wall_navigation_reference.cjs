@@ -8,7 +8,9 @@ const {baseline,load,sourceText,root}=require('./original_source.cjs');
 
 // Actual original directional/layout-memory/store functions; no browser mount or duplicated scoring/parser implementation.
 const paths=['src/components/wall/wallNavigation.ts','src/library/suites/bravais/bravaisNavigation.ts',
-    'src/library/suites/bravais/bravaisLayoutMemory.ts','src/library/suites/bravais/bravaisStageStore.ts','src/library/suites/bravais/entry.ts'],
+    'src/library/suites/bravais/bravaisLayoutMemory.ts','src/library/suites/bravais/bravaisStageStore.ts','src/library/suites/bravais/entry.ts',
+    'src/library/suites/bravais/bravaisKeyboardModel.ts','src/library/suites/bravais/bravaisHomeKeys.ts',
+    'src/components/wall/revealRect.ts','src/library/suites/bravais/bravaisPosterReveal.ts','src/library/suites/bravais/useBravaisFocus.ts'],
     navigation=load(paths[1]),shared=load(paths[0]),shapes=load('src/library/suites/bravais/bravaisWallShape.ts'),store=load(paths[3]),
     prefix=sourceText(paths[4]).match(/export const BRAVAIS_LAYOUT_STORAGE_PREFIX = '([^']+)'/)[1],
     memoryModule=new Module(path.join(root,paths[2]));
@@ -65,7 +67,33 @@ const nearest=[{items:[],point:{x:0,y:0}},
     {items:[{x:-20,y:-20,width:10,height:10},{x:10,y:10,width:10,height:10}],point:{x:0,y:0}},
     {items:[{x:0,y:0,width:100,height:100},{x:80,y:20,width:100,height:100},{x:-100,y:100,width:300,height:30}],point:{x:140,y:100}}]
     .map(input=>({input,result:input.items.indexOf(shared.findNearestInstance(input.items,input.point))}));
+const keyModel=load(paths[5]),homeKeys=load(paths[6]),reveal=load(paths[7]),posterReveal=load(paths[8]),
+    key=(key,flags={})=>({key,shiftKey:false,altKey:false,ctrlKey:false,metaKey:false,repeat:false,...flags}),
+    keys=[...['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Home','End','PageUp','PageDown',' ','/','Insert','Delete','Escape','Tab'].map(k=>key(k)),
+        ...[{}, {shiftKey:true},{altKey:true},{altKey:true,shiftKey:true},{ctrlKey:true},{ctrlKey:true,shiftKey:true},{metaKey:true},{metaKey:true,shiftKey:true},{repeat:true},{altKey:true,repeat:true}].map(f=>key('Enter',f)),
+        key('ArrowUp',{shiftKey:true}),key('ArrowUp',{repeat:true}),key('Escape',{repeat:true}),key('Tab',{shiftKey:true}),key('Tab',{ctrlKey:true}),
+        ...[{}, {shiftKey:true},{ctrlKey:true},{repeat:true}].map(f=>key('F6',f)),key('/',{shiftKey:true}),key('Insert',{shiftKey:true}),
+        key('a',{ctrlKey:true}),key('A',{ctrlKey:true}),key('a',{metaKey:true}),key('A',{ctrlKey:true,shiftKey:true})]
+        .map(input=>({input,common:keyModel.resolveBravaisKey(input),home:homeKeys.resolveBravaisHomeKey(input)})),
+    escapeFlags=['hasForm','hasFocusCard','hasKeyboardFocus','hasPanel','hasViewMode','hasQuery','canGoBack'],
+    escapes=Array.from({length:8},(_,i)=>{const input=Object.fromEntries(escapeFlags.map((k,n)=>[k,n>=i]));return {input,result:keyModel.resolveEscapeStep(input)};}),
+    typing=['Process','Unidentified','a','🐱','👩‍👩‍👧‍👦','e\u0301',' ','/','\n','Tab',':'].flatMap(k=>[[],['/',':']].map(reserved=>({input:key(k),reserved,result:keyModel.resolveBravaisTypingKey(key(k),reserved)})));
+typing.push(...['Process','a'].map(k=>({input:key(k,{ctrlKey:true}),reserved:[],result:keyModel.resolveBravaisTypingKey(key(k,{ctrlKey:true}))})));
+const revealInputs=[
+    {rect:{x:0,y:0,width:128,height:128},center:{x:0,y:0},view:{width:390,height:844,scale:.52},anchorX:-4,seamWidth:300},
+    {rect:{x:-1400,y:-800,width:816,height:816},center:{x:600,y:-300},view:{width:390,height:844,scale:.52},anchorX:-4,seamWidth:680},
+    {rect:{x:2000,y:1500,width:256,height:512},center:{x:-150,y:20},view:{width:1280,height:720,scale:.76},anchorX:1636,seamWidth:420},
+    {rect:{x:0,y:0,width:3000,height:4000},center:{x:0,y:0},view:{width:390,height:844,scale:.52},anchorX:-4,seamWidth:600},
+    {rect:{x:-64,y:-64,width:128,height:128},center:{x:0,y:0},view:{width:1280,height:720,scale:.76,lineX:200},anchorX:null,seamWidth:0},
+    {rect:{x:0,y:0,width:128,height:128},center:{x:0,y:0},view:{width:390,height:844,scale:.52},anchorX:-4,seamWidth:1}],ordinaryReveal=[],posters=[];
+for(const base of revealInputs)for(const bottomInset of [24,180]) {
+    for(const centered of [false,true]) {
+        const input={...base,metrics:{cellSize:128,gap:8},pad:24,bottomInset,centered};ordinaryReveal.push({input,result:reveal.resolveRevealCenter(input)});
+    }
+    const input={rect:base.rect,frame:{center:base.center,view:base.view,anchorX:base.anchorX,openWidth:base.seamWidth,contentWidth:600,hidden:false,poster:true,tiltDeg:-10},posterWidth:base.seamWidth+40,pad:24,bottomInset};
+    posters.push({input,box:posterReveal.posterScreenBox(input.rect,input.frame),result:posterReveal.resolvePosterRevealCenter(input)});
+}
 fs.writeFileSync(path.join(__dirname,'../test/fixtures/wall_navigation_reference.json'),JSON.stringify({baseline,scope:'Original pure selection/session/store outputs; keyboard routing, complete stage and device acceptance remain pending.',
-    sourceHashes:Object.fromEntries(paths.map(p=>[p,crypto.createHash('sha256').update(sourceText(p)).digest('hex')])),prefix,shapeInput,moves,nearest,parsed,fits,stage,current,
+    sourceHashes:Object.fromEntries(paths.map(p=>[p,crypto.createHash('sha256').update(sourceText(p)).digest('hex')])),prefix,shapeInput,moves,nearest,parsed,fits,stage,current,keys,escapes,typing,ordinaryReveal,posters,focus:require('./original_focus_reference.cjs')(),
     tokens:[store.takeBravaisLayerToken(),store.takeBravaisLayerToken(),store.takeBravaisLayerToken()]},null,2)+'\n');
 console.log(`Exported ${moves.length} directional, ${parsed.length} parser, ${stage.length} stage and ${current.length} current-layer observations.`);

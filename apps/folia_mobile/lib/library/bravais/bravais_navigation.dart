@@ -9,14 +9,13 @@ WallSlot? findAdjacentBravaisSlot(
   WallSlot from,
   WallDirection direction, {
   required bool Function(WallSlot) hasContent,
-  WallRect Function(WallSlot)? drawn,
+  WallGeometry Function(WallSlot)? drawn,
   BravaisWallShape shape = bravaisBlockShape,
 }) {
-  WallRect rect(WallSlot slot) =>
-      drawn?.call(slot) ?? WallRect(slot.x, slot.y, slot.width, slot.height);
+  WallGeometry rect(WallSlot slot) => drawn?.call(slot) ?? slot;
   final source = rect(from);
   for (var radius = 1; radius <= 3; radius++) {
-    final candidates = <({WallSlot value, WallRect rect})>[];
+    final candidates = <({WallSlot value, WallGeometry rect})>[];
     for (var row = from.row - radius; row <= from.row + radius; row++) {
       for (
         var column = from.column - radius;

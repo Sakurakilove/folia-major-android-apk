@@ -5,7 +5,9 @@ import 'package:folia_mobile/library/bravais/display/bravais_display.dart';
 import 'package:folia_mobile/library/bravais/display/bravais_wall_data.dart';
 import 'package:folia_mobile/library/bravais/display/bravais_wall_look.dart';
 import 'package:folia_mobile/library/bravais/stage/bravais_wall_scene.dart';
-import 'package:folia_mobile/library/bravais/stage/bravais_wall_selection.dart';
+import 'package:folia_mobile/library/bravais/stage/bravais_focus_model.dart';
+import 'package:folia_mobile/library/bravais/bravais_poster_reveal.dart';
+import 'package:folia_mobile/library/bravais/shape/bravais_wall_shape.dart';
 import 'package:folia_mobile/library/bravais/tiles/bravais_card_palette.dart';
 import 'package:folia_mobile/library/bravais/tiles/bravais_item.dart';
 import 'package:folia_mobile/library/bravais/tiles/bravais_tile_view.dart';
@@ -50,7 +52,25 @@ Future<void> checkWallScenePlane(
           wallLook: const BravaisWallLookSettings(BravaisWallLook.clear, 0),
         ),
       ),
-      selection = ValueNotifier(const BravaisWallSelection());
+      selection = BravaisFocusModel(
+        readFrame: () => (
+          frame: BravaisRevealFrame(
+            center: camera.center,
+            view: camera.view,
+            anchorX: camera.anchorX,
+            openWidth: camera.openWidth,
+            contentWidth: camera.contentWidth,
+            hidden: camera.hidden,
+            poster: camera.poster,
+            tiltDeg: camera.tiltDeg,
+          ),
+          targetOpenWidth: camera.openWidth,
+        ),
+        tweenTo: camera.tweenTo,
+        getBottomInset: () => 24,
+        onFocusEntry: (_) {},
+        getShape: () => display.value?.shape ?? bravaisBlockShape,
+      );
   Future<void> mount(bool active, {bool poster = false}) => tester.pumpWidget(
     Directionality(
       textDirection: TextDirection.ltr,
@@ -63,6 +83,7 @@ Future<void> checkWallScenePlane(
             camera: camera,
             display: display,
             selection: selection,
+            focusReflow: selection.reflowForBuild,
             resources: resources,
             actions: actions,
             noteAlbumSource: (_, _) {},
@@ -109,15 +130,33 @@ Future<void> checkWallScenePlane(
     }
   }
   expect(retained, greaterThan(0));
-  final slot = tester
-      .widgetList<BravaisTileView>(find.byType(BravaisTileView))
-      .first
-      .slot;
-  selection.value = BravaisWallSelection(
-    expandedSlotKey: slot.key,
-    focusedSlotKey: slot.key,
-  );
+  final shape = display.value!.shape,
+      slot = tester
+          .widgetList<BravaisTileView>(find.byType(BravaisTileView))
+          .map((w) => w.slot)
+          .firstWhere((candidate) {
+            final target = shape
+                .grownBlock(
+                  candidate.column,
+                  candidate.row,
+                  candidate.slotIndex,
+                )
+                ?.where((s) => s.key == candidate.key)
+                .firstOrNull;
+            return target != null &&
+                (target.x != candidate.x ||
+                    target.y != candidate.y ||
+                    target.width != candidate.width ||
+                    target.height != candidate.height);
+          }),
+      target = shape
+          .grownBlock(slot.column, slot.row, slot.slotIndex)!
+          .firstWhere((s) => s.key == slot.key);
+  selection.focusSlot(slot);
+  selection.expand(slot);
+  expect(selection.drawnSlot(slot).toJson(), slot.toJson());
   await tester.pump();
+  expect(selection.drawnSlot(slot).toJson(), target.toJson());
   expect(tester.takeException(), isNull);
   expect(listeners(), greaterThan(0));
   await mount(false);

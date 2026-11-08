@@ -6,7 +6,12 @@
     "src/library/suites/bravais/bravaisNavigation.ts": "d32fe97f46415324be33c4bd06a8764312e15fee178294ceb326ae7d6df0bd9e",
     "src/library/suites/bravais/bravaisLayoutMemory.ts": "893d68859c3c0824a9f12b99d3fd4b407ede75d7a4cb0b2dbf1829e195ac0329",
     "src/library/suites/bravais/bravaisStageStore.ts": "9786f389cbfc79b83430f2192ef4d09d9c184bfcf2971b798f2d46986ca367ea",
-    "src/library/suites/bravais/entry.ts": "a95848ea7825fd0972a39b85e6ea35e215ea568a826a8c94651818cd4df9f66b"
+    "src/library/suites/bravais/entry.ts": "a95848ea7825fd0972a39b85e6ea35e215ea568a826a8c94651818cd4df9f66b",
+    "src/library/suites/bravais/bravaisKeyboardModel.ts": "707fcada72a0b82a62e2997f653687f6519238fd3588b8e553c29ee59d547078",
+    "src/library/suites/bravais/bravaisHomeKeys.ts": "138f9493189598cb9303242196a4d6d8521afc36e0d490d7a0fe8496c361a56a",
+    "src/components/wall/revealRect.ts": "fdf11fc61a2412c8906e943779c8a863cfd3ee4a4e5a1e15fcd3f28aebe54214",
+    "src/library/suites/bravais/bravaisPosterReveal.ts": "4c7f480c795b3057798fee9dbeefe80db1f851564b49fd3fdb7dbd070c1141a0",
+    "src/library/suites/bravais/useBravaisFocus.ts": "d80e0ab504f9bd730adfd2de565731b762e9b95a86c581a93c5c7df3bf57d9aa"
   },
   "prefix": "folia_bravais_layout:v1:",
   "shapeInput": {
@@ -1893,6 +1898,2981 @@
       }
     }
   ],
+  "keys": [
+    {
+      "input": {
+        "key": "ArrowUp",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "move",
+        "direction": "up"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "ArrowDown",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "move",
+        "direction": "down"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "ArrowLeft",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "move",
+        "direction": "left"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "ArrowRight",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "move",
+        "direction": "right"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "Home",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "first"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "End",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "last"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "PageUp",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "page",
+        "direction": -1
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "PageDown",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "page",
+        "direction": 1
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": " ",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": null
+    },
+    {
+      "input": {
+        "key": "/",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "open-search"
+      }
+    },
+    {
+      "input": {
+        "key": "Insert",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "batch-toggle"
+      }
+    },
+    {
+      "input": {
+        "key": "Delete",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "batch-remove"
+      }
+    },
+    {
+      "input": {
+        "key": "Escape",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "escape"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "Tab",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "tab",
+        "backwards": false
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "Enter",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "enter"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "Enter",
+        "shiftKey": true,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "enqueue"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "Enter",
+        "shiftKey": false,
+        "altKey": true,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "open-album"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "Enter",
+        "shiftKey": true,
+        "altKey": true,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "open-artist"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "Enter",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": true,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "batch-play",
+        "enqueue": false
+      }
+    },
+    {
+      "input": {
+        "key": "Enter",
+        "shiftKey": true,
+        "altKey": false,
+        "ctrlKey": true,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "batch-play",
+        "enqueue": true
+      }
+    },
+    {
+      "input": {
+        "key": "Enter",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": true,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "batch-play",
+        "enqueue": false
+      }
+    },
+    {
+      "input": {
+        "key": "Enter",
+        "shiftKey": true,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": true,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "batch-play",
+        "enqueue": true
+      }
+    },
+    {
+      "input": {
+        "key": "Enter",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": true
+      },
+      "common": null,
+      "home": null
+    },
+    {
+      "input": {
+        "key": "Enter",
+        "shiftKey": false,
+        "altKey": true,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": true
+      },
+      "common": null,
+      "home": null
+    },
+    {
+      "input": {
+        "key": "ArrowUp",
+        "shiftKey": true,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": null
+    },
+    {
+      "input": {
+        "key": "ArrowUp",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": true
+      },
+      "common": {
+        "type": "move",
+        "direction": "up"
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "Escape",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": true
+      },
+      "common": null,
+      "home": null
+    },
+    {
+      "input": {
+        "key": "Tab",
+        "shiftKey": true,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": {
+        "type": "tab",
+        "backwards": true
+      },
+      "home": null
+    },
+    {
+      "input": {
+        "key": "Tab",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": true,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": null
+    },
+    {
+      "input": {
+        "key": "F6",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "cycle-tab",
+        "delta": 1
+      }
+    },
+    {
+      "input": {
+        "key": "F6",
+        "shiftKey": true,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "cycle-tab",
+        "delta": -1
+      }
+    },
+    {
+      "input": {
+        "key": "F6",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": true,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": null
+    },
+    {
+      "input": {
+        "key": "F6",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": true
+      },
+      "common": null,
+      "home": null
+    },
+    {
+      "input": {
+        "key": "/",
+        "shiftKey": true,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "open-search"
+      }
+    },
+    {
+      "input": {
+        "key": "Insert",
+        "shiftKey": true,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": null
+    },
+    {
+      "input": {
+        "key": "a",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": true,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "batch-select-all"
+      }
+    },
+    {
+      "input": {
+        "key": "A",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": true,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "batch-select-all"
+      }
+    },
+    {
+      "input": {
+        "key": "a",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": true,
+        "repeat": false
+      },
+      "common": null,
+      "home": {
+        "type": "batch-select-all"
+      }
+    },
+    {
+      "input": {
+        "key": "A",
+        "shiftKey": true,
+        "altKey": false,
+        "ctrlKey": true,
+        "metaKey": false,
+        "repeat": false
+      },
+      "common": null,
+      "home": null
+    }
+  ],
+  "escapes": [
+    {
+      "input": {
+        "hasForm": true,
+        "hasFocusCard": true,
+        "hasKeyboardFocus": true,
+        "hasPanel": true,
+        "hasViewMode": true,
+        "hasQuery": true,
+        "canGoBack": true
+      },
+      "result": "form"
+    },
+    {
+      "input": {
+        "hasForm": false,
+        "hasFocusCard": true,
+        "hasKeyboardFocus": true,
+        "hasPanel": true,
+        "hasViewMode": true,
+        "hasQuery": true,
+        "canGoBack": true
+      },
+      "result": "focus-card"
+    },
+    {
+      "input": {
+        "hasForm": false,
+        "hasFocusCard": false,
+        "hasKeyboardFocus": true,
+        "hasPanel": true,
+        "hasViewMode": true,
+        "hasQuery": true,
+        "canGoBack": true
+      },
+      "result": "keyboard-focus"
+    },
+    {
+      "input": {
+        "hasForm": false,
+        "hasFocusCard": false,
+        "hasKeyboardFocus": false,
+        "hasPanel": true,
+        "hasViewMode": true,
+        "hasQuery": true,
+        "canGoBack": true
+      },
+      "result": "panel"
+    },
+    {
+      "input": {
+        "hasForm": false,
+        "hasFocusCard": false,
+        "hasKeyboardFocus": false,
+        "hasPanel": false,
+        "hasViewMode": true,
+        "hasQuery": true,
+        "canGoBack": true
+      },
+      "result": "view"
+    },
+    {
+      "input": {
+        "hasForm": false,
+        "hasFocusCard": false,
+        "hasKeyboardFocus": false,
+        "hasPanel": false,
+        "hasViewMode": false,
+        "hasQuery": true,
+        "canGoBack": true
+      },
+      "result": "query"
+    },
+    {
+      "input": {
+        "hasForm": false,
+        "hasFocusCard": false,
+        "hasKeyboardFocus": false,
+        "hasPanel": false,
+        "hasViewMode": false,
+        "hasQuery": false,
+        "canGoBack": true
+      },
+      "result": "back"
+    },
+    {
+      "input": {
+        "hasForm": false,
+        "hasFocusCard": false,
+        "hasKeyboardFocus": false,
+        "hasPanel": false,
+        "hasViewMode": false,
+        "hasQuery": false,
+        "canGoBack": false
+      },
+      "result": null
+    }
+  ],
+  "typing": [
+    {
+      "input": {
+        "key": "Process",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": "ime"
+    },
+    {
+      "input": {
+        "key": "Process",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [
+        "/",
+        ":"
+      ],
+      "result": "ime"
+    },
+    {
+      "input": {
+        "key": "Unidentified",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": "ime"
+    },
+    {
+      "input": {
+        "key": "Unidentified",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [
+        "/",
+        ":"
+      ],
+      "result": "ime"
+    },
+    {
+      "input": {
+        "key": "a",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": "char"
+    },
+    {
+      "input": {
+        "key": "a",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [
+        "/",
+        ":"
+      ],
+      "result": "char"
+    },
+    {
+      "input": {
+        "key": "🐱",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": "char"
+    },
+    {
+      "input": {
+        "key": "🐱",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [
+        "/",
+        ":"
+      ],
+      "result": "char"
+    },
+    {
+      "input": {
+        "key": "👩‍👩‍👧‍👦",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": null
+    },
+    {
+      "input": {
+        "key": "👩‍👩‍👧‍👦",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [
+        "/",
+        ":"
+      ],
+      "result": null
+    },
+    {
+      "input": {
+        "key": "é",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": null
+    },
+    {
+      "input": {
+        "key": "é",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [
+        "/",
+        ":"
+      ],
+      "result": null
+    },
+    {
+      "input": {
+        "key": " ",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": null
+    },
+    {
+      "input": {
+        "key": " ",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [
+        "/",
+        ":"
+      ],
+      "result": null
+    },
+    {
+      "input": {
+        "key": "/",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": "char"
+    },
+    {
+      "input": {
+        "key": "/",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [
+        "/",
+        ":"
+      ],
+      "result": null
+    },
+    {
+      "input": {
+        "key": "\n",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": "char"
+    },
+    {
+      "input": {
+        "key": "\n",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [
+        "/",
+        ":"
+      ],
+      "result": "char"
+    },
+    {
+      "input": {
+        "key": "Tab",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": null
+    },
+    {
+      "input": {
+        "key": "Tab",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [
+        "/",
+        ":"
+      ],
+      "result": null
+    },
+    {
+      "input": {
+        "key": ":",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": "char"
+    },
+    {
+      "input": {
+        "key": ":",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": false,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [
+        "/",
+        ":"
+      ],
+      "result": null
+    },
+    {
+      "input": {
+        "key": "Process",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": true,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": null
+    },
+    {
+      "input": {
+        "key": "a",
+        "shiftKey": false,
+        "altKey": false,
+        "ctrlKey": true,
+        "metaKey": false,
+        "repeat": false
+      },
+      "reserved": [],
+      "result": null
+    }
+  ],
+  "ordinaryReveal": [
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 300,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": false
+      },
+      "result": {
+        "x": 91.61538461538464,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 300,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": true
+      },
+      "result": {
+        "x": 356.46153846153845,
+        "y": 64
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 300,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": false
+      },
+      "result": {
+        "x": 91.61538461538464,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 300,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": true
+      },
+      "result": {
+        "x": 356.46153846153845,
+        "y": 214
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -1400,
+          "y": -800,
+          "width": 816,
+          "height": 816
+        },
+        "center": {
+          "x": 600,
+          "y": -300
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 680,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": false
+      },
+      "result": {
+        "x": -1570.6923076923076,
+        "y": -300
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -1400,
+          "y": -800,
+          "width": 816,
+          "height": 816
+        },
+        "center": {
+          "x": 600,
+          "y": -300
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 680,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": true
+      },
+      "result": {
+        "x": -1649.8461538461538,
+        "y": -392
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -1400,
+          "y": -800,
+          "width": 816,
+          "height": 816
+        },
+        "center": {
+          "x": 600,
+          "y": -300
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 680,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": false
+      },
+      "result": {
+        "x": -1570.6923076923076,
+        "y": -300
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -1400,
+          "y": -800,
+          "width": 816,
+          "height": 816
+        },
+        "center": {
+          "x": 600,
+          "y": -300
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 680,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": true
+      },
+      "result": {
+        "x": -1649.8461538461538,
+        "y": -242
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 2000,
+          "y": 1500,
+          "width": 256,
+          "height": 512
+        },
+        "center": {
+          "x": -150,
+          "y": 20
+        },
+        "view": {
+          "width": 1280,
+          "height": 720,
+          "scale": 0.76
+        },
+        "anchorX": 1636,
+        "seamWidth": 420,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": false
+      },
+      "result": {
+        "x": 1725.7894736842104,
+        "y": 1569.8947368421052
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 2000,
+          "y": 1500,
+          "width": 256,
+          "height": 512
+        },
+        "center": {
+          "x": -150,
+          "y": 20
+        },
+        "view": {
+          "width": 1280,
+          "height": 720,
+          "scale": 0.76
+        },
+        "anchorX": 1636,
+        "seamWidth": 420,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": true
+      },
+      "result": {
+        "x": 2183.3684210526317,
+        "y": 1756
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 2000,
+          "y": 1500,
+          "width": 256,
+          "height": 512
+        },
+        "center": {
+          "x": -150,
+          "y": 20
+        },
+        "view": {
+          "width": 1280,
+          "height": 720,
+          "scale": 0.76
+        },
+        "anchorX": 1636,
+        "seamWidth": 420,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": false
+      },
+      "result": {
+        "x": 1725.7894736842104,
+        "y": 1775.157894736842
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 2000,
+          "y": 1500,
+          "width": 256,
+          "height": 512
+        },
+        "center": {
+          "x": -150,
+          "y": 20
+        },
+        "view": {
+          "width": 1280,
+          "height": 720,
+          "scale": 0.76
+        },
+        "anchorX": 1636,
+        "seamWidth": 420,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": true
+      },
+      "result": {
+        "x": 2183.3684210526317,
+        "y": 1858.6315789473683
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 3000,
+          "height": 4000
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 600,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": false
+      },
+      "result": {
+        "x": 909.7692307692307,
+        "y": 2000
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 3000,
+          "height": 4000
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 600,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": true
+      },
+      "result": {
+        "x": 2080.923076923077,
+        "y": 2000
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 3000,
+          "height": 4000
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 600,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": false
+      },
+      "result": {
+        "x": 909.7692307692307,
+        "y": 2000
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 3000,
+          "height": 4000
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 600,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": true
+      },
+      "result": {
+        "x": 2080.923076923077,
+        "y": 2000
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -64,
+          "y": -64,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 1280,
+          "height": 720,
+          "scale": 0.76,
+          "lineX": 200
+        },
+        "anchorX": null,
+        "seamWidth": 0,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": false
+      },
+      "result": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -64,
+          "y": -64,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 1280,
+          "height": 720,
+          "scale": 0.76,
+          "lineX": 200
+        },
+        "anchorX": null,
+        "seamWidth": 0,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": true
+      },
+      "result": {
+        "x": -578.9473684210526,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -64,
+          "y": -64,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 1280,
+          "height": 720,
+          "scale": 0.76,
+          "lineX": 200
+        },
+        "anchorX": null,
+        "seamWidth": 0,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": false
+      },
+      "result": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -64,
+          "y": -64,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 1280,
+          "height": 720,
+          "scale": 0.76,
+          "lineX": 200
+        },
+        "anchorX": null,
+        "seamWidth": 0,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": true
+      },
+      "result": {
+        "x": -578.9473684210526,
+        "y": 102.63157894736842
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 1,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": false
+      },
+      "result": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 1,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 24,
+        "centered": true
+      },
+      "result": {
+        "x": 64,
+        "y": 64
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 1,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": false
+      },
+      "result": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "center": {
+          "x": 0,
+          "y": 0
+        },
+        "view": {
+          "width": 390,
+          "height": 844,
+          "scale": 0.52
+        },
+        "anchorX": -4,
+        "seamWidth": 1,
+        "metrics": {
+          "cellSize": 128,
+          "gap": 8
+        },
+        "pad": 24,
+        "bottomInset": 180,
+        "centered": true
+      },
+      "result": {
+        "x": 64,
+        "y": 214
+      }
+    }
+  ],
+  "posters": [
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "frame": {
+          "center": {
+            "x": 0,
+            "y": 0
+          },
+          "view": {
+            "width": 390,
+            "height": 844,
+            "scale": 0.52
+          },
+          "anchorX": -4,
+          "openWidth": 300,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 340,
+        "pad": 24,
+        "bottomInset": 24
+      },
+      "box": {
+        "left": 347.0168002525308,
+        "right": 424.1236269985343,
+        "top": 409.7196008753947,
+        "bottom": 486.8264276213981
+      },
+      "result": {
+        "x": 111.77620576641209,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "frame": {
+          "center": {
+            "x": 0,
+            "y": 0
+          },
+          "view": {
+            "width": 390,
+            "height": 844,
+            "scale": 0.52
+          },
+          "anchorX": -4,
+          "openWidth": 300,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 340,
+        "pad": 24,
+        "bottomInset": 180
+      },
+      "box": {
+        "left": 347.0168002525308,
+        "right": 424.1236269985343,
+        "top": 409.7196008753947,
+        "bottom": 486.8264276213981
+      },
+      "result": {
+        "x": 111.77620576641209,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -1400,
+          "y": -800,
+          "width": 816,
+          "height": 816
+        },
+        "frame": {
+          "center": {
+            "x": 600,
+            "y": -300
+          },
+          "view": {
+            "width": 390,
+            "height": 844,
+            "scale": 0.52
+          },
+          "anchorX": -4,
+          "openWidth": 680,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 720,
+        "pad": 24,
+        "bottomInset": 24
+      },
+      "box": {
+        "left": -879.1201702600239,
+        "right": -387.5641497542519,
+        "top": 218.32227460117207,
+        "bottom": 709.8782951069442
+      },
+      "result": {
+        "x": -992.9656923214188,
+        "y": -300
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -1400,
+          "y": -800,
+          "width": 816,
+          "height": 816
+        },
+        "frame": {
+          "center": {
+            "x": 600,
+            "y": -300
+          },
+          "view": {
+            "width": 390,
+            "height": 844,
+            "scale": 0.52
+          },
+          "anchorX": -4,
+          "openWidth": 680,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 720,
+        "pad": 24,
+        "bottomInset": 180
+      },
+      "box": {
+        "left": -879.1201702600239,
+        "right": -387.5641497542519,
+        "top": 218.32227460117207,
+        "bottom": 709.8782951069442
+      },
+      "result": {
+        "x": -1008.522579352687,
+        "y": -210.41145815473334
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 2000,
+          "y": 1500,
+          "width": 256,
+          "height": 512
+        },
+        "frame": {
+          "center": {
+            "x": -150,
+            "y": 20
+          },
+          "view": {
+            "width": 1280,
+            "height": 720,
+            "scale": 0.76
+          },
+          "anchorX": 1636,
+          "openWidth": 420,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 460,
+        "pad": 24,
+        "bottomInset": 24
+      },
+      "box": {
+        "left": 2465.1166870330603,
+        "right": 2724.2908623528715,
+        "top": 1385.888739271474,
+        "bottom": 1802.8821215704625
+      },
+      "result": {
+        "x": 1805.4098624017486,
+        "y": 1498.8915295568422
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 2000,
+          "y": 1500,
+          "width": 256,
+          "height": 512
+        },
+        "frame": {
+          "center": {
+            "x": -150,
+            "y": 20
+          },
+          "view": {
+            "width": 1280,
+            "height": 720,
+            "scale": 0.76
+          },
+          "anchorX": 1636,
+          "openWidth": 420,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 460,
+        "pad": 24,
+        "bottomInset": 180
+      },
+      "box": {
+        "left": 2465.1166870330603,
+        "right": 2724.2908623528715,
+        "top": 1385.888739271474,
+        "bottom": 1802.8821215704625
+      },
+      "result": {
+        "x": 1781.9616609906204,
+        "y": 1707.3212025228636
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 3000,
+          "height": 4000
+        },
+        "frame": {
+          "center": {
+            "x": 0,
+            "y": 0
+          },
+          "view": {
+            "width": 390,
+            "height": 844,
+            "scale": 0.52
+          },
+          "anchorX": -4,
+          "openWidth": 600,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 640,
+        "pad": 24,
+        "bottomInset": 24
+      },
+      "box": {
+        "left": 389.93680025253076,
+        "right": 2287.4251044987905,
+        "top": 150.38646642049423,
+        "bottom": 2469.6777498462984
+      },
+      "result": {
+        "x": 1523.3240997116545,
+        "y": 1734.8042210144688
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 3000,
+          "height": 4000
+        },
+        "frame": {
+          "center": {
+            "x": 0,
+            "y": 0
+          },
+          "view": {
+            "width": 390,
+            "height": 844,
+            "scale": 0.52
+          },
+          "anchorX": -4,
+          "openWidth": 600,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 640,
+        "pad": 24,
+        "bottomInset": 180
+      },
+      "box": {
+        "left": 389.93680025253076,
+        "right": 2287.4251044987905,
+        "top": 150.38646642049423,
+        "bottom": 2469.6777498462984
+      },
+      "result": {
+        "x": 1496.8750526053848,
+        "y": 1887.1182127973304
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -64,
+          "y": -64,
+          "width": 128,
+          "height": 128
+        },
+        "frame": {
+          "center": {
+            "x": 0,
+            "y": 0
+          },
+          "view": {
+            "width": 1280,
+            "height": 720,
+            "scale": 0.76,
+            "lineX": 200
+          },
+          "anchorX": null,
+          "openWidth": 0,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 40,
+        "pad": 24,
+        "bottomInset": 24
+      },
+      "box": {
+        "left": 151.36,
+        "right": 248.64,
+        "top": 311.36,
+        "bottom": 408.64
+      },
+      "result": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": -64,
+          "y": -64,
+          "width": 128,
+          "height": 128
+        },
+        "frame": {
+          "center": {
+            "x": 0,
+            "y": 0
+          },
+          "view": {
+            "width": 1280,
+            "height": 720,
+            "scale": 0.76,
+            "lineX": 200
+          },
+          "anchorX": null,
+          "openWidth": 0,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 40,
+        "pad": 24,
+        "bottomInset": 180
+      },
+      "box": {
+        "left": 151.36,
+        "right": 248.64,
+        "top": 311.36,
+        "bottom": 408.64
+      },
+      "result": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "frame": {
+          "center": {
+            "x": 0,
+            "y": 0
+          },
+          "view": {
+            "width": 390,
+            "height": 844,
+            "scale": 0.52
+          },
+          "anchorX": -4,
+          "openWidth": 1,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 41,
+        "pad": 24,
+        "bottomInset": 24
+      },
+      "box": {
+        "left": 195.596425134157,
+        "right": 272.70325188016045,
+        "top": 410.0582148218452,
+        "bottom": 487.1650415678487
+      },
+      "result": {
+        "x": 0,
+        "y": 0
+      }
+    },
+    {
+      "input": {
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 128,
+          "height": 128
+        },
+        "frame": {
+          "center": {
+            "x": 0,
+            "y": 0
+          },
+          "view": {
+            "width": 390,
+            "height": 844,
+            "scale": 0.52
+          },
+          "anchorX": -4,
+          "openWidth": 1,
+          "contentWidth": 600,
+          "hidden": false,
+          "poster": true,
+          "tiltDeg": -10
+        },
+        "posterWidth": 41,
+        "pad": 24,
+        "bottomInset": 180
+      },
+      "box": {
+        "left": 195.596425134157,
+        "right": 272.70325188016045,
+        "top": 410.0582148218452,
+        "bottom": 487.1650415678487
+      },
+      "result": {
+        "x": 0,
+        "y": 0
+      }
+    }
+  ],
+  "focus": {
+    "source": "src/library/suites/bravais/useBravaisFocus.ts",
+    "frame": {
+      "center": {
+        "x": 200,
+        "y": 150
+      },
+      "view": {
+        "width": 390,
+        "height": 844,
+        "scale": 0.52
+      },
+      "anchorX": -4,
+      "openWidth": 300,
+      "targetOpenWidth": 420,
+      "contentWidth": 300,
+      "hidden": false,
+      "poster": false,
+      "tiltDeg": -10
+    },
+    "bottomInset": 180,
+    "steps": [
+      {
+        "command": {
+          "op": "reveal",
+          "seat": 0
+        },
+        "focused": null,
+        "expanded": null,
+        "notes": 0,
+        "tweens": 0,
+        "lastNote": null,
+        "lastTween": null,
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 808,
+            "height": 536
+          },
+          {
+            "x": 1224,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "view-ready"
+        },
+        "focused": null,
+        "expanded": null,
+        "notes": 0,
+        "tweens": 0,
+        "lastNote": null,
+        "lastTween": null,
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 808,
+            "height": 536
+          },
+          {
+            "x": 1224,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "focus",
+          "seat": 1,
+          "reveal": true
+        },
+        "focused": "0,0,1",
+        "expanded": null,
+        "notes": 1,
+        "tweens": 1,
+        "lastNote": "0,0,1",
+        "lastTween": {
+          "x": 1144.6923076923076,
+          "y": 150
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 808,
+            "height": 536
+          },
+          {
+            "x": 1224,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "expand",
+          "seat": 0,
+          "centered": true
+        },
+        "focused": "0,0,1",
+        "expanded": "0,0,0",
+        "notes": 1,
+        "tweens": 2,
+        "lastNote": "0,0,1",
+        "lastTween": {
+          "x": 811.8461538461538,
+          "y": 554
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 808,
+            "height": 536
+          },
+          {
+            "x": 1224,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "focus",
+          "seat": 2,
+          "reveal": true
+        },
+        "focused": "0,0,2",
+        "expanded": "0,0,0",
+        "notes": 2,
+        "tweens": 3,
+        "lastNote": "0,0,2",
+        "lastTween": {
+          "x": 1703,
+          "y": 150
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 808,
+            "height": 536
+          },
+          {
+            "x": 1224,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "commit"
+        },
+        "focused": "0,0,2",
+        "expanded": "0,0,0",
+        "notes": 2,
+        "tweens": 3,
+        "lastNote": "0,0,2",
+        "lastTween": {
+          "x": 1703,
+          "y": 150
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 536,
+            "height": 536
+          },
+          {
+            "x": 1360,
+            "y": 0,
+            "width": 264,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "focus",
+          "seat": 3,
+          "reveal": true
+        },
+        "focused": "0,0,3",
+        "expanded": "0,0,0",
+        "notes": 3,
+        "tweens": 4,
+        "lastNote": "0,0,3",
+        "lastTween": {
+          "x": 615,
+          "y": 614.6153846153846
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 536,
+            "height": 536
+          },
+          {
+            "x": 1360,
+            "y": 0,
+            "width": 264,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "focus",
+          "seat": 3,
+          "reveal": true
+        },
+        "focused": "0,0,3",
+        "expanded": "0,0,0",
+        "notes": 3,
+        "tweens": 5,
+        "lastNote": "0,0,3",
+        "lastTween": {
+          "x": 615,
+          "y": 614.6153846153846
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 536,
+            "height": 536
+          },
+          {
+            "x": 1360,
+            "y": 0,
+            "width": 264,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "expand",
+          "seat": 2
+        },
+        "focused": "0,0,3",
+        "expanded": "0,0,2",
+        "notes": 3,
+        "tweens": 6,
+        "lastNote": "0,0,3",
+        "lastTween": {
+          "x": 1552.6923076923076,
+          "y": 342.61538461538464
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 536,
+            "height": 536
+          },
+          {
+            "x": 1360,
+            "y": 0,
+            "width": 264,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "focus",
+          "seat": 1,
+          "reveal": true
+        },
+        "focused": "0,0,1",
+        "expanded": "0,0,2",
+        "notes": 4,
+        "tweens": 7,
+        "lastNote": "0,0,1",
+        "lastTween": {
+          "x": 1431,
+          "y": 150
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 536,
+            "height": 536
+          },
+          {
+            "x": 1360,
+            "y": 0,
+            "width": 264,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "commit"
+        },
+        "focused": "0,0,1",
+        "expanded": "0,0,2",
+        "notes": 4,
+        "tweens": 7,
+        "lastNote": "0,0,1",
+        "lastTween": {
+          "x": 1431,
+          "y": 150
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 400,
+            "height": 536
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "collapse"
+        },
+        "focused": "0,0,1",
+        "expanded": null,
+        "notes": 4,
+        "tweens": 7,
+        "lastNote": "0,0,1",
+        "lastTween": {
+          "x": 1431,
+          "y": 150
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 400,
+            "height": 536
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "focus",
+          "seat": 2,
+          "reveal": true
+        },
+        "focused": "0,0,2",
+        "expanded": null,
+        "notes": 5,
+        "tweens": 8,
+        "lastNote": "0,0,2",
+        "lastTween": {
+          "x": 1552.6923076923076,
+          "y": 342.61538461538464
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 400,
+            "height": 536
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "commit"
+        },
+        "focused": "0,0,2",
+        "expanded": null,
+        "notes": 5,
+        "tweens": 8,
+        "lastNote": "0,0,2",
+        "lastTween": {
+          "x": 1552.6923076923076,
+          "y": 342.61538461538464
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 808,
+            "height": 536
+          },
+          {
+            "x": 1224,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "poster"
+        },
+        "focused": "0,0,2",
+        "expanded": null,
+        "notes": 5,
+        "tweens": 8,
+        "lastNote": "0,0,2",
+        "lastTween": {
+          "x": 1552.6923076923076,
+          "y": 342.61538461538464
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 808,
+            "height": 536
+          },
+          {
+            "x": 1224,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "expand",
+          "seat": 0,
+          "centered": true
+        },
+        "focused": "0,0,2",
+        "expanded": "0,0,0",
+        "notes": 5,
+        "tweens": 9,
+        "lastNote": "0,0,2",
+        "lastTween": {
+          "x": 409.95251442146883,
+          "y": 334.73076885341567
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 808,
+            "height": 536
+          },
+          {
+            "x": 1224,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "commit"
+        },
+        "focused": "0,0,2",
+        "expanded": "0,0,0",
+        "notes": 5,
+        "tweens": 9,
+        "lastNote": "0,0,2",
+        "lastTween": {
+          "x": 409.95251442146883,
+          "y": 334.73076885341567
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 536,
+            "height": 536
+          },
+          {
+            "x": 1360,
+            "y": 0,
+            "width": 264,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "reveal",
+          "seat": 2,
+          "centered": true
+        },
+        "focused": "0,0,2",
+        "expanded": "0,0,0",
+        "notes": 5,
+        "tweens": 10,
+        "lastNote": "0,0,2",
+        "lastTween": {
+          "x": 1465.1559913237998,
+          "y": 150
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 536,
+            "height": 536
+          },
+          {
+            "x": 1360,
+            "y": 0,
+            "width": 264,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "focus",
+          "seat": null
+        },
+        "focused": null,
+        "expanded": "0,0,0",
+        "notes": 6,
+        "tweens": 10,
+        "lastNote": null,
+        "lastTween": {
+          "x": 1465.1559913237998,
+          "y": 150
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 536,
+            "height": 536
+          },
+          {
+            "x": 1360,
+            "y": 0,
+            "width": 264,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "collapse"
+        },
+        "focused": null,
+        "expanded": null,
+        "notes": 6,
+        "tweens": 10,
+        "lastNote": null,
+        "lastTween": {
+          "x": 1465.1559913237998,
+          "y": 150
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 808,
+            "height": 808
+          },
+          {
+            "x": 816,
+            "y": 0,
+            "width": 536,
+            "height": 536
+          },
+          {
+            "x": 1360,
+            "y": 0,
+            "width": 264,
+            "height": 264
+          }
+        ]
+      },
+      {
+        "command": {
+          "op": "commit"
+        },
+        "focused": null,
+        "expanded": null,
+        "notes": 6,
+        "tweens": 10,
+        "lastNote": null,
+        "lastTween": {
+          "x": 1465.1559913237998,
+          "y": 150
+        },
+        "drawn": [
+          {
+            "x": 0,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          },
+          {
+            "x": 408,
+            "y": 0,
+            "width": 808,
+            "height": 536
+          },
+          {
+            "x": 1224,
+            "y": 0,
+            "width": 400,
+            "height": 264
+          }
+        ]
+      }
+    ]
+  },
   "tokens": [
     1,
     2,

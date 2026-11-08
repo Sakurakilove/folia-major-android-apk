@@ -6,8 +6,8 @@ import 'wall_types.dart';
 enum WallDirection { up, down, left, right }
 
 T? pickAdjacentWallRect<T extends Object>(
-  WallRect source,
-  Iterable<({T value, WallRect rect})> candidates,
+  WallGeometry source,
+  Iterable<({T value, WallGeometry rect})> candidates,
   WallDirection direction,
   WallMetrics metrics,
 ) {
@@ -16,10 +16,10 @@ T? pickAdjacentWallRect<T extends Object>(
       missPenalty = metrics.cellSize + metrics.gap,
       positive =
           direction == WallDirection.right || direction == WallDirection.down;
-  double along(WallRect r) => horizontal ? r.x : r.y;
-  double alongSize(WallRect r) => horizontal ? r.width : r.height;
-  double cross(WallRect r) => horizontal ? r.y : r.x;
-  double crossSize(WallRect r) => horizontal ? r.height : r.width;
+  double along(WallGeometry r) => horizontal ? r.x : r.y;
+  double alongSize(WallGeometry r) => horizontal ? r.width : r.height;
+  double cross(WallGeometry r) => horizontal ? r.y : r.x;
+  double crossSize(WallGeometry r) => horizontal ? r.height : r.width;
   T? best;
   var bestScore = double.infinity, bestCross = double.infinity;
   for (final candidate in candidates) {
@@ -51,7 +51,7 @@ T? pickAdjacentWallRect<T extends Object>(
 T? findNearestWallRect<T extends Object>(
   Iterable<T> candidates,
   WallPoint point,
-  WallRect Function(T) rectOf,
+  WallGeometry Function(T) rectOf,
 ) {
   T? best;
   var bestDistance = double.infinity;

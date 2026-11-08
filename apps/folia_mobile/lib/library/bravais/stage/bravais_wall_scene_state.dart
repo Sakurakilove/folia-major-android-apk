@@ -101,7 +101,10 @@ extension _BravaisWallSceneLogic on _BravaisWallSceneState {
       _expanded = selection.expandedSlotKey;
       _reflowShape = shape;
       _targetReflow = {
-        for (final e in resolveFocusReflow(_expanded, shape: shape).entries)
+        for (final e
+            in (widget.focusReflow?.call(_expanded, shape) ??
+                    resolveFocusReflow(_expanded, shape: shape))
+                .entries)
           e.key: WallRect(e.value.x, e.value.y, e.value.width, e.value.height),
       };
       _reflow.updateTargets(_targetReflow, enabled: !widget.reducedMotion);

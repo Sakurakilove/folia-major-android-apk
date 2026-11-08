@@ -1,4 +1,11 @@
 // Original wall coordinates stay in world units; camera translation is logical screen px and rendering uses the full device DPR.
+abstract interface class WallGeometry {
+  double get x;
+  double get y;
+  double get width;
+  double get height;
+}
+
 class WallPoint {
   const WallPoint(this.x, this.y);
   final double x, y;
@@ -58,8 +65,9 @@ class WallBlockSlot {
   Map<String, int> toJson() => {'x': x, 'y': y, 'cols': cols, 'rows': rows};
 }
 
-class WallRect {
+class WallRect implements WallGeometry {
   const WallRect(this.x, this.y, this.width, this.height);
+  @override
   final double x, y, width, height;
   bool same(WallRect other) =>
       x == other.x &&
