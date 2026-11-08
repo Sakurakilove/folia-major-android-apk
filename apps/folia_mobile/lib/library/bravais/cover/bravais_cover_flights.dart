@@ -34,6 +34,7 @@ class BravaisCoverFlights {
     bool Function()? ready,
     bool Function()? lost,
     VoidCallback? onDone,
+    bool deferred = false,
   }) {
     if (_closed) throw StateError('Cover flight coordinator is closed');
     stop();
@@ -49,6 +50,7 @@ class BravaisCoverFlights {
       ready: ready,
       lost: lost,
       onDone: onDone,
+      pending: deferred,
       onFinish: (_) => _sync(),
     );
     _current = flight;
@@ -65,6 +67,7 @@ class BravaisCoverFlights {
     required bool Function() connected,
     required bool Function() imageReady,
     required VoidCallback onLand,
+    bool deferred = false,
   }) => fly(
     url: from.coverUrl,
     from: from.quad,
@@ -76,7 +79,14 @@ class BravaisCoverFlights {
     lost: () => !connected(),
     ready: imageReady,
     onDone: onLand,
+    deferred: deferred,
   );
+
+  void begin(BravaisCoverFlight flight) {
+    if (_closed || !_flights.contains(flight)) return;
+    flight.begin(nowMs());
+    _sync();
+  }
 
   void stop() => _current?.finish(nowMs(), _tickNumber);
   void setActive(bool value) {
@@ -114,7 +124,9 @@ class BravaisCoverFlights {
 
   void _sync() {
     final wanted =
-        !_closed && _active && (_flights.isNotEmpty || _returns.isNotEmpty);
+        !_closed &&
+        _active &&
+        (_flights.any((f) => !f.pending) || _returns.isNotEmpty);
     if (_attached == wanted) return;
     _attached = wanted;
     if (wanted) {

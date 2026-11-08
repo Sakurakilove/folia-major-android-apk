@@ -7,13 +7,35 @@ class RenderBravaisAlbumCoverBox extends RenderBox
     with
         ContainerRenderObjectMixin<RenderBox, _AlbumCoverParentData>,
         RenderBoxContainerDefaultsMixin<RenderBox, _AlbumCoverParentData> {
-  RenderBravaisAlbumCoverBox(this._tapeX, Color ink, Color block) {
+  RenderBravaisAlbumCoverBox(
+    this._tapeX,
+    Color ink,
+    Color block,
+    this._hasImage,
+    this._onLayout,
+  ) {
     _ink.color = ink;
     _block.color = block;
   }
   double _tapeX;
+  bool _hasImage;
+  VoidCallback? _onLayout;
+  bool get imageReady =>
+      !_hasImage || (firstChild as RenderWallArtworkImage).image != null;
+  Color get ink => _ink.color;
   final _ink = Paint(), _block = Paint();
-  void update(double tapeX, Color ink, Color block) {
+  void update(
+    double tapeX,
+    Color ink,
+    Color block,
+    bool hasImage,
+    VoidCallback? onLayout,
+  ) {
+    _hasImage = hasImage;
+    if (_onLayout != onLayout) {
+      _onLayout = onLayout;
+      markNeedsLayout();
+    }
     if (_tapeX != tapeX) {
       _tapeX = tapeX;
       markNeedsLayout();
@@ -46,6 +68,7 @@ class RenderBravaisAlbumCoverBox extends RenderBox
       size.width * _tapeX - tapeWidth / 2,
       -12,
     );
+    _onLayout?.call();
   }
 
   @override

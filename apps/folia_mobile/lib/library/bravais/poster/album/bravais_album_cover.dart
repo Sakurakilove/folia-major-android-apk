@@ -21,6 +21,7 @@ class BravaisAlbumCover extends StatelessWidget {
     required this.entrance,
     required this.provider,
     this.anchor,
+    this.onLayout,
     this.ink = const Color(0xff141210),
     this.block = const Color(0xff22305f),
   });
@@ -29,6 +30,7 @@ class BravaisAlbumCover extends StatelessWidget {
   final BravaisAlbumEntrance entrance;
   final ImageProvider<String>? provider;
   final GlobalKey? anchor;
+  final VoidCallback? onLayout;
   final Color ink, block;
 
   @override
@@ -42,6 +44,8 @@ class BravaisAlbumCover extends StatelessWidget {
           angle: composition.coverDeg * math.pi / 180,
           child: _AlbumCoverBox(
             key: anchor,
+            onLayout: onLayout,
+            hasImage: provider != null,
             tapeX: composition.tape.x / 100,
             ink: ink,
             block: block,
@@ -82,17 +86,21 @@ class _AlbumCoverBox extends MultiChildRenderObjectWidget {
     required this.tapeX,
     required this.ink,
     required this.block,
+    required this.hasImage,
+    required this.onLayout,
     required Widget image,
     required Widget tape,
   }) : super(children: [image, tape]);
   final double tapeX;
   final Color ink, block;
+  final bool hasImage;
+  final VoidCallback? onLayout;
   @override
   RenderObject createRenderObject(BuildContext context) =>
-      RenderBravaisAlbumCoverBox(tapeX, ink, block);
+      RenderBravaisAlbumCoverBox(tapeX, ink, block, hasImage, onLayout);
   @override
   void updateRenderObject(
     BuildContext context,
     covariant RenderBravaisAlbumCoverBox renderObject,
-  ) => renderObject.update(tapeX, ink, block);
+  ) => renderObject.update(tapeX, ink, block, hasImage, onLayout);
 }

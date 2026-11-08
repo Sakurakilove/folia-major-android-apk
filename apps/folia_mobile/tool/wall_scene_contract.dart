@@ -28,6 +28,7 @@ import 'package:folia_mobile/library/wall/wall_typography.dart';
 
 import 'wall_scene_plane_contract.dart';
 import 'wall_tile_input_contract.dart';
+import 'wall_album_cover_flight_contract.dart';
 
 // Extend the existing small artwork check with real wall assembly/parent data/resource cleanup; no full app or screenshot suite.
 Future<void> checkWallSceneContract(WidgetTester tester) async {
@@ -215,6 +216,13 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
     mount: (poster) => mount(poster: poster),
     setNow: (value) => now = value,
     tick: clock.tick,
+  );
+  await checkWallAlbumCoverFlight(
+    tester,
+    wall: tester.widget<BravaisWallView>(find.byType(BravaisWallView)),
+    tiles: coverTiles,
+    memory: coverMemory,
+    slotKey: before[1].slot.key,
   );
   await tester.pumpWidget(const SizedBox());
   expect(clock.count, 0);

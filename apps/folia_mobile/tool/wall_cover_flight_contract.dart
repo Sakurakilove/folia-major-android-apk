@@ -214,6 +214,23 @@ Future<void> _checkCoverLayer(WidgetTester tester) async {
   now = 1572;
   clock.tick();
   expect(clock.count, 0);
+  flights.fly(
+    url: 'never-mounted',
+    from: const BravaisCoverQuad(Offset.zero, 128, 128, 0),
+    target: () => null,
+    duration: 640,
+    shadowFrom: BravaisCoverShadow.none,
+    shadowTo: (_) => BravaisCoverShadow.none,
+    landing: BravaisCoverLanding.swap,
+    deferred: true,
+    lost: () => throw StateError('A prepared flight has no target layout yet'),
+  );
+  expect(clock.count, 0);
+  flights.stop();
+  expect(clock.count, 1);
+  clock.tick();
+  expect(clock.count, 0);
+  expect(flights.entries.value, isEmpty);
   await tester.pumpWidget(const SizedBox());
   flights.dispose();
   clock.dispose();

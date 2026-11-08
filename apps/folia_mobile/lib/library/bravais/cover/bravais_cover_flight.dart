@@ -85,13 +85,16 @@ class BravaisCoverFlight extends ChangeNotifier
     this.ready,
     this.lost,
     this.onDone,
+    bool pending = false,
   }) : _last = from {
+    _pending = pending;
     frame = BravaisCoverFlightFrame.sample(from, shadowFrom, shadowFrom, 0);
   }
   final String url;
   final BravaisCoverQuad from;
   final BravaisCoverQuad? Function() target;
-  final double startedAt, duration;
+  double startedAt;
+  final double duration;
   final BravaisCoverShadow shadowFrom;
   final BravaisCoverShadow Function(BravaisCoverQuad) shadowTo;
   final BravaisCoverLanding landing;
@@ -103,11 +106,19 @@ class BravaisCoverFlight extends ChangeNotifier
   double? _fadeStart, _fadeDuration;
   int? _removeTick;
   bool _finished = false, _removed = false;
+  late bool _pending;
+  bool get pending => _pending;
+  void begin(double now) {
+    if (!_pending || _finished || _removed) return;
+    startedAt = now;
+    _pending = false;
+  }
+
   bool get removed => _removed;
   @override
   double get value => frame.opacity;
   void step(double now, int tick) {
-    if (_removed) return;
+    if (_removed || _pending) return;
     final removeTick = _removeTick;
     if (removeTick != null && tick >= removeTick) {
       _removed = true;
@@ -147,6 +158,7 @@ class BravaisCoverFlight extends ChangeNotifier
 
   void finish(double now, int tick) {
     if (_finished || _removed) return;
+    _pending = false;
     _finished = true;
     try {
       onDone?.call();
