@@ -360,6 +360,7 @@
         "apps/folia_mobile/lib/library/bravais/poster/bravais_album_palette.dart",
         "apps/folia_mobile/lib/library/bravais/poster/bravais_poster_composition.dart",
         "apps/folia_mobile/lib/library/bravais/poster/bravais_poster_palette.dart",
+        "apps/folia_mobile/lib/library/bravais/poster/bravais_poster_paper.dart",
         "apps/folia_mobile/lib/library/bravais/poster/bravais_poster_random.dart",
         "apps/folia_mobile/lib/library/bravais/poster_safe_area.dart",
         "apps/folia_mobile/lib/library/bravais/seam/appearance/bravais_seam_appearance.dart",
@@ -488,6 +489,7 @@
         "apps/folia_mobile/lib/visualizer/motion/css_transition.dart",
         "apps/folia_mobile/lib/visualizer/motion/inertia.dart",
         "apps/folia_mobile/shaders/css_gradient.frag",
+        "apps/folia_mobile/shaders/poster_paper.frag",
         "apps/folia_mobile/shaders/seam_dots.frag",
         "apps/folia_mobile/shaders/seam_pattern.frag",
         "apps/folia_mobile/shaders/wall_artwork.frag"

@@ -637,3 +637,9 @@
 
 - POWER-SEAM-01（2026-11-07）发现原生seam宿主每次相机frame都会重新执行静态纸面shader绘制。增加显式BravaisStaticSeamSurface opt-in与保留PictureLayer/OffsetLayer：只复用原静态纸面display list，实际开口尺寸/材料身份/主题或grain就绪通知才更新；DPR、全部阴影范围保留，离屏不绘制，重新attach作失效以补齐离屏期间变更，dispose释放layer/picture。动态underlay/overlay/body仍按原曲线独立更新，未把运行中的动画替成图或降低分辨率，普通非静态surface不走此缓存。native compositor可据complex hint按实际设备DPR缓存，无CPU截图/readback/跨桥图片。
 - POWER-SEAM-02 静态材质在尺寸变化时复用已创建FragmentShader，仅更新uniform/image anchor；原所有recipe在constructor准备，已保留owner在factory关闭后仍可改尺寸，新owner在关闭前置拒绝，不启动泄漏的grain lease。原极小材质检查额外确认保留contour owner在关闭factory后120→180可画并释放；其原84点比较仍仅2个clear蓝色通道失败。当前analyzer无问题，既有card/seam/封面/专辑单例通过，包括真实paper记录计数：初始1、改尺寸2、相机平移不增加、material通知只增加一次；字幕安全区和其余动画继续不重建正文。没有模拟器/全UI/APK/实机瓦数结论，完整海报背景/字体/正文/首页/导航和所有剩余范围继续执行，台账仍0verified。
+
+
+## 2026-11-08 — 汇报后继续完整主页与海报
+
+- POSTER-PAPER-01 新增原海报实际底层绘制：artist seam纸面保留40vh出血、120%×90vh椭圆、中心42%/bleed+42vh、0/.58/1三档原legacy palette渐变与右边78/90/100%veil；album按真正已渲染正文:has语义替换为bleed+44vh硬切纸/色块。独立shared FragmentProgram与live owner支持静态surface cache；照片/地纹/文字/动画仍属各自原图层，不被这个背景组件替代。4种原小viewport（默认/自定义artist与album）×7点的28个RGBA严格匹配，生成器记录baseline/hash/raster后端。检查先于既有seam材料检查，后者仍只失败前述2个clear蓝色通道，未改宽容差或删断言。analyzer已修复一处检查工具的花括号提示并通过。
+- 已向用户汇报78组仍10迁移中/68待迁移/0最终验收，不能据组数算已完成12.8%。完整主页入口/海报ground与字体/正文/飞行锚点/全部导航、其余页面动画、全代码与手机功耗/保真验收均未完成。不跑模拟器/全UI、不交付替换APK、不报瓦数；保存源码后继续真实ground和页面装配，不在汇报/提交处停止。

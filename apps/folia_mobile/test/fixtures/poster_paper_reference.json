@@ -1,0 +1,347 @@
+{
+  "baseline": "45d7d8a27afc7efb7a33308824def68329a86651",
+  "engine": "154.0.8037.57",
+  "raster": {
+    "featureStatus": {
+      "2d_canvas": "unavailable_software",
+      "direct_rendering_display_compositor": "disabled_off_ok",
+      "gpu_compositing": "disabled_software",
+      "multiple_raster_threads": "disabled_off",
+      "opengl": "disabled_off",
+      "rasterization": "disabled_software",
+      "raw_draw": "disabled_off_ok",
+      "skia_graphite": "disabled_off",
+      "trees_in_viz": "disabled_off",
+      "video_decode": "disabled_software",
+      "video_encode": "disabled_software",
+      "vulkan": "disabled_off",
+      "webgl": "unavailable_software",
+      "webgpu": "unavailable_software",
+      "webgpu_on_vk_via_gl_interop": "disabled_off",
+      "webnn": "unavailable_software"
+    },
+    "skiaBackendType": "None"
+  },
+  "scope": "Isolated DPR1 seam-paper observations; complete ground decorations, grain, fonts, all DPR, animations and device acceptance remain pending.",
+  "width": 120,
+  "viewportHeight": 80,
+  "paperHeight": 144,
+  "bleed": 32,
+  "sourceHashes": {
+    "src/library/suites/bravais/bravais.css": "bf68087290e6f218351a445c50a59899aa1cf0bcf80840306ede50d828bcdacd",
+    "src/library/suites/bravais/bravaisPoster.css": "0989b2b1e1058b9cd9ec7c3f0ead7dddf7920ee07d5a849b6cfa21572628ceb6",
+    "src/library/suites/bravais/bravaisAlbumPoster.css": "11e06d7d6fe90fb7c3043496e2c6fbdf09a9424a95dfb2785431bb7b8b54a3df"
+  },
+  "cases": [
+    {
+      "input": {
+        "album": false
+      },
+      "samples": [
+        {
+          "x": 0,
+          "y": 0,
+          "rgba": [
+            76,
+            76,
+            79,
+            255
+          ]
+        },
+        {
+          "x": 30,
+          "y": 10,
+          "rgba": [
+            83,
+            83,
+            86,
+            255
+          ]
+        },
+        {
+          "x": 60,
+          "y": 40,
+          "rgba": [
+            91,
+            91,
+            94,
+            255
+          ]
+        },
+        {
+          "x": 95,
+          "y": 20,
+          "rgba": [
+            82,
+            82,
+            85,
+            255
+          ]
+        },
+        {
+          "x": 110,
+          "y": 60,
+          "rgba": [
+            56,
+            56,
+            58,
+            255
+          ]
+        },
+        {
+          "x": 119,
+          "y": 79,
+          "rgba": [
+            41,
+            41,
+            43,
+            255
+          ]
+        },
+        {
+          "x": 80,
+          "y": 79,
+          "rgba": [
+            72,
+            72,
+            75,
+            255
+          ]
+        }
+      ]
+    },
+    {
+      "input": {
+        "album": false,
+        "custom": true
+      },
+      "samples": [
+        {
+          "x": 0,
+          "y": 0,
+          "rgba": [
+            10,
+            33,
+            66,
+            255
+          ]
+        },
+        {
+          "x": 30,
+          "y": 10,
+          "rgba": [
+            21,
+            58,
+            105,
+            255
+          ]
+        },
+        {
+          "x": 60,
+          "y": 40,
+          "rgba": [
+            33,
+            84,
+            143,
+            255
+          ]
+        },
+        {
+          "x": 95,
+          "y": 20,
+          "rgba": [
+            21,
+            57,
+            100,
+            255
+          ]
+        },
+        {
+          "x": 110,
+          "y": 60,
+          "rgba": [
+            14,
+            29,
+            53,
+            255
+          ]
+        },
+        {
+          "x": 119,
+          "y": 79,
+          "rgba": [
+            17,
+            25,
+            41,
+            255
+          ]
+        },
+        {
+          "x": 80,
+          "y": 79,
+          "rgba": [
+            13,
+            34,
+            64,
+            255
+          ]
+        }
+      ]
+    },
+    {
+      "input": {
+        "album": true
+      },
+      "samples": [
+        {
+          "x": 0,
+          "y": 0,
+          "rgba": [
+            239,
+            233,
+            220,
+            255
+          ]
+        },
+        {
+          "x": 30,
+          "y": 10,
+          "rgba": [
+            239,
+            233,
+            220,
+            255
+          ]
+        },
+        {
+          "x": 60,
+          "y": 40,
+          "rgba": [
+            34,
+            48,
+            95,
+            255
+          ]
+        },
+        {
+          "x": 95,
+          "y": 20,
+          "rgba": [
+            239,
+            233,
+            220,
+            255
+          ]
+        },
+        {
+          "x": 110,
+          "y": 60,
+          "rgba": [
+            34,
+            48,
+            95,
+            255
+          ]
+        },
+        {
+          "x": 119,
+          "y": 79,
+          "rgba": [
+            34,
+            48,
+            95,
+            255
+          ]
+        },
+        {
+          "x": 80,
+          "y": 79,
+          "rgba": [
+            34,
+            48,
+            95,
+            255
+          ]
+        }
+      ]
+    },
+    {
+      "input": {
+        "album": true,
+        "custom": true
+      },
+      "samples": [
+        {
+          "x": 0,
+          "y": 0,
+          "rgba": [
+            232,
+            240,
+            244,
+            255
+          ]
+        },
+        {
+          "x": 30,
+          "y": 10,
+          "rgba": [
+            232,
+            240,
+            244,
+            255
+          ]
+        },
+        {
+          "x": 60,
+          "y": 40,
+          "rgba": [
+            27,
+            61,
+            103,
+            255
+          ]
+        },
+        {
+          "x": 95,
+          "y": 20,
+          "rgba": [
+            232,
+            240,
+            244,
+            255
+          ]
+        },
+        {
+          "x": 110,
+          "y": 60,
+          "rgba": [
+            27,
+            61,
+            103,
+            255
+          ]
+        },
+        {
+          "x": 119,
+          "y": 79,
+          "rgba": [
+            27,
+            61,
+            103,
+            255
+          ]
+        },
+        {
+          "x": 80,
+          "y": 79,
+          "rgba": [
+            27,
+            61,
+            103,
+            255
+          ]
+        }
+      ]
+    }
+  ]
+}

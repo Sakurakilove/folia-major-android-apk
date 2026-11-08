@@ -30,6 +30,7 @@ flutter:
     - shaders/css_gradient.frag
     - shaders/seam_dots.frag
     - shaders/seam_pattern.frag
+    - shaders/poster_paper.frag
 
   assets:
     - assets/ada_url/
