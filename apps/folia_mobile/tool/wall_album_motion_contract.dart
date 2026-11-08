@@ -5,8 +5,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:folia_mobile/rendering/css_numeric.dart';
 import 'package:folia_mobile/library/bravais/poster/album/bravais_album_entrance.dart';
-import 'package:folia_mobile/library/bravais/poster/album/bravais_album_entrance_layer.dart';
 import 'package:folia_mobile/library/bravais/poster/album/bravais_album_motion.dart';
+import 'package:folia_mobile/library/bravais/poster/album/bravais_album_cover.dart';
+import 'package:folia_mobile/library/bravais/poster/bravais_album_composition.dart';
+import 'package:folia_mobile/library/bravais/cover/bravais_cover_quad.dart';
 
 // Extend the existing card case with source CSS individual-property observations and one retained native transform. Computed-style precision is diagnostic, not final pixel acceptance.
 Future<void> checkWallAlbumMotion(WidgetTester tester) async {
@@ -93,35 +95,48 @@ Future<void> _retainedAlbumLayer(WidgetTester tester) async {
         nowMs: () => now,
         words: const ['A', ' ', 'B'],
       ),
-      key = GlobalKey();
+      key = GlobalKey(),
+      composition = resolveBravaisAlbumComposition('album:source');
   var builds = 0;
   await tester.pumpWidget(
     Directionality(
       textDirection: TextDirection.ltr,
       child: Center(
-        child: SizedBox(
-          width: 128,
-          height: 128,
-          child: BravaisAlbumEntranceLayer(
-            motion: entrance.signal(BravaisAlbumPart.cover),
-            child: Builder(
-              builder: (_) {
-                builds++;
-                return SizedBox.expand(key: key);
-              },
-            ),
-          ),
+        child: Builder(
+          builder: (_) {
+            builds++;
+            return BravaisAlbumCover(
+              posterSize: const Size(400, 600),
+              composition: composition,
+              entrance: entrance,
+              provider: null,
+              anchor: key,
+            );
+          },
         ),
       ),
     ),
   );
   final retained = key.currentContext!.findRenderObject();
-  for (final at in [120.0, 320.0, 560.0, 680.0]) {
+  for (final at in [120.0, 320.0, 560.0, 680.0, 880.0, 1000.0, 1120.0]) {
     now = at;
     clock.tick();
     await tester.pump();
     expect(identical(key.currentContext!.findRenderObject(), retained), true);
     expect(builds, 1);
+    final box = retained! as RenderBox,
+        quad = measureBravaisCover(box)!,
+        cover = entrance.sample(BravaisAlbumPart.cover);
+    expect(box.size, const Size.square(198));
+    final viewport = tester.view.physicalSize / tester.view.devicePixelRatio;
+    expect(quad.center.dx, closeTo(viewport.width / 2, 1e-9));
+    expect(quad.center.dy, closeTo(viewport.height / 2 + cover.y, 1e-9));
+    expect(quad.width, closeTo(198 * cover.scaleX, 1e-9));
+    expect(
+      quad.angle,
+      closeTo(composition.coverDeg * 3.141592653589793 / 180, 1e-9),
+    );
+    expect(box.paintBounds.right, greaterThanOrEqualTo(210));
     expect(tester.takeException(), isNull);
   }
   entrance.setActive(false);

@@ -17,16 +17,19 @@ class BravaisAlbumEntranceLayer extends StatelessWidget {
     required this.motion,
     required this.child,
     this.em = 1,
+    this.origin = Alignment.center,
   });
   final ValueListenable<BravaisAlbumMotion> motion;
   final Widget child;
   final double em;
+  final Alignment origin;
   @override
   Widget build(BuildContext context) => WallOpacity(
     opacity: _AlbumOpacity(motion),
     child: _AlbumTransform(
       motion: motion,
       em: em,
+      origin: origin,
       child: WallPaintBoundary(child: child),
     ),
   );
@@ -44,34 +47,51 @@ class _AlbumOpacity implements ValueListenable<double> {
 }
 
 class _AlbumTransform extends SingleChildRenderObjectWidget {
-  const _AlbumTransform({required this.motion, required this.em, super.child});
+  const _AlbumTransform({
+    required this.motion,
+    required this.em,
+    required this.origin,
+    super.child,
+  });
   final ValueListenable<BravaisAlbumMotion> motion;
   final double em;
+  final Alignment origin;
   @override
   RenderObject createRenderObject(BuildContext context) =>
-      RenderBravaisAlbumEntrance(motion, em);
+      RenderBravaisAlbumEntrance(motion, em, origin);
   @override
   void updateRenderObject(
     BuildContext context,
     covariant RenderBravaisAlbumEntrance renderObject,
-  ) => renderObject.update(motion, em);
+  ) => renderObject.update(motion, em, origin);
 }
 
 class RenderBravaisAlbumEntrance extends RenderProxyBox
     with WallOverflowHitTest {
-  RenderBravaisAlbumEntrance(this._motion, this._em);
+  RenderBravaisAlbumEntrance(
+    this._motion,
+    this._em, [
+    this._origin = Alignment.center,
+  ]);
   ValueListenable<BravaisAlbumMotion> _motion;
   double _em;
+  Alignment _origin;
   final _matrix = Matrix4.identity(), _layer = LayerHandle<TransformLayer>();
   BravaisAlbumMotion? _previous;
-  ((double, double, double, double, double), Size, double)? _geometry;
-  void update(ValueListenable<BravaisAlbumMotion> value, double em) {
+  ((double, double, double, double, double), Size, double, Alignment)?
+  _geometry;
+  void update(
+    ValueListenable<BravaisAlbumMotion> value,
+    double em, [
+    Alignment origin = Alignment.center,
+  ]) {
     if (!identical(value, _motion)) {
       if (attached) _motion.removeListener(_changed);
       _motion = value;
       if (attached) _motion.addListener(_changed);
     }
     _em = em;
+    _origin = origin;
     _changed();
     markNeedsPaint();
   }
@@ -82,20 +102,22 @@ class RenderBravaisAlbumEntrance extends RenderProxyBox
           (frame.x, frame.y, frame.rotate, frame.scaleX, frame.scaleY),
           size,
           _em,
+          _origin,
         );
     if (_geometry == key) return _matrix;
     _geometry = key;
+    final pivot = _origin.alongSize(size);
     _matrix
       ..setIdentity()
       ..translateByDouble(
-        size.width / 2 + cssFloat32(frame.x * _em),
-        size.height / 2 + cssFloat32(frame.y * _em),
+        pivot.dx + cssFloat32(frame.x * _em),
+        pivot.dy + cssFloat32(frame.y * _em),
         0,
         1,
       )
       ..rotateZ(frame.rotate * math.pi / 180)
       ..scaleByDouble(frame.scaleX, frame.scaleY, 1, 1)
-      ..translateByDouble(-size.width / 2, -size.height / 2, 0, 1);
+      ..translateByDouble(-pivot.dx, -pivot.dy, 0, 1);
     return _matrix;
   }
 

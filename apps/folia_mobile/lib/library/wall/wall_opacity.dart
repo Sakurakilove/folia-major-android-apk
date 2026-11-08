@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
+import '../../rendering/css_opacity.dart';
+
 // Keep CSS's floating compositor alpha while retaining text and icon display lists across opacity frames.
 class WallOpacity extends SingleChildRenderObjectWidget {
   const WallOpacity({super.key, required this.opacity, super.child});
@@ -55,28 +57,7 @@ class RenderWallOpacity extends RenderProxyBox {
     } else {
       _layer.layer = context.pushColorFilter(
         offset,
-        ColorFilter.matrix([
-          1,
-          0,
-          0,
-          0,
-          0,
-          0,
-          1,
-          0,
-          0,
-          0,
-          0,
-          0,
-          1,
-          0,
-          0,
-          0,
-          0,
-          0,
-          alpha,
-          0,
-        ]),
+        cssOpacityFilter(alpha),
         super.paint,
         oldLayer: _layer.layer,
       );

@@ -643,3 +643,8 @@
 
 - POSTER-PAPER-01 新增原海报实际底层绘制：artist seam纸面保留40vh出血、120%×90vh椭圆、中心42%/bleed+42vh、0/.58/1三档原legacy palette渐变与右边78/90/100%veil；album按真正已渲染正文:has语义替换为bleed+44vh硬切纸/色块。独立shared FragmentProgram与live owner支持静态surface cache；照片/地纹/文字/动画仍属各自原图层，不被这个背景组件替代。4种原小viewport（默认/自定义artist与album）×7点的28个RGBA严格匹配，生成器记录baseline/hash/raster后端。检查先于既有seam材料检查，后者仍只失败前述2个clear蓝色通道，未改宽容差或删断言。analyzer已修复一处检查工具的花括号提示并通过。
 - 已向用户汇报78组仍10迁移中/68待迁移/0最终验收，不能据组数算已完成12.8%。完整主页入口/海报ground与字体/正文/飞行锚点/全部导航、其余页面动画、全代码与手机功耗/保真验收均未完成。不跑模拟器/全UI、不交付替换APK、不报瓦数；保存源码后继续真实ground和页面装配，不在汇报/提交处停止。
+
+- ALBUM-GROUND-01（2026-11-08）专辑实际点阵纸/斜切入场、-58deg网纹、下方closest-side蒙版点阵、描边ghost与overlay颗粒已迁入独立native painter/RenderBox。保留原上下100cqh出血、ground隔离混合、完整DPR的9/10px小纹理和160px SVG纹理原点，纹理准备不在frame/channel中；复用原静态噪点worker，shader在owner生命周期内保留。隐藏TickerMode解除自身入口signal，恢复从原绝对时钟采样，不停别的可见owner。共享CSS浮点alpha矩阵由原WallOpacity原样提取，避免8bit OpacityLayer改动。真实ghost字体/描边度量仍未验收。
+- 最小ground对照包含默认/自定义色×4受控时刻×9点：72个合成观察目前65处严格失败，主要约1个色阶，不能说通过。额外14个原grain本身/独立.22透明度抽样严格一致，指向合成阶段而不是允许放宽阈值；保留失败断言和源CSS/hash/raster元数据。未强制软件整数blend冒充Android GPU。此前seam两处clear差异仍未解决；本例在ground失败后不会到后面的seam断言，不将未执行写为已复测。环境恢复后只重建了三个临时host native库，没有跑全套UI/模拟器/APK。
+- ALBUM-COVER-01 实际封面和胶带组件已加入：min(56cqw,33cqh)、原12px硬阴影、block底色、完整图片stream、固定旋转包在individual entrance之内；胶带30%/24px/-12px与原阴影/半透明纸及独立820ms入场保留。原生双child布局报告变换后溢出，不裁掉胶带过冲/阴影；anchor测原三角点，供后续真实飞行宿主接线。共用入口层补可配置transform-origin，原下划线必须从左边缩放，其他保持center。既有card单例改用真实cover+tape检查，含7个受控时刻的角度/大小/位移、同一RenderBox、无逐帧build、隐藏恢复/卸载0clock；修正检查错误写死视口中心后通过。最新analyzer移除一个多余import后复核。不宣称胶带像素/完整海报/真实飞行锚点注册或root已完成。
+- 总迁移仍78组，10 in_progress/68 pending/0 verified；原src/public/shared/electron对照无改动。继续所有页面、全部样式与功能迁移，当前优先主页海报/封面飞行接线，不能在检查点停下或交付中间替换APK，无实机瓦数结论。

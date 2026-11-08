@@ -17,6 +17,7 @@ import 'wall_gradient_contract.dart';
 import 'wall_noise_contract.dart';
 import 'wall_seam_material_contract.dart';
 import 'wall_poster_paper_contract.dart';
+import 'wall_album_ground_contract.dart';
 
 // Native shader/owner/metadata check only; GPU/browser final pixel equality is a separate migration gate.
 Future<void> checkWallArtEffect(WidgetTester tester) async {
@@ -40,6 +41,7 @@ Future<void> checkWallArtEffect(WidgetTester tester) async {
     await checkWallGradient(program);
     await checkWallNoise();
     await checkWallPosterPaper();
+    await checkWallAlbumGround();
     await checkWallSeamMaterials(program.gradients);
     final recorder = ui.PictureRecorder();
     ui.Canvas(
