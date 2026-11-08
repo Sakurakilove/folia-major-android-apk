@@ -151,6 +151,27 @@ class BravaisCardMotion extends ChangeNotifier {
     _sync();
   }
 
+  // Element.getAnimations() includes the face and its pseudos, not descendants.
+  // Keep tint/dim/copy child transitions and the infinite loading breath intact.
+  void finishFaceTransitions() {
+    if (_closed) return;
+    for (final phase in [
+      BravaisCardPhase.x,
+      BravaisCardPhase.y,
+      BravaisCardPhase.opacity,
+      BravaisCardPhase.glint,
+      BravaisCardPhase.currentFocus,
+    ]) {
+      final track = _tracks[phase]!;
+      track.jump(track.target);
+    }
+    _filter.jump(_filter.target);
+    _shadows.jump(_shadows.target);
+    _currentShadows.jump(_currentShadows.target);
+    notifyListeners();
+    _sync();
+  }
+
   void _advance() {
     final now = nowMs();
     _advanceBreathe(now);

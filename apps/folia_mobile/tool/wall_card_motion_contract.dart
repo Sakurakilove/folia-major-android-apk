@@ -77,6 +77,9 @@ Future<void> checkWallCardMotion(WidgetTester tester) async {
   expect(builds, initialBuilds);
   expect(rendered.transform.entry(0, 0), greaterThan(1));
   expect(rendered.transform.entry(0, 0), lessThan(1.1176));
+  rendered.finishFiniteFaceAnimations();
+  expect(rendered.transform.entry(0, 0), 1.1176);
+  expect(clock.count, 0);
   now = 600;
   clock.tick();
   await tester.pump();
@@ -152,6 +155,9 @@ Future<void> checkWallCardMotion(WidgetTester tester) async {
   breathe.addListener(listener);
   expect(breathe.opacity, .55);
   expect(breatheClock.count, 1);
+  breathe.finishFaceTransitions();
+  expect(breatheClock.count, 1);
+  expect(breathe.opacity, .55);
   now = 1200;
   breatheClock.tick();
   expect(breathe.opacity, 1);

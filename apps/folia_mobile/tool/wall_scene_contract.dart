@@ -8,6 +8,8 @@ import 'package:folia_mobile/artwork/native_url.dart';
 import 'package:folia_mobile/artwork/wall_artwork_store.dart';
 import 'package:folia_mobile/i18n/folia_strings.dart';
 import 'package:folia_mobile/library/bravais/bravais_frame.dart';
+import 'package:folia_mobile/library/bravais/cover/bravais_cover_tiles.dart';
+import 'package:folia_mobile/library/bravais/cover/bravais_cover_memory.dart';
 import 'package:folia_mobile/library/bravais/display/bravais_display.dart';
 import 'package:folia_mobile/library/bravais/display/bravais_wall_data.dart';
 import 'package:folia_mobile/library/bravais/display/bravais_wall_look.dart';
@@ -54,6 +56,8 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
         urls: policy,
         sample: (_) => throw StateError('Unexpected sample IO'),
       ),
+      coverMemory = BravaisCoverMemory(urls: policy, nowMs: () => now),
+      coverTiles = BravaisCoverTiles(coverMemory),
       pointer = BravaisPointerHistory()..attach();
   const palette = BravaisCardPalette(
     background: Color(0xff070707),
@@ -73,6 +77,7 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
         strings: owned.strings,
         albumAccent: palette.accent,
         albumBlock: palette.background,
+        coverTiles: coverTiles,
       ),
       actions = BravaisCardActions(
         activate: activations.add,
@@ -166,6 +171,20 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
   final before = tester
       .widgetList<BravaisTileView>(find.byType(BravaisTileView))
       .toList();
+  final captured = coverTiles.find(before[1].slot.key)!;
+  expect(captured.measure()!.width, closeTo(128, 1e-9));
+  expect(captured.cardKey(), before[1].look.face.item?.key);
+  coverTiles.note(
+    before[1].slot.key,
+    'source-album',
+    'https://example.test/a.jpg',
+  );
+  final source = coverMemory.take(
+    'https://example.test/a.jpg',
+    reducedMotion: false,
+  )!;
+  expect(source.cardKey, 'source-album');
+  expect(source.quad.width, closeTo(128, 1e-9));
   expect(clock.count, 0);
   frame.value = computeBravaisFrame(
     center: const WallPoint(20, 0),
@@ -182,7 +201,13 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
   for (var i = 0; i < before.length; i++) {
     expect(identical(before[i], after[i]), true);
   }
+  expect(identical(coverTiles.find(before[1].slot.key), captured), true);
+  final oldCenter = captured.measure()!.center;
+  await mount(poster: true);
+  expect(captured.measure()!.width, closeTo(108, 1e-9));
+  expect(captured.measure()!.center, oldCenter);
   expect(tester.takeException(), isNull);
+  await mount();
   await checkWallTileInput(
     tester,
     activations: activations,
@@ -193,6 +218,9 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
   );
   await tester.pumpWidget(const SizedBox());
   expect(clock.count, 0);
+  expect(coverTiles.find(before[1].slot.key), isNull);
+  expect(captured.measure(), isNull);
+  expect(captured.cardKey(), isNull);
   await checkWallScenePlane(
     tester,
     resources: resources,
@@ -209,6 +237,7 @@ Future<void> checkWallSceneContract(WidgetTester tester) async {
   playing.dispose();
   frame.dispose();
   clock.dispose();
+  coverTiles.dispose();
 }
 
 class _Frames extends ChangeNotifier {

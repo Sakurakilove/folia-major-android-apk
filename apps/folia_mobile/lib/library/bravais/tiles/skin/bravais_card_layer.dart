@@ -36,6 +36,11 @@ class RenderBravaisCard extends RenderProxyBox
   RenderBravaisCard(this._motion, this._flight);
   BravaisCardMotion _motion;
   BravaisTileMotion<dynamic>? _flight;
+  void finishFiniteFaceAnimations() {
+    _motion.finishFaceTransitions();
+    _flight?.finishCurrentEffect();
+  }
+
   final _transform = LayerHandle<TransformLayer>(),
       _filterLayer = LayerHandle<ImageFilterLayer>();
   Matrix4? _matrix;

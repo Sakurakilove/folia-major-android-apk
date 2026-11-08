@@ -21,6 +21,8 @@ import 'wall_album_ground_contract.dart';
 
 // Native shader/owner/metadata check only; GPU/browser final pixel equality is a separate migration gate.
 Future<void> checkWallArtEffect(WidgetTester tester) async {
+  // Lifecycle checks must execute even while a later strict material gate fails.
+  await checkWallSceneContract(tester);
   final owned = await tester.runAsync(() async {
     await checkWallArtMath();
     checkWallArtMotion();
@@ -177,7 +179,6 @@ Future<void> checkWallArtEffect(WidgetTester tester) async {
   owned.style.dispose();
   owned.image.dispose();
   owned.tiled.dispose();
-  await checkWallSceneContract(tester);
 }
 
 class _SampleImage extends ImageProvider<int> {

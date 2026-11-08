@@ -6,6 +6,7 @@ import '../../../../i18n/folia_strings.dart';
 import '../../../wall/wall_typography.dart';
 import '../artwork/bravais_art_program.dart';
 import '../artwork/bravais_artwork_samples.dart';
+import '../../cover/bravais_cover_tiles.dart';
 
 // One wall owns these resource handles. Card materialization does not create another shader program, clock, locale table or image cache.
 class BravaisCardResources {
@@ -20,6 +21,7 @@ class BravaisCardResources {
     required this.strings,
     required this.albumAccent,
     required this.albumBlock,
+    this.coverTiles,
   });
   final WallArtworkStore store;
   final BravaisArtworkSamples samples;
@@ -30,6 +32,7 @@ class BravaisCardResources {
   final WallTypography typography;
   final FoliaStrings strings;
   final Color albumAccent, albumBlock;
+  final BravaisCoverTiles? coverTiles;
   BravaisCardResources withFrames(Listenable frames) => BravaisCardResources(
     store: store,
     samples: samples,
@@ -41,5 +44,6 @@ class BravaisCardResources {
     strings: strings,
     albumAccent: albumAccent,
     albumBlock: albumBlock,
+    coverTiles: coverTiles,
   );
 }

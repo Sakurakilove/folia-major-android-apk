@@ -138,9 +138,15 @@ class BravaisTileMotion<T> extends ChangeNotifier {
     _sync();
   }
 
-  void _draw() {
+  void finishCurrentEffect() {
+    if (_closed || _flight == null) return;
+    _draw(finish: true);
+    _sync();
+  }
+
+  void _draw({bool finish = false}) {
     final now = nowMs(), flight = _flight;
-    if (flight != null && flight.done(now)) {
+    if (flight != null && (finish || flight.done(now))) {
       if (flight.outgoing) {
         final step = _outStep!,
             fade = flight.kind == BravaisTileFlightKind.fadeOut,

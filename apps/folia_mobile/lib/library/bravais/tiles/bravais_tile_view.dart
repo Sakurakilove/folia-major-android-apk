@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/widgets.dart';
 
 import '../../wall/wall_slots.dart';
@@ -13,7 +15,13 @@ import 'bravais_tile_types.dart';
 import 'focus/bravais_focus_actions.dart';
 import 'skin/bravais_card_content.dart';
 import 'skin/bravais_card_resources.dart';
+import 'skin/bravais_card_layer.dart';
 import 'skin/bravais_poster_card_surface.dart';
+import '../cover/bravais_cover_tiles.dart';
+import '../cover/bravais_cover_flights.dart';
+import '../cover/bravais_cover_quad.dart';
+
+part 'bravais_tile_cover.dart';
 
 // The retained original tile host: fixed outer seat/hover target, animated face, source face commits, full card content and discrete CSS stacking priority.
 class BravaisTileView extends StatefulWidget {
@@ -67,6 +75,8 @@ class BravaisTileView extends StatefulWidget {
 
 class _BravaisTileViewState extends State<BravaisTileView> {
   late final BravaisTileMotion<BravaisCardFace> _motion;
+  final _coverKey = GlobalKey();
+  VoidCallback? _releaseCover;
   bool _hover = false, _tickerEnabled = true;
   double _now() => widget.resources.nowMs();
   BravaisTileFace<BravaisCardFace> get _target =>
@@ -82,6 +92,7 @@ class _BravaisTileViewState extends State<BravaisTileView> {
       entrance: widget.entrance,
     );
     _motion.setActive(widget.active);
+    _registerCover();
   }
 
   @override
@@ -94,6 +105,11 @@ class _BravaisTileViewState extends State<BravaisTileView> {
   @override
   void didUpdateWidget(BravaisTileView old) {
     super.didUpdateWidget(old);
+    if (old.slot.key != widget.slot.key ||
+        old.resources.coverTiles != widget.resources.coverTiles) {
+      _releaseCover?.call();
+      _registerCover();
+    }
     _motion.rebindFrames(widget.resources.frames);
     _motion.setActive(widget.active && _tickerEnabled);
     _motion.setTarget(
@@ -125,13 +141,17 @@ class _BravaisTileViewState extends State<BravaisTileView> {
             ? 3
             : 0,
         child: BravaisTileInput(
+          key: _coverKey,
           slotKey: w.slot.key,
           face: face,
           expanded: look.isExpanded,
           actions: w.actions,
           pointerHistory: w.pointerHistory,
           consumeDrag: w.consumeDrag,
-          noteAlbumSource: w.noteAlbumSource,
+          noteAlbumSource: (context, item) {
+            w.resources.coverTiles?.note(w.slot.key, item.key, item.coverUrl);
+            w.noteAlbumSource(context, item);
+          },
           onHover: (value) {
             if (mounted && _hover != value) setState(() => _hover = value);
           },
@@ -172,6 +192,7 @@ class _BravaisTileViewState extends State<BravaisTileView> {
   );
   @override
   void dispose() {
+    _releaseCover?.call();
     _motion.dispose();
     super.dispose();
   }
